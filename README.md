@@ -1,18 +1,25 @@
-# House of Carol — Products & Services
+# Aldernia
 
-Contained, no-index customer-experience preview for House of Carol's customer-facing products and services shopfront.
+Aldernia is a fictional country and participatory editorial world.
 
-## Current state
+This repository contains the public-world web build: national front door, public institutions, The Times of Aldernia, Aldernian Life, learning, civic participation design, Quiet Resilience, and the clearly separated real-world House of Carol boundary.
 
-- The House of Carol corporate/holding site remains separate.
-- Tender Review is the only current customer-facing service on this preview.
-- Future/held service concepts are omitted until commissioned and authorised for customer presentation.
-- No active commercial enquiry route.
-- No public price.
-- `noindex,nofollow` containment applies.
-- The dedicated House mailbox and production-domain details remain unverified/unconfigured.
-- Google Drive controlled records remain authoritative for House-specific governance and commercial state; this repository is the implementation surface.
+## Public promise
 
-## Release distinction
+Aldernia exists to be useful, interesting and alive.
 
-Deployment of this preview is not commercial release. Search indexing, acquisition activation, customer invitation and live selling remain separately controlled.
+It should inform, educate, entertain, scrutinise institutions, encourage practical competence and neighbourliness, and create a world people voluntarily return to.
+
+## Reality boundary
+
+Aldernia is fictional. Its institutions, elections, places and in-world statistics are part of the fiction unless a page clearly identifies real-world material.
+
+No page should impersonate real public authority, emergency services, accreditation, banking, healthcare or diplomatic status.
+
+## Electoral state
+
+The constitutional model is public. The real civic register and binding in-world ballots are **not yet open**. Any interaction in this static build is demonstrative and records no public vote.
+
+## Commercial boundary
+
+House of Carol is the transparent route from Aldernian editorial value into real-world commercial services. Independent journalism, commissioned work and commercial material must remain visibly distinct.
