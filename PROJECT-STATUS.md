@@ -2,23 +2,24 @@
 
 **Repository role:** canonical public-world implementation surface for Aldernia.
 
-**State:** PUBLIC REPOSITORY / ALDERNIA REBUILD / STATIC PUBLIC-WORLD EXPERIENCE.
+**State:** PUBLIC GITHUB PAGES / WAVE 05 STAGE 01–04 INTEGRATED PUBLIC IMPLEMENTATION.
 
-**Current scope**
-- Aldernian national front door.
-- Fiction disclosure and reality-boundary design.
-- Geography, Crown, Assembly, Government and Houses.
-- The Times of Aldernia and Aldernian Life.
-- Learning and faith/culture routes.
-- Quiet Resilience public-purpose strand.
-- Electorate architecture with no live public vote collection yet.
-- Transparent House of Carol real-world boundary.
+## Public implementation now includes
+- national front door and fiction disclosure;
+- ACVS-01 civic visual language;
+- geography and regions;
+- Crown, Assembly, Government and independent institutions;
+- Constitution and law-making model;
+- Aldernia Services task/life-event model;
+- fictional economy, currency, central bank, tax, work, pensions, business, trade and household-prosperity model;
+- The Times of Aldernia and Aldernian Life;
+- Common Knowledge / public learning;
+- Quiet Resilience;
+- electorate architecture with no live vote collection;
+- House of Carol real-world commercial boundary.
 
-**Important boundary**
-This repository is a public implementation surface. It is not the place for private operating machinery, internal prompts, confidential governance, security material or personal data.
+## Closed systems remain closed
+No live civic registration, public vote collection, analytics, payments, advertising, newsletter, social-media posting, lead capture or House of Carol market testing is enabled by this build.
 
-**Electorate**
-The constitutional electorate is designed, but no server-side registration or ballot collection is enabled in this static build. Demo interactions do not transmit or count votes.
-
-**Next technical stage**
-Deployment, live civic registration, account integrity, moderation, analytics, payments, advertising, newsletters, social accounts and real-world commercial integrations remain separate implementation/release decisions.
+## Private machinery
+Private operating systems, prompts, confidential controls, security architecture and personal data do not belong in this repository.
