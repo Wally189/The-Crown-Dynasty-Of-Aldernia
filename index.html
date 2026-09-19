@@ -1,10 +1,11 @@
 <!doctype html>
-<html lang="en-GB">
+<html lang="en-GB" class="no-js">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Aldernia — a fictional island country and participatory editorial world of news, culture, place, learning, public life and practical knowledge.">
 <title>Aldernia — Today</title>
+<script>document.documentElement.classList.replace('no-js','js');</script>
 <link rel="stylesheet" href="assets/style.css">
 </head>
 <body class="p4-home">
@@ -60,7 +61,7 @@
       <p class="p4-strap">An island nation of harbours, stone towns, ferries, arguments, research, markets and useful public institutions — serious enough to keep records and human enough to complain about the tram.</p>
       <p><a class="text-link" href="world.html">Explore the country →</a> &nbsp; <a class="text-link" href="times.html">Read The Times →</a></p>
     </div>
-    <aside class="p4-notice" aria-labelledby="useful-today">
+    <aside class="p4-edition-index" aria-labelledby="useful-today">
       <p class="eyebrow">Useful in this edition</p>
       <h2 id="useful-today">Start with life, not the filing cabinet.</h2>
       <ol>
@@ -69,6 +70,35 @@
         <li><a href="learn.html">Take a useful route through Common Knowledge</a></li>
       </ol>
     </aside>
+  </div>
+</section>
+
+<div class="p4-board" aria-label="Reference edition board">
+  <div><strong>Edition</strong><span>Founding-period reference · 19 September 2026</span></div>
+  <div><strong>Currentness</strong><span>No live weather or transport feed is claimed</span></div>
+  <div><strong>Civic state</strong><span>Electorate architecture published; register not open</span></div>
+  <div><strong>Reality</strong><span>Fictional country; real-world material labelled</span></div>
+</div>
+
+<section class="p4-section paper" aria-labelledby="times-title">
+  <div class="shell">
+    <div class="p4-rule-title">
+      <h2 id="times-title">THE TIMES OF ALDERNIA</h2>
+      <span class="meta">Independent public-service journalism · House of Josie</span>
+    </div>
+    <div class="p4-times">
+      <article class="p4-times-lead">
+        <p class="tag">Constitution</p>
+        <h3>The Crown gets continuity. The Assembly gets the votes.</h3>
+        <p class="standfirst">The founding settlement specifies confidence, law-making, courts, regional government, complaints and the awkward question of what happens when institutions disagree.</p>
+        <p><a class="text-link" href="constitution.html">Read how the state works →</a></p>
+      </article>
+      <div class="p4-times-side">
+        <article><p class="tag">Accountability</p><h3>No House marks its own homework.</h3><p>Audit, statistics, elections, complaints and constitutional review sit outside ordinary Government control.</p><p><a href="institutions.html">The institutions that can say no →</a></p></article>
+        <article><p class="tag">Learning</p><h3>Curiosity has been permitted after twenty-one.</h3><p>Schools, apprenticeships, universities, libraries, research and adult learning share one human-development ecology.</p><p><a href="learn.html">Common Knowledge →</a></p></article>
+        <article><p class="tag">Economy</p><h3>The Crown is money now. Not real money, obviously.</h3><p>In-world banking, tax, trade, pensions and household prosperity make the fictional economy testable rather than decorative.</p><p><a href="economy.html">Open the ledger →</a></p></article>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -105,35 +135,6 @@
       <p>Limestone and granite, working water, civic squares, libraries, laboratories, markets, churches, trams, ferries and ordinary cafés. Historic fabric and contemporary competence belong in the same frame.</p>
       <p class="quote">“Serve well. Speak plainly.”</p>
     </aside>
-  </div>
-</section>
-
-<div class="p4-board" aria-label="Reference edition board">
-  <div><strong>Edition</strong><span>Founding-period reference · 19 September 2026</span></div>
-  <div><strong>Currentness</strong><span>No live weather or transport feed is claimed</span></div>
-  <div><strong>Civic state</strong><span>Electorate architecture published; register not open</span></div>
-  <div><strong>Reality</strong><span>Fictional country; real-world material labelled</span></div>
-</div>
-
-<section class="p4-section paper" aria-labelledby="times-title">
-  <div class="shell">
-    <div class="p4-rule-title">
-      <h2 id="times-title">THE TIMES OF ALDERNIA</h2>
-      <span class="meta">Independent public-service journalism · House of Josie</span>
-    </div>
-    <div class="p4-times">
-      <article class="p4-times-lead">
-        <p class="tag">Constitution</p>
-        <h3>The Crown gets continuity. The Assembly gets the votes.</h3>
-        <p class="standfirst">The founding settlement specifies confidence, law-making, courts, regional government, complaints and the awkward question of what happens when institutions disagree.</p>
-        <p><a class="text-link" href="constitution.html">Read how the state works →</a></p>
-      </article>
-      <div class="p4-times-side">
-        <article><p class="tag">Accountability</p><h3>No House marks its own homework.</h3><p>Audit, statistics, elections, complaints and constitutional review sit outside ordinary Government control.</p><p><a href="institutions.html">The institutions that can say no →</a></p></article>
-        <article><p class="tag">Learning</p><h3>Curiosity has been permitted after twenty-one.</h3><p>Schools, apprenticeships, universities, libraries, research and adult learning share one human-development ecology.</p><p><a href="learn.html">Common Knowledge →</a></p></article>
-        <article><p class="tag">Economy</p><h3>The Crown is money now. Not real money, obviously.</h3><p>In-world banking, tax, trade, pensions and household prosperity make the fictional economy testable rather than decorative.</p><p><a href="economy.html">Open the ledger →</a></p></article>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -196,18 +197,52 @@
 
 <section class="p4-section paper">
   <div class="shell p4-magazine">
-    <article>
+    <article class="p4-knowledge">
       <p class="eyebrow">Common Knowledge</p>
       <h2>Explain the difficult thing properly.</h2>
-      <p class="standfirst">Public knowledge should be rigorous without showing off: diagrams, evidence, reading, practical explanation and room to say “we do not know yet”.</p>
-      <p class="p4-quote">Confidence is not a method.</p>
+      <p class="standfirst">Public knowledge should be rigorous without showing off: evidence, diagrams, practical explanation and room to say “we do not know yet”.</p>
+      <ol class="p4-explainer-path" aria-label="Common Knowledge explainer method">
+        <li><b>01</b><span>Ask a clear question</span></li>
+        <li><b>02</b><span>Show the evidence</span></li>
+        <li><b>03</b><span>Explain what follows</span></li>
+        <li><b>04</b><span>Correct it when better evidence arrives</span></li>
+      </ol>
       <p><a class="text-link" href="learn.html">Enter Common Knowledge →</a></p>
     </article>
-    <article>
+    <article class="p4-life">
       <p class="eyebrow">Aldernian Life</p>
       <h2>The country after the committee has gone home.</h2>
+      <figure class="p4-life-plate">
+        <svg viewBox="0 0 720 420" role="img" aria-labelledby="life-plate-title life-plate-desc">
+          <title id="life-plate-title">Illustrated evening market beside a tram stop in St Aurelia</title>
+          <desc id="life-plate-desc">A deliberately illustrated fictional scene showing people waiting for a tram, market stalls beneath stone arcades, bicycles, rain and harbour-side civic life.</desc>
+          <rect width="720" height="420" fill="#d8d0c1"/>
+          <rect y="300" width="720" height="120" fill="#13231f"/>
+          <path d="M0 300 L0 112 L110 78 L210 112 L320 64 L430 112 L550 76 L720 118 L720 300 Z" fill="#fbf7ee"/>
+          <path d="M42 298 V150 H183 V298 M70 298 V174 H155 V298 M236 298 V137 H386 V298 M265 298 V163 H356 V298 M442 298 V145 H624 V298 M474 298 V171 H592 V298" fill="none" stroke="#13231f" stroke-width="7"/>
+          <path d="M0 292 H720" stroke="#8b3e37" stroke-width="7"/>
+          <path d="M40 260 H183 M236 246 H386 M442 255 H624" stroke="#174538" stroke-width="16"/>
+          <path d="M128 326 C190 318 250 320 314 330 S450 342 548 328" fill="none" stroke="#78907e" stroke-width="5" stroke-dasharray="11 9"/>
+          <rect x="500" y="232" width="150" height="66" rx="2" fill="#174538" stroke="#13231f" stroke-width="5"/>
+          <rect x="518" y="246" width="38" height="24" fill="#ddebf0"/><rect x="565" y="246" width="38" height="24" fill="#ddebf0"/>
+          <circle cx="533" cy="304" r="14" fill="#13231f"/><circle cx="618" cy="304" r="14" fill="#13231f"/>
+          <path d="M584 232 L584 168 M568 168 H600" stroke="#13231f" stroke-width="5"/>
+          <circle cx="584" cy="157" r="9" fill="#d6b15e"/>
+          <g fill="#13231f">
+            <circle cx="102" cy="272" r="11"/><path d="M91 286 h22 l10 45 h-42 z"/>
+            <circle cx="168" cy="276" r="10"/><path d="M158 289 h20 l8 42 h-36 z"/>
+            <circle cx="415" cy="272" r="11"/><path d="M404 286 h22 l9 45 h-40 z"/>
+            <circle cx="458" cy="281" r="9"/><path d="M449 293 h18 l8 38 h-34 z"/>
+          </g>
+          <path d="M78 333 q38-27 75 0" fill="none" stroke="#d6b15e" stroke-width="6"/>
+          <circle cx="78" cy="334" r="17" fill="none" stroke="#d6b15e" stroke-width="5"/><circle cx="153" cy="334" r="17" fill="none" stroke="#d6b15e" stroke-width="5"/>
+          <g stroke="#2e6273" stroke-width="3" opacity=".72">
+            <path d="M25 28 l-14 28 M85 18 l-14 28 M160 28 l-14 28 M250 16 l-14 28 M345 25 l-14 28 M438 18 l-14 28 M530 26 l-14 28 M638 15 l-14 28 M700 30 l-14 28"/>
+          </g>
+        </svg>
+        <figcaption>Editorial illustration · fictional St Aurelia evening market · not documentary evidence.</figcaption>
+      </figure>
       <p class="standfirst">Food, work, sport, weather, music, gardens, faith where naturally present, local rivalries, design, families and the beautiful useless things worth knowing.</p>
-      <p class="p4-quote">A serious country is allowed to enjoy itself.</p>
       <p><a class="text-link" href="life.html">Read Aldernian Life →</a></p>
     </article>
   </div>
@@ -230,6 +265,17 @@
   </div>
 </section>
 
+<nav class="p4-return-routes" aria-label="Continue through Aldernia">
+  <div class="shell">
+    <strong>Continue through Aldernia</strong>
+    <a href="world.html">Places</a>
+    <a href="life.html">Aldernian Life</a>
+    <a href="learn.html">Common Knowledge</a>
+    <a href="times.html">The Times</a>
+    <a href="editorial.html">Corrections & standards</a>
+  </div>
+</nav>
+
 <section class="p4-trust">
   <div class="shell">
     <div>
@@ -250,7 +296,7 @@
 
 <footer class="footer">
   <div class="shell footer-grid">
-    <div><strong>ALDERNIA</strong><p>A fictional country and participatory editorial world.</p><p class="disclosure">Aldernia does not claim real sovereignty, legal authority, healthcare, banking, accreditation, emergency-service or diplomatic status.</p></div>
+    <div><strong>ALDERNIA</strong><p class="disclosure">Fictional country · real-world material is labelled.</p></div>
     <div><a href="world.html">Places</a><br><a href="constitution.html">Constitution</a><br><a href="economy.html">Economy</a><br><a href="services.html">Services</a></div>
     <div><a href="about.html">About</a><br><a href="editorial.html">Editorial standards</a><br><a href="accessibility.html">Accessibility</a><br><a href="privacy.html">Privacy</a></div>
   </div>
