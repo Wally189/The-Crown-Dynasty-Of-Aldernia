@@ -66,6 +66,17 @@ class PublicSiteTests(unittest.TestCase):
             self.assertEqual(parser.external_scripts, [], page)
             self.assertEqual(parser.inline_scripts, 0, page)
 
+    def test_favicon_declared_on_every_public_page(self):
+        for page in PUBLIC_PAGES:
+            text = page.read_text(encoding="utf-8")
+            self.assertIn('rel="icon"', text, page)
+        self.assertTrue((ROOT / "favicon.svg").exists())
+
+    def test_public_data_uses_semantic_list_container(self):
+        text = (ROOT / "country" / "data.html").read_text(encoding="utf-8")
+        self.assertIn('<ul class="source-list">', text)
+        self.assertNotIn('<div class="source-list">', text)
+
     def test_country_pages_disclose_fiction(self):
         for page in COUNTRY_PAGES:
             self.assertIn("fictional", page.read_text(encoding="utf-8").lower(), page)
@@ -84,7 +95,7 @@ class PublicSiteTests(unittest.TestCase):
     def test_build_identity_is_single_json_source(self):
         build = json.loads((ROOT / "aldernia" / "build.json").read_text(encoding="utf-8"))
         self.assertEqual(build["schema_version"], 1)
-        self.assertEqual(build["id"], "ALD-CROWN-FOUNDING-03")
+        self.assertEqual(build["id"], "ALD-CROWN-FOUNDING-04")
         self.assertEqual(build["facets"], ["experiment", "country"])
         self.assertIn("today", build["country_layers"])
         self.assertIn("data", build["country_layers"])
