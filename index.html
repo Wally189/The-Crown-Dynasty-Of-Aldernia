@@ -45,8 +45,17 @@
       font-weight: 300;
       letter-spacing: -0.055em;
     }
+    #moment {
+      grid-column: 1 / -1;
+      min-height: 1.5em;
+      margin: calc(clamp(2rem, 8vw, 7rem) * -0.45) 0 0;
+      font-size: clamp(0.92rem, 2vw, 1.08rem);
+      letter-spacing: 0.01em;
+      opacity: 0.58;
+    }
     @media (max-width: 680px) {
       main { grid-template-columns: 1fr; gap: 3.25rem; }
+      #moment { margin-top: -1.4rem; }
     }
   </style>
 </head>
@@ -61,11 +70,14 @@
       <p class="label">Human</p>
       <p class="value" id="human">00:00:00</p>
     </section>
+
+    <p id="moment" aria-live="polite"></p>
   </main>
 
   <script>
     const computing = document.getElementById('computing');
     const human = document.getElementById('human');
+    const moment = document.getElementById('moment');
 
     const humanTime = new Intl.DateTimeFormat('en-GB', {
       timeZone: 'Europe/London',
@@ -75,13 +87,62 @@
       hourCycle: 'h23'
     });
 
+    const weekday = new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Europe/London',
+      weekday: 'long'
+    });
+
+    const londonHour = new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Europe/London',
+      hour: '2-digit',
+      hourCycle: 'h23'
+    });
+
+    let publicState = null;
+    let lastMomentSecond = -1;
+
+    function daypart(hour) {
+      if (hour >= 5 && hour < 12) return 'morning';
+      if (hour >= 12 && hour < 17) return 'afternoon';
+      if (hour >= 17 && hour < 22) return 'evening';
+      return 'night';
+    }
+
+    function renderMoment(now) {
+      const config = publicState?.human_moment;
+      if (!config?.enabled || config.mode !== 'weekday-daypart') {
+        moment.textContent = '';
+        return;
+      }
+      const hour = Number(londonHour.format(now));
+      const suffix = typeof config.suffix === 'string' ? config.suffix : 'in Aldernia.';
+      moment.textContent = `${weekday.format(now)} ${daypart(hour)} ${suffix}`;
+    }
+
+    async function loadPublicState() {
+      try {
+        const response = await fetch('aldernia/public-state.json', { cache: 'no-store' });
+        if (!response.ok) return;
+        publicState = await response.json();
+        renderMoment(new Date());
+      } catch (_) {
+        // The clocks remain independently usable if public-state is unavailable.
+      }
+    }
+
     function tick() {
       const now = new Date();
       computing.textContent = String(now.getTime());
       human.textContent = humanTime.format(now);
+      const second = Math.floor(now.getTime() / 1000);
+      if (second !== lastMomentSecond) {
+        lastMomentSecond = second;
+        renderMoment(now);
+      }
       requestAnimationFrame(tick);
     }
 
+    loadPublicState();
     tick();
   </script>
 </body>
