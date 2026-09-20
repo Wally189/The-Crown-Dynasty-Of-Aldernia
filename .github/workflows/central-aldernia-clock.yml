@@ -9,7 +9,11 @@ on:
     - cron: "17 * * * *"
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: central-aldernia-clock
+  cancel-in-progress: false
 
 jobs:
   clock-health-and-chime:
@@ -18,11 +22,38 @@ jobs:
     steps:
       - name: Check out production main
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
       - name: Deterministic clock tests
         run: python -m unittest discover -s tests -v
+
+      - name: Restore Dynasty logical clock state
+        run: |
+          git fetch origin clock-state
+          mkdir -p state
+          git show origin/clock-state:state/clock-state.json > state/clock-state.json
+
       - name: Bounded chime and timetable proof
+        env:
+          ALDERNIA_CLOCK_STATE: state/clock-state.json
         run: python -m proof.first_chime
+
+      - name: Persist Dynasty logical clock state
+        run: |
+          cp state/clock-state.json /tmp/clock-state.json
+          git config user.name "Central Aldernia Clock"
+          git config user.email "actions@users.noreply.github.com"
+          git switch clock-state
+          mkdir -p state
+          cp /tmp/clock-state.json state/clock-state.json
+          git add state/clock-state.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Clock state: chime run ${GITHUB_RUN_ID} [skip ci]"
+            git push origin clock-state
+          fi
