@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aldernia</title>
+  <style>
+    :root { color-scheme: light; }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; min-height: 100%; background: #fff; color: #111; }
+    body {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    main {
+      width: min(92vw, 980px);
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: clamp(2rem, 8vw, 7rem);
+      align-items: center;
+      text-align: center;
+    }
+    .clock { min-width: 0; }
+    .label {
+      margin: 0 0 0.85rem;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+    }
+    .value {
+      margin: 0;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    #computing {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: clamp(1.15rem, 3.2vw, 2.4rem);
+      letter-spacing: -0.035em;
+    }
+    #human {
+      font-size: clamp(2.5rem, 8vw, 6.5rem);
+      font-weight: 300;
+      letter-spacing: -0.055em;
+    }
+    @media (max-width: 680px) {
+      main { grid-template-columns: 1fr; gap: 3.25rem; }
+    }
+  </style>
+</head>
+<body>
+  <main aria-label="Aldernian clocks">
+    <section class="clock" aria-label="Computing clock">
+      <p class="label">Computing</p>
+      <p class="value" id="computing">0000000000000</p>
+    </section>
+
+    <section class="clock" aria-label="Human clock">
+      <p class="label">Human</p>
+      <p class="value" id="human">00:00:00</p>
+    </section>
+  </main>
+
+  <script>
+    const computing = document.getElementById('computing');
+    const human = document.getElementById('human');
+
+    const humanTime = new Intl.DateTimeFormat('en-GB', {
+      timeZone: 'Europe/London',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hourCycle: 'h23'
+    });
+
+    function tick() {
+      const now = new Date();
+      computing.textContent = String(now.getTime());
+      human.textContent = humanTime.format(now);
+      requestAnimationFrame(tick);
+    }
+
+    tick();
+  </script>
+</body>
+</html>
