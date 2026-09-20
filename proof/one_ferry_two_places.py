@@ -6,6 +6,11 @@ import hashlib
 import json
 from pathlib import Path
 import tempfile
+import sys
+
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 from central_aldernia_clock import CentralAlderniaClock
 from aldernia_runtime.world_state import (
@@ -23,7 +28,6 @@ from aldernia_runtime.world_state import (
     read_journal,
 )
 
-REPO_ROOT = Path(__file__).resolve().parents[1]
 PUBLIC_FILES = [
     REPO_ROOT / "index.html",
     REPO_ROOT / "aldernia" / "public-state.json",
