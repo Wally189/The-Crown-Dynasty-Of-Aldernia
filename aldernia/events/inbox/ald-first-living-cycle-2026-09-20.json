@@ -1,0 +1,92 @@
+{
+  "specversion": "1.0",
+  "id": "ald-first-living-cycle-2026-09-20",
+  "source": "urn:aldernia:crown:living-build-commission",
+  "type": "org.aldernia.public.human-moment.v1",
+  "time": "2026-09-20T19:10:57Z",
+  "subject": "public-world/human-moment",
+  "clock_cycle": 5966438,
+  "originating_institution": "The Royal Palace",
+  "accountable_owner": "The Royal Palace — Aldernia Public World",
+  "requested_outcome": "Make the two-clock Aldernia recognise the human day and daypart without inventing geography, institutions or events that have not yet been reintroduced after the reset.",
+  "authority": [
+    "Crown Commission — Aldernia Clock, Bus & Engine Coalition Build — 20 September 2026",
+    "Current post-reset Aldernia Public World authority"
+  ],
+  "constraints": [
+    "Human interpretation comes first",
+    "Archived Aldernia material is design evidence, not automatically restored current state",
+    "No external correspondence, spending, purchasing, political campaigning or unrelated external action",
+    "Specialist House decision rights and STOP rights remain intact",
+    "A clock signal is not itself a mission"
+  ],
+  "state_refs": [
+    "GitHub main — current Aldernia public website",
+    "Current Central Aldernia Clock implementation",
+    "Current Computer of Series Engine Manifest",
+    "Current Aldernia Public World controlled record"
+  ],
+  "evidence_refs": [
+    "CloudEvents 1.0 event identity and duplicate-delivery semantics",
+    "GitHub Actions scheduled workflow documentation",
+    "AWS Well-Architected idempotency guidance",
+    "Azure event-driven architecture guidance on ordering, retries, idempotency and event storms"
+  ],
+  "permitted_actions": [
+    "update Aldernia public-state human_moment",
+    "record deterministic release receipt",
+    "commit accepted bounded public increment to GitHub main",
+    "allow existing GitHub Pages publication route to deploy"
+  ],
+  "expected_output": "A minimal human temporal sentence beneath the two clocks, derived from Europe/London day and daypart, plus traceable event and release evidence.",
+  "acceptance": [
+    "The two existing clocks remain present and operational",
+    "The new sentence is generated from Europe/London weekday and daypart rather than hard-coded current text",
+    "No fictional geography, office, law, political fact or institutional state is introduced",
+    "The event is deduplicated by stable source plus id",
+    "The public-state write is deterministic and idempotent",
+    "Automated tests pass before any scheduled worker may push a public increment"
+  ],
+  "due_at": "2026-09-20T19:10:57Z",
+  "retry": {
+    "max_attempts": 3,
+    "idempotency_key": "urn:aldernia:crown:living-build-commission#ald-first-living-cycle-2026-09-20"
+  },
+  "next_destination": "GitHub Pages public verification",
+  "engine_plan": {
+    "selector": "COS-SEL-001",
+    "status": "AUTHORISED",
+    "machine_engines": [
+      "COS-SEL-001",
+      "HOC-RESEARCH-001",
+      "TE-MALCOLM",
+      "TE-EWAN",
+      "TE-PATRICK",
+      "RS-RCSS-001",
+      "HOC-WEB-001",
+      "HOC-QA-FAMILY"
+    ],
+    "human_route": [
+      "Engine Room / Switchboard",
+      "Research Engine",
+      "House of Tony — Malcolm / Map Room",
+      "House of Tony — Ewan / Learning Lab",
+      "House of Tony — Patrick / Proof House",
+      "Royal Computer Science Society Engine",
+      "House of Carol Website Lifecycle",
+      "House of Carol QA / challenge"
+    ],
+    "run_order": [
+      "research and authority grounding",
+      "human temporal interpretation",
+      "bounded technical design",
+      "deterministic implementation",
+      "tests and challenge",
+      "public release verification"
+    ]
+  },
+  "data": {
+    "mode": "weekday-daypart",
+    "timezone": "Europe/London"
+  }
+}
