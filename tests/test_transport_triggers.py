@@ -1,5 +1,5 @@
 import unittest
-from datetime import date
+from datetime import date, time
 
 from aldernia_runtime.transport import (
     CANONICAL_STATE_CHANGED,
@@ -9,10 +9,15 @@ from aldernia_runtime.transport import (
     GOVERNMENT_PULSE_CLOSED,
     GOVERNMENT_PULSE_DUE,
     MISSION_VERIFIED_COMPLETE,
+    EXPRESS_TRAM,
+    HEARTBEAT,
+    TRAM,
     DeliveryResponse,
+    TransportError,
     TransportPacket,
     TransportRouter,
     balcony_event_allowed,
+    dynasty_sleeping,
     government_pulse_due,
     heartbeat_should_fire,
     pulse_completion_event,
@@ -22,7 +27,7 @@ from aldernia_runtime.transport import (
 AUTH = "Crown Commission — Operationalise Aldernian Computational Bus Triggers — 20 September 2026"
 
 
-def packet(event_type, *, event_id="evt-1", parent="case-1", destination=None, transition=None, payload=None):
+def packet(event_type, *, event_id="evt-1", parent="case-1", destination=None, transition=None, payload=None, service_class=None, departure_mode="EVENT"):
     defaults = {
         GOVERNMENT_PULSE_DUE: "House of Marianne — Centre of Government & Cabinet Coordination",
         GOVERNMENT_PULSE_CLOSED: "Government Red Box Tram → Royal Palace / King's Balcony",
@@ -46,6 +51,8 @@ def packet(event_type, *, event_id="evt-1", parent="case-1", destination=None, t
         requested_contribution="bounded contribution",
         transition_class=transition,
         payload=payload or {},
+        service_class=service_class,
+        departure_mode=departure_mode,
     )
 
 
@@ -126,6 +133,55 @@ class TransportTriggerTests(unittest.TestCase):
         self.assertTrue(balcony_event_allowed(reserved))
         closure_without_crown = packet(MISSION_VERIFIED_COMPLETE, event_id="m1", parent="m1", payload={"crown_receipt_required": False})
         self.assertFalse(balcony_event_allowed(closure_without_crown))
+
+    def test_vehicle_class_is_separate_from_departure_mode(self):
+        red_box = packet(GOVERNMENT_PULSE_CLOSED, departure_mode="COMPLETION")
+        self.assertEqual(red_box.resolved_service_class, TRAM)
+        self.assertEqual(red_box.departure_mode, "COMPLETION")
+        heartbeat = packet(CANONICAL_STATE_CHANGED, transition="scheduled_duty_due", departure_mode="TIMETABLE")
+        self.assertEqual(heartbeat.resolved_service_class, HEARTBEAT)
+
+    def test_dynasty_sleep_boundaries(self):
+        self.assertFalse(dynasty_sleeping(time(23, 29)))
+        self.assertTrue(dynasty_sleeping(time(23, 30)))
+        self.assertTrue(dynasty_sleeping(time(4, 59)))
+        self.assertFalse(dynasty_sleeping(time(5, 0)))
+
+    def test_ordinary_bus_is_deferred_during_sleep(self):
+        router = TransportRouter()
+        p = packet(DEPENDENCY_REQUESTED, event_id="sleeping-bus", parent="sleeping-bus", destination="House of Tony — Education")
+        result = router.dispatch(p, lambda _p, _a: self.fail("ordinary handler must not run during sleep"), local_time=time(23, 45))
+        self.assertEqual((result.status, result.attempts), ("SLEEP_DEFERRED", 0))
+
+    def test_express_tram_may_break_sleep_only_with_explicit_override(self):
+        router = TransportRouter()
+        reserved = packet(CROWN_DECISION_REQUIRED, event_id="night-stop", parent="night-stop")
+        deferred = router.dispatch(reserved, lambda _p, _a: self.fail("no sleep override yet"), local_time=time(2, 0))
+        self.assertEqual(deferred.status, "SLEEP_DEFERRED")
+
+        authorised = packet(
+            CROWN_DECISION_REQUIRED,
+            event_id="night-stop-authorised",
+            parent="night-stop-authorised",
+            payload={"sleep_override_authorised": True, "binding_stop_or_emergency": True},
+        )
+        result = router.dispatch(
+            authorised,
+            lambda _p, _a: DeliveryResponse("STOP", True, "binding constitutional STOP surfaced"),
+            local_time=time(2, 0),
+        )
+        self.assertEqual((result.status, result.response_status), ("ACKNOWLEDGED", "STOP"))
+        self.assertEqual(authorised.resolved_service_class, EXPRESS_TRAM)
+
+    def test_priority_does_not_widen_authority(self):
+        bad = packet(
+            GOVERNMENT_PULSE_DUE,
+            event_id="priority-is-not-authority",
+            parent="priority-is-not-authority",
+            service_class=EXPRESS_TRAM,
+        )
+        with self.assertRaises(TransportError):
+            TransportRouter().dispatch(bad, lambda _p, _a: DeliveryResponse("COMPLETE", True, "must not happen"))
 
 
 if __name__ == "__main__":
