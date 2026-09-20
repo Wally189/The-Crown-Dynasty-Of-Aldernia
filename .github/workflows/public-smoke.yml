@@ -42,7 +42,7 @@ jobs:
           echo "Expected served build $EXPECTED but last observed $seen" >&2
           exit 1
 
-      - name: Verify public routes and two-facet threshold
+      - name: Verify public routes and working-country layers
         shell: bash
         run: |
           set -euo pipefail
@@ -51,14 +51,21 @@ jobs:
           experiment="$(curl -fsSL "$BASE/experiment/")"
           country="$(curl -fsSL "$BASE/country/")"
           government="$(curl -fsSL "$BASE/country/government.html")"
+          today="$(curl -fsSL "$BASE/country/today.html")"
+          economy="$(curl -fsSL "$BASE/country/economy.html")"
+          data="$(curl -fsSL "$BASE/country/data.html")"
+          calendar="$(curl -fsSL "$BASE/aldernia/calendar.json")"
 
           grep -Fq "Enter the experiment" <<<"$index"
           grep -Fq "Enter Aldernia" <<<"$index"
           grep -Fq "data-computing-time" <<<"$index"
           grep -Fq "data-human-time" <<<"$index"
-
           grep -Fq "The machine was asked to stop being merely helpful." <<<"$experiment"
           grep -Fq "An island that intends to have a Tuesday." <<<"$country"
           grep -Fq "Power should explain itself." <<<"$government"
+          grep -Fq "Tuesday should happen eventually." <<<"$today"
+          grep -Fq "An economy needs more than a currency symbol." <<<"$economy"
+          grep -Fq "A number should arrive with luggage." <<<"$data"
+          grep -Fq '"reality": "public-fictional"' <<<"$calendar"
 
-          echo "Served threshold, experiment, country and government routes verified."
+          echo "Served two-facet threshold and working-country layers verified."
