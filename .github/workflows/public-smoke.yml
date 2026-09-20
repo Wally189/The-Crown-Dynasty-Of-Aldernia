@@ -70,7 +70,7 @@ jobs:
           grep -Fq 'class="aldernia-map"' <<<"$atlas"
           grep -Fq "not a surveyed map" <<<"$atlas"
           grep -Fq "Power should explain itself." <<<"$government"
-          grep -Fq "Tuesday should happen eventually." <<<"$today"
+          grep -Fq "A country needs an ordinary day." <<<"$today"
           grep -Fq "An economy needs more than a currency symbol." <<<"$economy"
           grep -Fq "A number should arrive with luggage." <<<"$data"
           grep -Fq "The state is young. The places are not." <<<"$history"

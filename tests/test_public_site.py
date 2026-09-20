@@ -82,6 +82,27 @@ class PublicSiteTests(unittest.TestCase):
         for page in COUNTRY_PAGES:
             self.assertIn("fictional", page.read_text(encoding="utf-8").lower(), page)
 
+    def test_country_navigation_contains_static_atlas_link(self):
+        for page in COUNTRY_PAGES:
+            text = page.read_text(encoding="utf-8")
+            self.assertIn('href="map.html">Atlas</a>', text, page)
+
+    def test_country_front_door_keeps_backstage_controls_backstage(self):
+        corpus = "\n".join(
+            (ROOT / rel).read_text(encoding="utf-8").lower()
+            for rel in ("country/index.html", "country/today.html", "country/map.html")
+        )
+        for token in (
+            "retained design evidence",
+            "fresh crown commission",
+            "governed editorial calendar",
+            "world-state",
+            "runtime restart",
+            "readiness gate",
+            "commissions subjects",
+        ):
+            self.assertNotIn(token, corpus)
+
     def test_index_preserves_two_clocks_and_two_facets(self):
         text = (ROOT / "index.html").read_text(encoding="utf-8")
         for required in (
@@ -104,7 +125,7 @@ class PublicSiteTests(unittest.TestCase):
     def test_build_identity_is_single_json_source(self):
         build = json.loads((ROOT / "aldernia" / "build.json").read_text(encoding="utf-8"))
         self.assertEqual(build["schema_version"], 1)
-        self.assertEqual(build["id"], "ALD-CROWN-FOUNDING-08")
+        self.assertEqual(build["id"], "ALD-CROWN-FOUNDING-09")
         self.assertEqual(build["facets"], ["experiment", "country"])
         self.assertIn("today", build["country_layers"])
         self.assertIn("atlas", build["country_layers"])
