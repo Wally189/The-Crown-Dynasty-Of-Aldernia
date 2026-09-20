@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "timezone": "Europe/London",
   "reality": "public-fictional",
   "authority": "Crown Commission — Research, Design, Build and Govern the Crown Dynasty of Aldernia Public Website — 2026-09-20",
@@ -12,5 +12,18 @@
     {"id":"ALD-CAL-006","date":"2026-09-25","type":"TRANSPORT","status":"SCHEDULED","title":"Railway day","summary":"Aldernian Rail, ferries and the public-service problem of getting people where the timetable said they were going.","region":"National","reality":"public-fictional"},
     {"id":"ALD-CAL-007","date":"2026-09-26","type":"ORDINARY_LIFE","status":"SCHEDULED","title":"Ordinary work","summary":"Fictional working lives across ports, farms, schools, engineering, shops and offices.","region":"National","reality":"public-fictional"},
     {"id":"ALD-CAL-008","date":"2026-09-27","type":"CULTURE","status":"SCHEDULED","title":"Sunday in Aldernia","summary":"Liberty of conscience, bells, walking, meals, worship and non-religious Sunday life, with real Church claims sourced separately where used.","region":"National","reality":"public-fictional"}
-  ]
+  ],
+  "recurring_weekly": {
+    "effective_from": "2026-09-28",
+    "purpose": "A governed editorial rhythm. It creates a public-world beat, never an automatic consequential news event.",
+    "beats": [
+      {"weekday":1,"type":"REGIONAL","title":"Regions & local life","summary":"Local government, transport, schools, markets, regional newspapers and the useful fact that the capital is not the whole country.","region":"Rotating regions","reality":"public-fictional-editorial-rhythm"},
+      {"weekday":2,"type":"LEARNING","title":"Common Knowledge","summary":"A public explainer on science, history, evidence, statistics or how an ordinary system actually works.","region":"National","reality":"public-fictional-editorial-rhythm"},
+      {"weekday":3,"type":"ASSEMBLY","title":"Institutions & disagreement","summary":"A constitutional, Assembly or public-service question presented with evidence, trade-offs and room for legitimate disagreement.","region":"National","reality":"public-fictional-editorial-rhythm"},
+      {"weekday":4,"type":"ECONOMY","title":"Work, business & infrastructure","summary":"Enterprise, work, ports, farming, engineering, household economics or infrastructure without converting fictional activity into real market proof.","region":"National","reality":"public-fictional-editorial-rhythm"},
+      {"weekday":5,"type":"CULTURE","title":"Aldernian Life","summary":"Food, music, homes, books, gardens, people, arts and the beautiful useless things by which a country becomes worth inhabiting.","region":"National","reality":"public-fictional-editorial-rhythm"},
+      {"weekday":6,"type":"SPORT_PLACE","title":"Sport & places","summary":"Community sport, walking country, towns, coast, islands and regional culture; results appear only when governed fictional fixtures actually exist.","region":"Rotating regions","reality":"public-fictional-editorial-rhythm"},
+      {"weekday":7,"type":"FAITH_PHILOSOPHY","title":"Sunday: faith, philosophy & quiet life","summary":"Belief, conscience, philosophy, music, memory and ordinary Sunday life. Real Church claims require competent real sources.","region":"National","reality":"public-fictional-editorial-rhythm"}
+    ]
+  }
 }
