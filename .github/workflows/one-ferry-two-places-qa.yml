@@ -36,3 +36,4 @@ jobs:
           name: one-ferry-two-places-evidence
           path: evidence/one-ferry-two-places.json
           if-no-files-found: error
+          retention-days: 7
