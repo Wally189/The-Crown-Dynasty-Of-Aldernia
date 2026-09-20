@@ -47,6 +47,7 @@ jobs:
       - name: Persist Dynasty logical clock state
         run: |
           cp state/clock-state.json /tmp/clock-state.json
+          rm -f state/clock-state.json
           git config user.name "Central Aldernia Clock"
           git config user.email "actions@users.noreply.github.com"
           git switch clock-state
