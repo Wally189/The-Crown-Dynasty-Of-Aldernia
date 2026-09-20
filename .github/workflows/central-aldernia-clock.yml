@@ -25,4 +25,4 @@ jobs:
       - name: Deterministic clock tests
         run: python -m unittest discover -s tests -v
       - name: Bounded chime and timetable proof
-        run: python proof/first_chime.py
+        run: python -m proof.first_chime
