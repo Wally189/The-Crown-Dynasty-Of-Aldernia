@@ -10,11 +10,17 @@ PUBLIC_PAGES = [
     ROOT / "index.html",
     ROOT / "experiment" / "index.html",
     ROOT / "country" / "index.html",
+    ROOT / "country" / "today.html",
     ROOT / "country" / "places.html",
     ROOT / "country" / "government.html",
+    ROOT / "country" / "services.html",
+    ROOT / "country" / "economy.html",
+    ROOT / "country" / "infrastructure.html",
+    ROOT / "country" / "culture.html",
     ROOT / "country" / "life.html",
     ROOT / "country" / "media.html",
     ROOT / "country" / "learn.html",
+    ROOT / "country" / "data.html",
     ROOT / "privacy.html",
     ROOT / "accessibility.html",
 ]
@@ -25,7 +31,6 @@ class AuditParser(HTMLParser):
     def __init__(self) -> None:
         super().__init__()
         self.h1 = 0
-        self.title = False
         self.external_scripts: list[str] = []
         self.inline_scripts = 0
         self.skip_link = False
@@ -43,10 +48,6 @@ class AuditParser(HTMLParser):
             if not src:
                 self.inline_scripts += 1
 
-    def handle_data(self, data):
-        if data.strip():
-            self.title = self.title or False
-
 
 class PublicSiteTests(unittest.TestCase):
     def test_public_pages_exist(self):
@@ -63,10 +64,8 @@ class PublicSiteTests(unittest.TestCase):
             self.assertEqual(parser.inline_scripts, 0, page)
 
     def test_country_pages_disclose_fiction(self):
-        phrase = "fictional"
         for page in COUNTRY_PAGES:
-            text = page.read_text(encoding="utf-8").lower()
-            self.assertIn(phrase, text, page)
+            self.assertIn("fictional", page.read_text(encoding="utf-8").lower(), page)
 
     def test_index_preserves_two_clocks_and_two_facets(self):
         text = (ROOT / "index.html").read_text(encoding="utf-8")
@@ -74,7 +73,7 @@ class PublicSiteTests(unittest.TestCase):
             self.assertIn(required, text)
 
     def test_no_tracking_or_account_code_in_public_assets(self):
-        corpus = "\n".join(p.read_text(encoding="utf-8").lower() for p in PUBLIC_PAGES + [ROOT / "assets" / "site.js"])
+        corpus = "\n".join(p.read_text(encoding="utf-8").lower() for p in PUBLIC_PAGES + [ROOT / "assets" / "site.js", ROOT / "assets" / "today.js"])
         blocked = ("google-analytics.com", "googletagmanager.com", "facebook.com/tr", "hotjar", "segment.io")
         for token in blocked:
             self.assertNotIn(token, corpus)
@@ -82,8 +81,32 @@ class PublicSiteTests(unittest.TestCase):
     def test_build_identity_is_single_json_source(self):
         build = json.loads((ROOT / "aldernia" / "build.json").read_text(encoding="utf-8"))
         self.assertEqual(build["schema_version"], 1)
-        self.assertTrue(build["id"].startswith("ALD-"))
+        self.assertEqual(build["id"], "ALD-CROWN-FOUNDING-02")
         self.assertEqual(build["facets"], ["experiment", "country"])
+        self.assertIn("today", build["country_layers"])
+        self.assertIn("data", build["country_layers"])
+
+    def test_calendar_is_governed_fiction_not_implicit_news(self):
+        cal = json.loads((ROOT / "aldernia" / "calendar.json").read_text(encoding="utf-8"))
+        self.assertEqual(cal["schema_version"], 1)
+        self.assertEqual(cal["timezone"], "Europe/London")
+        self.assertEqual(cal["reality"], "public-fictional")
+        self.assertTrue(cal["authority"])
+        ids = set()
+        for event in cal["events"]:
+            self.assertNotIn(event["id"], ids)
+            ids.add(event["id"])
+            self.assertRegex(event["date"], r"^2026-\d{2}-\d{2}$")
+            self.assertIn(event["status"], {"SCHEDULED", "COMPLETE", "CANCELLED", "DEFERRED"})
+            self.assertIn("public-fictional", event["reality"])
+            self.assertTrue(event["title"])
+            self.assertTrue(event["summary"])
+
+    def test_real_participation_and_money_remain_gated(self):
+        build = json.loads((ROOT / "aldernia" / "build.json").read_text(encoding="utf-8"))
+        posture = build["privacy_posture"].lower()
+        for word in ("accounts", "payments", "comments"):
+            self.assertIn(word, posture)
 
 
 if __name__ == "__main__":
