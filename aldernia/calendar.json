@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "timezone": "Europe/London",
+  "reality": "public-fictional",
+  "authority": "Crown Commission — Research, Design, Build and Govern the Crown Dynasty of Aldernia Public Website — 2026-09-20",
+  "events": [
+    {"id":"ALD-CAL-001","date":"2026-09-20","type":"FOUNDING","status":"COMPLETE","title":"Founding edition opens","summary":"The two-clock threshold opens into The Aldernian Experiment and the rebuilt public country.","region":"National","reality":"public-fictional-with-real-publication-event"},
+    {"id":"ALD-CAL-002","date":"2026-09-21","type":"PLACE","status":"SCHEDULED","title":"St Aurelia day","summary":"A public-world focus on the capital, the River Aure and the difference between a capital that is governed and one that is lived in.","region":"Crown Capital Territory","reality":"public-fictional"},
+    {"id":"ALD-CAL-003","date":"2026-09-22","type":"CONSTITUTION","status":"SCHEDULED","title":"The Crown explained","summary":"What the fictional constitutional Crown does, what it does not do, and why reserve powers need limits.","region":"National","reality":"public-fictional"},
+    {"id":"ALD-CAL-004","date":"2026-09-23","type":"REGIONS","status":"SCHEDULED","title":"Seven regions","summary":"A national tour of the seven regions without asking St Aurelia to narrate everyone else's life.","region":"National","reality":"public-fictional"},
+    {"id":"ALD-CAL-005","date":"2026-09-24","type":"MEDIA","status":"SCHEDULED","title":"How Aldernia reports itself","summary":"Editorial independence, corrections, evidence and why a watchdog does not need to invent a scandal.","region":"National","reality":"public-fictional"},
+    {"id":"ALD-CAL-006","date":"2026-09-25","type":"TRANSPORT","status":"SCHEDULED","title":"Railway day","summary":"Aldernian Rail, ferries and the public-service problem of getting people where the timetable said they were going.","region":"National","reality":"public-fictional"},
+    {"id":"ALD-CAL-007","date":"2026-09-26","type":"ORDINARY_LIFE","status":"SCHEDULED","title":"Ordinary work","summary":"Fictional working lives across ports, farms, schools, engineering, shops and offices.","region":"National","reality":"public-fictional"},
+    {"id":"ALD-CAL-008","date":"2026-09-27","type":"CULTURE","status":"SCHEDULED","title":"Sunday in Aldernia","summary":"Liberty of conscience, bells, walking, meals, worship and non-religious Sunday life, with real Church claims sourced separately where used.","region":"National","reality":"public-fictional"}
+  ]
+}
