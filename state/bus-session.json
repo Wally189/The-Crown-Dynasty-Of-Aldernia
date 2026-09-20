@@ -1,14 +1,4 @@
 {
-  "schema_version": 1,
-  "operating_state": "ACTIVE_COMMAND",
-  "session_mode": "COMMAND",
-  "activation_id": "bus-trigger-operationalisation-20260920",
-  "mission_id": "aldernia-bus-triggers-2026-09-20",
-  "command_ref": "CROWN COMMISSION — OPERATIONALISE THE ALDERNIAN COMPUTATIONAL BUS TRIGGERS",
-  "accountable_owner": "Computer of Series / Royal Palace",
-  "activated_at": "2026-09-20T20:45:21+00:00",
-  "timed_expires_at": null,
-  "last_30_minute_checkpoint": "2026-09-20T20:45:21+00:00",
   "acceptance": [
     "Authorised events dispatch without fresh Crown activation inside existing authority",
     "Government Pulse due state is machine-decidable",
@@ -19,7 +9,17 @@
     "HALT dominates dispatch and retry",
     "Canonical controls and executable regression are read back"
   ],
-  "halt_at": null,
+  "accountable_owner": "Computer of Series / Royal Palace",
+  "activated_at": "2026-09-20T20:45:21+00:00",
+  "activation_id": "bus-trigger-operationalisation-20260920",
+  "command_ref": "CROWN COMMISSION \u2014 OPERATIONALISE THE ALDERNIAN COMPUTATIONAL BUS TRIGGERS",
   "complete_at": null,
-  "last_transition_reason": "CROWN ACTIVE_COMMAND — BUS TRIGGER OPERATIONALISATION"
+  "halt_at": null,
+  "last_30_minute_checkpoint": "2026-09-20T21:39:10+00:00",
+  "last_transition_reason": "30-MINUTE COMMAND CHECKPOINT \u2014 MISSION CONTINUES",
+  "mission_id": "aldernia-bus-triggers-2026-09-20",
+  "operating_state": "ACTIVE_COMMAND",
+  "schema_version": 1,
+  "session_mode": "COMMAND",
+  "timed_expires_at": null
 }

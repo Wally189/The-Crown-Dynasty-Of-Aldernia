@@ -1,0 +1,10 @@
+{
+  "processed": {
+    "urn:aldernia:crown:living-build-commission#ald-first-living-cycle-2026-09-20": {
+      "clock_cycle": 5966438,
+      "event_id": "ald-first-living-cycle-2026-09-20",
+      "recovered_from_receipt": true
+    }
+  },
+  "schema_version": 1
+}
