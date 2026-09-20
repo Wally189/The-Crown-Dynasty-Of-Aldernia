@@ -226,7 +226,9 @@ def process_one_cycle(
     if now.tzinfo is None:
         raise ValueError("now must be timezone-aware")
     clock = CentralAlderniaClock()
-    cycle = clock.cycle_number(interval_seconds, now)
+    if not isinstance(interval_seconds, int) or interval_seconds <= 0:
+        raise ValueError("interval_seconds must be a positive integer")
+    cycle = clock.snapshot(now).unix_timestamp // interval_seconds
     state = load_bus_state(state_path)
     files = sorted(inbox_dir.glob("*.json")) if inbox_dir.exists() else []
 
