@@ -447,3 +447,222 @@ a{color:inherit}
   .experiment-page-hero{padding-top:3.2rem}
   .experiment-about-grid{grid-template-columns:1fr}
 }
+
+
+/* Experiment light/dark editorial surface rhythm — 20 Sep 2026 */
+.experiment-intro-page,
+.experiment-method-page{
+  --experiment-chalk:#fbfaf5;
+  --experiment-limestone:#e8e1d5;
+  --experiment-sea-glass:#8fa8a1;
+  --experiment-olive:#65705a;
+  --experiment-slate:#5e6871;
+}
+
+.experiment-intro-page .experiment-page-main,
+.experiment-method-page .experiment-page-main{
+  width:100%;
+  max-width:none;
+  margin:0;
+  padding-bottom:0;
+}
+
+.experiment-intro-page .experiment-page-hero,
+.experiment-method-page .experiment-page-hero{
+  width:min(1120px,92vw);
+  max-width:900px;
+  margin:0 auto;
+  padding:clamp(3.2rem,8vw,5.8rem) 0 clamp(2.7rem,5vw,3.8rem);
+}
+
+.experiment-intro-page .experiment-page-copy,
+.experiment-method-page .experiment-page-copy{
+  max-width:none;
+  margin:0;
+  padding:clamp(3.1rem,7vw,5.4rem) 0 clamp(3.8rem,8vw,6rem);
+  background:var(--experiment-chalk);
+  color:var(--ink);
+  border-top:1px solid rgba(255,255,255,.2);
+}
+
+.experiment-intro-page .experiment-page-copy > *,
+.experiment-method-page .experiment-page-copy > *{
+  width:min(780px,92vw);
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.experiment-intro-page .experiment-page-copy h2,
+.experiment-method-page .experiment-page-copy h2{
+  color:var(--navy);
+}
+
+.experiment-intro-page .experiment-page-copy p,
+.experiment-intro-page .experiment-page-copy li,
+.experiment-method-page .experiment-page-copy p,
+.experiment-method-page .experiment-page-copy li{
+  color:var(--ink);
+}
+
+.experiment-intro-page .experiment-page-copy strong,
+.experiment-method-page .experiment-page-copy strong{
+  color:var(--navy);
+}
+
+.experiment-intro-page .experiment-page-copy a,
+.experiment-method-page .experiment-page-copy a{
+  color:var(--navy);
+  text-decoration-color:rgba(8,42,90,.45);
+}
+
+.experiment-intro-page .experiment-page-copy a:hover,
+.experiment-method-page .experiment-page-copy a:hover{
+  text-decoration-color:currentColor;
+}
+
+.experiment-intro-page .experiment-page-copy a:focus-visible,
+.experiment-method-page .experiment-page-copy a:focus-visible{
+  outline:3px solid var(--gold);
+  outline-offset:3px;
+}
+
+.experiment-intro-page .experiment-page-copy > h2:first-child,
+.experiment-method-page .experiment-page-copy > h2:first-child{
+  margin-top:0;
+}
+
+.experiment-intro-page .experiment-page-copy h2 + p,
+.experiment-method-page .experiment-page-copy h2 + p{
+  margin-top:0;
+}
+
+.experiment-intro-page .experiment-questions{
+  width:min(840px,92vw);
+  margin:clamp(2.6rem,6vw,4rem) auto;
+  padding:clamp(1.45rem,4vw,2.2rem);
+  border-left:4px solid var(--experiment-sea-glass);
+  border-top:1px solid rgba(20,34,30,.12);
+  border-bottom:1px solid rgba(20,34,30,.12);
+  background:var(--experiment-limestone);
+}
+
+.experiment-intro-page .experiment-questions p{
+  width:auto;
+  margin:.5rem 0;
+  color:var(--navy);
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(1.08rem,2.2vw,1.3rem);
+}
+
+.experiment-intro-page .experiment-big-line{
+  width:min(900px,92vw);
+  margin:clamp(3rem,7vw,5rem) auto 0!important;
+  padding:clamp(1.5rem,4vw,2.4rem);
+  border-top:3px solid var(--experiment-sea-glass);
+  background:var(--navy);
+  color:#fff!important;
+  box-shadow:0 16px 36px rgba(8,42,90,.1);
+}
+
+.experiment-intro-page .experiment-next{
+  width:min(900px,92vw);
+  margin:0 auto;
+  padding:clamp(1.8rem,4vw,2.6rem) 0 0;
+  border-top:0;
+}
+
+.experiment-intro-page .experiment-next span{
+  color:var(--experiment-slate);
+}
+
+.experiment-intro-page .experiment-next a{
+  color:var(--navy);
+}
+
+.experiment-method-page .experiment-story-turn{
+  margin:clamp(2rem,5vw,3rem) auto!important;
+  padding:1rem 0 1rem 1.15rem;
+  border-left:3px solid var(--gold);
+  color:var(--navy)!important;
+}
+
+.experiment-method-page .experiment-question-card{
+  width:min(900px,92vw);
+  margin:clamp(3rem,7vw,5rem) auto;
+  padding:clamp(1.6rem,4vw,2.5rem);
+  background:var(--navy);
+  color:#fff;
+  border-top:3px solid var(--experiment-sea-glass);
+  box-shadow:0 16px 36px rgba(8,42,90,.1);
+}
+
+.experiment-method-page .experiment-question-card span{
+  color:rgba(255,255,255,.68);
+}
+
+.experiment-method-page .experiment-question-card p{
+  width:auto;
+  color:#fff!important;
+}
+
+.experiment-method-page .experiment-actions{
+  width:min(780px,92vw);
+  margin:2.5rem auto 0;
+}
+
+.experiment-method-page .experiment-action{
+  background:var(--navy);
+  border-color:var(--navy);
+  color:#fff;
+}
+
+.experiment-method-page .experiment-action:hover{
+  background:transparent;
+  color:var(--navy);
+}
+
+.experiment-method-page .experiment-action-secondary{
+  background:transparent;
+  color:var(--navy);
+}
+
+.experiment-method-page .experiment-action-secondary:hover{
+  background:var(--navy);
+  color:#fff;
+}
+
+.experiment-intro-page .footer,
+.experiment-method-page .footer{
+  margin-top:0;
+  background:var(--navy);
+  border-top-color:rgba(255,255,255,.18);
+}
+
+@media(max-width:700px){
+  .experiment-intro-page .experiment-page-hero,
+  .experiment-method-page .experiment-page-hero{
+    padding-top:2.8rem;
+    padding-bottom:2.5rem;
+  }
+
+  .experiment-intro-page .experiment-page-copy,
+  .experiment-method-page .experiment-page-copy{
+    padding-top:2.8rem;
+    padding-bottom:4rem;
+  }
+
+  .experiment-intro-page .experiment-questions,
+  .experiment-intro-page .experiment-big-line,
+  .experiment-intro-page .experiment-next,
+  .experiment-method-page .experiment-question-card{
+    width:92vw;
+  }
+
+  .experiment-intro-page .experiment-big-line{
+    padding:1.35rem 1.25rem;
+  }
+
+  .experiment-method-page .experiment-story-turn{
+    padding-left:1rem;
+  }
+}
