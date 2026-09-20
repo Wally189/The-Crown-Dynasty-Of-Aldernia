@@ -13,7 +13,7 @@ Current post-reset public implementation of **Aldernia**: a governed AI experime
 The threshold now opens into two deliberately separate public facets:
 
 1. **The Aldernian Experiment** — the real, public-safe account of the governed LLM experiment.
-2. **Aldernia** — the fictional country and participatory editorial world.
+2. **Aldernia** — the fictional country and participatory editorial world, now including an accessible schematic national Atlas.
 
 ## Current public edition
 
@@ -54,7 +54,7 @@ The suite covers the clock, bus sessions/runtime and public-site invariants incl
 - no external script dependencies;
 - fiction disclosure on country pages;
 - preservation of the two-clock index and two public facets;
-- absence of common third-party tracking endpoints;
+- absence of common third-party tracking endpoints;\n- accessible schematic mapping without false coordinate or legal-boundary precision;
 - one JSON source of truth for build identity.
 
 ## Public fiction boundary
