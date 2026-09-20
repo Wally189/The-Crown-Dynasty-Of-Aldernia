@@ -1,22 +1,13 @@
 {
-  "$schema": "aldernia-public-state/0.1",
-  "generated_for": "internal-review",
+  "$schema": "aldernia-public-state/0.2",
   "date": "2026-09-20",
   "public_world": {
     "name": "Aldernia",
     "status": "founding-period",
     "nature": "fictional-country-and-participatory-editorial-world"
   },
-  "controlled_production_baseline": {
-    "repository": "Wally189/The-Crown-Dynasty-Of-Aldernia",
-    "branch": "main",
-    "commit": "5725990bca601b82146bb7302208162385374e4a",
-    "host": "GitHub Pages",
-    "verified_by_current_palace_record": true
-  },
-  "current_capabilities": {
-    "static_html_css": true,
-    "client_side_javascript": false,
+  "features": {
+    "static_public_site": true,
     "forms": false,
     "accounts": false,
     "analytics": false,
@@ -24,18 +15,16 @@
     "public_api": false,
     "civic_voting": false
   },
-  "review_candidate": {
-    "branch": "review/aldernia-public-world-20260920",
-    "public_review_branch": true,
-    "production_change": false,
-    "production_release": false,
-    "pages": [
-      "today",
-      "country",
-      "experiment-record",
-      "archive"
-    ],
-    "preserved_existing_experiment_urls": true,
-    "purpose": "Crown review of reassessed public-world architecture"
+  "public_routes": {
+    "today": "index.html",
+    "country": "country.html",
+    "experiment": "experiment.html",
+    "experiment_record": "experiment-record.html",
+    "archive": "archive.html"
+  },
+  "boundaries": {
+    "fictional_population_is_not_user_count": true,
+    "real_world_business_links_are_labelled": true,
+    "civic_participation_is_not_open": true
   }
 }
