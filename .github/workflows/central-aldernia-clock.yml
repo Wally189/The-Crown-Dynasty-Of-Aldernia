@@ -12,7 +12,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: central-aldernia-clock
+  group: aldernia-runtime-state
   cancel-in-progress: false
 
 jobs:
