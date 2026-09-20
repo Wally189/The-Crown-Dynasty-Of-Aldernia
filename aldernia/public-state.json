@@ -1,0 +1,15 @@
+{
+  "human_moment": {
+    "enabled": true,
+    "mode": "weekday-daypart",
+    "suffix": "in Aldernia.",
+    "timezone": "Europe/London"
+  },
+  "release": {
+    "clock_cycle": 5966438,
+    "event_id": "ald-first-living-cycle-2026-09-20",
+    "event_type": "org.aldernia.public.human-moment.v1",
+    "idempotency_key": "urn:aldernia:crown:living-build-commission#ald-first-living-cycle-2026-09-20"
+  },
+  "schema_version": 1
+}
