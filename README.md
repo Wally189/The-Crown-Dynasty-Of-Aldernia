@@ -49,6 +49,12 @@ Scheduler runs serialise through a single concurrency group. Operational logical
 
 The workflow may write only that clock-state branch. It does not select Dynasty missions.
 
+## Commissioning evidence
+
+Production scheduler run `35531449032` passed the deterministic acceptance suite, restored the state branch, emitted the bounded clock event, completed DUE/NOT-DUE timetable checks, and successfully persisted the resulting logical state. Readback of `clock-state/state/clock-state.json` showed Dynasty tick `1`, previous tick `0`, proving the first durable scheduler/state round trip.
+
+A further production wake-up is used to prove that the persisted tick is restored and advances rather than restarting from zero.
+
 ## Acceptance coverage
 
 The tests cover UTC, BST/GMT projection, read-without-tick, monotonic logical ticks, restart persistence, fail-closed state, monotonic elapsed time, and timezone-safe due/ordering.
