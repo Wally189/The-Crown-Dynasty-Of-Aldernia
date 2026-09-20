@@ -81,6 +81,8 @@ h3 { font-size: clamp(1.28rem, 2vw, 1.7rem); margin: 0 0 .4em; }
 .section.alt { background: var(--white); }
 .section.dark { background: var(--navy); color: var(--white); border-color: transparent; }
 .section.dark .muted, .section.dark .small { color: #cbd1ce; }
+.section.dark .eyebrow { color: var(--gold-2); }
+.section.dark .lede { color: #e5e8e6; }
 
 .grid-2, .grid-3, .grid-4 { display: grid; gap: 1.2rem; }
 .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -159,14 +161,14 @@ h3 { font-size: clamp(1.28rem, 2vw, 1.7rem); margin: 0 0 .4em; }
 .clock-value { margin: 0; font-variant-numeric: tabular-nums; white-space: nowrap; }
 #computing { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: clamp(1.05rem, 3.1vw, 2.25rem); letter-spacing: -.035em; }
 #human { font-size: clamp(2.45rem, 8vw, 6.4rem); font-weight: 300; letter-spacing: -.055em; }
-#moment { grid-column: 1 / -1; min-height: 1.5em; margin: -1.2rem 0 0; color: #777; font-size: clamp(.9rem, 2vw, 1.05rem); }
+#moment { grid-column: 1 / -1; min-height: 1.5em; margin: -1.2rem 0 0; color: #666; font-size: clamp(.9rem, 2vw, 1.05rem); }
 .threshold-doors { margin: clamp(3rem, 8vw, 6rem) auto 0; display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); border-top: 1px solid #d9d9d9; }
 .door { padding: 1.6rem 1rem; text-decoration: none; display: flex; justify-content: space-between; gap: 1rem; align-items: center; border-bottom: 1px solid #d9d9d9; }
 .door:first-child { border-right: 1px solid #d9d9d9; }
 .door strong { font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.25rem, 2.6vw, 2rem); }
 .door span { color: #666; font-size: .88rem; }
 .door:hover { background: #f6f4ee; }
-.threshold-foot { text-align: center; padding: 1rem; color: #777; font-size: .77rem; }
+.threshold-foot { text-align: center; padding: 1rem; color: #666; font-size: .77rem; }
 
 @media (max-width: 850px) {
   .hero-grid, .grid-3, .grid-4 { grid-template-columns: 1fr 1fr; }
