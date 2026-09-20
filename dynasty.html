@@ -145,6 +145,13 @@
       .capital-illustration{margin-top:0}
     }
     @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+  
+    .dynasty-local{background:#f4f1e8;border-bottom:1px solid var(--line)}
+    .dynasty-local-inner{width:min(1200px,92vw);margin:0 auto;min-height:46px;display:flex;align-items:center;gap:.5rem 1rem;flex-wrap:wrap}
+    .dynasty-local-inner span{font:850 .65rem/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+    .dynasty-local-inner a{min-height:40px;display:inline-flex;align-items:center;font:750 .72rem/1 var(--sans);color:var(--dynasty);text-decoration:none}
+    .dynasty-local-inner a:hover{text-decoration:underline;text-underline-offset:.2em}
+    @media(max-width:640px){.dynasty-local-inner{padding:.45rem 0}.dynasty-local-inner span{width:100%}}
   </style>
 </head>
 <body>
@@ -159,14 +166,24 @@
         <span class="brand-sub">The Crown Dynasty</span>
       </span>
     </a>
-    <nav class="nav" aria-label="Primary">
-      <a href="#principles">Principles</a>
-      <a href="#constitution">Constitution</a>
-      <a href="#institutions">Institutions</a>
-      <a href="#faith">Faith &amp; conscience</a>
+    <nav class="nav" aria-label="Aldernia">
+      <a href="index.html">Today</a>
+      <a href="country.html">Country</a>
+      <a href="experiment.html">Experiment</a>
+      <a href="archive.html">Archive</a>
     </nav>
   </div>
 </header>
+<nav class="dynasty-local" aria-label="On this page">
+  <div class="dynasty-local-inner">
+    <span>On this page</span>
+    <a href="#principles">Principles</a>
+    <a href="#constitution">Constitution</a>
+    <a href="#institutions">Institutions</a>
+    <a href="#faith">Faith &amp; conscience</a>
+    <a href="experiment-record.html">EXP-001</a>
+  </div>
+</nav>
 
 <main id="main">
   <section class="hero" aria-labelledby="hero-title">
@@ -333,9 +350,11 @@
 <footer class="dynasty-footer">
   <div class="footer-inner">
     <span>© 2026 Aldernia</span>
-    <a href="index.html">Aldernia home</a>
+    <a href="index.html">Today</a>
+    <a href="country.html">Country</a>
     <a href="experiment.html">The Aldernian Experiment</a>
-    <a href="experiment-journal.html">Experiment Journal</a>
+    <a href="experiment-record.html">EXP-001</a>
+    <a href="archive.html">Archive</a>
     <a href="legal.html">Legal &amp; fiction</a>
     <a href="privacy.html">Privacy &amp; cookies</a>
     <a href="accessibility.html">Accessibility</a>
