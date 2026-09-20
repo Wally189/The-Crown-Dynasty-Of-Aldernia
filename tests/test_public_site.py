@@ -104,7 +104,7 @@ class PublicSiteTests(unittest.TestCase):
     def test_build_identity_is_single_json_source(self):
         build = json.loads((ROOT / "aldernia" / "build.json").read_text(encoding="utf-8"))
         self.assertEqual(build["schema_version"], 1)
-        self.assertEqual(build["id"], "ALD-CROWN-FOUNDING-07")
+        self.assertEqual(build["id"], "ALD-CROWN-FOUNDING-08")
         self.assertEqual(build["facets"], ["experiment", "country"])
         self.assertIn("today", build["country_layers"])
         self.assertIn("atlas", build["country_layers"])
@@ -144,6 +144,8 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn('aria-labelledby="atlas-title atlas-desc"', text)
         self.assertIn("schematic", lower)
         self.assertIn("not a surveyed map", lower)
+        self.assertIn('tabindex="0"', text)
+        self.assertIn('role="region"', text)
         for label in ("St Aurelia", "Merrow", "Northmere", "Bracken Coast", "Eastvale", "High Alder", "Southmarch", "St Brigid", "Kestrels"):
             self.assertIn(label, text)
 

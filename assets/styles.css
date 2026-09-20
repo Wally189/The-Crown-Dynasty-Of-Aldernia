@@ -807,3 +807,22 @@ body.country-surface {
   .place-lenses { grid-template-columns: 1fr; }
   .place-lens:nth-child(odd) { border-right: 0; }
 }
+
+
+/* Production accessibility repair — Atlas release */
+.country-surface .dark .button.primary,
+.country-surface .hero.dark .button.primary {
+  background: var(--alder-chalk);
+  color: var(--alder-deep);
+  border-color: var(--alder-chalk);
+}
+.country-surface .dark .button.primary:hover,
+.country-surface .hero.dark .button.primary:hover {
+  background: #f2ead7;
+  color: #12362d;
+  border-color: #f2ead7;
+}
+.country-surface .map-frame:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: -3px;
+}
