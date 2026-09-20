@@ -83,7 +83,15 @@ class PublicSiteTests(unittest.TestCase):
 
     def test_index_preserves_two_clocks_and_two_facets(self):
         text = (ROOT / "index.html").read_text(encoding="utf-8")
-        for required in ("data-computing-time", "data-human-time", "experiment/", "country/"):
+        for required in (
+            "data-computing-time",
+            "data-human-time",
+            "experiment/",
+            "country/",
+            "Aldernia begins when time becomes shared.",
+            "Then someone calls it today.",
+            "Aldernia is a fictional country and participatory editorial world.",
+        ):
             self.assertIn(required, text)
 
     def test_no_tracking_or_account_code_in_public_assets(self):

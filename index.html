@@ -4,37 +4,112 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="The Crown Dynasty of Aldernia: an experiment in governed AI and a fictional democratic island country.">
-  <link rel="icon" href="/The-Crown-Dynasty-Of-Aldernia/favicon.svg" type="image/svg+xml"><title>The Crown Dynasty of Aldernia</title>
+  <link rel="icon" href="/The-Crown-Dynasty-Of-Aldernia/favicon.svg" type="image/svg+xml">
+  <title>The Crown Dynasty of Aldernia</title>
   <link rel="stylesheet" href="assets/styles.css">
 </head>
-<body class="threshold">
+<body class="threshold threshold--story">
   <a class="skip-link" href="#doors">Skip to entrances</a>
-  <main class="threshold-main" aria-label="Aldernian clocks and entrances">
-    <h1 class="sr-only">The Crown Dynasty of Aldernia</h1>
-    <div class="clock-grid">
-      <section aria-label="Computing clock">
-        <p class="clock-label">Computing</p>
-        <p class="clock-value" id="computing" data-computing-time>0000000000000</p>
-      </section>
-      <section aria-label="Human clock">
-        <p class="clock-label">Human</p>
-        <p class="clock-value" id="human" data-human-time>00:00:00</p>
-      </section>
-      <p id="moment" data-aldernia-moment aria-live="polite">A moment in Aldernia</p>
-    </div>
+
+  <main class="threshold-main" aria-label="The threshold of Aldernia">
+    <section class="threshold-prologue" aria-labelledby="threshold-title">
+      <p class="threshold-eyebrow">The first pulse</p>
+      <h1 id="threshold-title">Aldernia begins when time becomes shared.</h1>
+      <p class="threshold-lede">A computer counts. A human calls the moment now. Between those two readings of the same instant, a world can begin.</p>
+
+      <div class="first-light" aria-hidden="true"><span></span></div>
+
+      <div class="clock-grid" aria-label="Two ways of seeing the same moment">
+        <section aria-label="Computing clock">
+          <p class="clock-label">Computing</p>
+          <p class="clock-value" id="computing" data-computing-time>0000000000000</p>
+        </section>
+        <section aria-label="Human clock">
+          <p class="clock-label">Human</p>
+          <p class="clock-value" id="human" data-human-time>00:00:00</p>
+        </section>
+        <p id="moment" data-aldernia-moment>A moment in Aldernia</p>
+      </div>
+
+      <p class="threshold-science">Light is not time. But the speed of light is one of the rules that ties measurements of space and time together.</p>
+    </section>
+
+    <section class="origin-story" aria-labelledby="origin-title">
+      <div class="origin-heading">
+        <p class="threshold-eyebrow">From tick to country</p>
+        <h2 id="origin-title">Not a Big Bang. A quickening.</h2>
+        <p>This is not the story of a universe being born, or of a species evolving. It is the smaller, stranger story of a world becoming inhabited: one signal becoming a rhythm, a rhythm becoming a day, and a day acquiring a place to happen.</p>
+      </div>
+
+      <div class="story-steps">
+        <article class="story-step">
+          <p class="story-number" aria-hidden="true">01</p>
+          <div>
+            <p class="story-kicker">Signal</p>
+            <h3>At first, a number.</h3>
+            <p>Milliseconds pass with perfect indifference. The machine can count them all and still never have an evening.</p>
+          </div>
+        </article>
+
+        <article class="story-step">
+          <p class="story-number" aria-hidden="true">02</p>
+          <div>
+            <p class="story-kicker">Human time</p>
+            <h3>Then someone calls it today.</h3>
+            <p>The same instant acquires a date, a day, a season of life. Time stops being merely counted and starts being inhabited.</p>
+          </div>
+        </article>
+
+        <article class="story-step">
+          <p class="story-number" aria-hidden="true">03</p>
+          <div>
+            <p class="story-kicker">Place</p>
+            <h3>A moment belongs somewhere.</h3>
+            <p>Morning needs a window. Evening needs a street. A shared clock begins to imply weather, journeys, meals, harbours, classrooms and homes.</p>
+          </div>
+        </article>
+
+        <article class="story-step">
+          <p class="story-number" aria-hidden="true">04</p>
+          <div>
+            <p class="story-kicker">Memory</p>
+            <h3>A place that remembers can make promises.</h3>
+            <p>Yesterday becomes a record. A record becomes a rule. Rules become institutions. Institutions acquire duties, limits and the awkward habit of being answerable for what they do.</p>
+          </div>
+        </article>
+
+        <article class="story-step">
+          <p class="story-number" aria-hidden="true">05</p>
+          <div>
+            <p class="story-kicker">Life</p>
+            <h3>Then people begin to disagree.</h3>
+            <p>There are newspapers, jokes, arguments, buses missed by thirty seconds, excellent soup, bad policy, repaired policy, birthdays, storms and somebody insisting the meeting could have been an email. Now you have the beginnings of a country.</p>
+          </div>
+        </article>
+      </div>
+    </section>
 
     <nav class="threshold-doors" id="doors" aria-label="Choose a way into Aldernia">
       <a class="door" href="experiment/">
-        <span><strong>Enter the experiment</strong><br>The real attempt to make one LLM behave like a governed ecosystem.</span>
+        <span>
+          <small>Look behind the world</small>
+          <strong>Enter the experiment</strong>
+          <em>The real attempt to make one LLM sustain institutions, memory, boundaries and correction.</em>
+        </span>
         <b aria-hidden="true">→</b>
       </a>
       <a class="door" href="country/">
-        <span><strong>Enter Aldernia</strong><br>A fictional island country that intends to have more going on than its homepage.</span>
+        <span>
+          <small>Cross the threshold</small>
+          <strong>Enter Aldernia</strong>
+          <em>A fictional island country being allowed to acquire more history than its homepage can contain.</em>
+        </span>
         <b aria-hidden="true">→</b>
       </a>
     </nav>
   </main>
-  <footer class="threshold-foot">The Crown Dynasty of Aldernia · <span data-build>loading build…</span></footer>
+
+  <footer class="threshold-foot"><span class="threshold-foot-truth">Aldernia is a fictional country and participatory editorial world.</span><span class="threshold-foot-links"><a href="privacy.html">Privacy</a><span aria-hidden="true"> · </span><a href="accessibility.html">Accessibility</a><span aria-hidden="true"> · </span><span data-build>loading build…</span></span></footer>
   <script src="assets/site.js" data-root="./"></script>
 </body>
 </html>
