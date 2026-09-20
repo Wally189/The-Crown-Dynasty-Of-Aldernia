@@ -95,7 +95,7 @@ class PublicSiteTests(unittest.TestCase):
     def test_build_identity_is_single_json_source(self):
         build = json.loads((ROOT / "aldernia" / "build.json").read_text(encoding="utf-8"))
         self.assertEqual(build["schema_version"], 1)
-        self.assertEqual(build["id"], "ALD-CROWN-FOUNDING-05")
+        self.assertEqual(build["id"], "ALD-CROWN-FOUNDING-06")
         self.assertEqual(build["facets"], ["experiment", "country"])
         self.assertIn("today", build["country_layers"])
         self.assertIn("data", build["country_layers"])
@@ -104,7 +104,7 @@ class PublicSiteTests(unittest.TestCase):
 
     def test_calendar_is_governed_fiction_not_implicit_news(self):
         cal = json.loads((ROOT / "aldernia" / "calendar.json").read_text(encoding="utf-8"))
-        self.assertEqual(cal["schema_version"], 1)
+        self.assertEqual(cal["schema_version"], 2)
         self.assertEqual(cal["timezone"], "Europe/London")
         self.assertEqual(cal["reality"], "public-fictional")
         self.assertTrue(cal["authority"])
@@ -117,6 +117,16 @@ class PublicSiteTests(unittest.TestCase):
             self.assertIn("public-fictional", event["reality"])
             self.assertTrue(event["title"])
             self.assertTrue(event["summary"])
+
+        recurring = cal["recurring_weekly"]
+        self.assertEqual(recurring["effective_from"], "2026-09-28")
+        beats = recurring["beats"]
+        self.assertEqual(len(beats), 7)
+        self.assertEqual({beat["weekday"] for beat in beats}, set(range(1, 8)))
+        for beat in beats:
+            self.assertIn("public-fictional", beat["reality"])
+            self.assertTrue(beat["title"])
+            self.assertTrue(beat["summary"])
 
     def test_real_participation_and_money_remain_gated(self):
         build = json.loads((ROOT / "aldernia" / "build.json").read_text(encoding="utf-8"))
