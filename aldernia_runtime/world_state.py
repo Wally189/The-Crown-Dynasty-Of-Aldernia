@@ -540,14 +540,16 @@ class WorldRuntime:
             ),
         ):
             assert_effect_allowed(str(event.get("effect_class")), str(event.get("scope")))
-            entity_id = str(event.get("entity_id"))
-            entity = state["entities"].get(entity_id)
-            if entity is None:
-                raise WorldStateError("journal references unknown entity")
             sequence = int(event["sequence"])
             state["next_sequence"] = max(int(state["next_sequence"]), sequence + 1)
 
             event_type = event.get("event_type")
+            entity = None
+            if event_type in {"DEPARTED", "ARRIVED"}:
+                entity_id = str(event.get("entity_id"))
+                entity = state["entities"].get(entity_id)
+                if entity is None:
+                    raise WorldStateError("journal references unknown entity")
             if event_type == "PLACE_REGISTERED":
                 place = dict(event["place"])
                 place_id = str(place["id"])
