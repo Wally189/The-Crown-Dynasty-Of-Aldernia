@@ -54,6 +54,9 @@ jobs:
           today="$(curl -fsSL "$BASE/country/today.html")"
           economy="$(curl -fsSL "$BASE/country/economy.html")"
           data="$(curl -fsSL "$BASE/country/data.html")"
+          history="$(curl -fsSL "$BASE/country/history.html")"
+          assembly="$(curl -fsSL "$BASE/country/assembly.html")"
+          community="$(curl -fsSL "$BASE/country/community.html")"
           calendar="$(curl -fsSL "$BASE/aldernia/calendar.json")"
 
           grep -Fq "Enter the experiment" <<<"$index"
@@ -66,6 +69,9 @@ jobs:
           grep -Fq "Tuesday should happen eventually." <<<"$today"
           grep -Fq "An economy needs more than a currency symbol." <<<"$economy"
           grep -Fq "A number should arrive with luggage." <<<"$data"
+          grep -Fq "The state is young. The places are not." <<<"$history"
+          grep -Fq "Disagreement is a feature, not a software defect." <<<"$assembly"
+          grep -Fq "The useful space between household and state." <<<"$community"
           grep -Fq '"reality": "public-fictional"' <<<"$calendar"
 
           echo "Served two-facet threshold and working-country layers verified."
