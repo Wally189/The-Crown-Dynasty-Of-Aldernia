@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from datetime import date
+from datetime import date, time
 from typing import Any, Callable, Mapping
 
 # Small canonical vocabulary. These names are transport signals, not new authority.
@@ -14,6 +14,23 @@ DEPENDENCY_COMPLETED = "dependency.completed"
 CANONICAL_STATE_CHANGED = "canonical.state.changed"
 CROWN_DECISION_REQUIRED = "crown.decision.required"
 MISSION_VERIFIED_COMPLETE = "mission.verified_complete"
+
+# Vehicle class and departure mode are separate. Priority never creates authority.
+BUS = "BUS"
+BROADCAST_BUS = "BROADCAST_BUS"
+TRAM = "TRAM"
+EXPRESS_TRAM = "EXPRESS_TRAM"
+HEARTBEAT = "HEARTBEAT"
+
+SERVICE_CLASSES = {BUS, BROADCAST_BUS, TRAM, EXPRESS_TRAM, HEARTBEAT}
+DEPARTURE_MODES = {"TIMETABLE", "EVENT", "COMPLETION", "CATCH_UP"}
+SERVICE_PRIORITY = {
+    HEARTBEAT: 5,
+    BUS: 10,
+    BROADCAST_BUS: 10,
+    TRAM: 20,
+    EXPRESS_TRAM: 100,
+}
 
 RESPONSE_CLASSES = {
     "ACCEPT",
@@ -210,11 +227,36 @@ class TransportPacket:
     permitted_effects: tuple[str, ...] = ()
     prohibited_effects: tuple[str, ...] = ()
     payload: Mapping[str, Any] = field(default_factory=dict)
+    service_class: str | None = None
+    departure_mode: str = "EVENT"
+
+    @property
+    def resolved_service_class(self) -> str:
+        return self.service_class or default_service_class(self.event_type)
+
+    @property
+    def priority(self) -> int:
+        return SERVICE_PRIORITY[self.resolved_service_class]
 
     @property
     def dedup_key(self) -> str:
         stable_parent = self.parent_case_id or self.event_id
         return f"{self.event_type}|{stable_parent}|{self.destination}"
+
+
+def default_service_class(event_type: str) -> str:
+    if event_type in {GOVERNMENT_PULSE_CLOSED, GOVERNMENT_PULSE_FAILED_CLOSED}:
+        return TRAM
+    if event_type == CROWN_DECISION_REQUIRED:
+        return EXPRESS_TRAM
+    if event_type == CANONICAL_STATE_CHANGED:
+        return HEARTBEAT
+    return BUS
+
+
+def dynasty_sleeping(local_clock_time: time) -> bool:
+    """Ordinary Aldernian traffic sleeps 23:30–05:00 Europe/London."""
+    return local_clock_time >= time(23, 30) or local_clock_time < time(5, 0)
 
 
 @dataclass(frozen=True)
@@ -258,11 +300,24 @@ class TransportRouter:
         self,
         packet: TransportPacket,
         handler: Callable[[TransportPacket, int], DeliveryResponse | None],
+        *,
+        local_time: time | None = None,
     ) -> DeliveryResult:
         spec = validate_packet(packet)
         key = packet.dedup_key
         if self._halted:
             return DeliveryResult("HALTED", 0, packet.event_id, key, None, "HALT dominates dispatch and retry")
+        if local_time is not None and dynasty_sleeping(local_time):
+            sleep_override = bool(packet.payload.get("sleep_override_authorised"))
+            if packet.resolved_service_class != EXPRESS_TRAM or not sleep_override:
+                return DeliveryResult(
+                    "SLEEP_DEFERRED",
+                    0,
+                    packet.event_id,
+                    key,
+                    None,
+                    "ordinary Dynasty traffic sleeps 23:30–05:00; only an expressly authorised Express Tram may break sleep",
+                )
         if key in self._receipts:
             prior = self._receipts[key]
             return DeliveryResult("DUPLICATE_SUPPRESSED", 0, packet.event_id, key, prior.response_status, "stable event/parent identity already has a terminal receipt")
@@ -314,6 +369,16 @@ def validate_packet(packet: TransportPacket) -> RouteSpec:
         raise TransportError(f"{packet.event_type} must route to {spec.destination}")
     if packet.event_type == CANONICAL_STATE_CHANGED and packet.transition_class not in HEARTBEAT_TRANSITIONS:
         raise TransportError("canonical.state.changed requires a recognised heartbeat transition_class")
+    if packet.resolved_service_class not in SERVICE_CLASSES:
+        raise TransportError(f"unsupported service_class {packet.resolved_service_class}")
+    if packet.departure_mode not in DEPARTURE_MODES:
+        raise TransportError(f"unsupported departure_mode {packet.departure_mode}")
+    if (
+        packet.resolved_service_class == EXPRESS_TRAM
+        and packet.event_type != CROWN_DECISION_REQUIRED
+        and not bool(packet.payload.get("binding_stop_or_emergency"))
+    ):
+        raise TransportError("Express Tram is reserved to Crown-reserved or evidenced binding STOP/emergency traffic")
     return spec
 
 
