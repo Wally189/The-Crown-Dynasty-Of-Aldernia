@@ -230,6 +230,122 @@ class WorldRuntime:
                 return True
         return False
 
+
+    def register_place(
+        self,
+        *,
+        place_id: str,
+        canonical_identity: str,
+        effective_time: datetime,
+        command_id: str,
+        provenance: str,
+    ) -> dict[str, Any]:
+        if not isinstance(place_id, str) or not place_id.strip():
+            raise ValueError("place_id must be non-empty")
+        if not isinstance(canonical_identity, str) or not canonical_identity.strip():
+            raise ValueError("canonical_identity must be non-empty")
+        if not isinstance(command_id, str) or not command_id.strip():
+            raise ValueError("command_id must be non-empty")
+        command_id = command_id.strip()
+
+        prior_event_id = self.state["processed_commands"].get(command_id)
+        if prior_event_id:
+            existing = self._find_event(str(prior_event_id))
+            if existing is None:
+                raise WorldStateError("processed command points to a missing journal event")
+            return existing
+
+        if place_id in self.state["places"]:
+            raise TransitionRejected("place identity already exists")
+
+        effective = _aware(effective_time, "effective_time")
+        sequence = self._allocate_sequence()
+        place = {
+            "id": place_id,
+            "canonical_identity": canonical_identity.strip(),
+            "experiment_mutates_canon": False,
+            "status": "TEST_NON_CANONICAL_DESCRIPTOR",
+        }
+        self.state["places"][place_id] = place
+        event_id = f"world:{EXPERIMENT_ID}:{command_id}:place-registered"
+        self.state["processed_commands"][command_id] = event_id
+        event = {
+            "event_id": event_id,
+            "event_type": "PLACE_REGISTERED",
+            "place_id": place_id,
+            "place": json.loads(json.dumps(place)),
+            "sequence": sequence,
+            "effect_class": EFFECT_DYNAMIC_WORLD,
+            "scope": EXPERIMENT_SCOPE,
+            "authority_ref": AUTHORITY_REF,
+            "provenance": provenance,
+            "command_id": command_id,
+            **self._clock_fields(effective_time=effective, recorded_time=effective),
+        }
+        self._journal_event(event)
+        self._persist()
+        return event
+
+    def register_route(
+        self,
+        *,
+        route_id: str,
+        a: str,
+        b: str,
+        bidirectional: bool,
+        effective_time: datetime,
+        command_id: str,
+        provenance: str,
+    ) -> dict[str, Any]:
+        if not isinstance(route_id, str) or not route_id.strip():
+            raise ValueError("route_id must be non-empty")
+        if not isinstance(command_id, str) or not command_id.strip():
+            raise ValueError("command_id must be non-empty")
+        command_id = command_id.strip()
+
+        prior_event_id = self.state["processed_commands"].get(command_id)
+        if prior_event_id:
+            existing = self._find_event(str(prior_event_id))
+            if existing is None:
+                raise WorldStateError("processed command points to a missing journal event")
+            return existing
+
+        if a == b:
+            raise TransitionRejected("route endpoints must be distinct")
+        if a not in self.state["places"] or b not in self.state["places"]:
+            raise TransitionRejected("route references unknown place")
+        if any(route.get("route_id") == route_id for route in self.state["routes"]):
+            raise TransitionRejected("route identity already exists")
+
+        effective = _aware(effective_time, "effective_time")
+        sequence = self._allocate_sequence()
+        route = {
+            "route_id": route_id,
+            "a": a,
+            "b": b,
+            "bidirectional": bool(bidirectional),
+            "status": "TEST_NON_CANONICAL_DESCRIPTOR",
+        }
+        self.state["routes"].append(route)
+        event_id = f"world:{EXPERIMENT_ID}:{command_id}:route-registered"
+        self.state["processed_commands"][command_id] = event_id
+        event = {
+            "event_id": event_id,
+            "event_type": "ROUTE_REGISTERED",
+            "route_id": route_id,
+            "route": json.loads(json.dumps(route)),
+            "sequence": sequence,
+            "effect_class": EFFECT_DYNAMIC_WORLD,
+            "scope": EXPERIMENT_SCOPE,
+            "authority_ref": AUTHORITY_REF,
+            "provenance": provenance,
+            "command_id": command_id,
+            **self._clock_fields(effective_time=effective, recorded_time=effective),
+        }
+        self._journal_event(event)
+        self._persist()
+        return event
+
     def can_depart(self, origin: str, destination: str, entity_id: str = TEST_FERRY_ID) -> bool:
         entity = self.state["entities"].get(entity_id)
         return bool(
@@ -431,7 +547,30 @@ class WorldRuntime:
             sequence = int(event["sequence"])
             state["next_sequence"] = max(int(state["next_sequence"]), sequence + 1)
 
-            if event.get("event_type") == "DEPARTED":
+            event_type = event.get("event_type")
+            if event_type == "PLACE_REGISTERED":
+                place = dict(event["place"])
+                place_id = str(place["id"])
+                if place_id in state["places"] and state["places"][place_id] != place:
+                    raise WorldStateError("replay found conflicting place identity")
+                state["places"][place_id] = place
+                command_id = event.get("command_id")
+                if command_id:
+                    state["processed_commands"][str(command_id)] = event["event_id"]
+            elif event_type == "ROUTE_REGISTERED":
+                route = dict(event["route"])
+                if route.get("a") not in state["places"] or route.get("b") not in state["places"]:
+                    raise WorldStateError("replay route references unknown place")
+                route_id = str(route["route_id"])
+                existing_routes = [item for item in state["routes"] if item.get("route_id") == route_id]
+                if existing_routes and existing_routes[0] != route:
+                    raise WorldStateError("replay found conflicting route identity")
+                if not existing_routes:
+                    state["routes"].append(route)
+                command_id = event.get("command_id")
+                if command_id:
+                    state["processed_commands"][str(command_id)] = event["event_id"]
+            elif event_type == "DEPARTED":
                 scheduled = dict(event["scheduled_event"])
                 entity["location"] = None
                 entity["movement_state"] = "IN_TRANSIT"
@@ -449,7 +588,7 @@ class WorldRuntime:
                 if command_id:
                     state["processed_commands"][str(command_id)] = event["event_id"]
                 state["next_sequence"] = max(int(state["next_sequence"]), int(scheduled["sequence"]) + 1)
-            elif event.get("event_type") == "ARRIVED":
+            elif event_type == "ARRIVED":
                 entity["location"] = event.get("destination")
                 entity["movement_state"] = "DOCKED"
                 entity["journey"] = None
@@ -458,5 +597,5 @@ class WorldRuntime:
                     item for item in state["scheduled_events"] if item.get("event_id") != event_id
                 ]
             else:
-                raise WorldStateError(f"unsupported journal event type {event.get('event_type')}")
+                raise WorldStateError(f"unsupported journal event type {event_type}")
         return state
