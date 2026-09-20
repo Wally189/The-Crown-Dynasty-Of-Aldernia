@@ -52,8 +52,16 @@ a{color:inherit}
 .experiment-hero h1{font-size:clamp(2.7rem,7vw,5.7rem);font-weight:500;line-height:.98;letter-spacing:-.025em;margin:.2rem 0 1.5rem}
 .experiment-lede{font:400 clamp(1.18rem,2.6vw,1.55rem)/1.55 Georgia,"Times New Roman",serif;color:rgba(255,255,255,.92);max-width:760px}
 .experiment-copy{max-width:760px}
+.experiment-copy>h2{font-size:clamp(1.7rem,3.6vw,2.45rem);font-weight:500;line-height:1.15;margin:0 0 1.15rem;letter-spacing:-.01em}
 .experiment-copy p,.experiment-copy li{font:400 1.02rem/1.78 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:rgba(255,255,255,.9)}
 .experiment-copy strong{color:#fff}
+.experiment-origin{position:relative;margin:3.6rem 0 3.2rem;padding:clamp(1.35rem,3.6vw,2.4rem) clamp(1.1rem,3.8vw,2.45rem);border-left:2px solid rgba(255,255,255,.45);background:linear-gradient(135deg,rgba(255,255,255,.085),rgba(255,255,255,.025));box-shadow:0 22px 55px rgba(0,0,0,.12)}
+.experiment-origin::before{content:"";position:absolute;left:-6px;top:2.2rem;width:10px;height:10px;border-radius:50%;background:#fff;box-shadow:0 0 0 5px var(--navy)}
+.experiment-origin h2{font-size:clamp(1.8rem,4vw,2.65rem);font-weight:500;line-height:1.1;letter-spacing:-.015em;margin:0 0 1.5rem}
+.experiment-origin p{margin:0 0 1.18rem}
+.experiment-story-turn{font:600 clamp(1.15rem,2.7vw,1.42rem)/1.55 Georgia,"Times New Roman",serif!important;color:#fff!important;margin:1.9rem 0 1.25rem!important}
+.experiment-question{margin:2.35rem 0!important;padding:1.45rem 0;border-top:1px solid rgba(255,255,255,.28);border-bottom:1px solid rgba(255,255,255,.28);font-family:Georgia,"Times New Roman",serif!important;font-size:clamp(1.12rem,2.5vw,1.35rem)!important;line-height:1.62!important}
+.experiment-story-end{font:500 clamp(2rem,5.6vw,3.6rem)/1.04 Georgia,"Times New Roman",serif!important;letter-spacing:-.02em;color:#fff!important;margin:2rem 0 .2rem!important}
 .experiment-panel{margin:2.6rem 0;padding:clamp(1.25rem,3vw,2rem);border:1px solid rgba(255,255,255,.24);background:rgba(255,255,255,.075)}
 .experiment-panel h2{font-size:clamp(1.45rem,3vw,2rem);font-weight:500;margin:0 0 .7rem}
 .experiment-panel p{margin:.6rem 0}
@@ -85,6 +93,7 @@ a{color:inherit}
   .wordmark{letter-spacing:.12em}
   .experiment-header{align-items:flex-start;flex-direction:column;padding-bottom:1.7rem}
   .experiment-hero{padding-top:.5rem}
+  .experiment-origin{margin-left:-1vw;margin-right:-1vw;padding-left:1.25rem;padding-right:1.1rem}
   .experiment-actions{flex-direction:column}
   .experiment-action{width:100%}
 }
