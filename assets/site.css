@@ -6,7 +6,7 @@
   --navy:#082a5a;
   --gold:#c89b2f;
   --line:rgba(20,34,30,.18);
-  --muted:#6a716d;
+  --muted:#626a66;
 }
 *{box-sizing:border-box}
 html{min-height:100%;background:var(--paper);color:var(--ink);font-family:Georgia,"Times New Roman",serif}
