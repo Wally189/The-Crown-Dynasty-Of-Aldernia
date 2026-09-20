@@ -1,0 +1,75 @@
+name: Aldernia Living Build Loop
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/5 * * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: aldernia-runtime-state
+  cancel-in-progress: false
+
+jobs:
+  build-opportunity:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out production main
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Restore durable bus state
+        run: |
+          git fetch origin clock-state
+          mkdir -p state
+          if git cat-file -e origin/clock-state:state/bus-state.json 2>/dev/null; then
+            git show origin/clock-state:state/bus-state.json > state/bus-state.json
+          else
+            printf '{"schema_version":1,"processed":{}}\n' > state/bus-state.json
+          fi
+
+      - name: Regression tests
+        run: python -m unittest discover -s tests -v
+
+      - name: Run one bounded build opportunity
+        run: >-
+          python -m aldernia_runtime.runtime cycle
+          --state state/bus-state.json
+          --inbox aldernia/events/inbox
+          --public-state aldernia/public-state.json
+          --releases aldernia/releases
+          --interval 300
+
+      - name: Commit only an accepted public increment
+        run: |
+          git add aldernia/public-state.json aldernia/releases
+          if ! git diff --cached --quiet; then
+            git config user.name "Aldernia Living Build Loop"
+            git config user.email "actions@users.noreply.github.com"
+            git commit -m "Aldernia build: accepted bus event ${GITHUB_RUN_ID}"
+            git push origin HEAD:main
+          fi
+
+      - name: Persist bus acknowledgement state
+        run: |
+          cp state/bus-state.json /tmp/bus-state.json
+          rm -f state/bus-state.json
+          git switch clock-state
+          mkdir -p state
+          cp /tmp/bus-state.json state/bus-state.json
+          git add state/bus-state.json
+          if ! git diff --cached --quiet; then
+            git config user.name "Aldernia Living Build Loop"
+            git config user.email "actions@users.noreply.github.com"
+            git commit -m "Bus state: build loop ${GITHUB_RUN_ID} [skip ci]"
+            git push origin clock-state
+          fi
