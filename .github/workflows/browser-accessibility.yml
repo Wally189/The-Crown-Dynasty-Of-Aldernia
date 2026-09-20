@@ -62,7 +62,7 @@ jobs:
         shell: bash
         run: |
           mkdir -p assurance/screens
-          cat > /tmp/aldernia-browser-check.cjs <<'NODE'
+          cat > assurance/aldernia-browser-check.cjs <<'NODE'
           const puppeteer = require('puppeteer-core');
           const path = require('path');
           const axePath = require.resolve('axe-core/axe.min.js');
@@ -185,7 +185,7 @@ jobs:
           console.log('\nBrowser/mobile, reduced-motion and WCAG-tagged axe checks passed.');
           })().catch(err => { console.error(err); process.exit(1); });
           NODE
-          node /tmp/aldernia-browser-check.cjs
+          node assurance/aldernia-browser-check.cjs
 
       - name: Preserve browser screenshots
         if: always()
