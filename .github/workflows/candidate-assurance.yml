@@ -1,0 +1,35 @@
+name: Living Aldernia Candidate Assurance
+on:
+  push:
+    branches:
+      - candidate/living-aldernia-rc1-20260920
+permissions:
+  contents: read
+jobs:
+  assure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install browser
+        run: |
+          npm init -y >/dev/null 2>&1
+          npm install --no-save playwright@1.55.0
+          npx playwright install --with-deps chromium
+      - name: Start static server
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 >/tmp/aldernia-http.log 2>&1 &
+          echo $! >/tmp/aldernia-http.pid
+          sleep 2
+      - name: Run exact-candidate browser assurance
+        run: node .qa/candidate-check.mjs
+      - name: Upload visual evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: living-aldernia-visual-evidence
+          path: qa-artifacts
+          if-no-files-found: error
