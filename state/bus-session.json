@@ -15,7 +15,7 @@
   "command_ref": "CROWN COMMISSION \u2014 OPERATIONALISE THE ALDERNIAN COMPUTATIONAL BUS TRIGGERS",
   "complete_at": null,
   "halt_at": null,
-  "last_30_minute_checkpoint": "2026-09-20T21:39:10+00:00",
+  "last_30_minute_checkpoint": "2026-09-20T23:30:33+00:00",
   "last_transition_reason": "30-MINUTE COMMAND CHECKPOINT \u2014 MISSION CONTINUES",
   "mission_id": "aldernia-bus-triggers-2026-09-20",
   "operating_state": "ACTIVE_COMMAND",
