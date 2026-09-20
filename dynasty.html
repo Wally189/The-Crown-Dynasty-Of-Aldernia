@@ -3,25 +3,344 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="The Crown Dynasty of Aldernia — a constitutional civic world rooted in human dignity, service, conscience, democracy, truth and the common good.">
+  <meta name="theme-color" content="#063d29">
   <title>The Crown Dynasty of Aldernia — Aldernia</title>
   <link rel="stylesheet" href="assets/site.css">
+  <style>
+    :root{
+      --dynasty:#063d29;
+      --dynasty-mid:#0b5a3a;
+      --dynasty-soft:#dbe7df;
+      --paper:#f4f1e8;
+      --ink:#14221e;
+      --gold:#c89b2f;
+      --stone:#e7e0d1;
+      --line:rgba(20,34,30,.18);
+      --muted:#59655f;
+      --brick:#7c3f35;
+      --serif:Georgia,"Times New Roman",serif;
+      --sans:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      --shadow:0 22px 60px rgba(6,61,41,.10);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;background:var(--paper);color:var(--ink)}
+    body{margin:0;min-height:100vh;background:var(--paper);color:var(--ink);font-family:var(--sans)}
+    a{color:inherit}
+    .skip{position:absolute;left:-9999px;top:auto}
+    .skip:focus{left:1rem;top:1rem;z-index:100;background:#fff;padding:.75rem 1rem;outline:3px solid var(--gold);color:var(--dynasty);font-weight:800}
+    :focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+
+    .dynasty-header{background:var(--dynasty);color:#fff;border-bottom:1px solid rgba(255,255,255,.16)}
+    .masthead{width:min(1200px,92vw);margin:0 auto;min-height:76px;display:flex;align-items:center;justify-content:space-between;gap:2rem}
+    .brand{display:flex;align-items:center;gap:.85rem;text-decoration:none}
+    .brand-mark{width:38px;height:38px;border:1px solid rgba(255,255,255,.68);border-radius:50%;display:grid;place-items:center;font:700 1.05rem/1 var(--serif)}
+    .brand-copy{display:grid;gap:.08rem}
+    .brand-name{font:600 .92rem/1.1 var(--serif);letter-spacing:.13em;text-transform:uppercase}
+    .brand-sub{font:700 .62rem/1.2 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.68)}
+    .nav{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:.15rem}
+    .nav a{padding:.7rem .72rem;text-decoration:none;font:750 .76rem/1 var(--sans);color:rgba(255,255,255,.84);border-bottom:2px solid transparent}
+    .nav a:hover{color:#fff;border-bottom-color:rgba(255,255,255,.75)}
+
+    .hero{position:relative;overflow:hidden;background:var(--dynasty);color:#fff;border-bottom:6px solid var(--gold)}
+    .hero-inner{width:min(1200px,92vw);margin:0 auto;display:grid;grid-template-columns:minmax(0,1.07fr) minmax(400px,.93fr);align-items:end;gap:clamp(2rem,5vw,5rem);padding:clamp(4.8rem,10vw,8.5rem) 0 0}
+    .hero-copy{position:relative;z-index:2;padding-bottom:clamp(4rem,8vw,7rem)}
+    .eyebrow{margin:0 0 1.2rem;font:800 .72rem/1.2 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:#ead393}
+    .hero h1{max-width:900px;margin:0;font:500 clamp(3.1rem,7vw,6.9rem)/.93 var(--serif);letter-spacing:-.045em;text-wrap:balance}
+    .hero-lede{max-width:710px;margin:1.7rem 0 0;font:400 clamp(1.13rem,2.1vw,1.48rem)/1.6 var(--serif);color:rgba(255,255,255,.9);text-wrap:pretty}
+    .hero-strap{margin-top:1.9rem;max-width:690px;padding-left:1rem;border-left:3px solid var(--gold);font:760 .92rem/1.55 var(--sans);color:rgba(255,255,255,.94)}
+    .hero-action{display:inline-flex;margin-top:2.2rem;min-height:48px;align-items:center;justify-content:center;padding:.8rem 1rem;border:1px solid #fff;background:#fff;color:var(--dynasty);text-decoration:none;font:800 .84rem/1 var(--sans)}
+    .hero-action:hover{background:var(--paper)}
+    .capital-illustration{align-self:end;min-height:510px;display:flex;align-items:flex-end}
+    .capital-illustration svg{width:100%;height:auto;display:block}
+
+    .motto-bar{background:var(--dynasty-mid);color:#fff}
+    .motto-inner{width:min(1200px,92vw);margin:0 auto;display:grid;grid-template-columns:auto 1fr;gap:1.35rem;align-items:center;padding:1rem 0}
+    .motto-label{font:800 .66rem/1 var(--sans);letter-spacing:.16em;text-transform:uppercase;color:#ead393}
+    .motto-text{font:600 .92rem/1.4 var(--serif);letter-spacing:.08em;text-transform:uppercase}
+
+    .section{width:min(1200px,92vw);margin:0 auto;padding:clamp(4.6rem,8vw,8rem) 0}
+    .section-head{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:clamp(2rem,6vw,6rem);align-items:start;margin-bottom:3rem}
+    .section-kicker{margin:0 0 .8rem;font:850 .7rem/1.2 var(--sans);letter-spacing:.15em;text-transform:uppercase;color:var(--dynasty-mid)}
+    .section h2{margin:0;font:500 clamp(2.3rem,5vw,4.7rem)/1 var(--serif);letter-spacing:-.035em;color:var(--dynasty);text-wrap:balance}
+    .section-intro{margin:.35rem 0 0;max-width:690px;font:400 clamp(1.02rem,1.65vw,1.22rem)/1.75 var(--serif);color:#3b4742;text-wrap:pretty}
+
+    .principles{background:#fbf8ef;border-bottom:1px solid var(--line)}
+    .principle-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+    .principle{min-height:250px;padding:clamp(1.45rem,3vw,2rem);background:#fbf8ef}
+    .principle-no{display:block;margin-bottom:1.5rem;font:850 .68rem/1 var(--sans);color:var(--dynasty-mid);letter-spacing:.12em}
+    .principle h3{margin:0 0 .65rem;font:600 1.35rem/1.15 var(--serif);color:var(--dynasty)}
+    .principle p{margin:0;font:400 .96rem/1.7 var(--sans);color:#4c5652}
+
+    .constitution{background:var(--paper)}
+    .constitution-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1rem}
+    .constitutional-card{min-height:310px;padding:2rem 1.45rem 1.45rem;border-top:5px solid var(--dynasty);background:#fff;box-shadow:var(--shadow)}
+    .constitutional-card:nth-child(2){border-top-color:var(--dynasty-mid)}
+    .constitutional-card:nth-child(3){border-top-color:var(--gold)}
+    .constitutional-card:nth-child(4){border-top-color:var(--brick)}
+    .symbolic{width:48px;height:48px;display:grid;place-items:center;margin-bottom:1.4rem;border:1px solid var(--line);border-radius:50%;font:700 1rem/1 var(--serif);color:var(--dynasty);background:var(--paper)}
+    .constitutional-card h3{margin:0 0 .7rem;font:600 1.32rem/1.2 var(--serif);color:var(--dynasty)}
+    .constitutional-card p{margin:0;font:400 .94rem/1.7 var(--sans);color:#4d5752}
+    .constitution-note{margin:2.2rem 0 0;padding:1.25rem 1.4rem;border-left:4px solid var(--gold);background:#fff;font:650 .94rem/1.65 var(--sans);color:#303b36}
+
+    .democracy{background:var(--dynasty);color:#fff}
+    .democracy .section-kicker{color:#ead393}
+    .democracy h2{color:#fff}
+    .democracy .section-intro{color:rgba(255,255,255,.82)}
+    .democracy-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);gap:clamp(2rem,7vw,7rem);align-items:start}
+    .democracy-statement{margin:0;font:500 clamp(2rem,4.2vw,4rem)/1.08 var(--serif);letter-spacing:-.025em;text-wrap:balance}
+    .democracy-list{margin:0;padding:0;list-style:none;border-top:1px solid rgba(255,255,255,.28)}
+    .democracy-list li{display:grid;grid-template-columns:28px 1fr;gap:.8rem;align-items:start;padding:1rem 0;border-bottom:1px solid rgba(255,255,255,.2);font:650 .92rem/1.55 var(--sans);color:rgba(255,255,255,.9)}
+    .tick{color:#ead393;font-weight:900}
+
+    .ecosystem{background:var(--paper)}
+    .institution-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}
+    .institution{min-height:190px;padding:1.45rem;border:1px solid var(--line);background:#fff;display:grid;grid-template-columns:auto 1fr;gap:1rem 1.15rem;align-content:start}
+    .institution-badge{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font:800 .73rem/1 var(--sans);letter-spacing:.05em;color:var(--dynasty);background:var(--dynasty-soft);border:1px solid rgba(6,61,41,.15)}
+    .institution h3{margin:.1rem 0 .45rem;font:600 1.24rem/1.2 var(--serif);color:var(--dynasty)}
+    .institution p{margin:0;font:400 .9rem/1.62 var(--sans);color:#4f5954}
+    .institution-meta,.institution-link{grid-column:2;margin-top:.2rem}
+    .institution-meta{font:800 .66rem/1.3 var(--sans);letter-spacing:.09em;text-transform:uppercase;color:var(--dynasty-mid)}
+    .institution-link{justify-self:start;text-decoration:none;font:800 .78rem/1.3 var(--sans);color:var(--dynasty);border-bottom:1px solid currentColor}
+
+    .inheritance{background:var(--stone);border-top:1px solid rgba(20,34,30,.1);border-bottom:1px solid rgba(20,34,30,.1)}
+    .inheritance-layout{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(320px,.95fr);gap:clamp(2rem,7vw,7rem);align-items:start}
+    .inheritance-copy p{margin:0 0 1.1rem;font:400 1rem/1.78 var(--sans);color:#3d4843}
+    .inheritance-panel{padding:2rem;background:var(--dynasty);color:#fff;box-shadow:var(--shadow)}
+    .inheritance-panel p{margin:0;font:500 clamp(1.45rem,2.5vw,2.15rem)/1.35 var(--serif)}
+    .inheritance-panel .small{display:block;margin-top:1.2rem;font:700 .74rem/1.5 var(--sans);letter-spacing:.09em;text-transform:uppercase;color:#ead393}
+
+    .closing{background:var(--dynasty-mid);color:#fff;text-align:center}
+    .closing .section{padding-top:clamp(4.5rem,8vw,7rem);padding-bottom:clamp(4.5rem,8vw,7rem)}
+    .closing-mark{width:62px;height:62px;margin:0 auto 1.6rem;border:1px solid rgba(255,255,255,.5);border-radius:50%;display:grid;place-items:center;font:700 1.35rem/1 var(--serif)}
+    .closing h2{max-width:900px;margin:0 auto;color:#fff;font-size:clamp(2.4rem,5.2vw,4.9rem)}
+    .closing p{max-width:720px;margin:1.2rem auto 0;font:400 1.08rem/1.7 var(--serif);color:rgba(255,255,255,.86)}
+
+    .dynasty-footer{background:var(--dynasty);color:rgba(255,255,255,.72);border-top:1px solid rgba(255,255,255,.15);font:600 .76rem/1.55 var(--sans)}
+    .footer-inner{width:min(1200px,92vw);margin:0 auto;padding:1.4rem 0;display:flex;gap:.75rem 1.25rem;justify-content:center;align-items:center;flex-wrap:wrap}
+    .footer-inner a{color:rgba(255,255,255,.92);text-decoration:none;border-bottom:1px solid transparent}
+    .footer-inner a:hover{border-bottom-color:currentColor}
+    .fiction-disclosure{width:min(960px,92vw);margin:0 auto;padding:1.1rem 0 1.5rem;border-top:1px solid rgba(255,255,255,.12);text-align:center;color:rgba(255,255,255,.62);font-weight:500}
+
+    @media(max-width:980px){
+      .masthead{align-items:flex-start;padding:1rem 0;flex-direction:column;gap:.7rem}
+      .nav{justify-content:flex-start}
+      .hero-inner{grid-template-columns:1fr;padding-top:4.5rem}
+      .hero-copy{padding-bottom:0}
+      .capital-illustration{min-height:0;margin-top:-2rem}
+      .section-head{grid-template-columns:1fr;gap:1.2rem}
+      .principle-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .constitution-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .democracy-grid,.inheritance-layout{grid-template-columns:1fr;gap:2rem}
+    }
+    @media(max-width:680px){
+      html{scroll-behavior:auto}
+      .nav a{padding:.6rem .55rem;font-size:.72rem}
+      .hero-inner{padding-top:3.4rem}
+      .hero h1{font-size:clamp(2.85rem,16vw,4.7rem)}
+      .hero-action{width:100%}
+      .motto-inner{grid-template-columns:1fr;gap:.45rem}
+      .principle-grid,.constitution-grid,.institution-grid{grid-template-columns:1fr}
+      .principle,.constitutional-card{min-height:0}
+      .capital-illustration{margin-top:0}
+    }
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition:none!important}}
+  </style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
-<main id="main" class="page">
-  <h1>The Crown Dynasty of Aldernia</h1>
-  <p>This route is reserved for the institutional and creative world behind Aldernia.</p>
-<p class="quiet">It is not yet open. No private operating machinery is exposed by this holding page.</p>
-  <a class="back" href="index.html">← Back to Aldernia</a>
+
+<header class="dynasty-header">
+  <div class="masthead">
+    <a class="brand" href="index.html" aria-label="Aldernia home">
+      <span class="brand-mark" aria-hidden="true">A</span>
+      <span class="brand-copy">
+        <span class="brand-name">Aldernia</span>
+        <span class="brand-sub">The Crown Dynasty</span>
+      </span>
+    </a>
+    <nav class="nav" aria-label="Primary">
+      <a href="#principles">Principles</a>
+      <a href="#constitution">Constitution</a>
+      <a href="#institutions">Institutions</a>
+      <a href="#faith">Faith &amp; conscience</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow">The Crown Dynasty of Aldernia</p>
+        <h1 id="hero-title">Tradition in memory. Democracy in practice.</h1>
+        <p class="hero-lede">Welcome to Aldernia: a constitutional world built around the dignity of the person, freedom of conscience, the rule of law, democratic choice, independent institutions and a simple public duty — to serve well.</p>
+        <p class="hero-strap">The Crown gives continuity. The people choose. Institutions challenge. Power explains itself.</p>
+        <a class="hero-action" href="#institutions">Explore the institutions</a>
+      </div>
+      <div class="capital-illustration" aria-hidden="true">
+        <svg viewBox="0 0 720 620">
+          <defs>
+            <pattern id="waves" width="80" height="18" patternUnits="userSpaceOnUse">
+              <path d="M0 9 C20 -2,40 20,60 9 S100 -2,120 9" fill="none" stroke="#d6e5dd" stroke-opacity=".32" stroke-width="2"/>
+            </pattern>
+          </defs>
+          <path d="M0 440 C115 395 190 420 270 375 C370 318 470 354 720 265 L720 620 L0 620 Z" fill="#0b5a3a"/>
+          <path d="M0 520 C130 470 205 505 310 455 C420 402 565 450 720 382 L720 620 L0 620 Z" fill="#174f38"/>
+          <rect x="0" y="505" width="720" height="115" fill="url(#waves)"/>
+          <path d="M84 447 h104 v73 h-104z" fill="#e8dfca"/>
+          <path d="M96 447 q40 -60 80 0" fill="#f4f1e8"/>
+          <rect x="129" y="385" width="16" height="62" fill="#e8dfca"/>
+          <path d="M123 385 l14 -30 l14 30z" fill="#c89b2f"/>
+          <rect x="223" y="420" width="132" height="100" fill="#d9cfb8"/>
+          <rect x="250" y="377" width="78" height="43" fill="#efe7d4"/>
+          <path d="M250 377 q39 -78 78 0" fill="#f4f1e8"/>
+          <rect x="283" y="322" width="12" height="55" fill="#d9cfb8"/>
+          <circle cx="289" cy="316" r="10" fill="#c89b2f"/>
+          <rect x="394" y="399" width="118" height="121" fill="#f0e9d7"/>
+          <path d="M386 399 h134 l-22 -24 h-90z" fill="#cfc4ad"/>
+          <g fill="#063d29" opacity=".78">
+            <rect x="108" y="468" width="16" height="24"/><rect x="145" y="468" width="16" height="24"/>
+            <rect x="244" y="449" width="18" height="28"/><rect x="280" y="449" width="18" height="28"/><rect x="316" y="449" width="18" height="28"/>
+            <rect x="414" y="432" width="18" height="30"/><rect x="449" y="432" width="18" height="30"/><rect x="484" y="432" width="18" height="30"/>
+          </g>
+          <path d="M543 464 h112 l-19 18 h-84z" fill="#e8dfca"/>
+          <path d="M603 448 v16" stroke="#e8dfca" stroke-width="5"/>
+          <path d="M603 448 l32 12 l-32 8z" fill="#c89b2f"/>
+          <path d="M48 531 q85 -45 171 0" fill="none" stroke="#e7d7a0" stroke-width="5" stroke-linecap="round"/>
+          <path d="M450 541 q100 -55 205 -6" fill="none" stroke="#e7d7a0" stroke-width="4" stroke-linecap="round" opacity=".8"/>
+          <circle cx="650" cy="112" r="54" fill="none" stroke="#c89b2f" stroke-opacity=".85" stroke-width="2"/>
+          <path d="M650 73 l7 30 l29 9 l-29 9 l-7 30 l-8 -30 l-29 -9 l29 -9z" fill="#c89b2f" opacity=".9"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <div class="motto-bar" aria-label="Aldernian national motto">
+    <div class="motto-inner">
+      <span class="motto-label">National motto</span>
+      <span class="motto-text">Serve well. Speak plainly.</span>
+    </div>
+  </div>
+
+  <section id="principles" class="principles">
+    <div class="section">
+      <div class="section-head">
+        <div>
+          <p class="section-kicker">A public philosophy</p>
+          <h2>A country begins with how it treats a person.</h2>
+        </div>
+        <p class="section-intro">Aldernia draws from Catholic social thought and the democratic constitutional traditions of the West without collapsing Church, Crown and Government into one another. The result is a civic promise: human dignity before machinery, freedom joined to responsibility, strong communities, limited power and institutions built for the common good.</p>
+      </div>
+      <div class="principle-grid">
+        <article class="principle"><span class="principle-no">01</span><h3>Human dignity</h3><p>Every person has worth that does not depend on status, wealth, usefulness, popularity or political power.</p></article>
+        <article class="principle"><span class="principle-no">02</span><h3>Ordered liberty</h3><p>Conscience, expression, belief, association and peaceful disagreement are protected within a framework of law and responsibility.</p></article>
+        <article class="principle"><span class="principle-no">03</span><h3>The common good</h3><p>Public life should make it possible for people, families, communities and institutions to flourish together rather than merely compete for power.</p></article>
+        <article class="principle"><span class="principle-no">04</span><h3>Subsidiarity</h3><p>Decisions belong as close as reasonably possible to the people, communities and institutions capable of making them well.</p></article>
+        <article class="principle"><span class="principle-no">05</span><h3>Solidarity</h3><p>Freedom is not indifference. A decent society notices who is excluded, protects the vulnerable and expects service beyond self-interest.</p></article>
+        <article class="principle"><span class="principle-no">06</span><h3>Truth &amp; stewardship</h3><p>Evidence matters, correction is a virtue, resources are held in trust and institutions owe an account of the power placed in their hands.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="constitution" class="constitution">
+    <div class="section">
+      <div class="section-head">
+        <div><p class="section-kicker">Constitutional order</p><h2>Power is divided on purpose.</h2></div>
+        <p class="section-intro">Aldernia is built so that no single institution becomes the whole country. Continuity, democratic authority, professional administration and independent scrutiny each have a distinct part to play — and each has limits.</p>
+      </div>
+      <div class="constitution-grid">
+        <article class="constitutional-card"><div class="symbolic" aria-hidden="true">♔</div><h3>The Crown</h3><p><strong>Continuity without day-to-day rule.</strong> The Crown holds constitutional and ceremonial duties, protects continuity and respects democratic government.</p></article>
+        <article class="constitutional-card"><div class="symbolic" aria-hidden="true">120</div><h3>The Assembly</h3><p><strong>Democratic authority.</strong> A proportional elected chamber makes in-world law, approves the budget, forms government and holds ministers to account.</p></article>
+        <article class="constitutional-card"><div class="symbolic" aria-hidden="true">CIV</div><h3>Government &amp; Civil Service</h3><p><strong>Choice joined to competence.</strong> Elected leaders set lawful priorities; a professional public service preserves evidence, delivery discipline and protected challenge.</p></article>
+        <article class="constitutional-card"><div class="symbolic" aria-hidden="true">IND</div><h3>Independent institutions</h3><p><strong>Scrutiny without permission.</strong> Electoral integrity, audit, adjudication, journalism and other independent functions exist to test power rather than flatter it.</p></article>
+      </div>
+      <p class="constitution-note">A good constitution is not a mechanism for ensuring that the “right” people win. It is a discipline for ensuring that whoever holds power must use it within rules, accept scrutiny and eventually hand it on.</p>
+    </div>
+  </section>
+
+  <section class="democracy" aria-labelledby="democracy-title">
+    <div class="section">
+      <div class="section-head">
+        <div><p class="section-kicker">Democracy in practice</p><h2 id="democracy-title">Participation is constitutional, not decorative.</h2></div>
+        <p class="section-intro">Aldernia treats democratic legitimacy as a set of habits: published rules, secret ballots, neutral administration, transparent counting, fair information and institutions strong enough to accept inconvenient outcomes.</p>
+      </div>
+      <div class="democracy-grid">
+        <p class="democracy-statement">The people choose. The rules are published first. The count can be explained. The press may criticise. The institutions may say no.</p>
+        <ul class="democracy-list">
+          <li><span class="tick">✓</span><span>One eligible civic account, one vote in each relevant ballot.</span></li>
+          <li><span class="tick">✓</span><span>Secret ballots and published counting rules.</span></li>
+          <li><span class="tick">✓</span><span>Neutral electoral administration and independent scrutiny.</span></li>
+          <li><span class="tick">✓</span><span>Equal standard information for parties and candidates.</span></li>
+          <li><span class="tick">✓</span><span>No personalised political recommendation engine.</span></li>
+          <li><span class="tick">✓</span><span>No result is changed merely because it is inconvenient.</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="institutions" class="ecosystem">
+    <div class="section">
+      <div class="section-head">
+        <div><p class="section-kicker">The Aldernian ecosystem</p><h2>One country. Many institutions.</h2></div>
+        <p class="section-intro">Aldernia’s Houses are specialist public, civic, cultural and professional institutions. They share a country without becoming one bureaucracy. Each keeps its own purpose, standards and voice.</p>
+      </div>
+      <div class="institution-grid">
+        <article class="institution"><div class="institution-badge">RP</div><div><h3>The Royal Palace</h3><p>Constitutional Crown, national continuity and stewardship of the shared settlement.</p></div><span class="institution-meta">Crown &amp; Constitution</span></article>
+        <article class="institution"><div class="institution-badge">HM</div><div><h3>House of Marianne</h3><p>Government and public administration: policy, public resources, justice, services, economy, infrastructure and place.</p></div><span class="institution-meta">Government</span></article>
+        <article class="institution"><div class="institution-badge">TA</div><div><h3>Teach Antaine</h3><p>Independent constitutional institutions, democratic integrity, scrutiny, audit, adjudication and accountability.</p></div><span class="institution-meta">Independent institutions</span></article>
+        <article class="institution"><div class="institution-badge">HJ</div><div><h3>House of Josie</h3><p>Independent media, journalism, broadcasting, editorial standards and public explanation.</p></div><span class="institution-meta">Media</span></article>
+        <article class="institution"><div class="institution-badge">HT</div><div><h3>House of Tony</h3><p>Education, learning, scholarship, research and the public life of knowledge.</p></div><span class="institution-meta">Education &amp; research</span></article>
+        <article class="institution"><div class="institution-badge">HN</div><div><h3>House of Nathaniel</h3><p>Health, wellbeing and health-system knowledge within its proper professional competence.</p></div><span class="institution-meta">Health &amp; wellbeing</span></article>
+        <article class="institution"><div class="institution-badge">HV</div><div><h3>House of Vivienne</h3><p>Banking, finance, economics and financial education, with clear boundaries around real-world authority.</p></div><span class="institution-meta">Finance &amp; economics</span></article>
+        <article class="institution"><div class="institution-badge">HC</div><div><h3>House of Catholic</h3><p>Catholic theology, formation, faith, history and Church-related public understanding, always subject to competent Church authority.</p></div><span class="institution-meta">Faith &amp; theology</span></article>
+        <article class="institution"><div class="institution-badge">HOC</div><div><h3>House of Carol</h3><p>A distinct real-world enterprise and the transparent commercial bridge from Aldernian intellectual life into professional services.</p></div><a class="institution-link" href="https://houseofcarol.co.uk/">Visit the real-world business ↗</a></article>
+        <article class="institution"><div class="institution-badge">DF</div><div><h3>HMDF</h3><p>Defence, resilience, cyber-defence, continuity and emergency preparedness inside the fictional constitutional world.</p></div><span class="institution-meta">Defence &amp; resilience</span></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="faith" class="inheritance">
+    <div class="section">
+      <div class="section-head">
+        <div><p class="section-kicker">Faith, conscience &amp; public life</p><h2>A country with memory — and room for conscience.</h2></div>
+        <p class="section-intro">Aldernia acknowledges a Catholic inheritance without turning faith into a shortcut to political power. Catholic social principles enrich its understanding of dignity, community, solidarity, subsidiarity and service; democratic institutions protect pluralism and freedom of conscience.</p>
+      </div>
+      <div class="inheritance-layout">
+        <div class="inheritance-copy">
+          <p><strong>Faith is not erased from public life.</strong> Churches, religious heritage, worship, formation, service and moral argument can be visible where they genuinely belong.</p>
+          <p><strong>Nor is faith conscripted by the state.</strong> Government is not the Church; the Crown is not the Magisterium; electoral legitimacy comes from the democratic constitutional order.</p>
+          <p><strong>Conscience matters.</strong> People may believe, doubt, disagree, organise, argue and participate without surrendering their dignity or civic standing.</p>
+          <p><strong>Public reason still has work to do.</strong> Law and policy must be explainable through the constitutional order, evidence, rights and the common good — not merely by asserting private authority.</p>
+        </div>
+        <aside class="inheritance-panel">
+          <p>Human dignity before machinery.<br>Service before spectacle.<br>Truth before convenience.<br>Conscience without coercion.<br>Power with limits.</p>
+          <span class="small">Aldernian civic ethic</span>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="closing">
+    <div class="section">
+      <div class="closing-mark" aria-hidden="true">A</div>
+      <h2>Democracy is not decoration. It is a habit.</h2>
+      <p>Aldernia asks what public life can become when institutions are intelligible, power is expected to explain itself, evidence can change a mind and the purpose of the system remains the flourishing of people.</p>
+    </div>
+  </section>
 </main>
-<footer class="footer">
+
+<footer class="dynasty-footer">
   <div class="footer-inner">
     <span>© 2026 Aldernia</span>
+    <a href="index.html">Aldernia home</a>
+    <a href="experiment.html">The Aldernian Experiment</a>
+    <a href="experiment-journal.html">Experiment Journal</a>
     <a href="legal.html">Legal &amp; fiction</a>
     <a href="privacy.html">Privacy &amp; cookies</a>
     <a href="accessibility.html">Accessibility</a>
-    <a href="https://houseofcarol.co.uk/">House of Carol ↗</a>
   </div>
+  <p class="fiction-disclosure">Aldernia is a fictional country and participatory editorial world. Its institutions, elections, places and in-world statistics are part of the fiction unless a page clearly identifies real-world material.</p>
 </footer>
 </body>
 </html>
