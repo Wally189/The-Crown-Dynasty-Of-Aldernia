@@ -1,0 +1,38 @@
+name: One Ferry Two Places QA
+
+on:
+  push:
+    branches:
+      - crown/world-state-one-ferry-two-places-2026-09-20
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  persistent-causal-world-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out experiment branch
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Full repository regression
+        run: python -m unittest discover -s tests -v
+
+      - name: Execute one ferry two places persistence proof
+        run: |
+          mkdir -p evidence
+          python proof/one_ferry_two_places.py --evidence evidence/one-ferry-two-places.json
+
+      - name: Upload non-production proof evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: one-ferry-two-places-evidence
+          path: evidence/one-ferry-two-places.json
+          if-no-files-found: error
