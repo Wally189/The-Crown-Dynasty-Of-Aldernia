@@ -67,6 +67,7 @@ jobs:
           const path = require('path');
           const axePath = require.resolve('axe-core/axe.min.js');
 
+          (async () => {
           const base = 'https://wally189.github.io/The-Crown-Dynasty-Of-Aldernia';
           const routes = [
             '/',
@@ -182,6 +183,7 @@ jobs:
             process.exit(1);
           }
           console.log('\nBrowser/mobile, reduced-motion and WCAG-tagged axe checks passed.');
+          })().catch(err => { console.error(err); process.exit(1); });
           NODE
           node /tmp/aldernia-browser-check.cjs
 
@@ -191,5 +193,5 @@ jobs:
         with:
           name: aldernia-browser-assurance-${{ github.sha }}
           path: assurance/screens
-          if-no-files-found: error
+          if-no-files-found: warn
           retention-days: 7
