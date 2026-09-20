@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A schematic national atlas of fictional Aldernia: regions, principal cities, rail spine and island ferry links.">
+  <link rel="icon" href="/The-Crown-Dynasty-Of-Aldernia/favicon.svg" type="image/svg+xml">
+  <title>Atlas — Aldernia</title>
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body class="country-surface">
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"><div class="header-inner">
+  <a class="wordmark" href="./">Aldernia <small>Atlas</small></a>
+  <nav class="site-nav" aria-label="Country"><a href="./">Home</a><a aria-current="page" href="map.html">Atlas</a><a href="today.html">Today</a><a href="places.html">Places</a><a href="government.html">Government</a><a href="life.html">Daily life</a><a href="media.html">Media</a><a href="learn.html">Learn</a></nav>
+</div></header>
+
+<main id="main">
+<section class="hero dark"><div class="wrap hero-grid">
+  <div>
+    <span class="pill fiction">Fictional national atlas</span>
+    <p class="eyebrow" style="margin-top:1rem">Sea, stone and seven regions</p>
+    <h1>Aldernia is shaped by water.</h1>
+    <p class="lede">The Greyspine rises in the north; the River Aure reaches the eastern sea at St Aurelia; Bracken faces the rougher west; Eastvale opens into gentler farmland; Southmarch works the southern ports; High Alder holds forest and water; St Brigid’s and the Kestrels sit beyond the main island on ferry routes.</p>
+  </div>
+  <aside class="hero-note"><strong>This is a schematic public-world map, not a surveyed map.</strong><br>It expresses established relative geography and connections without inventing precise coordinates, legal boundaries or live timetables.</aside>
+</div></section>
+
+<section class="section"><div class="wrap">
+  <p class="eyebrow">National map</p>
+  <h2>One realm, drawn as a place rather than a diagram of institutions.</h2>
+
+  <div class="map-shell">
+    <div class="map-frame">
+      <svg class="aldernia-map" viewBox="0 0 900 720" role="img" aria-labelledby="atlas-title atlas-desc">
+        <title id="atlas-title">Schematic map of fictional Aldernia</title>
+        <desc id="atlas-desc">A stylised map showing the seven regions, principal cities, the River Aure, an indicative national rail spine and ferry links to St Brigid's Isle and the Kestrels. Shapes and positions are illustrative rather than surveyed.</desc>
+        <rect class="sea" x="0" y="0" width="900" height="720" rx="10"/>
+        <text class="water-label" x="65" y="125">Western Sea</text>
+        <text class="water-label" x="710" y="160">Eastern Reach</text>
+
+        <path class="region northmere" d="M365 65 C430 34 519 49 565 107 L551 204 475 238 377 205 335 129 Z"/>
+        <path class="region bracken" d="M276 178 377 205 389 349 304 425 236 350 247 245 Z"/>
+        <path class="region capital" d="M475 238 551 204 630 253 625 352 549 393 471 342 Z"/>
+        <path class="region eastvale" d="M471 342 549 393 610 469 548 548 454 520 421 420 Z"/>
+        <path class="region highalder" d="M304 425 389 349 421 420 454 520 356 565 286 509 Z"/>
+        <path class="region southmarch" d="M356 565 454 520 548 548 527 639 432 678 337 626 Z"/>
+        <path class="coast-outline" d="M365 65 C430 34 519 49 565 107 L551 204 630 253 625 352 610 469 548 548 527 639 432 678 337 626 286 509 236 350 247 245 276 178 335 129 Z"/>
+
+        <path class="river" d="M455 160 C470 250 505 282 540 320 C570 350 593 377 623 393"/>
+        <path class="rail" d="M445 135 C454 210 500 270 548 315 C530 385 487 465 442 585"/>
+        <path class="rail" d="M548 315 C486 335 403 360 318 360"/>
+        <path class="rail" d="M488 470 C532 478 563 489 586 514"/>
+
+        <circle class="city-dot" cx="445" cy="135" r="8"/>
+        <text class="place-label" x="462" y="139">Northmere City</text>
+        <circle class="city-dot" cx="548" cy="315" r="9"/>
+        <text class="place-label" x="566" y="319">St Aurelia</text>
+        <circle class="city-dot" cx="318" cy="360" r="8"/>
+        <text class="place-label" x="240" y="354">Westhaven</text>
+        <circle class="city-dot" cx="586" cy="514" r="8"/>
+        <text class="place-label" x="603" y="519">Bellafield</text>
+        <circle class="city-dot" cx="442" cy="585" r="9"/>
+        <text class="place-label" x="458" y="590">Merrow</text>
+
+        <text class="region-label" x="398" y="185">Northmere</text>
+        <text class="region-label" x="260" y="303">Bracken Coast</text>
+        <text class="region-label" x="500" y="285">Crown Capital</text>
+        <text class="region-label" x="500" y="446">Eastvale</text>
+        <text class="region-label" x="320" y="486">High Alder</text>
+        <text class="region-label" x="383" y="626">Southmarch</text>
+        <text class="water-label" x="500" y="210">River Aure</text>
+
+        <path class="islands" d="M142 462 C169 444 203 454 212 484 C218 510 193 537 162 531 C137 526 124 486 142 462 Z"/>
+        <circle class="islands" cx="83" cy="515" r="17"/>
+        <circle class="islands" cx="61" cy="550" r="11"/>
+        <circle class="islands" cx="96" cy="572" r="9"/>
+        <text class="region-label" x="118" y="565">St Brigid’s Isle</text>
+        <text class="place-label" x="28" y="610">The Kestrels</text>
+
+        <path class="ferry" d="M337 626 C275 614 226 575 184 521"/>
+        <path class="ferry" d="M160 514 C125 520 102 534 83 550"/>
+        <text class="water-label" x="212" y="604">Ferry routes</text>
+      </svg>
+    </div>
+    <div class="map-meta">
+      <ul class="map-legend" aria-label="Map legend">
+        <li><span class="map-key"></span>Indicative rail spine</li>
+        <li><span class="map-key ferry"></span>Ferry connection</li>
+        <li><span class="map-key city"></span>Principal city</li>
+      </ul>
+      <p class="map-disclaimer">Schematic geography: relative position and national character only. No electoral, cadastral, navigation or emergency use.</p>
+    </div>
+  </div>
+</div></section>
+
+<section class="section alt"><div class="wrap">
+  <p class="eyebrow">Regional lenses</p>
+  <h2>The same country should not look identical everywhere.</h2>
+  <div class="place-lenses">
+    <div class="place-lens"><strong>St Aurelia / Crown Capital</strong><span>Limestone civic fabric, the River Aure, gardens, trams, arcades, domes and spires; ceremonial navy and gold used only when ceremony deserves it.</span></div>
+    <div class="place-lens"><strong>Merrow</strong><span>A dense commercial waterfront: older harbour streets beside contemporary workplaces, ferries, hotels, markets and working trade infrastructure.</span></div>
+    <div class="place-lens"><strong>Northmere</strong><span>Mountains meeting water; slate, stone and timber; engineering, technical education, clean transit and modern buildings framed by landscape.</span></div>
+    <div class="place-lens"><strong>Bracken Coast</strong><span>Weathered western ports, lighthouses, working boats, slate, sea green, market streets and literary life without postcard prettification.</span></div>
+    <div class="place-lens"><strong>Eastvale & High Alder</strong><span>Orchards, farmland, forests, reservoirs, walkable towns, libraries, schools, gardens, contemporary housing and confident ordinary public life.</span></div>
+    <div class="place-lens"><strong>Southmarch</strong><span>Ports, marine research, shipyards, ferries, clean energy and blue-green public realm: future-facing, but emphatically not science fiction.</span></div>
+    <div class="place-lens"><strong>St Brigid’s Isle</strong><span>Old stone, university life, sacred architecture, cloisters, maritime culture and Catholic heritage within the proper Church/state boundary.</span></div>
+    <div class="place-lens"><strong>The Kestrels</strong><span>Storm coasts, harbour walls, ferries, coastguard infrastructure, rope, slate and quiet resilience that looks capable rather than apocalyptic.</span></div>
+  </div>
+</div></section>
+
+<section class="section"><div class="wrap national-grammar">
+  <div>
+    <p class="eyebrow">National visual sentence</p>
+    <h2>An old island country that has learned how to run itself well.</h2>
+    <p class="lede">Pale limestone and granite. Harbours and mountains. Useful libraries. Churches and markets. Ferries and trams. Old streets and new research buildings. Gardens, storm walls, cafés and institutions with doors that look as though people are expected to use them.</p>
+    <p>New architecture does not impersonate the old. Technology belongs in the world but does not become its wallpaper. The national identity is carried by material, proportion, place, public life and good information.</p>
+  </div>
+  <div class="material-board">
+    <strong>The common field</strong>
+    <div class="material-swatches" aria-label="Aldernian visual palette">
+      <div class="material-swatch">Alder</div>
+      <div class="material-swatch">Harbour</div>
+      <div class="material-swatch">Land</div>
+      <div class="material-swatch">Wheat</div>
+      <div class="material-swatch">Stone</div>
+    </div>
+  </div>
+</div></section>
+
+<section class="section dark"><div class="wrap grid-2">
+  <div><p class="eyebrow">Connections</p><h2>The sea is infrastructure, not scenery.</h2></div>
+  <div class="measure"><p>Rail, buses, trams and ferries should gradually become visible across Aldernia as governed schedules and world objects earn enough truth to support them. The current persistent world-state experiment already proves that a ferry can leave one place, survive a runtime restart and arrive somewhere else without the system forgetting what happened.</p><p>That machine proof remains separate from this public schematic. A public service becomes “live” only when its public data is separately authorised and evidenced.</p><div class="button-row"><a class="button primary" href="infrastructure.html">Explore infrastructure</a><a class="button" href="places.html">Explore places</a></div></div>
+</div></section>
+</main>
+
+<footer class="footer"><div class="wrap footer-grid"><div><strong>Aldernia Atlas</strong><p class="small">A schematic map of a fictional country, based on current public-world geography. It is not real-world navigation or legal boundary data.</p><p class="small">Build <span data-build>loading…</span></p></div><nav class="footer-links" aria-label="Footer"><a href="./">Country home</a><a href="places.html">Places</a><a href="infrastructure.html">Infrastructure</a><a href="../experiment/">Experiment</a><a href="../accessibility.html">Accessibility</a></nav></div></footer>
+<script src="../assets/site.js" data-root="../"></script>
+</body>
+</html>
