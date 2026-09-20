@@ -1,0 +1,25 @@
+name: Central Aldernia Clock
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 * * * *"
+
+permissions:
+  contents: read
+
+jobs:
+  clock-health-and-chime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out production main
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Deterministic clock tests
+        run: python -m unittest discover -s tests -v
+      - name: Bounded chime and timetable proof
+        run: python proof/first_chime.py
