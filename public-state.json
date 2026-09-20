@@ -1,22 +1,25 @@
 {
   "$schema": "aldernia-public-state/0.1",
-  "generated_for": "internal-review",
   "date": "2026-09-20",
   "public_world": {
     "name": "Aldernia",
+    "official_in_world_name": "The Kingdom of Aldernia",
     "status": "founding-period",
-    "nature": "fictional-country-and-participatory-editorial-world"
+    "nature": "fictional-country-and-participatory-editorial-world",
+    "capital": "St Aurelia",
+    "largest_commercial_city": "Merrow",
+    "regions": 7
   },
-  "controlled_production_baseline": {
-    "repository": "Wally189/The-Crown-Dynasty-Of-Aldernia",
-    "branch": "main",
-    "commit": "5725990bca601b82146bb7302208162385374e4a",
-    "host": "GitHub Pages",
-    "verified_by_current_palace_record": true
+  "public_routes": {
+    "today": "index.html",
+    "country": "country.html",
+    "experiment": "experiment.html",
+    "experiment_record": "experiment-record.html",
+    "experiment_journal": "experiment-journal.html",
+    "archive": "archive.html"
   },
-  "current_capabilities": {
-    "static_html_css": true,
-    "client_side_javascript": false,
+  "current_public_capabilities": {
+    "static_reading": true,
     "forms": false,
     "accounts": false,
     "analytics": false,
@@ -24,18 +27,9 @@
     "public_api": false,
     "civic_voting": false
   },
-  "review_candidate": {
-    "branch": "review/aldernia-public-world-20260920",
-    "public_review_branch": true,
-    "production_change": false,
-    "production_release": false,
-    "pages": [
-      "today",
-      "country",
-      "experiment-record",
-      "archive"
-    ],
-    "preserved_existing_experiment_urls": true,
-    "purpose": "Crown review of reassessed public-world architecture"
+  "publication_boundary": {
+    "civic_participation_active": false,
+    "real_world_public_authority": false,
+    "fiction_disclosure": "Aldernia is a fictional country and participatory editorial world."
   }
 }
