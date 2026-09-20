@@ -43,7 +43,11 @@ Logical state is atomically persisted when a state path is supplied. Malformed/b
 
 The clock reads deterministic system time and does not require an LLM to keep time.
 
-GitHub Actions is the current wake-up scheduler. It runs hourly at minute 17, first runs all deterministic clock tests, then performs one bounded chime/timetable proof. The workflow has read-only repository permissions and does not select Dynasty missions.
+GitHub Actions is the current wake-up scheduler. It runs hourly at minute 17 UTC, first runs all deterministic clock tests, then performs one bounded chime/timetable proof. It also runs on production-`main` updates as a health/regression check.
+
+Scheduler runs serialise through a single concurrency group. Operational logical state is restored from and written back to the dedicated `clock-state` branch, so successive authorised chimes advance one shared Dynasty tick rather than restarting at zero. The `clock-state` branch is runtime state only; production code remains on `main`.
+
+The workflow may write only that clock-state branch. It does not select Dynasty missions.
 
 ## Acceptance coverage
 
