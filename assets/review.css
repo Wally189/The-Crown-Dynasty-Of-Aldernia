@@ -144,3 +144,5 @@ h2{margin:0;font:500 clamp(2.1rem,4.5vw,4rem)/1.02 var(--serif);letter-spacing:-
   .fact-grid,.route-grid{grid-template-columns:1fr}
   .fact-card{border-right:0;border-bottom:1px solid var(--line)}
 }
+
+.error-title{margin:0;font:500 clamp(2.4rem,6vw,4.8rem)/1 var(--serif);letter-spacing:-.035em;color:var(--alder-dark);text-wrap:balance}
