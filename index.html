@@ -3,147 +3,38 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Aldernia</title>
-  <style>
-    :root { color-scheme: light; }
-    * { box-sizing: border-box; }
-    html, body { margin: 0; min-height: 100%; background: #fff; color: #111; }
-    body {
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      font-family: Arial, Helvetica, sans-serif;
-    }
-    main {
-      width: min(92vw, 980px);
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: clamp(2rem, 8vw, 7rem);
-      align-items: center;
-      text-align: center;
-    }
-    .clock { min-width: 0; }
-    .label {
-      margin: 0 0 0.85rem;
-      font-size: 0.72rem;
-      font-weight: 700;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-    }
-    .value {
-      margin: 0;
-      font-variant-numeric: tabular-nums;
-      white-space: nowrap;
-    }
-    #computing {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: clamp(1.15rem, 3.2vw, 2.4rem);
-      letter-spacing: -0.035em;
-    }
-    #human {
-      font-size: clamp(2.5rem, 8vw, 6.5rem);
-      font-weight: 300;
-      letter-spacing: -0.055em;
-    }
-    #moment {
-      grid-column: 1 / -1;
-      min-height: 1.5em;
-      margin: calc(clamp(2rem, 8vw, 7rem) * -0.45) 0 0;
-      font-size: clamp(0.92rem, 2vw, 1.08rem);
-      letter-spacing: 0.01em;
-      opacity: 0.58;
-    }
-    @media (max-width: 680px) {
-      main { grid-template-columns: 1fr; gap: 3.25rem; }
-      #moment { margin-top: -1.4rem; }
-    }
-  </style>
+  <meta name="description" content="The Crown Dynasty of Aldernia: an experiment in governed AI and a fictional democratic island country.">
+  <title>The Crown Dynasty of Aldernia</title>
+  <link rel="stylesheet" href="assets/styles.css">
 </head>
-<body>
-  <main aria-label="Aldernian clocks">
-    <section class="clock" aria-label="Computing clock">
-      <p class="label">Computing</p>
-      <p class="value" id="computing">0000000000000</p>
-    </section>
+<body class="threshold">
+  <a class="skip-link" href="#doors">Skip to entrances</a>
+  <main class="threshold-main" aria-label="Aldernian clocks and entrances">
+    <h1 class="sr-only">The Crown Dynasty of Aldernia</h1>
+    <div class="clock-grid">
+      <section aria-label="Computing clock">
+        <p class="clock-label">Computing</p>
+        <p class="clock-value" id="computing" data-computing-time>0000000000000</p>
+      </section>
+      <section aria-label="Human clock">
+        <p class="clock-label">Human</p>
+        <p class="clock-value" id="human" data-human-time>00:00:00</p>
+      </section>
+      <p id="moment" data-aldernia-moment aria-live="polite">A moment in Aldernia</p>
+    </div>
 
-    <section class="clock" aria-label="Human clock">
-      <p class="label">Human</p>
-      <p class="value" id="human">00:00:00</p>
-    </section>
-
-    <p id="moment" aria-live="polite"></p>
+    <nav class="threshold-doors" id="doors" aria-label="Choose a way into Aldernia">
+      <a class="door" href="experiment/">
+        <span><strong>Enter the experiment</strong><br>The real attempt to make one LLM behave like a governed ecosystem.</span>
+        <b aria-hidden="true">→</b>
+      </a>
+      <a class="door" href="country/">
+        <span><strong>Enter Aldernia</strong><br>A fictional island country that intends to have more going on than its homepage.</span>
+        <b aria-hidden="true">→</b>
+      </a>
+    </nav>
   </main>
-
-  <script>
-    const computing = document.getElementById('computing');
-    const human = document.getElementById('human');
-    const moment = document.getElementById('moment');
-
-    const humanTime = new Intl.DateTimeFormat('en-GB', {
-      timeZone: 'Europe/London',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
-      hourCycle: 'h23'
-    });
-
-    const weekday = new Intl.DateTimeFormat('en-GB', {
-      timeZone: 'Europe/London',
-      weekday: 'long'
-    });
-
-    const londonHour = new Intl.DateTimeFormat('en-GB', {
-      timeZone: 'Europe/London',
-      hour: '2-digit',
-      hourCycle: 'h23'
-    });
-
-    let publicState = null;
-    let lastMomentSecond = -1;
-
-    function daypart(hour) {
-      if (hour >= 5 && hour < 12) return 'morning';
-      if (hour >= 12 && hour < 17) return 'afternoon';
-      if (hour >= 17 && hour < 22) return 'evening';
-      return 'night';
-    }
-
-    function renderMoment(now) {
-      const config = publicState?.human_moment;
-      if (!config?.enabled || config.mode !== 'weekday-daypart') {
-        moment.textContent = '';
-        return;
-      }
-      const hour = Number(londonHour.format(now));
-      const suffix = typeof config.suffix === 'string' ? config.suffix : 'in Aldernia.';
-      moment.textContent = `${weekday.format(now)} ${daypart(hour)} ${suffix}`;
-    }
-
-    async function loadPublicState() {
-      try {
-        const response = await fetch('aldernia/public-state.json', { cache: 'no-store' });
-        if (!response.ok) return;
-        publicState = await response.json();
-        renderMoment(new Date());
-      } catch (_) {
-        // The clocks remain independently usable if public-state is unavailable.
-      }
-    }
-
-    function tick() {
-      const now = new Date();
-      computing.textContent = String(now.getTime());
-      human.textContent = humanTime.format(now);
-      const second = Math.floor(now.getTime() / 1000);
-      if (second !== lastMomentSecond) {
-        lastMomentSecond = second;
-        renderMoment(now);
-      }
-      requestAnimationFrame(tick);
-    }
-
-    loadPublicState();
-    tick();
-  </script>
+  <footer class="threshold-foot">The Crown Dynasty of Aldernia · <span data-build>loading build…</span></footer>
+  <script src="assets/site.js" data-root="./"></script>
 </body>
 </html>
