@@ -10,6 +10,7 @@ import tempfile
 from typing import Any, Mapping
 
 from central_aldernia_clock import CentralAlderniaClock
+from aldernia_runtime.session import evaluate
 
 BUS_STATE_VERSION = 1
 EVENT_TYPE_HUMAN_MOMENT = "org.aldernia.public.human-moment.v1"
@@ -216,6 +217,7 @@ def receipt_for(event: BusEnvelope, public_state: Mapping[str, Any]) -> dict[str
 def process_one_cycle(
     *,
     state_path: Path,
+    session_path: Path,
     inbox_dir: Path,
     public_state_path: Path,
     releases_dir: Path,
@@ -229,6 +231,10 @@ def process_one_cycle(
     if not isinstance(interval_seconds, int) or interval_seconds <= 0:
         raise ValueError("interval_seconds must be a positive integer")
     cycle = clock.snapshot(now).unix_timestamp // interval_seconds
+    session, session_status = evaluate(session_path, now=now)
+    if session_status not in {"ACTIVE_TIMED", "ACTIVE_COMMAND", "ACTIVE_COMMAND_CHECKPOINT"}:
+        return {"cycle": cycle, "status": f"BUS_{session_status}", "event_id": None}
+
     state = load_bus_state(state_path)
     files = sorted(inbox_dir.glob("*.json")) if inbox_dir.exists() else []
 
@@ -274,6 +280,7 @@ def main(argv: list[str] | None = None) -> int:
     sub = parser.add_subparsers(dest="command", required=True)
     cycle = sub.add_parser("cycle")
     cycle.add_argument("--state", required=True)
+    cycle.add_argument("--session", required=True)
     cycle.add_argument("--inbox", required=True)
     cycle.add_argument("--public-state", required=True)
     cycle.add_argument("--releases", required=True)
@@ -282,6 +289,7 @@ def main(argv: list[str] | None = None) -> int:
 
     result = process_one_cycle(
         state_path=Path(args.state),
+        session_path=Path(args.session),
         inbox_dir=Path(args.inbox),
         public_state_path=Path(args.public_state),
         releases_dir=Path(args.releases),
