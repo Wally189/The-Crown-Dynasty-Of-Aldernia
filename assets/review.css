@@ -119,3 +119,28 @@ h2{margin:0;font:500 clamp(2.1rem,4.5vw,4rem)/1.02 var(--serif);letter-spacing:-
   body{background:#fff;color:#000}.hero,.page-hero,.experiment-band{background:#fff;color:#000;border-bottom:2px solid #000}
   .hero h1,.page-hero h1,.experiment-band h2{color:#000}.hero-lede,.page-hero p,.experiment-band p{color:#000}
 }
+
+/* Crown bounded remediation: national composition uses rules, columns and ledgers rather than card soup. */
+.story-card,.fact-card,.route-card,.record-card,.archive-item,.directory article,.evidence{
+  background:transparent;
+  box-shadow:none;
+  border:0;
+}
+.story-card{padding:0 0 1.4rem;border-top:4px solid var(--navy);border-bottom:1px solid var(--line)}
+.fact-grid{gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.fact-card{padding:1.1rem 1rem 1.1rem 0;border-right:1px solid var(--line)}
+.fact-card:last-child{border-right:0}
+.route-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:0 2rem;background:transparent;border:0;border-top:1px solid var(--line)}
+.route-card{min-height:0;padding:1.15rem 0;border-bottom:1px solid var(--line)}
+.experiment-grid{gap:2rem;border-top:1px solid rgba(255,255,255,.28)}
+.record-card{padding:1.3rem 0;border-bottom:1px solid rgba(255,255,255,.28)}
+.record-card.dark{background:transparent;border-color:rgba(255,255,255,.28)}
+.timeline{gap:0;border-top:1px solid var(--line)}
+.archive-item{padding:1.1rem 0;border-bottom:1px solid var(--line)}
+.directory{gap:0 2rem}
+.directory article{padding:1.2rem 0;border-bottom:1px solid var(--line)}
+.machine-box{background:transparent;border-left:0;border-right:0}
+@media(max-width:640px){
+  .fact-grid,.route-grid{grid-template-columns:1fr}
+  .fact-card{border-right:0;border-bottom:1px solid var(--line)}
+}
