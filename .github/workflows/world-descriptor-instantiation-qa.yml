@@ -1,0 +1,50 @@
+name: World Descriptor Instantiation QA
+
+on:
+  push:
+    branches:
+      - crown/world-descriptor-instantiation-2026-09-20
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  descriptor-world-proof:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Check out descriptor branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Compile Python sources
+        run: python -m compileall -q central_aldernia_clock aldernia_runtime proof tests
+
+      - name: Verify public artifact isolation
+        run: |
+          git diff --exit-code 3291d7af211bcc800054ee0b86a1f178569f5c85 -- index.html aldernia/public-state.json
+          mkdir -p evidence
+          git diff --name-only 3291d7af211bcc800054ee0b86a1f178569f5c85 > evidence/changed-files.txt
+          git rev-parse HEAD > evidence/branch-head.txt
+          git rev-parse origin/main > evidence/observed-origin-main.txt
+
+      - name: Full repository regression
+        run: python -m unittest discover -s tests -v
+
+      - name: Execute descriptor-to-world proof
+        run: python proof/world_descriptor_instantiation.py --evidence evidence/world-descriptor-instantiation.json
+
+      - name: Upload non-production evidence
+        uses: actions/upload-artifact@v4
+        with:
+          name: world-descriptor-instantiation-evidence
+          path: evidence/
+          if-no-files-found: error
+          retention-days: 7
