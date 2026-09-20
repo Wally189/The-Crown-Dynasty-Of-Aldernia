@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "id": "ALD-CROWN-FOUNDING-05",
+  "id": "ALD-CROWN-FOUNDING-06",
   "date": "2026-09-20",
-  "status": "public civic-depth accessibility and regression repaired edition",
+  "status": "public living-country candidate edition",
   "facets": ["experiment", "country"],
   "country_layers": ["today", "history", "places", "government", "assembly", "services", "economy", "infrastructure", "culture", "community", "media", "learning", "data"],
   "privacy_posture": "no analytics, accounts, forms, payments, donations, comments, public voting or non-essential storage in this edition"
