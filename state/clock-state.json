@@ -1,6 +1,6 @@
 {
-  "dynasty_tick": 0,
-  "last_event_id": null,
-  "previous_dynasty_tick": null,
+  "dynasty_tick": 1,
+  "last_event_id": "ald-01e82fb5-be9a-4f87-91de-b477122b1e90",
+  "previous_dynasty_tick": 0,
   "state_version": 1
 }
