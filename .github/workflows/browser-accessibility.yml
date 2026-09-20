@@ -1,0 +1,195 @@
+name: Aldernia Browser & Accessibility Assurance
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: aldernia-browser-accessibility
+  cancel-in-progress: true
+
+jobs:
+  browser-accessibility:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Check out accepted main
+        uses: actions/checkout@v4
+
+      - name: Wait for the accepted public build
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE="https://wally189.github.io/The-Crown-Dynasty-Of-Aldernia"
+          EXPECTED="$(python -c 'import json; print(json.load(open("aldernia/build.json"))["id"])')"
+          seen=""
+          for attempt in $(seq 1 45); do
+            served="$(curl -fsSL --connect-timeout 5 --max-time 15 "$BASE/aldernia/build.json" || true)"
+            if [ -n "$served" ]; then
+              seen="$(python -c 'import json,sys; print(json.load(sys.stdin).get("id",""))' <<<"$served" 2>/dev/null || true)"
+            fi
+            if [ "$seen" = "$EXPECTED" ]; then
+              echo "Served build identity: $seen"
+              exit 0
+            fi
+            sleep 4
+          done
+          echo "Expected served build $EXPECTED but last observed $seen" >&2
+          exit 1
+
+      - name: Locate Chrome
+        id: chrome
+        shell: bash
+        run: |
+          set -euo pipefail
+          BIN="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || command -v chromium-browser || true)"
+          test -n "$BIN"
+          echo "bin=$BIN" >> "$GITHUB_OUTPUT"
+          "$BIN" --version
+
+      - name: Install bounded browser assurance dependencies
+        shell: bash
+        run: npm install --no-save puppeteer-core@24 axe-core@4
+
+      - name: Run desktop/mobile browser and WCAG checks
+        env:
+          CHROME_BIN: ${{ steps.chrome.outputs.bin }}
+        shell: bash
+        run: |
+          mkdir -p assurance/screens
+          cat > /tmp/aldernia-browser-check.cjs <<'NODE'
+          const puppeteer = require('puppeteer-core');
+          const path = require('path');
+          const axePath = require.resolve('axe-core/axe.min.js');
+
+          const base = 'https://wally189.github.io/The-Crown-Dynasty-Of-Aldernia';
+          const routes = [
+            '/',
+            '/experiment/',
+            '/country/',
+            '/country/today.html',
+            '/country/history.html',
+            '/country/places.html',
+            '/country/government.html',
+            '/country/assembly.html',
+            '/country/services.html',
+            '/country/economy.html',
+            '/country/infrastructure.html',
+            '/country/culture.html',
+            '/country/community.html',
+            '/country/life.html',
+            '/country/media.html',
+            '/country/learn.html',
+            '/country/data.html',
+            '/privacy.html',
+            '/accessibility.html'
+          ];
+          const viewports = [
+            {name:'mobile', width:390, height:844, isMobile:true, hasTouch:true},
+            {name:'desktop', width:1440, height:900, isMobile:false, hasTouch:false}
+          ];
+          const screenshotRoutes = new Set(['/', '/experiment/', '/country/', '/country/assembly.html']);
+          const failures = [];
+          const browser = await puppeteer.launch({
+            executablePath: process.env.CHROME_BIN,
+            headless: true,
+            args: ['--no-sandbox', '--disable-dev-shm-usage']
+          });
+
+          for (const viewport of viewports) {
+            const page = await browser.newPage();
+            await page.setViewport(viewport);
+            await page.emulateMediaFeatures([{name:'prefers-reduced-motion', value:'reduce'}]);
+
+            const runtimeErrors = [];
+            page.on('pageerror', err => runtimeErrors.push(String(err)));
+            page.on('console', msg => {
+              if (msg.type() === 'error') runtimeErrors.push(msg.text());
+            });
+
+            for (const route of routes) {
+              runtimeErrors.length = 0;
+              const url = base + route;
+              const response = await page.goto(url, {waitUntil:'networkidle0', timeout:30000});
+              if (!response || !response.ok()) {
+                failures.push(`${viewport.name} ${route}: HTTP ${response ? response.status() : 'no response'}`);
+                continue;
+              }
+
+              const layout = await page.evaluate(() => ({
+                scrollWidth: document.documentElement.scrollWidth,
+                clientWidth: document.documentElement.clientWidth,
+                h1: document.querySelectorAll('h1').length,
+                skip: Boolean(document.querySelector('a.skip-link')),
+                scrollBehavior: getComputedStyle(document.documentElement).scrollBehavior
+              }));
+              if (layout.scrollWidth > layout.clientWidth + 1) {
+                failures.push(`${viewport.name} ${route}: horizontal overflow ${layout.scrollWidth} > ${layout.clientWidth}`);
+              }
+              if (layout.h1 !== 1) failures.push(`${viewport.name} ${route}: expected exactly one h1, saw ${layout.h1}`);
+              if (!layout.skip) failures.push(`${viewport.name} ${route}: missing skip link`);
+              if (layout.scrollBehavior !== 'auto') failures.push(`${viewport.name} ${route}: reduced-motion scroll-behavior is ${layout.scrollBehavior}`);
+
+              await page.evaluate(() => { document.activeElement && document.activeElement.blur(); window.scrollTo(0,0); });
+              await page.keyboard.press('Tab');
+              const focus = await page.evaluate(() => {
+                const el = document.activeElement;
+                if (!el) return {skip:false, visible:false};
+                const rect = el.getBoundingClientRect();
+                const style = getComputedStyle(el);
+                return {
+                  skip: el.matches('a.skip-link'),
+                  visible: rect.width > 0 && rect.height > 0 && rect.bottom > 0 && style.visibility !== 'hidden'
+                };
+              });
+              if (!focus.skip || !focus.visible) failures.push(`${viewport.name} ${route}: first keyboard focus is not a visible skip link`);
+
+              await page.addScriptTag({path: axePath});
+              const axe = await page.evaluate(async () => {
+                const result = await window.axe.run(document, {
+                  runOnly: {type:'tag', values:['wcag2a','wcag2aa','wcag21aa','wcag22aa']}
+                });
+                return result.violations.map(v => ({
+                  id:v.id, impact:v.impact, help:v.help,
+                  nodes:v.nodes.map(n => n.target.join(' '))
+                }));
+              });
+              if (axe.length) failures.push(`${viewport.name} ${route}: axe violations ${JSON.stringify(axe)}`);
+
+              if (runtimeErrors.length) failures.push(`${viewport.name} ${route}: runtime console/page errors ${runtimeErrors.join(' | ')}`);
+
+              if (screenshotRoutes.has(route)) {
+                const slug = route === '/' ? 'threshold' : route.replace(/^\/|\/$/g,'').replace(/[\/\.]/g,'-');
+                await page.screenshot({
+                  path: path.join('assurance','screens',`${viewport.name}-${slug}.png`),
+                  fullPage: true
+                });
+              }
+              console.log(`PASS ${viewport.name} ${route}`);
+            }
+            await page.close();
+          }
+
+          await browser.close();
+          if (failures.length) {
+            console.error('\nASSURANCE FAILURES');
+            failures.forEach(x => console.error('- ' + x));
+            process.exit(1);
+          }
+          console.log('\nBrowser/mobile, reduced-motion and WCAG-tagged axe checks passed.');
+          NODE
+          node /tmp/aldernia-browser-check.cjs
+
+      - name: Preserve browser screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: aldernia-browser-assurance-${{ github.sha }}
+          path: assurance/screens
+          if-no-files-found: error
+          retention-days: 7
