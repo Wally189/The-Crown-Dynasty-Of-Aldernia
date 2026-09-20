@@ -1,0 +1,8 @@
+{
+  "candidate":"living-aldernia-rc1",
+  "base_production_sha":"b7b958a476fa949e3524da589fbe941260362a6a",
+  "created_from":"Crown-approved Candidate 01 direction plus CAB-01 current controlled state",
+  "production_authority":false,
+  "preserved_experiment_urls":["experiment.html","experiment-method.html","experiment-origins.html","experiment-hypothesis.html","experiment-journal.html","experiment-about.html","experiment-contact.html"],
+  "required_before_publication":["exact-source static QA","keyboard and 400%/320px reflow","desktop and mobile visual review","privacy/security/editorial challenge","Crown publication decision"]
+}

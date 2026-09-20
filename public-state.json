@@ -1,35 +1,10 @@
 {
-  "$schema": "aldernia-public-state/0.1",
-  "date": "2026-09-20",
-  "public_world": {
-    "name": "Aldernia",
-    "official_in_world_name": "The Kingdom of Aldernia",
-    "status": "founding-period",
-    "nature": "fictional-country-and-participatory-editorial-world",
-    "capital": "St Aurelia",
-    "largest_commercial_city": "Merrow",
-    "regions": 7
-  },
-  "public_routes": {
-    "today": "index.html",
-    "country": "country.html",
-    "experiment": "experiment.html",
-    "experiment_record": "experiment-record.html",
-    "experiment_journal": "experiment-journal.html",
-    "archive": "archive.html"
-  },
-  "current_public_capabilities": {
-    "static_reading": true,
-    "forms": false,
-    "accounts": false,
-    "analytics": false,
-    "behavioural_tracking": false,
-    "public_api": false,
-    "civic_voting": false
-  },
-  "publication_boundary": {
-    "civic_participation_active": false,
-    "real_world_public_authority": false,
-    "fiction_disclosure": "Aldernia is a fictional country and participatory editorial world."
-  }
+  "$schema":"aldernia-public-state/0.2",
+  "date":"2026-09-20",
+  "candidate":"living-aldernia-rc1",
+  "publication_state":"non-production-candidate",
+  "public_world":{"name":"Aldernia","official_in_world_name":"The Kingdom of Aldernia","status":"founding-period","nature":"fictional-country-and-participatory-editorial-world","capital":"St Aurelia","regions":7},
+  "current_evidence":{"cabinet_cycle":"CAB-01 complete at bounded internal scope","task_engaged_public_bodies_or_interfaces":71,"constituted_counterparts":524,"cleared_external_revenue_gbp":0},
+  "capabilities":{"static_reading":true,"forms":false,"accounts":false,"analytics":false,"behavioural_tracking":false,"public_api":false,"civic_voting":false},
+  "boundary":{"real_world_public_authority":false,"regulated_service_provider":false}
 }
