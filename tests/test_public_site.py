@@ -11,6 +11,9 @@ PUBLIC_PAGES = [
     ROOT / "experiment" / "index.html",
     ROOT / "country" / "index.html",
     ROOT / "country" / "today.html",
+    ROOT / "country" / "history.html",
+    ROOT / "country" / "assembly.html",
+    ROOT / "country" / "community.html",
     ROOT / "country" / "places.html",
     ROOT / "country" / "government.html",
     ROOT / "country" / "services.html",
@@ -81,10 +84,12 @@ class PublicSiteTests(unittest.TestCase):
     def test_build_identity_is_single_json_source(self):
         build = json.loads((ROOT / "aldernia" / "build.json").read_text(encoding="utf-8"))
         self.assertEqual(build["schema_version"], 1)
-        self.assertEqual(build["id"], "ALD-CROWN-FOUNDING-02")
+        self.assertEqual(build["id"], "ALD-CROWN-FOUNDING-03")
         self.assertEqual(build["facets"], ["experiment", "country"])
         self.assertIn("today", build["country_layers"])
         self.assertIn("data", build["country_layers"])
+        self.assertIn("assembly", build["country_layers"])
+        self.assertIn("community", build["country_layers"])
 
     def test_calendar_is_governed_fiction_not_implicit_news(self):
         cal = json.loads((ROOT / "aldernia" / "calendar.json").read_text(encoding="utf-8"))
@@ -105,7 +110,7 @@ class PublicSiteTests(unittest.TestCase):
     def test_real_participation_and_money_remain_gated(self):
         build = json.loads((ROOT / "aldernia" / "build.json").read_text(encoding="utf-8"))
         posture = build["privacy_posture"].lower()
-        for word in ("accounts", "payments", "comments"):
+        for word in ("accounts", "payments", "donations", "comments", "public voting"):
             self.assertIn(word, posture)
 
 
