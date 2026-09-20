@@ -6,6 +6,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 from aldernia_runtime.runtime import BusEnvelope, BusValidationError, process_one_cycle
+from aldernia_runtime.session import activate_timed
 
 HERE = Path(__file__).resolve().parents[1]
 EVENT = HERE / "aldernia" / "events" / "inbox" / "ald-first-living-cycle-2026-09-20.json"
@@ -35,8 +36,11 @@ class RuntimeTests(unittest.TestCase):
             inbox = root / "inbox"
             inbox.mkdir()
             (inbox / "event.json").write_text(EVENT.read_text(encoding="utf-8"), encoding="utf-8")
+            session = root / "bus-session.json"
+            activate_timed(session, now=datetime(2026, 9, 20, 19, 0, tzinfo=timezone.utc))
             kwargs = dict(
                 state_path=root / "bus-state.json",
+                session_path=session,
                 inbox_dir=inbox,
                 public_state_path=root / "public-state.json",
                 releases_dir=root / "releases",
@@ -54,8 +58,11 @@ class RuntimeTests(unittest.TestCase):
             inbox.mkdir()
             (inbox / "event.json").write_text(EVENT.read_text(encoding="utf-8"), encoding="utf-8")
             state = root / "bus-state.json"
+            session = root / "bus-session.json"
+            activate_timed(session, now=datetime(2026, 9, 20, 19, 0, tzinfo=timezone.utc))
             kwargs = dict(
                 state_path=state,
+                session_path=session,
                 inbox_dir=inbox,
                 public_state_path=root / "public-state.json",
                 releases_dir=root / "releases",
