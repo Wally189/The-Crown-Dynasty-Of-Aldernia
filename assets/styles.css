@@ -456,3 +456,354 @@ h3 { font-size: clamp(1.28rem, 2vw, 1.7rem); margin: 0 0 .4em; }
     animation: none !important;
   }
 }
+
+
+/* Aldernian national visual layer — Crown visual settlement, 20 Sep 2026 */
+:root {
+  --alder-deep: #173f35;
+  --alder-ink: #17211e;
+  --alder-paper: #f3efe4;
+  --alder-chalk: #fffdf8;
+  --alder-wheat: #c6a45b;
+  --alder-harbour: #315b72;
+  --alder-brick: #944f42;
+  --alder-sage: #8da08e;
+  --alder-rain: #aabcc4;
+  --alder-limestone: #d9d0bd;
+  --alder-slate: #4b5960;
+  --alder-bronze: #80683d;
+}
+
+body.country-surface {
+  background:
+    linear-gradient(rgba(23,63,53,.025) 1px, transparent 1px),
+    var(--alder-paper);
+  background-size: 100% 2.2rem;
+  color: var(--alder-ink);
+}
+
+.country-surface .site-header {
+  background: rgba(243,239,228,.97);
+  border-bottom: 1px solid #bfb49e;
+  box-shadow: 0 5px 22px rgba(23,33,30,.04);
+}
+.country-surface .header-inner { min-height: 5.15rem; }
+.country-surface .wordmark {
+  gap: .85rem;
+  color: var(--alder-deep);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.22rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.country-surface .wordmark::before {
+  content: "✦";
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  color: var(--alder-wheat);
+  border: 1px solid var(--alder-wheat);
+  border-radius: 50%;
+  font-size: .7rem;
+}
+.country-surface .wordmark small {
+  color: #68736d;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: .14em;
+}
+.country-surface .site-nav a { border-radius: .2rem; }
+.country-surface .site-nav a[aria-current="page"],
+.country-surface .site-nav a:hover {
+  background: var(--alder-chalk);
+  box-shadow: inset 0 -2px 0 var(--alder-wheat);
+}
+
+.country-surface .hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 88% 18%, rgba(198,164,91,.16), transparent 18rem),
+    linear-gradient(135deg, rgba(217,208,189,.62), transparent 42%),
+    var(--alder-paper);
+}
+.country-surface .hero::after {
+  content: "";
+  position: absolute;
+  inset: auto -8rem -10rem auto;
+  width: 28rem;
+  height: 28rem;
+  border: 1px solid rgba(23,63,53,.11);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 3rem rgba(23,63,53,.035),
+    0 0 0 6rem rgba(23,63,53,.025);
+  pointer-events: none;
+}
+.country-surface .hero.dark {
+  background:
+    radial-gradient(circle at 84% 18%, rgba(198,164,91,.17), transparent 19rem),
+    linear-gradient(135deg, #102b26, var(--alder-deep));
+  color: var(--alder-chalk);
+}
+.country-surface .hero.dark .hero-note { color: #edf0ea; }
+.country-surface .hero.dark::after { border-color: rgba(255,253,248,.12); }
+.country-surface h1,
+.country-surface h2,
+.country-surface h3 { text-wrap: balance; }
+.country-surface h1 { color: #18382f; }
+.country-surface .hero.dark h1,
+.country-surface .section.dark h2 { color: var(--alder-chalk); }
+.country-surface .eyebrow { color: var(--alder-deep); }
+.country-surface .hero.dark .eyebrow,
+.country-surface .section.dark .eyebrow { color: #e7cc8e; }
+.country-surface .lede { color: #38463f; }
+.country-surface .section.dark {
+  background:
+    linear-gradient(90deg, rgba(255,255,255,.02) 1px, transparent 1px),
+    var(--alder-deep);
+  background-size: 2.5rem 100%;
+}
+.country-surface .section.alt { background: rgba(255,253,248,.82); }
+
+.country-surface .card {
+  border-radius: .25rem;
+  border-color: #c8beaa;
+  box-shadow: 0 12px 28px rgba(23,33,30,.045);
+}
+.country-surface .card-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(23,33,30,.085);
+  border-color: #9d8f74;
+}
+.country-surface .card.dark {
+  background: #214b40;
+  border-color: #527368;
+}
+.country-surface .notice {
+  border-radius: .2rem;
+  background: #e6eee9;
+  border-color: #9fb5a8;
+}
+.country-surface .notice.warning {
+  background: #f1e7cd;
+  border-color: #c6a45b;
+}
+.country-surface .pill { border-radius: .2rem; }
+.country-surface .pill.fiction {
+  background: #dce8e0;
+  border-color: #9fb5a8;
+  color: #163d33;
+}
+.country-surface .button { border-radius: .2rem; }
+.country-surface .button.primary {
+  background: var(--alder-deep);
+  border-color: var(--alder-deep);
+}
+.country-surface .stat-grid { background: rgba(255,253,248,.7); }
+.country-surface .stat strong { color: var(--alder-deep); }
+.country-surface .region h3 { color: var(--alder-deep); }
+
+.national-grammar {
+  display: grid;
+  grid-template-columns: minmax(0,1.15fr) minmax(260px,.85fr);
+  gap: clamp(2rem,6vw,5rem);
+  align-items: center;
+}
+.material-board {
+  border: 1px solid #bfb49e;
+  background: var(--alder-chalk);
+  padding: clamp(1.1rem,3vw,2rem);
+  box-shadow: 0 18px 42px rgba(23,33,30,.07);
+}
+.material-board strong {
+  display: block;
+  margin-bottom: 1rem;
+  color: var(--alder-deep);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.25rem;
+}
+.material-swatches {
+  display: grid;
+  grid-template-columns: repeat(5,1fr);
+  gap: .45rem;
+}
+.material-swatch {
+  min-height: 5.5rem;
+  display: flex;
+  align-items: end;
+  padding: .55rem;
+  color: #fff;
+  font-size: .64rem;
+  font-weight: 800;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  border: 1px solid rgba(23,33,30,.12);
+}
+.material-swatch:nth-child(1) { background: var(--alder-deep); }
+.material-swatch:nth-child(2) { background: var(--alder-harbour); }
+.material-swatch:nth-child(3) { background: #627353; }
+.material-swatch:nth-child(4) { background: var(--alder-wheat); color: #2b261a; }
+.material-swatch:nth-child(5) { background: var(--alder-limestone); color: #2b302d; }
+
+.atlas-preview {
+  position: relative;
+  min-height: 24rem;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  border: 1px solid #afaa9d;
+  background:
+    repeating-linear-gradient(0deg, rgba(49,91,114,.055) 0, rgba(49,91,114,.055) 1px, transparent 1px, transparent 2.2rem),
+    #e9eee9;
+}
+.atlas-preview::before {
+  content: "";
+  width: min(55%, 18rem);
+  aspect-ratio: .72;
+  border-radius: 44% 58% 48% 54% / 34% 42% 63% 58%;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,.32), transparent 40%),
+    var(--alder-sage);
+  box-shadow:
+    -7rem 8rem 0 -6.2rem #718675,
+    -9rem 10rem 0 -8.4rem #718675,
+    0 18px 42px rgba(23,33,30,.12);
+  transform: rotate(5deg);
+}
+.atlas-preview a {
+  position: absolute;
+  inset: auto 1.1rem 1.1rem 1.1rem;
+  background: rgba(255,253,248,.94);
+  border: 1px solid #a79c87;
+  padding: .9rem 1rem;
+  text-decoration: none;
+  font-weight: 800;
+}
+.atlas-preview a:hover { box-shadow: inset 0 -2px 0 var(--alder-wheat); }
+
+.map-shell {
+  border: 1px solid #afa590;
+  background: #f8f5ec;
+  box-shadow: 0 18px 44px rgba(23,33,30,.075);
+}
+.map-frame {
+  padding: clamp(.7rem,2vw,1.25rem);
+  overflow-x: auto;
+}
+.aldernia-map {
+  display: block;
+  width: 100%;
+  min-width: 720px;
+  height: auto;
+}
+.aldernia-map .sea { fill: #dce7e9; }
+.aldernia-map .region {
+  stroke: #f8f5ec;
+  stroke-width: 5;
+  vector-effect: non-scaling-stroke;
+}
+.aldernia-map .northmere { fill: #69736a; }
+.aldernia-map .bracken { fill: #607f77; }
+.aldernia-map .capital { fill: #d2c29d; }
+.aldernia-map .eastvale { fill: #9fac7d; }
+.aldernia-map .highalder { fill: #738862; }
+.aldernia-map .southmarch { fill: #8ba3aa; }
+.aldernia-map .islands { fill: #8b9a86; stroke: #f8f5ec; stroke-width: 4; }
+.aldernia-map .coast-outline {
+  fill: none;
+  stroke: #34433d;
+  stroke-width: 3;
+  vector-effect: non-scaling-stroke;
+}
+.aldernia-map .river {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 8;
+  opacity: .78;
+}
+.aldernia-map .rail {
+  fill: none;
+  stroke: #273a34;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.aldernia-map .ferry {
+  fill: none;
+  stroke: #315b72;
+  stroke-width: 5;
+  stroke-linecap: round;
+  stroke-dasharray: 11 9;
+}
+.aldernia-map .city-dot { fill: #944f42; stroke: #fffdf8; stroke-width: 4; }
+.aldernia-map text {
+  fill: #17211e;
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+  paint-order: stroke;
+  stroke: rgba(248,245,236,.92);
+  stroke-width: 5px;
+  stroke-linejoin: round;
+}
+.aldernia-map .region-label {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 19px;
+  font-weight: 700;
+}
+.aldernia-map .place-label { font-size: 14px; font-weight: 800; }
+.aldernia-map .water-label {
+  fill: #315b72;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 17px;
+  font-style: italic;
+}
+.map-meta {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  border-top: 1px solid #c9c0ae;
+  background: var(--alder-chalk);
+}
+.map-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: .82rem;
+}
+.map-legend li { display: inline-flex; align-items: center; gap: .45rem; }
+.map-key { width: 1.7rem; height: .3rem; background: #273a34; }
+.map-key.ferry { background: repeating-linear-gradient(90deg,#315b72 0 8px,transparent 8px 13px); }
+.map-key.city { width: .7rem; height: .7rem; border-radius: 50%; background: #944f42; }
+.map-disclaimer { margin: 0; max-width: 38ch; color: #65706a; font-size: .78rem; text-align: right; }
+
+.place-lenses {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  border-top: 1px solid var(--line);
+}
+.place-lens {
+  padding: 1.35rem 1.2rem;
+  border-bottom: 1px solid var(--line);
+}
+.place-lens:nth-child(odd) { border-right: 1px solid var(--line); }
+.place-lens strong {
+  display: block;
+  margin-bottom: .25rem;
+  color: var(--alder-deep);
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: 1.2rem;
+}
+.place-lens span { color: var(--muted); font-size: .88rem; }
+
+@media (max-width: 760px) {
+  .national-grammar { grid-template-columns: 1fr; }
+  .material-swatches { grid-template-columns: repeat(5,minmax(3.2rem,1fr)); overflow-x: auto; }
+  .map-meta { grid-template-columns: 1fr; }
+  .map-disclaimer { text-align: left; }
+  .place-lenses { grid-template-columns: 1fr; }
+  .place-lens:nth-child(odd) { border-right: 0; }
+}

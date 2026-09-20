@@ -1,5 +1,19 @@
 (() => {
   'use strict';
+
+  if (window.location.pathname.includes('/country/')) {
+    document.body.classList.add('country-surface');
+    const countryNav = document.querySelector('.site-nav');
+    if (countryNav && !countryNav.querySelector('a[href="map.html"]')) {
+      const atlas = document.createElement('a');
+      atlas.href = 'map.html';
+      atlas.textContent = 'Atlas';
+      const home = countryNav.querySelector('a[href="./"]');
+      if (home && home.nextSibling) countryNav.insertBefore(atlas, home.nextSibling);
+      else if (home) home.insertAdjacentElement('afterend', atlas);
+      else countryNav.prepend(atlas);
+    }
+  }
   const script = document.currentScript;
   const root = script?.dataset.root || './';
   const londonTime = new Intl.DateTimeFormat('en-GB', {

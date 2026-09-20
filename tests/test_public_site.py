@@ -15,6 +15,7 @@ PUBLIC_PAGES = [
     ROOT / "country" / "assembly.html",
     ROOT / "country" / "community.html",
     ROOT / "country" / "places.html",
+    ROOT / "country" / "map.html",
     ROOT / "country" / "government.html",
     ROOT / "country" / "services.html",
     ROOT / "country" / "economy.html",
@@ -103,9 +104,10 @@ class PublicSiteTests(unittest.TestCase):
     def test_build_identity_is_single_json_source(self):
         build = json.loads((ROOT / "aldernia" / "build.json").read_text(encoding="utf-8"))
         self.assertEqual(build["schema_version"], 1)
-        self.assertEqual(build["id"], "ALD-CROWN-FOUNDING-06")
+        self.assertEqual(build["id"], "ALD-CROWN-FOUNDING-07")
         self.assertEqual(build["facets"], ["experiment", "country"])
         self.assertIn("today", build["country_layers"])
+        self.assertIn("atlas", build["country_layers"])
         self.assertIn("data", build["country_layers"])
         self.assertIn("assembly", build["country_layers"])
         self.assertIn("community", build["country_layers"])
@@ -135,6 +137,20 @@ class PublicSiteTests(unittest.TestCase):
             self.assertIn("public-fictional", beat["reality"])
             self.assertTrue(beat["title"])
             self.assertTrue(beat["summary"])
+
+    def test_atlas_is_accessible_schematic_not_false_precision(self):
+        text = (ROOT / "country" / "map.html").read_text(encoding="utf-8")
+        lower = text.lower()
+        self.assertIn('aria-labelledby="atlas-title atlas-desc"', text)
+        self.assertIn("schematic", lower)
+        self.assertIn("not a surveyed map", lower)
+        for label in ("St Aurelia", "Merrow", "Northmere", "Bracken Coast", "Eastvale", "High Alder", "Southmarch", "St Brigid", "Kestrels"):
+            self.assertIn(label, text)
+
+    def test_national_visual_tokens_exist_without_external_asset_dependency(self):
+        css = (ROOT / "assets" / "styles.css").read_text(encoding="utf-8")
+        for token in ("--alder-deep", "--alder-harbour", "--alder-wheat", ".aldernia-map", ".country-surface"):
+            self.assertIn(token, css)
 
     def test_real_participation_and_money_remain_gated(self):
         build = json.loads((ROOT / "aldernia" / "build.json").read_text(encoding="utf-8"))
