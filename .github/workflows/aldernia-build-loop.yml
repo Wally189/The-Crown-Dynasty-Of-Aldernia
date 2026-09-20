@@ -36,6 +36,11 @@ jobs:
           else
             printf '{"schema_version":1,"processed":{}}\n' > state/bus-state.json
           fi
+          if git cat-file -e origin/clock-state:state/bus-session.json 2>/dev/null; then
+            git show origin/clock-state:state/bus-session.json > state/bus-session.json
+          else
+            printf '{"acceptance":[],"accountable_owner":null,"activated_at":null,"activation_id":null,"command_ref":null,"complete_at":null,"halt_at":null,"last_30_minute_checkpoint":null,"last_transition_reason":"DORMANT BY DEFAULT","mission_id":null,"operating_state":"DORMANT","schema_version":1,"session_mode":null,"timed_expires_at":null}\n' > state/bus-session.json
+          fi
 
       - name: Regression tests
         run: python -m unittest discover -s tests -v
@@ -44,6 +49,7 @@ jobs:
         run: >-
           python -m aldernia_runtime.runtime cycle
           --state state/bus-state.json
+          --session state/bus-session.json
           --inbox aldernia/events/inbox
           --public-state aldernia/public-state.json
           --releases aldernia/releases
@@ -62,11 +68,13 @@ jobs:
       - name: Persist bus acknowledgement state
         run: |
           cp state/bus-state.json /tmp/bus-state.json
-          rm -f state/bus-state.json
+          cp state/bus-session.json /tmp/bus-session.json
+          rm -f state/bus-state.json state/bus-session.json
           git switch clock-state
           mkdir -p state
           cp /tmp/bus-state.json state/bus-state.json
-          git add state/bus-state.json
+          cp /tmp/bus-session.json state/bus-session.json
+          git add state/bus-state.json state/bus-session.json
           if ! git diff --cached --quiet; then
             git config user.name "Aldernia Living Build Loop"
             git config user.email "actions@users.noreply.github.com"
