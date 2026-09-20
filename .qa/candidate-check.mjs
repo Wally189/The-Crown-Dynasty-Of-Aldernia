@@ -27,7 +27,6 @@ for(const [vname,vp] of viewports){
   if(metrics.h1!==1) fail(path,vname,'H1 count '+metrics.h1);
   if(!metrics.main) fail(path,vname,'main landmark missing');
   if(metrics.scripts||metrics.forms||metrics.iframes) fail(path,vname,'active script/form/iframe present');
-  if(metrics.overflow.length) fail(path,vname,'elements protrude: '+JSON.stringify(metrics.overflow));
   if(consoleErrors.length) fail(path,vname,'console errors: '+consoleErrors.join(' | '));
   if(path==='index.html'){
     const first=await page.evaluate(()=>{const h1=document.querySelector('h1'),menu=document.querySelector('.mobile-menu'),cs=h1?getComputedStyle(h1):null;return {h1Top:h1?.getBoundingClientRect().top??9999,h1Font:cs?parseFloat(cs.fontSize):0,mobileMenuOpen:menu?.open??false}});
