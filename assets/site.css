@@ -6,7 +6,7 @@
   --navy:#082a5a;
   --gold:#c89b2f;
   --line:rgba(20,34,30,.18);
-  --muted:#6a716d;
+  --muted:#626a66;
 }
 *{box-sizing:border-box}
 html{min-height:100%;background:var(--paper);color:var(--ink);font-family:Georgia,"Times New Roman",serif}
@@ -717,3 +717,50 @@ a{color:inherit}
   .experiment-nav{grid-template-columns:repeat(2,minmax(0,1fr))}
   .journal-publication-intro{padding:1.35rem}
 }
+
+
+/* Shared Aldernia national context navigation — preserves local Experiment/Dynasty navigation. */
+.national-context-nav{
+  background:#071f45;
+  color:#fff;
+  border-top:1px solid rgba(255,255,255,.14);
+  border-bottom:1px solid rgba(255,255,255,.16);
+}
+.national-context-nav-inner{
+  width:min(1120px,92vw);
+  margin:0 auto;
+  min-height:46px;
+  display:flex;
+  align-items:center;
+  gap:.25rem .9rem;
+  flex-wrap:wrap;
+}
+.national-context-label{
+  margin-right:.35rem;
+  font:800 .66rem/1 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:#c9d6e4;
+}
+.national-context-nav a{
+  min-height:44px;
+  display:inline-flex;
+  align-items:center;
+  padding:.65rem .25rem;
+  color:#fff;
+  text-decoration:none;
+  border-bottom:2px solid transparent;
+  font:750 .75rem/1 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+}
+.national-context-nav a:hover,.national-context-nav a:focus-visible{border-bottom-color:#fff}
+@media(max-width:640px){
+  .national-context-nav-inner{display:grid;grid-template-columns:1fr 1fr;padding:.55rem 0}
+  .national-context-label{grid-column:1/-1}
+}
+
+/* National orientation bridge — joins preserved Experiment narrative to the public-world IA. */
+.national-bridge{display:flex;align-items:center;gap:.15rem;margin-left:auto;padding-right:.35rem;border-right:1px solid rgba(255,255,255,.18)}
+.national-bridge a{min-height:44px;display:inline-flex;align-items:center;padding:.65rem .6rem;color:rgba(255,255,255,.78);font:750 .68rem/1 var(--sans,system-ui,sans-serif);letter-spacing:.04em;text-transform:uppercase;text-decoration:none}
+.national-bridge a:hover,.national-bridge a:focus-visible{color:#fff;text-decoration:underline;text-underline-offset:.22em}
+@media(max-width:900px){.national-bridge{order:2;width:100%;margin:0;border-right:0;border-top:1px solid rgba(255,255,255,.14);padding:.35rem 0 0;flex-wrap:wrap}.experiment-nav{order:3}}
+@media(max-width:640px){.national-bridge{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.national-bridge a{justify-content:center}}
