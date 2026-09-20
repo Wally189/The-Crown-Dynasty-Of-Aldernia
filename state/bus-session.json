@@ -1,26 +1,16 @@
 {
   "schema_version": 1,
-  "operating_state": "ACTIVE_COMMAND",
-  "session_mode": "COMMAND",
-  "activation_id": "bus-f2f-20260920T203535Z",
+  "operating_state": "DORMANT",
+  "session_mode": null,
+  "activation_id": null,
   "mission_id": "aldernia-founded-to-functioning-2026-09-20",
-  "command_ref": "CROWN COMMAND — TAKE ALDERNIA FROM FOUNDED TO FUNCTIONING",
-  "accountable_owner": "The Royal Palace",
-  "activated_at": "2026-09-20T20:35:35+00:00",
+  "command_ref": null,
+  "accountable_owner": null,
+  "activated_at": null,
   "timed_expires_at": null,
-  "last_30_minute_checkpoint": "2026-09-20T20:35:35+00:00",
-  "acceptance": [
-    "governing loop",
-    "cross-House loop",
-    "independent challenge",
-    "economic/resource loop",
-    "human-service loop",
-    "recovery loop",
-    "bus/runtime",
-    "reduced King dependency",
-    "truthful capability state"
-  ],
+  "last_30_minute_checkpoint": null,
+  "acceptance": [],
   "halt_at": null,
-  "complete_at": null,
-  "last_transition_reason": "CROWN COMMAND ACTIVATION — FOUNDED TO FUNCTIONING"
+  "complete_at": "2026-09-20T20:37:49+00:00",
+  "last_transition_reason": "VERIFIED COMPLETE"
 }
