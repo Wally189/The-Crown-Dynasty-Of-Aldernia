@@ -8,7 +8,8 @@
     "nature": "fictional-country-and-participatory-editorial-world",
     "capital": "St Aurelia",
     "largest_commercial_city": "Merrow",
-    "regions": 7
+    "regions": 7,
+    "catholic_specialist_assurance": "active"
   },
   "public_routes": {
     "today": "index.html",
@@ -16,7 +17,8 @@
     "experiment": "experiment.html",
     "experiment_record": "experiment-record.html",
     "experiment_journal": "experiment-journal.html",
-    "archive": "archive.html"
+    "archive": "archive.html",
+    "faith": "faith.html"
   },
   "current_public_capabilities": {
     "static_reading": true,
@@ -30,6 +32,7 @@
   "publication_boundary": {
     "civic_participation_active": false,
     "real_world_public_authority": false,
-    "fiction_disclosure": "Aldernia is a fictional country and participatory editorial world."
+    "fiction_disclosure": "Aldernia is a fictional country and participatory editorial world.",
+    "ecclesiastical_authority_claim": false
   }
-}
+}\n
