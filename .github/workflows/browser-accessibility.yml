@@ -54,9 +54,9 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          python -m http.server 8000 --bind 127.0.0.1 >/tmp/aldernia-http.log 2>&1 &
+          (cd "$GITHUB_WORKSPACE/.." && python -m http.server 8000 --bind 127.0.0.1 >/tmp/aldernia-http.log 2>&1) &
           for attempt in $(seq 1 20); do
-            if curl -fsS http://127.0.0.1:8000/aldernia/build.json >/dev/null; then
+            if curl -fsS http://127.0.0.1:8000/The-Crown-Dynasty-Of-Aldernia/aldernia/build.json >/dev/null; then
               exit 0
             fi
             sleep 1
@@ -81,7 +81,7 @@ jobs:
       - name: Run desktop/mobile browser and WCAG checks
         env:
           CHROME_BIN: ${{ steps.chrome.outputs.bin }}
-          BASE_URL: ${{ github.event_name == 'pull_request' && 'http://127.0.0.1:8000' || 'https://wally189.github.io/The-Crown-Dynasty-Of-Aldernia' }}
+          BASE_URL: ${{ github.event_name == 'pull_request' && 'http://127.0.0.1:8000/The-Crown-Dynasty-Of-Aldernia' || 'https://wally189.github.io/The-Crown-Dynasty-Of-Aldernia' }}
         shell: bash
         run: |
           mkdir -p assurance/screens
@@ -118,7 +118,7 @@ jobs:
             {name:'mobile', width:390, height:844, isMobile:true, hasTouch:true},
             {name:'desktop', width:1440, height:900, isMobile:false, hasTouch:false}
           ];
-          const screenshotRoutes = new Set(['/', '/experiment/', '/country/', '/country/today.html', '/country/map.html', '/country/government.html', '/country/culture.html', '/country/data.html', '/country/assembly.html']);
+          const screenshotRoutes = new Set(['/', '/experiment/', '/country/', '/country/today.html', '/country/map.html', '/country/government.html', '/country/economy.html', '/country/life.html', '/country/media.html', '/country/culture.html', '/country/data.html', '/country/assembly.html']);
           const failures = [];
           const browser = await puppeteer.launch({
             executablePath: process.env.CHROME_BIN,
