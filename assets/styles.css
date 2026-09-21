@@ -1110,3 +1110,18 @@ body.country-surface{background:var(--alder-paper);background-image:none;font-fa
   .regional-economy article{grid-template-columns:1fr;gap:.35rem}
   .newsroom-item.lead{grid-column:auto}
 }
+
+
+/* FOUNDING-12 acceptance repair — preserve Experiment boundary contrast after open-journey restyle. */
+.country-surface .journey-link.journey-boundary {
+  background: var(--navy);
+  color: var(--white);
+  border-bottom-color: #496077;
+}
+.country-surface .journey-link.journey-boundary:hover {
+  background: #102f58;
+}
+.country-surface .journey-link.journey-boundary .journey-label,
+.country-surface .journey-link.journey-boundary .small {
+  color: #eef2f0;
+}
