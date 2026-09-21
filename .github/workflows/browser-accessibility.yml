@@ -14,7 +14,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: aldernia-browser-accessibility
+  group: aldernia-browser-accessibility-${{ github.event_name }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
