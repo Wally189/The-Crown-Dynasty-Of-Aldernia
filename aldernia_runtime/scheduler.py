@@ -202,6 +202,23 @@ def _packet_for(
         f"Royal Palace Scheduled Tasks Register {source_register_id}, "
         f"Scheduled Tasks row {source_row}"
     )
+    payload = {
+        "duty_id": duty["id"],
+        "label": duty.get("label"),
+        "scheduled_for": local_due.isoformat(),
+        "source_row": source_row,
+        "accountable_owner": duty.get("owner"),
+        "required_source_ids": list(duty.get("required_source_ids") or []),
+        "requires_model_runtime": bool(duty.get("requires_model_runtime", False)),
+        "evaluation_only": bool(duty.get("evaluation_only", False)),
+    }
+    if duty["id"] == "dynasty.heartbeat":
+        payload["integrity_patrol"] = {
+            "source_row": 21,
+            "registry_version": 1,
+            "mode": "ONE_BOUNDED_SLICE_PER_HEARTBEAT",
+        }
+
     return TransportPacket(
         event_id=event_id,
         event_type=CANONICAL_STATE_CHANGED,
@@ -229,16 +246,7 @@ def _packet_for(
             "widen authority",
             "treat this machine projection as task source of truth",
         ),
-        payload={
-            "duty_id": duty["id"],
-            "label": duty.get("label"),
-            "scheduled_for": local_due.isoformat(),
-            "source_row": source_row,
-            "accountable_owner": duty.get("owner"),
-            "required_source_ids": list(duty.get("required_source_ids") or []),
-            "requires_model_runtime": bool(duty.get("requires_model_runtime", False)),
-            "evaluation_only": bool(duty.get("evaluation_only", False)),
-        },
+        payload=payload,
         service_class=HEARTBEAT,
         departure_mode="TIMETABLE",
     )
