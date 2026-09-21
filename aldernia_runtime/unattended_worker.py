@@ -492,7 +492,7 @@ def run_once(
     timetable_path: Path,
     session_path: Path,
     drive: RuntimeDrive,
-    model: DutyModel,
+    model: DutyModel | None,
     worker_id: str,
     max_events: int,
     now: datetime,
@@ -520,6 +520,24 @@ def run_once(
 
         event_id = str(candidate["event_id"])
         duty = candidate["duty"]
+
+        if str(duty["id"]) in SUPPORTED_DUTY_IDS and model is None:
+            state = load_scheduler_state(state_path)
+            pending = sum(
+                1
+                for event in state.get("events", {}).values()
+                if isinstance(event, Mapping)
+                and event.get("status") == "PENDING_RUNTIME"
+            )
+            return {
+                "status": "PROVIDER_ACCESS_NOT_CONFIGURED",
+                "detail": (
+                    "OpenAI provider is not configured for supported duty "
+                    + str(duty["id"])
+                ),
+                "processed": processed,
+                "pending_count": pending,
+            }
 
         if str(duty["id"]) in SUPPORTED_DUTY_IDS and budget is not None:
             budget.guard(
@@ -576,6 +594,10 @@ def run_once(
             processed.append(dict(ack))
             continue
 
+        if model is None:
+            raise RuntimeExecutionError(
+                "supported model-bearing duty reached execution without an OpenAI provider"
+            )
         result = model.execute(
             _build_prompt(
                 event_id=event_id,
@@ -723,13 +745,9 @@ def main(argv: list[str] | None = None) -> int:
 
     drive_token = os.environ.get("GOOGLE_DRIVE_ACCESS_TOKEN", "")
     openai_key = os.environ.get("OPENAI_API_KEY", "")
-    if not drive_token or not openai_provider_available(api_key=openai_key):
-        missing: list[str] = []
-        if not drive_token:
-            missing.append("Google WIF/Drive access token")
-        if not openai_provider_available(api_key=openai_key):
-            missing.append("OpenAI WIF identity or bounded fallback API key")
-        detail = "Missing provider configuration: " + ", ".join(missing)
+    openai_ready = openai_provider_available(api_key=openai_key)
+    if not drive_token:
+        detail = "Missing provider configuration: Google WIF/Drive access token"
         write_health(
             health_path,
             status="PROVIDER_ACCESS_NOT_CONFIGURED",
@@ -754,7 +772,7 @@ def main(argv: list[str] | None = None) -> int:
             timetable_path=Path(args.timetable),
             session_path=Path(args.session),
             drive=RuntimeDrive(drive_token),
-            model=DutyModel(openai_key),
+            model=DutyModel(openai_key) if openai_ready else None,
             worker_id=args.worker_id,
             max_events=args.max_events,
             now=datetime.now(timezone.utc),
@@ -764,6 +782,31 @@ def main(argv: list[str] | None = None) -> int:
             str(item.get("event_id") or "")
             for item in result["processed"]
         ]
+        if result.get("status") == "PROVIDER_ACCESS_NOT_CONFIGURED" or not openai_ready:
+            detail = str(
+                result.get("detail")
+                or "Missing provider configuration: OpenAI WIF identity or bounded fallback API key"
+            )
+            write_health(
+                health_path,
+                status="PROVIDER_ACCESS_NOT_CONFIGURED",
+                detail=detail,
+                processed=processed_ids,
+                pending_count=int(result["pending_count"]),
+            )
+            print(
+                json.dumps(
+                    {
+                        **result,
+                        "status": "PROVIDER_ACCESS_NOT_CONFIGURED",
+                        "detail": detail,
+                    },
+                    indent=2,
+                    sort_keys=True,
+                )
+            )
+            return 0
+
         write_health(
             health_path,
             status="READY",

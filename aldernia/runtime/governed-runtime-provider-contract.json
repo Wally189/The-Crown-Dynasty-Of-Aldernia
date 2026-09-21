@@ -29,7 +29,7 @@
     "Royal Household access",
     "authority widening"
   ],
-  "failure_mode": "If the dedicated Google WIF/Drive identity is unavailable, or neither OpenAI WIF nor the bounded fallback credential is configured, leave model-bearing supported duties unclaimed and report PROVIDER_ACCESS_NOT_CONFIGURED. Unsupported non-Heartbeat duties have no generic model handler and, once current Drive access exists, terminate STOP after current-source retrieval without model execution. Do not simulate autonomy or widen the dedicated patrol identity into general Government/House execution.",
+  "failure_mode": "If the dedicated Google WIF/Drive identity is unavailable, leave all ordinary duties unclaimed and report PROVIDER_ACCESS_NOT_CONFIGURED. If Google/Drive is available but OpenAI WIF/fallback is absent, unsupported non-Heartbeat duties may still fail closed after current-source retrieval without model execution, while supported model-bearing duties remain PENDING_RUNTIME and runtime-health reports PROVIDER_ACCESS_NOT_CONFIGURED. Do not simulate autonomy or widen the dedicated patrol identity into general Government/House execution.",
   "openai_auth_preference": [
     "GitHub Actions OIDC -> OpenAI workload identity federation -> short-lived OpenAI access token",
     "bounded API key fallback only where WIF is not yet configured"
@@ -39,7 +39,7 @@
     "government.daily-pulse",
     "government.red-box"
   ],
-  "unsupported_duty_behavior": "After current required-source retrieval, terminally ACK STOP without model execution. No generic professional handler is inferred.",
+  "unsupported_duty_behavior": "With current Google/Drive access, retrieve required current sources and terminally ACK STOP without any OpenAI provider or model execution. No generic professional handler is inferred.",
   "shared_model_budget": {
     "state_file": "state/patrol-budget.json",
     "monthly_cap_usd": 4,

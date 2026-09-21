@@ -98,11 +98,10 @@ class UnattendedWorkerControlTests(unittest.TestCase):
                 **self.paths(root),
                 now=datetime(2026, 9, 21, 4, 1, tzinfo=timezone.utc),
             )
-            model = NeverModel()
             result = run_once(
                 **self.paths(root),
                 drive=FakeDrive(),
-                model=model,
+                model=None,
                 worker_id="runtime-control-test",
                 max_events=1,
                 now=datetime(2026, 9, 21, 4, 2, tzinfo=timezone.utc),
@@ -117,7 +116,30 @@ class UnattendedWorkerControlTests(unittest.TestCase):
                 "unattended execution contract is not encoded",
                 event["receipt"]["result_summary"],
             )
-            self.assertEqual(model.calls, [])
+    def test_supported_due_duty_stays_pending_without_openai_provider(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            run_scheduler(
+                **self.paths(root),
+                now=datetime(2026, 9, 21, 6, 1, tzinfo=timezone.utc),
+            )
+            state_path = root / "scheduled-duty-queue.json"
+            state = json.loads(state_path.read_text())
+            gov_id = "government.daily-pulse:2026-09-21"
+            state["events"] = {gov_id: state["events"][gov_id]}
+            state_path.write_text(json.dumps(state))
+            result = run_once(
+                **self.paths(root),
+                drive=FakeDrive(),
+                model=None,
+                worker_id="runtime-provider-stop-test",
+                max_events=1,
+                now=datetime(2026, 9, 21, 6, 2, tzinfo=timezone.utc),
+            )
+            self.assertEqual(result["status"], "PROVIDER_ACCESS_NOT_CONFIGURED")
+            state = json.loads(state_path.read_text())
+            self.assertEqual(state["events"][gov_id]["status"], "PENDING_RUNTIME")
+            self.assertIsNone(state["events"][gov_id].get("claim"))
 
     def test_supported_government_call_is_guarded_before_claim_and_recorded(self):
         with tempfile.TemporaryDirectory() as td:
