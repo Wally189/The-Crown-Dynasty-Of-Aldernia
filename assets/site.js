@@ -27,7 +27,7 @@
     });
   }
 
-  fetch(`${root}aldernia/build.json`, { cache: 'no-store' })
+  fetch(`${root}aldernia/build.json`, { cache: 'no-cache' })
     .then(r => r.ok ? r.json() : Promise.reject())
     .then(build => {
       document.querySelectorAll('[data-build]').forEach(el => { el.textContent = build.id || 'unversioned'; });
@@ -37,6 +37,12 @@
       document.querySelectorAll('[data-build]').forEach(el => { el.textContent = 'build unavailable'; });
     });
 
+  const hasSecondClock = Boolean(document.querySelector('[data-human-time], [data-computing-time]'));
+  const hasMoment = Boolean(document.querySelector('[data-aldernia-date], [data-aldernia-moment]'));
   tick();
-  window.setInterval(tick, 1000);
+  if (hasSecondClock) {
+    window.setInterval(tick, 1000);
+  } else if (hasMoment) {
+    window.setInterval(tick, 60000);
+  }
 })();
