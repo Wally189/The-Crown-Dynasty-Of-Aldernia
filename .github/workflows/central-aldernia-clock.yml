@@ -31,6 +31,10 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Install OpenAI SDK for keyless workload identity
+        if: ${{ vars.OPENAI_WIF_AUDIENCE != '' && vars.OPENAI_IDENTITY_PROVIDER_ID != '' && vars.OPENAI_SERVICE_ACCOUNT_ID != '' }}
+        run: python -m pip install --disable-pip-version-check --no-cache-dir openai==3.16.2
+
       - name: Deterministic clock and scheduler tests
         run: python -m unittest discover -s tests -v
 
@@ -89,6 +93,9 @@ jobs:
         continue-on-error: true
         env:
           GOOGLE_DRIVE_ACCESS_TOKEN: ${{ steps.runtime-google-auth.outputs.access_token }}
+          OPENAI_WIF_AUDIENCE: ${{ vars.OPENAI_WIF_AUDIENCE }}
+          OPENAI_IDENTITY_PROVIDER_ID: ${{ vars.OPENAI_IDENTITY_PROVIDER_ID }}
+          OPENAI_SERVICE_ACCOUNT_ID: ${{ vars.OPENAI_SERVICE_ACCOUNT_ID }}
           OPENAI_API_KEY: ${{ secrets.ALDERNIA_RUNTIME_OPENAI_API_KEY }}
         run: >-
           python -m aldernia_runtime.unattended_worker
@@ -116,6 +123,9 @@ jobs:
         continue-on-error: true
         env:
           GOOGLE_DRIVE_ACCESS_TOKEN: ${{ steps.patrol-google-auth.outputs.access_token }}
+          OPENAI_WIF_AUDIENCE: ${{ vars.OPENAI_WIF_AUDIENCE }}
+          OPENAI_IDENTITY_PROVIDER_ID: ${{ vars.OPENAI_IDENTITY_PROVIDER_ID }}
+          OPENAI_SERVICE_ACCOUNT_ID: ${{ vars.OPENAI_SERVICE_ACCOUNT_ID }}
           OPENAI_API_KEY: ${{ secrets.ALDERNIA_PATROL_OPENAI_API_KEY }}
         run: >-
           python -m aldernia_runtime.unattended_patrol
