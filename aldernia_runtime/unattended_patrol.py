@@ -488,6 +488,104 @@ class OpenAIClient:
         }
 
 
+    def heartbeat(
+        self,
+        prompt: str,
+    ) -> tuple[dict[str, Any], dict[str, int]]:
+        schema = {
+            "type": "object",
+            "properties": {
+                "outcome": {
+                    "type": "string",
+                    "enum": ["ACTION", "NO_ACTION", "STOP"],
+                },
+                "result_summary": {"type": "string"},
+                "institutions_checked": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                },
+                "material_changes": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                },
+                "crown_attention": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                },
+            },
+            "required": [
+                "outcome",
+                "result_summary",
+                "institutions_checked",
+                "material_changes",
+                "crown_attention",
+            ],
+            "additionalProperties": False,
+        }
+        response = _json_http(
+            "POST",
+            "https://api.openai.com/v1/responses",
+            headers=self.headers,
+            body={
+                "model": MODEL,
+                "reasoning": {"effort": "medium"},
+                "max_output_tokens": MAX_OUTPUT_TOKENS,
+                "input": [
+                    {
+                        "role": "system",
+                        "content": (
+                            "Operate one already-authorised Royal Palace Dynasty House Pulse / "
+                            "King's Balcony Heartbeat. Reconcile current principal governed "
+                            "institution states from the supplied current-source packet and "
+                            "Scheduled Tasks row. The same Heartbeat also carries exactly one "
+                            "bounded integrity-patrol slice whose result is supplied separately. "
+                            "Do not invent work, Crown attention, public events, decisions, "
+                            "citizens, outcomes or authority. Routine institution-owned work "
+                            "remains institution-owned. Do not access or infer private Royal "
+                            "Household material. No external contact, publication, spend, "
+                            "provider/account change or new mission is permitted. Return STOP "
+                            "if supplied evidence is insufficient to make the Heartbeat truthful. "
+                            "Crown attention must be empty unless a genuine reserved decision "
+                            "or binding STOP is evidenced."
+                        ),
+                    },
+                    {"role": "user", "content": prompt},
+                ],
+                "text": {
+                    "format": {
+                        "type": "json_schema",
+                        "name": "aldernia_dynasty_heartbeat",
+                        "strict": True,
+                        "schema": schema,
+                    }
+                },
+            },
+            timeout=90,
+        )
+        output_text = None
+        for item in response.get("output") or []:
+            if not isinstance(item, Mapping) or item.get("type") != "message":
+                continue
+            for part in item.get("content") or []:
+                if isinstance(part, Mapping) and part.get("type") == "output_text":
+                    output_text = part.get("text")
+                    break
+            if output_text is not None:
+                break
+        if not isinstance(output_text, str):
+            raise PatrolRuntimeError(
+                "OpenAI Heartbeat response did not contain structured output_text"
+            )
+        result = json.loads(output_text)
+        if not isinstance(result, dict):
+            raise PatrolRuntimeError("OpenAI Heartbeat output was not an object")
+        usage = response.get("usage") or {}
+        return result, {
+            "input_tokens": int(usage.get("input_tokens") or 0),
+            "output_tokens": int(usage.get("output_tokens") or 0),
+        }
+
+
 class BudgetLedger:
     def __init__(self, path: Path):
         self.path = path
