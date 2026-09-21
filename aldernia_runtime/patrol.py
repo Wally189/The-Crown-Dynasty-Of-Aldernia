@@ -26,6 +26,7 @@ PATROL_COMMON_SOURCE_IDS = (
 ESTATES: tuple[dict[str, Any], ...] = (
     {
         "id": "house-of-carol",
+        "root_folder_ids": ("10Qn-cOnkSVc8rCAZohWYhcjw6xPNa0Uo",),
         "label": "House of Carol — Business",
         "required_source_ids": (
             "15sUjJSU9z5YaXgMecV-2PeQw2x-2JfmDiTGXoM-T6S8",
@@ -35,6 +36,7 @@ ESTATES: tuple[dict[str, Any], ...] = (
     },
     {
         "id": "house-of-tony",
+        "root_folder_ids": ("1-OiNqw5nFu0HOE-P6Bm7sR2yg9OnMSlw",),
         "label": "House of Tony — Education",
         "required_source_ids": (
             "1GXGtQaRJlCn9Pdl4jL4oWGNGywFeeYxWcjjiSZ2zfEA",
@@ -43,6 +45,7 @@ ESTATES: tuple[dict[str, Any], ...] = (
     },
     {
         "id": "house-of-marianne",
+        "root_folder_ids": ("1RmSnSgq2m4FRMQV9_vPF3mTcCvxV1ois",),
         "label": "House of Marianne — Government",
         "required_source_ids": (
             "1Z6jkA6SuaPDAQYWAAYEkjjRGg00wP8KF3odrf-fktxU",
@@ -51,6 +54,7 @@ ESTATES: tuple[dict[str, Any], ...] = (
     },
     {
         "id": "house-of-nathaniel",
+        "root_folder_ids": ("12ZBEhoGEa0FbD_u5QbhnQyxHo-7VSAP3",),
         "label": "House of Nathaniel — Health",
         "required_source_ids": (
             "1u7UjJFMr7rQaAO1rQGDeYxbvkgeTksjNZCCabyvn9-Q",
@@ -59,6 +63,7 @@ ESTATES: tuple[dict[str, Any], ...] = (
     },
     {
         "id": "house-of-vivienne",
+        "root_folder_ids": ("1jSnWKplkNITTqMl6jsq5TVHiLSnrq72T",),
         "label": "House of Vivienne — Banking",
         "required_source_ids": (
             "13hKi_Z32Zej1vcDLhhUgCjHqOSWuNhks2T4X1cqyXrw",
@@ -67,6 +72,7 @@ ESTATES: tuple[dict[str, Any], ...] = (
     },
     {
         "id": "house-of-catholic",
+        "root_folder_ids": ("1anvYNAC1z-fUVw90WNYqs-D_j1ULSyxZ",),
         "label": "House of Catholic — Religion",
         "required_source_ids": (
             "1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk",
@@ -75,6 +81,7 @@ ESTATES: tuple[dict[str, Any], ...] = (
     },
     {
         "id": "house-of-josie",
+        "root_folder_ids": ("1vm6vJi9qDDKqXCO_1fmzFgS8oToL9855",),
         "label": "House of Josie — Media",
         "required_source_ids": (
             "1ulQ0QDZLveGRvT_zJt5eUXDXgdIKntnwEliNK98zAc0",
@@ -83,6 +90,7 @@ ESTATES: tuple[dict[str, Any], ...] = (
     },
     {
         "id": "teach-antaine",
+        "root_folder_ids": ("1eIJcQfx5afjFq66gSP1-K-HZWRMTBqlg",),
         "label": "Teach Antaine — Government Institutions",
         "required_source_ids": (
             "1iyPMszZukxm9rnQeRHkHf1v6EC9kMDy_zyRZPVRbe3A",
@@ -92,6 +100,7 @@ ESTATES: tuple[dict[str, Any], ...] = (
     },
     {
         "id": "hmdf",
+        "root_folder_ids": ("10gARPVBY4OeISrBB7gTXyXnEHEDGYq6-",),
         "label": "His Majesty's Dynastic Defence Forces — HMDF",
         "required_source_ids": (
             "1E7br4kX1OsusS29q0TBrtwBAPwavlB_st_9jwEQXEZA",
@@ -100,6 +109,7 @@ ESTATES: tuple[dict[str, Any], ...] = (
     },
     {
         "id": "royal-palace",
+        "root_folder_ids": (),
         "label": "The Royal Palace",
         "required_source_ids": (
             "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE",
@@ -108,6 +118,10 @@ ESTATES: tuple[dict[str, Any], ...] = (
     },
     {
         "id": "common-machinery",
+        "root_folder_ids": (
+            "1wig72YKrArZdn389JvI1szV5HVMGJ1Qb",
+            "1ahf2KAJBMm-qatUYRtPvsSQod5rfjJU3",
+        ),
         "label": "House of Series / Computer of Series common machinery",
         "required_source_ids": (
             "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
@@ -162,6 +176,23 @@ def next_estate_id(state: Mapping[str, Any]) -> str:
     return str(completed[-1][1]["cursor_after"])
 
 
+def _completed_visits(state: Mapping[str, Any], estate_id: str) -> int:
+    count = 0
+    events = state.get("events")
+    if not isinstance(events, Mapping):
+        return 0
+    for event in events.values():
+        if not isinstance(event, Mapping):
+            continue
+        receipt = event.get("receipt")
+        if not isinstance(receipt, Mapping):
+            continue
+        patrol = receipt.get("integrity_patrol")
+        if isinstance(patrol, Mapping) and patrol.get("readback_verified") is True and patrol.get("estate_id") == estate_id:
+            count += 1
+    return count
+
+
 def plan_slice(state: Mapping[str, Any]) -> dict[str, Any]:
     estate_id = next_estate_id(state)
     estate = ESTATES[ESTATE_INDEX[estate_id]]
@@ -171,6 +202,8 @@ def plan_slice(state: Mapping[str, Any]) -> dict[str, Any]:
         "source_row": PATROL_SOURCE_ROW,
         "estate_id": estate_id,
         "estate_label": estate["label"],
+        "root_folder_ids": list(estate.get("root_folder_ids") or ()),
+        "visit_index": _completed_visits(state, estate_id) + 1,
         "cursor_after": _next_estate_id(estate_id),
         "required_source_ids": required,
         "review_trigger": REVIEW_TRIGGER,
@@ -207,6 +240,8 @@ def validate_patrol_result(
         raise PatrolError("patrol estate does not match the durable cursor")
     if patrol_result.get("cursor_after") != plan.get("cursor_after"):
         raise PatrolError("patrol cursor_after does not match the estate registry")
+    if patrol_result.get("visit_index") != plan.get("visit_index"):
+        raise PatrolError("patrol visit_index does not match the durable estate cursor")
     if patrol_result.get("current_authority_retrieved") is not True:
         raise PatrolError("current authority must be retrieved before patrol classification")
     if patrol_result.get("royal_household_accessed") is not False:
@@ -278,6 +313,7 @@ def validate_patrol_result(
         "source_row": PATROL_SOURCE_ROW,
         "estate_id": plan["estate_id"],
         "estate_label": plan["estate_label"],
+        "visit_index": plan["visit_index"],
         "cursor_after": plan["cursor_after"],
         "current_authority_retrieved": True,
         "findings": normalized_findings,

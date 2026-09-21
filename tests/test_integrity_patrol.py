@@ -59,6 +59,7 @@ class IntegrityPatrolTests(unittest.TestCase):
                 "registry_version": plan["registry_version"],
                 "source_row": plan["source_row"],
                 "estate_id": plan["estate_id"],
+                "visit_index": plan["visit_index"],
                 "cursor_after": plan["cursor_after"],
                 "current_authority_retrieved": True,
                 "royal_household_accessed": False,
@@ -86,6 +87,8 @@ class IntegrityPatrolTests(unittest.TestCase):
             claim = self.claim_heartbeat(root)
             plan = claim["integrity_patrol"]
             self.assertEqual(plan["estate_id"], "house-of-carol")
+            self.assertEqual(plan["visit_index"], 1)
+            self.assertEqual(plan["root_folder_ids"], ["10Qn-cOnkSVc8rCAZohWYhcjw6xPNa0Uo"])
             self.assertEqual(plan["cursor_after"], "house-of-tony")
             self.assertFalse(plan["royal_household_access_permitted"])
             self.assertIn(
@@ -125,6 +128,7 @@ class IntegrityPatrolTests(unittest.TestCase):
                 now=datetime(2026, 9, 21, 6, 2, tzinfo=timezone.utc),
             )
             self.assertEqual(second["integrity_patrol"]["estate_id"], "house-of-tony")
+            self.assertEqual(second["integrity_patrol"]["visit_index"], 1)
 
     def test_archive_requires_provenance_readback_and_no_delete(self):
         with tempfile.TemporaryDirectory() as td:

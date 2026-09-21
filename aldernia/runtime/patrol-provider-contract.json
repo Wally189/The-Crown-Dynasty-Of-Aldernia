@@ -1,0 +1,51 @@
+{
+  "schema_version": 1,
+  "authority_ref": "KQ-009 — OPTION B APPROVED — 2026-09-21",
+  "runtime": {
+    "clock": "Central Aldernia Clock",
+    "bus": "COS-BUS-001",
+    "worker_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+    "one_slice_per_heartbeat": true,
+    "second_scheduler_permitted": false
+  },
+  "google": {
+    "auth": "GitHub OIDC -> Google Workload Identity Federation -> dedicated service account",
+    "long_lived_service_account_key_permitted": false,
+    "repository_variables": {
+      "workload_identity_provider": "GCP_WORKLOAD_IDENTITY_PROVIDER",
+      "service_account": "GCP_PATROL_SERVICE_ACCOUNT"
+    },
+    "oauth_scopes": [
+      "https://www.googleapis.com/auth/drive",
+      "https://www.googleapis.com/auth/spreadsheets"
+    ],
+    "read_roots": [
+      "1wig72YKrArZdn389JvI1szV5HVMGJ1Qb",
+      "1ahf2KAJBMm-qatUYRtPvsSQod5rfjJU3"
+    ],
+    "write_targets": {
+      "common_archive": "1hhxQzNa4UrNYmKPgkZD9xS37X17ZuWct",
+      "palace_register": "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA"
+    },
+    "royal_household_permitted": false,
+    "domain_wide_delegation_permitted": false,
+    "broad_my_drive_access_permitted": false
+  },
+  "openai": {
+    "model": "gpt-5.6-luna",
+    "repository_secret": "ALDERNIA_PATROL_OPENAI_API_KEY",
+    "provider_project_hard_spend_limit_usd": 5,
+    "local_monthly_stop_usd": 4,
+    "max_output_tokens_per_slice": 1400,
+    "reasoning_effort": "low",
+    "external_tools_enabled": false
+  },
+  "effects": {
+    "external_contact": false,
+    "publication": false,
+    "destructive_delete": false,
+    "archive_must_be_reversible": true,
+    "conflict_must_queue_for_crown": true,
+    "halt_dominates": true
+  }
+}
