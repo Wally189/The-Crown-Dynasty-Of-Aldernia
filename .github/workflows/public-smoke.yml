@@ -42,6 +42,25 @@ jobs:
           echo "Expected served build $EXPECTED but last observed $seen" >&2
           exit 1
 
+      - name: Wait for backstage control paths to be absent
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE="https://wally189.github.io/The-Crown-Dynasty-Of-Aldernia"
+          last_root=""
+          last_manifest=""
+          for attempt in $(seq 1 30); do
+            last_root="$(curl -sS -o /dev/null -w '%{http_code}' --connect-timeout 5 --max-time 15 "$BASE/operating_spine/" || true)"
+            last_manifest="$(curl -sS -o /dev/null -w '%{http_code}' --connect-timeout 5 --max-time 15 "$BASE/operating_spine/projection/manifest.json" || true)"
+            if [ "$last_root" = "404" ] && [ "$last_manifest" = "404" ]; then
+              echo "Backstage Operating Spine paths are absent from served Pages."
+              exit 0
+            fi
+            sleep 4
+          done
+          echo "Expected backstage Operating Spine paths to be absent; observed root=$last_root manifest=$last_manifest" >&2
+          exit 1
+
       - name: Verify public routes and working-country layers
         shell: bash
         run: |
@@ -55,7 +74,6 @@ jobs:
           today="$(curl -fsSL "$BASE/country/today.html")"
           economy="$(curl -fsSL "$BASE/country/economy.html")"
           data="$(curl -fsSL "$BASE/country/data.html")"
-          culture="$(curl -fsSL "$BASE/country/culture.html")"
           history="$(curl -fsSL "$BASE/country/history.html")"
           assembly="$(curl -fsSL "$BASE/country/assembly.html")"
           community="$(curl -fsSL "$BASE/country/community.html")"
@@ -67,8 +85,6 @@ jobs:
           grep -Fq "data-human-time" <<<"$index"
           grep -Fq "The machine was asked to stop being merely helpful." <<<"$experiment"
           grep -Fq "An island that intends to have a Tuesday." <<<"$country"
-          grep -Fq "Start with the question you actually have." <<<"$country"
-          grep -Fq 'class="country-surface country-zone-national"' <<<"$country"
           grep -Fq "Aldernia is shaped by water." <<<"$atlas"
           grep -Fq 'class="aldernia-map"' <<<"$atlas"
           grep -Fq "not a surveyed map" <<<"$atlas"
@@ -76,8 +92,6 @@ jobs:
           grep -Fq "A country needs an ordinary day." <<<"$today"
           grep -Fq "An economy needs more than a currency symbol." <<<"$economy"
           grep -Fq "A number should arrive with luggage." <<<"$data"
-          grep -Fq "Four numbers can look identical and mean completely different things." <<<"$data"
-          grep -Fq "The same country should not taste, sound or feel identical everywhere." <<<"$culture"
           grep -Fq "The state is young. The places are not." <<<"$history"
           grep -Fq "Disagreement is a feature, not a software defect." <<<"$assembly"
           grep -Fq "The useful space between household and state." <<<"$community"

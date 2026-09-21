@@ -1,0 +1,202 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aldernia.invalid/schema/aldernia-state-object.schema.json",
+  "title": "AlderniaStateObject",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "entity_id",
+    "entity_type",
+    "canonical_name",
+    "owning_institution",
+    "competent_authority",
+    "reality_class",
+    "status",
+    "valid_from",
+    "canonical_record_ref",
+    "source_refs",
+    "event_head",
+    "relationships",
+    "public_visibility",
+    "publication_status",
+    "freshness_class",
+    "last_verified_at",
+    "verification_refs",
+    "supersedes",
+    "superseded_by",
+    "uncertainty",
+    "restrictions",
+    "projection_authoritative"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "entity_id": {
+      "type": "string",
+      "minLength": 3
+    },
+    "entity_type": {
+      "type": "string",
+      "enum": [
+        "institution",
+        "role",
+        "place",
+        "region",
+        "event",
+        "law_or_rule",
+        "programme",
+        "publication",
+        "public_service",
+        "cultural_object",
+        "infrastructure_object",
+        "learning_object",
+        "source",
+        "capability",
+        "commercial_product",
+        "release"
+      ]
+    },
+    "canonical_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "owning_institution": {
+      "type": "string",
+      "minLength": 1
+    },
+    "competent_authority": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reality_class": {
+      "type": "string",
+      "enum": [
+        "REAL_EXTERNAL_FACT",
+        "REAL_REPORTED_CLAIM",
+        "ALDERNIAN_CONSTITUTIONAL_CANON",
+        "ALDERNIAN_IN_WORLD_FACT",
+        "SIMULATED_DERIVED_STATE",
+        "FICTIONAL_EDITORIAL_DETAIL",
+        "ANALYSIS",
+        "HYPOTHESIS",
+        "UNKNOWN"
+      ]
+    },
+    "status": {
+      "type": "string",
+      "minLength": 1
+    },
+    "valid_from": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "canonical_record_ref": {
+      "type": "string",
+      "pattern": "^drive:"
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "event_head": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "relationships": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "predicate",
+          "target"
+        ],
+        "properties": {
+          "predicate": {
+            "type": "string"
+          },
+          "target": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "public_visibility": {
+      "type": "string",
+      "enum": [
+        "PUBLIC",
+        "INTERNAL",
+        "PRIVATE",
+        "MIXED"
+      ]
+    },
+    "publication_status": {
+      "type": "string",
+      "enum": [
+        "PUBLISHED",
+        "CANDIDATE",
+        "HOLD",
+        "INTERNAL_ONLY",
+        "NOT_APPLICABLE"
+      ]
+    },
+    "freshness_class": {
+      "type": "string",
+      "enum": [
+        "STABLE",
+        "SLOW_CHANGING",
+        "VOLATILE",
+        "EVENT_DRIVEN",
+        "POINT_OF_USE_REFRESH"
+      ]
+    },
+    "last_verified_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "verification_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "supersedes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "superseded_by": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "uncertainty": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "restrictions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "projection_authoritative": {
+      "const": false
+    }
+  }
+}

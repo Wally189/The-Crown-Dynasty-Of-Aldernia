@@ -1,0 +1,134 @@
+{
+  "schema_version": "1.0.0",
+  "projection_authoritative": false,
+  "governing_rule": "ONE MATERIAL TRUTH → ONE HOME. This file is a non-authoritative discovery map; controlled Drive records retain truth and decision ownership.",
+  "owners": [
+    {
+      "owner_id": "royal-palace",
+      "canonical_name": "The Royal Palace",
+      "owns": [
+        "constitutional integration",
+        "Aldernia public-world canon",
+        "Aldernian Experiment AEO-DEF-001",
+        "canonical public release record"
+      ],
+      "canonical_refs": [
+        "drive:17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE",
+        "drive:1rpI4JSdxbrcIyr84Ezg-HX7qHdS5xi0oSYsO02Bwct8",
+        "drive:1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA"
+      ],
+      "boundary": "Integrates Crown/constitutional state; does not overwrite specialist truth or independent editorial merits."
+    },
+    {
+      "owner_id": "computer-of-series",
+      "canonical_name": "Computer of Series",
+      "owns": [
+        "COS-SEL-001 engine selection/composition",
+        "COS-BUS-001 computational work transport mechanics"
+      ],
+      "canonical_refs": [
+        "drive:1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ"
+      ],
+      "boundary": "Routing and transport only; no authority creation and no specialist truth ownership."
+    },
+    {
+      "owner_id": "house-of-series-common",
+      "canonical_name": "House of Series — common controls",
+      "owns": [
+        "Institutional Capability Registry & Exchange",
+        "AI/resource/execution/assurance control plane",
+        "Dynasty Institutional Heartbeat"
+      ],
+      "canonical_refs": [
+        "drive:1f9ehuX67WRwYMLK0JD7s1q-NEN9BGqdzNC3kfxyLl7s",
+        "drive:1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk"
+      ],
+      "boundary": "Common mechanics and discovery; specialist decisions and records remain local."
+    },
+    {
+      "owner_id": "house-of-josie",
+      "canonical_name": "House of Josie — Media",
+      "owns": [
+        "editorial judgement",
+        "evidence-led reporting",
+        "fact checking",
+        "publication-risk gate",
+        "editing/accessibility/corrections",
+        "reader-trust learning"
+      ],
+      "canonical_refs": [
+        "drive:1ulQ0QDZLveGRvT_zJt5eUXDXgdIKntnwEliNK98zAc0",
+        "drive:1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ"
+      ],
+      "boundary": "Editorially independent on merits. External/public publication remains separately gated by current authority."
+    },
+    {
+      "owner_id": "house-of-tony",
+      "canonical_name": "House of Tony — Education",
+      "owns": [
+        "learning/research architecture",
+        "TE-SEAMUS source provenance and citation maintenance",
+        "TE-MOIRA canonical memory/versioning/knowledge-graph/retrieval quality"
+      ],
+      "canonical_refs": [
+        "drive:1TL472yM0_AQdAs4PzEByZxg85Xf1RhuDFj812HcjbWY",
+        "drive:1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ"
+      ],
+      "boundary": "Maintains reusable knowledge and retrieval support; does not replace the source-owning specialist."
+    },
+    {
+      "owner_id": "house-of-catholic",
+      "canonical_name": "House of Catholic — Religion",
+      "owns": [
+        "Catholic specialist research",
+        "Catholic source provenance/classification",
+        "Catholic cross-House knowledge support"
+      ],
+      "canonical_refs": [
+        "drive:1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk"
+      ],
+      "boundary": "Competent real Church authority is supreme in doctrine, morals, canon/liturgy and ecclesial authority; internal systems never manufacture that authority."
+    },
+    {
+      "owner_id": "house-of-marianne",
+      "canonical_name": "House of Marianne — Government",
+      "owns": [
+        "current in-world Government state",
+        "Government policy/administration within Aldernian constitutional scope"
+      ],
+      "canonical_refs": [
+        "drive:1fZ7_rv8nMkPgJIHCHOH45fYPmNdKKhVlUkDoyoIfKoU"
+      ],
+      "boundary": "In-world/simulated Government only; no real sovereign, statutory or public authority."
+    },
+    {
+      "owner_id": "house-of-vivienne",
+      "canonical_name": "House of Vivienne — Banking/Finance",
+      "owns": [
+        "specialist financial truth, reconciliation and decision-grade finance support when engaged"
+      ],
+      "canonical_refs": [
+        "drive:1f9ehuX67WRwYMLK0JD7s1q-NEN9BGqdzNC3kfxyLl7s"
+      ],
+      "boundary": "Financial specialist support only; no real banking authority is implied."
+    }
+  ],
+  "non_owners": [
+    {
+      "system": "GitHub repository and GitHub Pages",
+      "reason": "Source code, release and deployment evidence; not constitutional or institutional source of truth."
+    },
+    {
+      "system": "ChatGPT/model memory/chat history",
+      "reason": "Working context only; never authority where controlled records exist."
+    },
+    {
+      "system": "House of Carol",
+      "reason": "No Aldernia governance or content ownership. May be used only for separately authorised real commercial/payment/customer/contract support."
+    },
+    {
+      "system": "public website",
+      "reason": "A projection/publication of accepted state; it does not silently create canon."
+    }
+  ]
+}

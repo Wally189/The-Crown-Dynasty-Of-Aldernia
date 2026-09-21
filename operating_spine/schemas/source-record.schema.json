@@ -1,0 +1,167 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aldernia.invalid/schema/source-record.schema.json",
+  "title": "SourceRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "source_id",
+    "title",
+    "publisher_or_authority",
+    "source_type",
+    "authority_class",
+    "jurisdiction",
+    "domain",
+    "canonical_locator",
+    "version_or_revision",
+    "publication_date",
+    "retrieved_at",
+    "last_verified_at",
+    "freshness_class",
+    "refresh_trigger",
+    "scope_supported",
+    "claims_supported",
+    "limitations",
+    "supersedes",
+    "superseded_by",
+    "copyright_or_reuse_note",
+    "owning_specialist",
+    "status",
+    "projection_authoritative"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "source_id": {
+      "type": "string",
+      "minLength": 3
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "publisher_or_authority": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_type": {
+      "type": "string",
+      "enum": [
+        "CONTROLLED_DRIVE_RECORD",
+        "CONTROLLED_SHEET_RECORD",
+        "GITHUB_SOURCE_EVIDENCE",
+        "GITHUB_DEPLOYMENT_EVIDENCE",
+        "SERVED_ARTIFACT_EVIDENCE",
+        "OFFICIAL_EXTERNAL_SOURCE",
+        "PROFESSIONAL_STANDARD",
+        "PRIMARY_DATA",
+        "OTHER"
+      ]
+    },
+    "authority_class": {
+      "type": "string",
+      "enum": [
+        "GOVERNING_INTERNAL",
+        "SPECIALIST_INTERNAL",
+        "PRIMARY_EXTERNAL",
+        "SUPPORTING_EXTERNAL",
+        "TECHNICAL_EVIDENCE",
+        "UNKNOWN"
+      ]
+    },
+    "jurisdiction": {
+      "type": "string"
+    },
+    "domain": {
+      "type": "string"
+    },
+    "canonical_locator": {
+      "type": "string"
+    },
+    "version_or_revision": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "publication_date": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "retrieved_at": {
+      "type": "string"
+    },
+    "last_verified_at": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "freshness_class": {
+      "type": "string",
+      "enum": [
+        "STABLE",
+        "SLOW_CHANGING",
+        "VOLATILE",
+        "EVENT_DRIVEN",
+        "POINT_OF_USE_REFRESH"
+      ]
+    },
+    "refresh_trigger": {
+      "type": "string"
+    },
+    "scope_supported": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "claims_supported": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "supersedes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "superseded_by": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "copyright_or_reuse_note": {
+      "type": "string"
+    },
+    "owning_specialist": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "CURRENT",
+        "SUPERSEDED",
+        "ARCHIVED",
+        "UNKNOWN"
+      ]
+    },
+    "projection_authoritative": {
+      "const": false
+    }
+  }
+}

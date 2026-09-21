@@ -1,0 +1,31 @@
+{
+  "schema_version": "1.0.0",
+  "projection_id": "aldernia-operating-spine-phase-1-snapshot",
+  "generated_at": "2026-09-21T05:21:00+01:00",
+  "projection_authoritative": false,
+  "source_of_truth": "Google Drive controlled records and competent external authority at point of use; GitHub supplies source/release/deployment evidence only.",
+  "accepted_public_release": {
+    "build_id": "ALD-CROWN-FOUNDING-09",
+    "commit_sha": "81f8af9942881738977b0913eed2f96d1c0c78d2",
+    "pages_run": 35560455677,
+    "public_smoke_run": 35560456216,
+    "browser_assurance_run": 35560456252
+  },
+  "schema_files": [
+    "operating_spine/schemas/aldernia-state-object.schema.json",
+    "operating_spine/schemas/aldernia-event.schema.json",
+    "operating_spine/schemas/source-record.schema.json"
+  ],
+  "projection_files": [
+    "operating_spine/projection/canonical-owners.json",
+    "operating_spine/projection/state-objects.json",
+    "operating_spine/projection/events.json",
+    "operating_spine/projection/source-records.json"
+  ],
+  "control_notes": [
+    "This snapshot cannot mutate Drive canon.",
+    "A disagreement with a canonical source fails closed and must be corrected at the source owner before regeneration.",
+    "The public-site runtime does not import this directory in Phase 1.",
+    "Production integration of this package does not create a new public editorial build identity."
+  ]
+}

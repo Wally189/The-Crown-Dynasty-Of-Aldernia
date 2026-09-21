@@ -1,0 +1,356 @@
+[
+  {
+    "schema_version": "1.0.0",
+    "entity_id": "aldernia:public-world",
+    "entity_type": "programme",
+    "canonical_name": "Aldernia public fictional world",
+    "owning_institution": "royal-palace",
+    "competent_authority": "The Royal Palace under current Crown authority and project-specific specialist boundaries",
+    "reality_class": "ALDERNIAN_CONSTITUTIONAL_CANON",
+    "status": "CURRENT / POST-RESET REINTRODUCED IN BOUNDED SCOPE",
+    "valid_from": null,
+    "canonical_record_ref": "drive:1rpI4JSdxbrcIyr84Ezg-HX7qHdS5xi0oSYsO02Bwct8",
+    "source_refs": [
+      "src:palace-settlement",
+      "src:public-world-blueprint"
+    ],
+    "event_head": "event:2026-09-21:release-ald-crown-founding-09",
+    "relationships": [
+      {
+        "predicate": "published_as",
+        "target": "aldernia:public-release"
+      }
+    ],
+    "public_visibility": "MIXED",
+    "publication_status": "PUBLISHED",
+    "freshness_class": "EVENT_DRIVEN",
+    "last_verified_at": "2026-09-21T05:21:00+01:00",
+    "verification_refs": [
+      "src:public-world-blueprint"
+    ],
+    "supersedes": [],
+    "superseded_by": null,
+    "uncertainty": [
+      "This projection does not attempt to flatten every historical Blueprint section into current canon; canonical source controls conflicts and supersession."
+    ],
+    "restrictions": [
+      "No invented real audience, participation, mandate, customer or revenue evidence.",
+      "Private production machinery remains backstage."
+    ],
+    "projection_authoritative": false
+  },
+  {
+    "schema_version": "1.0.0",
+    "entity_id": "aldernia:public-release",
+    "entity_type": "release",
+    "canonical_name": "ALD-CROWN-FOUNDING-09",
+    "owning_institution": "royal-palace",
+    "competent_authority": "Exact Crown publication authority recorded in the Public World Blueprint",
+    "reality_class": "REAL_EXTERNAL_FACT",
+    "status": "LIVE / VERIFIED / CLOSED",
+    "valid_from": "2026-09-21T04:18:50Z",
+    "canonical_record_ref": "drive:1rpI4JSdxbrcIyr84Ezg-HX7qHdS5xi0oSYsO02Bwct8",
+    "source_refs": [
+      "src:public-world-blueprint",
+      "src:github-main-81f8",
+      "src:pages-run-35560455677",
+      "src:smoke-run-35560456216",
+      "src:browser-run-35560456252"
+    ],
+    "event_head": "event:2026-09-21:release-ald-crown-founding-09",
+    "relationships": [
+      {
+        "predicate": "release_of",
+        "target": "aldernia:public-world"
+      }
+    ],
+    "public_visibility": "PUBLIC",
+    "publication_status": "PUBLISHED",
+    "freshness_class": "EVENT_DRIVEN",
+    "last_verified_at": "2026-09-21T04:19:49Z",
+    "verification_refs": [
+      "src:pages-run-35560455677",
+      "src:smoke-run-35560456216",
+      "src:browser-run-35560456252"
+    ],
+    "supersedes": [
+      "ALD-CROWN-FOUNDING-08"
+    ],
+    "superseded_by": null,
+    "uncertainty": [],
+    "restrictions": [
+      "No analytics, accounts, forms, payments, donations, comments, public voting or non-essential storage in this edition."
+    ],
+    "projection_authoritative": false
+  },
+  {
+    "schema_version": "1.0.0",
+    "entity_id": "aldernia:runtime:cos-selector",
+    "entity_type": "capability",
+    "canonical_name": "COS-SEL-001 Engine Selection & Composition Engine",
+    "owning_institution": "computer-of-series",
+    "competent_authority": "Current Engine Manifest and canonical owner state",
+    "reality_class": "REAL_EXTERNAL_FACT",
+    "status": "CONSTITUTED / SELF-TESTED BOUNDED / CROWN-AUTHORISED INTERNAL USE / NOT INDEPENDENTLY ASSURED",
+    "valid_from": null,
+    "canonical_record_ref": "drive:1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+    "source_refs": [
+      "src:engine-manifest",
+      "src:capability-registry"
+    ],
+    "event_head": null,
+    "relationships": [
+      {
+        "predicate": "routes_to",
+        "target": "aldernia:runtime:heartbeat"
+      }
+    ],
+    "public_visibility": "INTERNAL",
+    "publication_status": "NOT_APPLICABLE",
+    "freshness_class": "EVENT_DRIVEN",
+    "last_verified_at": "2026-09-21T05:21:00+01:00",
+    "verification_refs": [
+      "src:engine-manifest"
+    ],
+    "supersedes": [],
+    "superseded_by": null,
+    "uncertainty": [
+      "Fresh-runtime acceptance remains evidence-gated by the current manifest."
+    ],
+    "restrictions": [
+      "Routing/composition only; does not create authority or specialist competence."
+    ],
+    "projection_authoritative": false
+  },
+  {
+    "schema_version": "1.0.0",
+    "entity_id": "aldernia:runtime:heartbeat",
+    "entity_type": "capability",
+    "canonical_name": "HOS-HB-001 Dynasty Institutional Heartbeat",
+    "owning_institution": "house-of-series-common",
+    "competent_authority": "House of Series common controls + Palace routing + COS-BUS route contract",
+    "reality_class": "REAL_EXTERNAL_FACT",
+    "status": "BAU / CONTROLLED INTERNAL DRIVE-BACKED SCOPE",
+    "valid_from": null,
+    "canonical_record_ref": "drive:1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+    "source_refs": [
+      "src:engine-manifest",
+      "src:series-control",
+      "src:scheduled-tasks"
+    ],
+    "event_head": null,
+    "relationships": [
+      {
+        "predicate": "uses",
+        "target": "aldernia:runtime:cos-selector"
+      }
+    ],
+    "public_visibility": "INTERNAL",
+    "publication_status": "NOT_APPLICABLE",
+    "freshness_class": "EVENT_DRIVEN",
+    "last_verified_at": "2026-09-21T05:21:00+01:00",
+    "verification_refs": [
+      "src:engine-manifest",
+      "src:series-control"
+    ],
+    "supersedes": [],
+    "superseded_by": null,
+    "uncertainty": [],
+    "restrictions": [
+      "No recursive scheduling without a new recognised state event.",
+      "NO_ACTION is valid acknowledged work.",
+      "Heartbeat does not prove unattended background agents."
+    ],
+    "projection_authoritative": false
+  },
+  {
+    "schema_version": "1.0.0",
+    "entity_id": "aldernia:memory:seamus",
+    "entity_type": "capability",
+    "canonical_name": "TE-SEAMUS Library Engine",
+    "owning_institution": "house-of-tony",
+    "competent_authority": "House of Tony + current Engine Manifest",
+    "reality_class": "REAL_EXTERNAL_FACT",
+    "status": "CURRENT ENGINE MANIFEST CAPABILITY",
+    "valid_from": null,
+    "canonical_record_ref": "drive:1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+    "source_refs": [
+      "src:engine-manifest",
+      "src:tony-build"
+    ],
+    "event_head": null,
+    "relationships": [
+      {
+        "predicate": "supports",
+        "target": "aldernia:memory:moira"
+      }
+    ],
+    "public_visibility": "INTERNAL",
+    "publication_status": "NOT_APPLICABLE",
+    "freshness_class": "EVENT_DRIVEN",
+    "last_verified_at": "2026-09-21T05:21:00+01:00",
+    "verification_refs": [
+      "src:engine-manifest"
+    ],
+    "supersedes": [],
+    "superseded_by": null,
+    "uncertainty": [],
+    "restrictions": [
+      "Provenance and retrieval support do not elevate secondary material into authority."
+    ],
+    "projection_authoritative": false
+  },
+  {
+    "schema_version": "1.0.0",
+    "entity_id": "aldernia:memory:moira",
+    "entity_type": "capability",
+    "canonical_name": "TE-MOIRA Memory Palace",
+    "owning_institution": "house-of-tony",
+    "competent_authority": "House of Tony + current Engine Manifest",
+    "reality_class": "REAL_EXTERNAL_FACT",
+    "status": "CURRENT ENGINE MANIFEST CAPABILITY",
+    "valid_from": null,
+    "canonical_record_ref": "drive:1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+    "source_refs": [
+      "src:engine-manifest",
+      "src:tony-build"
+    ],
+    "event_head": null,
+    "relationships": [
+      {
+        "predicate": "indexes",
+        "target": "aldernia:public-world"
+      }
+    ],
+    "public_visibility": "INTERNAL",
+    "publication_status": "NOT_APPLICABLE",
+    "freshness_class": "EVENT_DRIVEN",
+    "last_verified_at": "2026-09-21T05:21:00+01:00",
+    "verification_refs": [
+      "src:engine-manifest"
+    ],
+    "supersedes": [],
+    "superseded_by": null,
+    "uncertainty": [],
+    "restrictions": [
+      "Memory/index is not source authority; canonical owner record wins on conflict."
+    ],
+    "projection_authoritative": false
+  },
+  {
+    "schema_version": "1.0.0",
+    "entity_id": "aldernia:media:josie",
+    "entity_type": "institution",
+    "canonical_name": "House of Josie — Media",
+    "owning_institution": "house-of-josie",
+    "competent_authority": "Josie FIRST READ and constitutional media firewall",
+    "reality_class": "ALDERNIAN_CONSTITUTIONAL_CANON",
+    "status": "INTERNALLY COMMISSIONED & ASSURED / OPERATING PILOT AUTHORISED / EXTERNAL PUBLICATION SEPARATELY GATED",
+    "valid_from": null,
+    "canonical_record_ref": "drive:1ulQ0QDZLveGRvT_zJt5eUXDXgdIKntnwEliNK98zAc0",
+    "source_refs": [
+      "src:josie-first-read",
+      "src:engine-manifest",
+      "src:public-world-blueprint"
+    ],
+    "event_head": null,
+    "relationships": [
+      {
+        "predicate": "editorial_owner_of",
+        "target": "aldernia:public-world"
+      }
+    ],
+    "public_visibility": "MIXED",
+    "publication_status": "INTERNAL_ONLY",
+    "freshness_class": "EVENT_DRIVEN",
+    "last_verified_at": "2026-09-21T05:21:00+01:00",
+    "verification_refs": [
+      "src:josie-first-read"
+    ],
+    "supersedes": [],
+    "superseded_by": null,
+    "uncertainty": [],
+    "restrictions": [
+      "Crown, Government, parties and commercial Houses may not dictate independent editorial conclusions.",
+      "Publication remains action-specific and separately authorised."
+    ],
+    "projection_authoritative": false
+  },
+  {
+    "schema_version": "1.0.0",
+    "entity_id": "aldernia:catholic:knowledge",
+    "entity_type": "capability",
+    "canonical_name": "House of Catholic specialist knowledge service",
+    "owning_institution": "house-of-catholic",
+    "competent_authority": "Competent real Church authority within its proper remit; House of Catholic for internal specialist provenance/support",
+    "reality_class": "REAL_EXTERNAL_FACT",
+    "status": "OPERATING / CONTROLLED INTERNAL / COMMISSIONED & ASSURED BASELINE",
+    "valid_from": null,
+    "canonical_record_ref": "drive:1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk",
+    "source_refs": [
+      "src:catholic-first-read",
+      "src:capability-registry"
+    ],
+    "event_head": null,
+    "relationships": [
+      {
+        "predicate": "supports",
+        "target": "aldernia:public-world"
+      }
+    ],
+    "public_visibility": "INTERNAL",
+    "publication_status": "NOT_APPLICABLE",
+    "freshness_class": "POINT_OF_USE_REFRESH",
+    "last_verified_at": "2026-09-21T05:21:00+01:00",
+    "verification_refs": [
+      "src:catholic-first-read"
+    ],
+    "supersedes": [],
+    "superseded_by": null,
+    "uncertainty": [
+      "Canon 216 naming/identity question remains an open controlled real-authority dependency in the current House record."
+    ],
+    "restrictions": [
+      "Never claims ecclesiastical office, Magisterial authority or Church approval not supplied by competent real Church authority."
+    ],
+    "projection_authoritative": false
+  },
+  {
+    "schema_version": "1.0.0",
+    "entity_id": "aldernia:experiment:aeo-def-001",
+    "entity_type": "programme",
+    "canonical_name": "Aldernian Daily Observation & Daybook V1",
+    "owning_institution": "royal-palace",
+    "competent_authority": "AEO-DEF-001 in the Royal Palace Scheduled Tasks / Aldernia Experiment Log",
+    "reality_class": "REAL_EXTERNAL_FACT",
+    "status": "ARMED / ONE-SHOT ACCEPTANCE REQUIRED / STANDING DAILY OPERATION NOT YET ACTIVE",
+    "valid_from": "2026-09-20",
+    "canonical_record_ref": "drive:1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+    "source_refs": [
+      "src:scheduled-tasks",
+      "src:palace-settlement"
+    ],
+    "event_head": null,
+    "relationships": [
+      {
+        "predicate": "observes",
+        "target": "aldernia:public-world"
+      }
+    ],
+    "public_visibility": "INTERNAL",
+    "publication_status": "INTERNAL_ONLY",
+    "freshness_class": "EVENT_DRIVEN",
+    "last_verified_at": "2026-09-21T05:21:00+01:00",
+    "verification_refs": [
+      "src:scheduled-tasks"
+    ],
+    "supersedes": [],
+    "superseded_by": null,
+    "uncertainty": [],
+    "restrictions": [
+      "First eligible day is 2026-09-21 and may be observed only after that Europe/London civil day closes.",
+      "Observer is read-mostly and cannot repair observed state."
+    ],
+    "projection_authoritative": false
+  }
+]

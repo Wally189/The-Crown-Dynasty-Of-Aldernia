@@ -1,0 +1,249 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aldernia.invalid/schema/aldernia-event.schema.json",
+  "title": "AlderniaEvent",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "event_id",
+    "event_type",
+    "occurred_at",
+    "effective_at",
+    "emitter",
+    "owning_institution",
+    "authority_ref",
+    "trigger_ref",
+    "reality_class",
+    "prior_state_refs",
+    "affected_entity_ids",
+    "evidence_refs",
+    "source_refs",
+    "engine_plan_ref",
+    "material_facts",
+    "assumptions",
+    "uncertainties",
+    "proposed_transition",
+    "gates_required",
+    "gate_results",
+    "decision",
+    "resulting_state_refs",
+    "public_consequence",
+    "publication_candidate_ref",
+    "correction_of",
+    "supersedes_event",
+    "transport_state",
+    "ack_ref",
+    "recorded_at",
+    "projection_authoritative"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1.0.0"
+    },
+    "event_id": {
+      "type": "string",
+      "minLength": 3
+    },
+    "event_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "occurred_at": {
+      "type": "string"
+    },
+    "effective_at": {
+      "type": "string"
+    },
+    "emitter": {
+      "type": "string"
+    },
+    "owning_institution": {
+      "type": "string"
+    },
+    "authority_ref": {
+      "type": "string"
+    },
+    "trigger_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "reality_class": {
+      "type": "string",
+      "enum": [
+        "REAL_EXTERNAL_FACT",
+        "REAL_REPORTED_CLAIM",
+        "ALDERNIAN_CONSTITUTIONAL_CANON",
+        "ALDERNIAN_IN_WORLD_FACT",
+        "SIMULATED_DERIVED_STATE",
+        "FICTIONAL_EDITORIAL_DETAIL",
+        "ANALYSIS",
+        "HYPOTHESIS",
+        "UNKNOWN"
+      ]
+    },
+    "prior_state_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "affected_entity_ids": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "source_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1
+    },
+    "engine_plan_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "material_facts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "uncertainties": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "proposed_transition": {
+      "type": "string"
+    },
+    "gates_required": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "gate_results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "gate",
+          "result",
+          "evidence_ref"
+        ],
+        "properties": {
+          "gate": {
+            "type": "string"
+          },
+          "result": {
+            "type": "string",
+            "enum": [
+              "PASS",
+              "HOLD",
+              "STOP",
+              "FAILED_CLOSED",
+              "NOT_APPLICABLE"
+            ]
+          },
+          "evidence_ref": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "decision": {
+      "type": "string",
+      "enum": [
+        "ACCEPTED_CHANGE",
+        "NO_ACTION",
+        "HOLD",
+        "STOP",
+        "FAILED_CLOSED",
+        "CORRECTION",
+        "SUPERSEDED"
+      ]
+    },
+    "resulting_state_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "public_consequence": {
+      "type": "string",
+      "enum": [
+        "NONE",
+        "CANDIDATE",
+        "PUBLISHED",
+        "CORRECTED",
+        "WITHDRAWN"
+      ]
+    },
+    "publication_candidate_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "correction_of": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "supersedes_event": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "transport_state": {
+      "type": "string",
+      "enum": [
+        "ACKED",
+        "NO_ACTION",
+        "STOP",
+        "FAILED_CLOSED_DELIVERY_UNCONFIRMED",
+        "NOT_APPLICABLE"
+      ]
+    },
+    "ack_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "recorded_at": {
+      "type": "string"
+    },
+    "projection_authoritative": {
+      "const": false
+    }
+  }
+}
