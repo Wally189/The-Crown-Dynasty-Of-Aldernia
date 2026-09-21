@@ -1,0 +1,29 @@
+name: Aldernia Operating Spine Phase 1 QA
+
+on:
+  push:
+    branches:
+      - crown/aldernia-operating-spine-phase-1-2026-09-21
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-operating-spine:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out isolated Phase 1 branch
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate non-production spine projection
+        run: python operating_spine/validate.py
+
+      - name: Run full repository regression
+        run: python -m unittest discover -s tests -v
