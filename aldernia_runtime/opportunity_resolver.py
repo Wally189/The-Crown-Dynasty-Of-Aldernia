@@ -253,7 +253,7 @@ class Resolver:
             return Decision(c.candidate_id, StateClass.BLOCKED, ("model budget exhausted; unrelated non-model work may continue",), unchanged=unchanged)
         unavailable = [pid for pid in c.required_profiles if pid not in self.profiles or not self.profiles[pid].available]
         if unavailable:
-            return Decision(c.candidate_id, StateClass.BLOCKED, ("required registered capability unavailable: " + ", ".join(unavaile),), unchanged=unchanged)
+            return Decision(c.candidate_id, StateClass.BLOCKED, ("required registered capability unavailable: " + ", ".join(unavailable),), unchanged=unchanged)
         return Decision(
             c.candidate_id,
             StateClass.ACTIONABLE_NOW,
