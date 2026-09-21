@@ -25,6 +25,7 @@
   "control_notes": [
     "This snapshot cannot mutate Drive canon.",
     "A disagreement with a canonical source fails closed and must be corrected at the source owner before regeneration.",
-    "No public workflow imports this directory in Phase 1."
+    "The public-site runtime does not import this directory in Phase 1.",
+    "Production integration of this package does not create a new public editorial build identity."
   ]
 }
