@@ -35,8 +35,46 @@
       ],
       "scheduled_for": "2026-09-21T18:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "ACKNOWLEDGED_ACTION",
+      "transition_class": "scheduled_duty_due",
+      "receipt": {
+        "schema_version": 1,
+        "outcome": "ACTION",
+        "result_summary": "18:00 Evening Commons catch-up completed as optional internal culture/curiosity. Packet: the 2026 autumnal equinox falls on 23 September at 01:06 BST; Royal Observatory Greenwich notes that 'equinox' does not produce exactly equal daylight/night in the UK, with the UK equilux on 25 September. No task, KPI, business action or Government messaging was created.",
+        "completed_at": "2026-09-21T17:50:00+00:00",
+        "worker_id": "chatgpt-helm-session-2026-09-21-runtime-recovery",
+        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+        "accountable_owner": "House of Josie",
+        "attempt": 1,
+        "retrieved_source_ids": [
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
+          "1ulQ0QDZLveGRvT_zJt5eUXDXgdIKntnwEliNK98zAc0",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY"
+        ],
+        "evidence_refs": [
+          "Drive:House of Josie FIRST READ/current editorial controls",
+          "https://www.rmg.co.uk/stories/time/what-when-autumnal-equinox",
+          "https://www.rmg.co.uk/stories/space-astronomy/astronomy/night-sky-highlights-september-2026"
+        ],
+        "writes": [
+          "GitHub clock-state/state/scheduled-duty-queue.json durable Evening Commons receipt"
+        ],
+        "readback_verified": true,
+        "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL",
+          "PUBLIC_READ_ONLY"
+        ],
+        "external_effect": "NONE",
+        "new_model_provider_access_granted": false,
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false
+      },
+      "claim": null
     },
     "carol.business-opening:2026-09-21": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -74,8 +112,46 @@
       ],
       "scheduled_for": "2026-09-21T08:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "ACKNOWLEDGED_NO_ACTION",
+      "transition_class": "scheduled_duty_due",
+      "receipt": {
+        "schema_version": 1,
+        "outcome": "NO_ACTION",
+        "result_summary": "EXPIRED / NO_ACTION — the 08:00 Business Opening window had passed. Current House of Carol records were retrieved, but no retroactive 'opening' or business action was manufactured at 18:50; live business truth remains House-of-Carol-owned.",
+        "completed_at": "2026-09-21T17:50:00+00:00",
+        "worker_id": "chatgpt-helm-session-2026-09-21-runtime-recovery",
+        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+        "accountable_owner": "House of Carol",
+        "attempt": 1,
+        "retrieved_source_ids": [
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "15sUjJSU9z5YaXgMecV-2PeQw2x-2JfmDiTGXoM-T6S8",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY",
+          "1wxAoiO4kLqzK8_jrrzP8uI0EbU46PtA4-vXxCE8Eh_M"
+        ],
+        "evidence_refs": [
+          "Drive:Royal Palace Scheduled Tasks Register current task row",
+          "GitHub:clock-state scheduled-duty queue live recovery"
+        ],
+        "writes": [
+          "GitHub clock-state/state/scheduled-duty-queue.json durable recovery receipt"
+        ],
+        "readback_verified": true,
+        "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "external_effect": "NONE",
+        "new_model_provider_access_granted": false,
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false,
+        "recovery_disposition": "EXPIRED"
+      },
+      "claim": null
     },
     "catholic.dawn-offices:2026-09-21": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -303,8 +379,45 @@
       ],
       "scheduled_for": "2026-09-21T15:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "ACKNOWLEDGED_NO_ACTION",
+      "transition_class": "scheduled_duty_due",
+      "receipt": {
+        "schema_version": 1,
+        "outcome": "NO_ACTION",
+        "result_summary": "EXPIRED / NO_ACTION — this time-specific daytime Office had passed before recovery. The occurrence is closed without pretending that a software/institutional observance happened retrospectively; no human prayer, sacramental act or ecclesiastical office is claimed.",
+        "completed_at": "2026-09-21T17:50:00+00:00",
+        "worker_id": "chatgpt-helm-session-2026-09-21-runtime-recovery",
+        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+        "accountable_owner": "House of Catholic",
+        "attempt": 1,
+        "retrieved_source_ids": [
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
+          "1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY"
+        ],
+        "evidence_refs": [
+          "Drive:Royal Palace Scheduled Tasks Register current task row",
+          "GitHub:clock-state scheduled-duty queue live recovery"
+        ],
+        "writes": [
+          "GitHub clock-state/state/scheduled-duty-queue.json durable recovery receipt"
+        ],
+        "readback_verified": true,
+        "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "external_effect": "NONE",
+        "new_model_provider_access_granted": false,
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false,
+        "recovery_disposition": "EXPIRED"
+      },
+      "claim": null
     },
     "catholic.sext:2026-09-21": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -341,8 +454,45 @@
       ],
       "scheduled_for": "2026-09-21T12:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "ACKNOWLEDGED_NO_ACTION",
+      "transition_class": "scheduled_duty_due",
+      "receipt": {
+        "schema_version": 1,
+        "outcome": "NO_ACTION",
+        "result_summary": "EXPIRED / NO_ACTION — this time-specific daytime Office had passed before recovery. The occurrence is closed without pretending that a software/institutional observance happened retrospectively; no human prayer, sacramental act or ecclesiastical office is claimed.",
+        "completed_at": "2026-09-21T17:50:00+00:00",
+        "worker_id": "chatgpt-helm-session-2026-09-21-runtime-recovery",
+        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+        "accountable_owner": "House of Catholic",
+        "attempt": 1,
+        "retrieved_source_ids": [
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
+          "1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY"
+        ],
+        "evidence_refs": [
+          "Drive:Royal Palace Scheduled Tasks Register current task row",
+          "GitHub:clock-state scheduled-duty queue live recovery"
+        ],
+        "writes": [
+          "GitHub clock-state/state/scheduled-duty-queue.json durable recovery receipt"
+        ],
+        "readback_verified": true,
+        "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "external_effect": "NONE",
+        "new_model_provider_access_granted": false,
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false,
+        "recovery_disposition": "EXPIRED"
+      },
+      "claim": null
     },
     "catholic.terce:2026-09-21": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -379,8 +529,45 @@
       ],
       "scheduled_for": "2026-09-21T09:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "ACKNOWLEDGED_NO_ACTION",
+      "transition_class": "scheduled_duty_due",
+      "receipt": {
+        "schema_version": 1,
+        "outcome": "NO_ACTION",
+        "result_summary": "EXPIRED / NO_ACTION — this time-specific daytime Office had passed before recovery. The occurrence is closed without pretending that a software/institutional observance happened retrospectively; no human prayer, sacramental act or ecclesiastical office is claimed.",
+        "completed_at": "2026-09-21T17:50:00+00:00",
+        "worker_id": "chatgpt-helm-session-2026-09-21-runtime-recovery",
+        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+        "accountable_owner": "House of Catholic",
+        "attempt": 1,
+        "retrieved_source_ids": [
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
+          "1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY"
+        ],
+        "evidence_refs": [
+          "Drive:Royal Palace Scheduled Tasks Register current task row",
+          "GitHub:clock-state scheduled-duty queue live recovery"
+        ],
+        "writes": [
+          "GitHub clock-state/state/scheduled-duty-queue.json durable recovery receipt"
+        ],
+        "readback_verified": true,
+        "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "external_effect": "NONE",
+        "new_model_provider_access_granted": false,
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false,
+        "recovery_disposition": "EXPIRED"
+      },
+      "claim": null
     },
     "catholic.vespers:2026-09-21": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -417,8 +604,45 @@
       ],
       "scheduled_for": "2026-09-21T18:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "ACKNOWLEDGED_ACTION",
+      "transition_class": "scheduled_duty_due",
+      "receipt": {
+        "schema_version": 1,
+        "outcome": "ACTION",
+        "result_summary": "18:00 Vespers catch-up completed while the evening observance remained current. House of Catholic controls were retrieved and the 21 September 2026 Feast of Saint Matthew Vespers source was resolved through the permitted presentation-service route. This records institutional/common-observance handling only; it does not claim human interior prayer, sacramental participation, holy orders or ecclesiastical office.",
+        "completed_at": "2026-09-21T17:50:00+00:00",
+        "worker_id": "chatgpt-helm-session-2026-09-21-runtime-recovery",
+        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+        "accountable_owner": "House of Catholic",
+        "attempt": 1,
+        "retrieved_source_ids": [
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
+          "1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY"
+        ],
+        "evidence_refs": [
+          "Drive:House of Catholic FIRST READ/current source hierarchy",
+          "https://universalis.com/Europe.England.EastAnglia/20260921/vespers.htm"
+        ],
+        "writes": [
+          "GitHub clock-state/state/scheduled-duty-queue.json durable Vespers receipt"
+        ],
+        "readback_verified": true,
+        "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL",
+          "PUBLIC_READ_ONLY"
+        ],
+        "external_effect": "NONE",
+        "new_model_provider_access_granted": false,
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false
+      },
+      "claim": null
     },
     "dynasty.heartbeat:2026-09-21T06:00": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -562,8 +786,47 @@
       ],
       "scheduled_for": "2026-09-21T07:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "ACKNOWLEDGED_NO_ACTION",
+      "transition_class": "scheduled_duty_due",
+      "receipt": {
+        "schema_version": 1,
+        "outcome": "NO_ACTION",
+        "result_summary": "EXPIRED / NO_ACTION — point-in-time Heartbeat window had passed before recovery. It was not replayed retrospectively because that would manufacture historical state checks and duplicate patrol slices. The current 18:00 recovery Heartbeat supersedes the missed snapshots; no patrol cursor advanced for this expired occurrence.",
+        "completed_at": "2026-09-21T17:50:00+00:00",
+        "worker_id": "chatgpt-helm-session-2026-09-21-runtime-recovery",
+        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+        "accountable_owner": "Royal Palace",
+        "attempt": 1,
+        "retrieved_source_ids": [
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY"
+        ],
+        "evidence_refs": [
+          "Drive:Royal Palace Scheduled Tasks Register current task row",
+          "GitHub:clock-state scheduled-duty queue live recovery"
+        ],
+        "writes": [
+          "GitHub clock-state/state/scheduled-duty-queue.json durable recovery receipt"
+        ],
+        "readback_verified": true,
+        "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "external_effect": "NONE",
+        "new_model_provider_access_granted": false,
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false,
+        "recovery_disposition": "EXPIRED",
+        "superseded_by": "dynasty.heartbeat:2026-09-21T18:00",
+        "integrity_patrol_executed": false
+      },
+      "claim": null
     },
     "dynasty.heartbeat:2026-09-21T08:00": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -605,8 +868,47 @@
       ],
       "scheduled_for": "2026-09-21T08:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "ACKNOWLEDGED_NO_ACTION",
+      "transition_class": "scheduled_duty_due",
+      "receipt": {
+        "schema_version": 1,
+        "outcome": "NO_ACTION",
+        "result_summary": "EXPIRED / NO_ACTION — point-in-time Heartbeat window had passed before recovery. It was not replayed retrospectively because that would manufacture historical state checks and duplicate patrol slices. The current 18:00 recovery Heartbeat supersedes the missed snapshots; no patrol cursor advanced for this expired occurrence.",
+        "completed_at": "2026-09-21T17:50:00+00:00",
+        "worker_id": "chatgpt-helm-session-2026-09-21-runtime-recovery",
+        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+        "accountable_owner": "Royal Palace",
+        "attempt": 1,
+        "retrieved_source_ids": [
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY"
+        ],
+        "evidence_refs": [
+          "Drive:Royal Palace Scheduled Tasks Register current task row",
+          "GitHub:clock-state scheduled-duty queue live recovery"
+        ],
+        "writes": [
+          "GitHub clock-state/state/scheduled-duty-queue.json durable recovery receipt"
+        ],
+        "readback_verified": true,
+        "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "external_effect": "NONE",
+        "new_model_provider_access_granted": false,
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false,
+        "recovery_disposition": "EXPIRED",
+        "superseded_by": "dynasty.heartbeat:2026-09-21T18:00",
+        "integrity_patrol_executed": false
+      },
+      "claim": null
     },
     "dynasty.heartbeat:2026-09-21T09:00": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -648,8 +950,47 @@
       ],
       "scheduled_for": "2026-09-21T09:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "ACKNOWLEDGED_NO_ACTION",
+      "transition_class": "scheduled_duty_due",
+      "receipt": {
+        "schema_version": 1,
+        "outcome": "NO_ACTION",
+        "result_summary": "EXPIRED / NO_ACTION — point-in-time Heartbeat window had passed before recovery. It was not replayed retrospectively because that would manufacture historical state checks and duplicate patrol slices. The current 18:00 recovery Heartbeat supersedes the missed snapshots; no patrol cursor advanced for this expired occurrence.",
+        "completed_at": "2026-09-21T17:50:00+00:00",
+        "worker_id": "chatgpt-helm-session-2026-09-21-runtime-recovery",
+        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+        "accountable_owner": "Royal Palace",
+        "attempt": 1,
+        "retrieved_source_ids": [
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY"
+        ],
+        "evidence_refs": [
+          "Drive:Royal Palace Scheduled Tasks Register current task row",
+          "GitHub:clock-state scheduled-duty queue live recovery"
+        ],
+        "writes": [
+          "GitHub clock-state/state/scheduled-duty-queue.json durable recovery receipt"
+        ],
+        "readback_verified": true,
+        "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "external_effect": "NONE",
+        "new_model_provider_access_granted": false,
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false,
+        "recovery_disposition": "EXPIRED",
+        "superseded_by": "dynasty.heartbeat:2026-09-21T18:00",
+        "integrity_patrol_executed": false
+      },
+      "claim": null
     },
     "dynasty.heartbeat:2026-09-21T10:00": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -691,8 +1032,47 @@
       ],
       "scheduled_for": "2026-09-21T10:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "ACKNOWLEDGED_NO_ACTION",
+      "transition_class": "scheduled_duty_due",
+      "receipt": {
+        "schema_version": 1,
+        "outcome": "NO_ACTION",
+        "result_summary": "EXPIRED / NO_ACTION — point-in-time Heartbeat window had passed before recovery. It was not replayed retrospectively because that would manufacture historical state checks and duplicate patrol slices. The current 18:00 recovery Heartbeat supersedes the missed snapshots; no patrol cursor advanced for this expired occurrence.",
+        "completed_at": "2026-09-21T17:50:00+00:00",
+        "worker_id": "chatgpt-helm-session-2026-09-21-runtime-recovery",
+        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+        "accountable_owner": "Royal Palace",
+        "attempt": 1,
+        "retrieved_source_ids": [
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY"
+        ],
+        "evidence_refs": [
+          "Drive:Royal Palace Scheduled Tasks Register current task row",
+          "GitHub:clock-state scheduled-duty queue live recovery"
+        ],
+        "writes": [
+          "GitHub clock-state/state/scheduled-duty-queue.json durable recovery receipt"
+        ],
+        "readback_verified": true,
+        "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "external_effect": "NONE",
+        "new_model_provider_access_granted": false,
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false,
+        "recovery_disposition": "EXPIRED",
+        "superseded_by": "dynasty.heartbeat:2026-09-21T18:00",
+        "integrity_patrol_executed": false
+      },
+      "claim": null
     },
     "dynasty.heartbeat:2026-09-21T11:00": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -734,8 +1114,47 @@
       ],
       "scheduled_for": "2026-09-21T11:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "ACKNOWLEDGED_NO_ACTION",
+      "transition_class": "scheduled_duty_due",
+      "receipt": {
+        "schema_version": 1,
+        "outcome": "NO_ACTION",
+        "result_summary": "EXPIRED / NO_ACTION — point-in-time Heartbeat window had passed before recovery. It was not replayed retrospectively because that would manufacture historical state checks and duplicate patrol slices. The current 18:00 recovery Heartbeat supersedes the missed snapshots; no patrol cursor advanced for this expired occurrence.",
+        "completed_at": "2026-09-21T17:50:00+00:00",
+        "worker_id": "chatgpt-helm-session-2026-09-21-runtime-recovery",
+        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+        "accountable_owner": "Royal Palace",
+        "attempt": 1,
+        "retrieved_source_ids": [
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY"
+        ],
+        "evidence_refs": [
+          "Drive:Royal Palace Scheduled Tasks Register current task row",
+          "GitHub:clock-state scheduled-duty queue live recovery"
+        ],
+        "writes": [
+          "GitHub clock-state/state/scheduled-duty-queue.json durable recovery receipt"
+        ],
+        "readback_verified": true,
+        "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "external_effect": "NONE",
+        "new_model_provider_access_granted": false,
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false,
+        "recovery_disposition": "EXPIRED",
+        "superseded_by": "dynasty.heartbeat:2026-09-21T18:00",
+        "integrity_patrol_executed": false
+      },
+      "claim": null
     },
     "dynasty.heartbeat:2026-09-21T12:00": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -777,8 +1196,47 @@
       ],
       "scheduled_for": "2026-09-21T12:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "ACKNOWLEDGED_NO_ACTION",
+      "transition_class": "scheduled_duty_due",
+      "receipt": {
+        "schema_version": 1,
+        "outcome": "NO_ACTION",
+        "result_summary": "EXPIRED / NO_ACTION — point-in-time Heartbeat window had passed before recovery. It was not replayed retrospectively because that would manufacture historical state checks and duplicate patrol slices. The current 18:00 recovery Heartbeat supersedes the missed snapshots; no patrol cursor advanced for this expired occurrence.",
+        "completed_at": "2026-09-21T17:50:00+00:00",
+        "worker_id": "chatgpt-helm-session-2026-09-21-runtime-recovery",
+        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+        "accountable_owner": "Royal Palace",
+        "attempt": 1,
+        "retrieved_source_ids": [
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY"
+        ],
+        "evidence_refs": [
+          "Drive:Royal Palace Scheduled Tasks Register current task row",
+          "GitHub:clock-state scheduled-duty queue live recovery"
+        ],
+        "writes": [
+          "GitHub clock-state/state/scheduled-duty-queue.json durable recovery receipt"
+        ],
+        "readback_verified": true,
+        "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "external_effect": "NONE",
+        "new_model_provider_access_granted": false,
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false,
+        "recovery_disposition": "EXPIRED",
+        "superseded_by": "dynasty.heartbeat:2026-09-21T18:00",
+        "integrity_patrol_executed": false
+      },
+      "claim": null
     },
     "dynasty.heartbeat:2026-09-21T13:00": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -820,8 +1278,47 @@
       ],
       "scheduled_for": "2026-09-21T13:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "ACKNOWLEDGED_NO_ACTION",
+      "transition_class": "scheduled_duty_due",
+      "receipt": {
+        "schema_version": 1,
+        "outcome": "NO_ACTION",
+        "result_summary": "EXPIRED / NO_ACTION — point-in-time Heartbeat window had passed before recovery. It was not replayed retrospectively because that would manufacture historical state checks and duplicate patrol slices. The current 18:00 recovery Heartbeat supersedes the missed snapshots; no patrol cursor advanced for this expired occurrence.",
+        "completed_at": "2026-09-21T17:50:00+00:00",
+        "worker_id": "chatgpt-helm-session-2026-09-21-runtime-recovery",
+        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+        "accountable_owner": "Royal Palace",
+        "attempt": 1,
+        "retrieved_source_ids": [
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY"
+        ],
+        "evidence_refs": [
+          "Drive:Royal Palace Scheduled Tasks Register current task row",
+          "GitHub:clock-state scheduled-duty queue live recovery"
+        ],
+        "writes": [
+          "GitHub clock-state/state/scheduled-duty-queue.json durable recovery receipt"
+        ],
+        "readback_verified": true,
+        "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "external_effect": "NONE",
+        "new_model_provider_access_granted": false,
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false,
+        "recovery_disposition": "EXPIRED",
+        "superseded_by": "dynasty.heartbeat:2026-09-21T18:00",
+        "integrity_patrol_executed": false
+      },
+      "claim": null
     },
     "dynasty.heartbeat:2026-09-21T14:00": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -863,8 +1360,47 @@
       ],
       "scheduled_for": "2026-09-21T14:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "ACKNOWLEDGED_NO_ACTION",
+      "transition_class": "scheduled_duty_due",
+      "receipt": {
+        "schema_version": 1,
+        "outcome": "NO_ACTION",
+        "result_summary": "EXPIRED / NO_ACTION — point-in-time Heartbeat window had passed before recovery. It was not replayed retrospectively because that would manufacture historical state checks and duplicate patrol slices. The current 18:00 recovery Heartbeat supersedes the missed snapshots; no patrol cursor advanced for this expired occurrence.",
+        "completed_at": "2026-09-21T17:50:00+00:00",
+        "worker_id": "chatgpt-helm-session-2026-09-21-runtime-recovery",
+        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+        "accountable_owner": "Royal Palace",
+        "attempt": 1,
+        "retrieved_source_ids": [
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY"
+        ],
+        "evidence_refs": [
+          "Drive:Royal Palace Scheduled Tasks Register current task row",
+          "GitHub:clock-state scheduled-duty queue live recovery"
+        ],
+        "writes": [
+          "GitHub clock-state/state/scheduled-duty-queue.json durable recovery receipt"
+        ],
+        "readback_verified": true,
+        "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "external_effect": "NONE",
+        "new_model_provider_access_granted": false,
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false,
+        "recovery_disposition": "EXPIRED",
+        "superseded_by": "dynasty.heartbeat:2026-09-21T18:00",
+        "integrity_patrol_executed": false
+      },
+      "claim": null
     },
     "dynasty.heartbeat:2026-09-21T15:00": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -906,8 +1442,47 @@
       ],
       "scheduled_for": "2026-09-21T15:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "ACKNOWLEDGED_NO_ACTION",
+      "transition_class": "scheduled_duty_due",
+      "receipt": {
+        "schema_version": 1,
+        "outcome": "NO_ACTION",
+        "result_summary": "EXPIRED / NO_ACTION — point-in-time Heartbeat window had passed before recovery. It was not replayed retrospectively because that would manufacture historical state checks and duplicate patrol slices. The current 18:00 recovery Heartbeat supersedes the missed snapshots; no patrol cursor advanced for this expired occurrence.",
+        "completed_at": "2026-09-21T17:50:00+00:00",
+        "worker_id": "chatgpt-helm-session-2026-09-21-runtime-recovery",
+        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+        "accountable_owner": "Royal Palace",
+        "attempt": 1,
+        "retrieved_source_ids": [
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY"
+        ],
+        "evidence_refs": [
+          "Drive:Royal Palace Scheduled Tasks Register current task row",
+          "GitHub:clock-state scheduled-duty queue live recovery"
+        ],
+        "writes": [
+          "GitHub clock-state/state/scheduled-duty-queue.json durable recovery receipt"
+        ],
+        "readback_verified": true,
+        "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "external_effect": "NONE",
+        "new_model_provider_access_granted": false,
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false,
+        "recovery_disposition": "EXPIRED",
+        "superseded_by": "dynasty.heartbeat:2026-09-21T18:00",
+        "integrity_patrol_executed": false
+      },
+      "claim": null
     },
     "dynasty.heartbeat:2026-09-21T16:00": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -949,8 +1524,47 @@
       ],
       "scheduled_for": "2026-09-21T16:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "ACKNOWLEDGED_NO_ACTION",
+      "transition_class": "scheduled_duty_due",
+      "receipt": {
+        "schema_version": 1,
+        "outcome": "NO_ACTION",
+        "result_summary": "EXPIRED / NO_ACTION — point-in-time Heartbeat window had passed before recovery. It was not replayed retrospectively because that would manufacture historical state checks and duplicate patrol slices. The current 18:00 recovery Heartbeat supersedes the missed snapshots; no patrol cursor advanced for this expired occurrence.",
+        "completed_at": "2026-09-21T17:50:00+00:00",
+        "worker_id": "chatgpt-helm-session-2026-09-21-runtime-recovery",
+        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+        "accountable_owner": "Royal Palace",
+        "attempt": 1,
+        "retrieved_source_ids": [
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY"
+        ],
+        "evidence_refs": [
+          "Drive:Royal Palace Scheduled Tasks Register current task row",
+          "GitHub:clock-state scheduled-duty queue live recovery"
+        ],
+        "writes": [
+          "GitHub clock-state/state/scheduled-duty-queue.json durable recovery receipt"
+        ],
+        "readback_verified": true,
+        "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "external_effect": "NONE",
+        "new_model_provider_access_granted": false,
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false,
+        "recovery_disposition": "EXPIRED",
+        "superseded_by": "dynasty.heartbeat:2026-09-21T18:00",
+        "integrity_patrol_executed": false
+      },
+      "claim": null
     },
     "dynasty.heartbeat:2026-09-21T17:00": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -992,8 +1606,47 @@
       ],
       "scheduled_for": "2026-09-21T17:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "ACKNOWLEDGED_NO_ACTION",
+      "transition_class": "scheduled_duty_due",
+      "receipt": {
+        "schema_version": 1,
+        "outcome": "NO_ACTION",
+        "result_summary": "EXPIRED / NO_ACTION — point-in-time Heartbeat window had passed before recovery. It was not replayed retrospectively because that would manufacture historical state checks and duplicate patrol slices. The current 18:00 recovery Heartbeat supersedes the missed snapshots; no patrol cursor advanced for this expired occurrence.",
+        "completed_at": "2026-09-21T17:50:00+00:00",
+        "worker_id": "chatgpt-helm-session-2026-09-21-runtime-recovery",
+        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+        "accountable_owner": "Royal Palace",
+        "attempt": 1,
+        "retrieved_source_ids": [
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY"
+        ],
+        "evidence_refs": [
+          "Drive:Royal Palace Scheduled Tasks Register current task row",
+          "GitHub:clock-state scheduled-duty queue live recovery"
+        ],
+        "writes": [
+          "GitHub clock-state/state/scheduled-duty-queue.json durable recovery receipt"
+        ],
+        "readback_verified": true,
+        "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "external_effect": "NONE",
+        "new_model_provider_access_granted": false,
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false,
+        "recovery_disposition": "EXPIRED",
+        "superseded_by": "dynasty.heartbeat:2026-09-21T18:00",
+        "integrity_patrol_executed": false
+      },
+      "claim": null
     },
     "dynasty.heartbeat:2026-09-21T18:00": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -1011,9 +1664,30 @@
         "duty_id": "dynasty.heartbeat",
         "evaluation_only": false,
         "integrity_patrol": {
-          "mode": "ONE_BOUNDED_SLICE_PER_HEARTBEAT",
           "registry_version": 1,
-          "source_row": 21
+          "source_row": 21,
+          "estate_id": "house-of-carol",
+          "estate_label": "House of Carol — Business",
+          "root_folder_ids": [
+            "10Qn-cOnkSVc8rCAZohWYhcjw6xPNa0Uo"
+          ],
+          "visit_index": 1,
+          "cursor_after": "house-of-tony",
+          "required_source_ids": [
+            "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+            "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
+            "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY",
+            "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+            "1iJU__qY2P-LSNJDqIaG5qZH2Dw6p2DnNZ35LUzGTkVg",
+            "1gS-V40twMOT29dBiXrNrNlo87dUD49u9t2e9yHGOS98",
+            "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+            "15sUjJSU9z5YaXgMecV-2PeQw2x-2JfmDiTGXoM-T6S8",
+            "1wxAoiO4kLqzK8_jrrzP8uI0EbU46PtA4-vXxCE8Eh_M",
+            "1pMaDtUgcCGaRn1LaCk2JYMdr1Hqe-BY-auDQm1lTUqI"
+          ],
+          "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
+          "royal_household_access_permitted": false,
+          "mode": "ONE_BOUNDED_SLICE_PER_HEARTBEAT"
         },
         "label": "Dynasty House Pulse / King's Balcony Heartbeat",
         "required_source_ids": [
@@ -1035,8 +1709,72 @@
       ],
       "scheduled_for": "2026-09-21T18:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "ACKNOWLEDGED_ACTION",
+      "transition_class": "scheduled_duty_due",
+      "receipt": {
+        "schema_version": 1,
+        "outcome": "ACTION",
+        "result_summary": "18:00 recovery Heartbeat completed from current canonical state. Missed point-in-time Heartbeats were closed without retroactive theatre; the still-valid Government/Vespers/Evening Commons duties were reconciled; no new Crown-reserved decision was found. The required row-21 patrol advanced exactly one bounded slice: House of Carol current front door, Business Plan, estate root and canonical-record register were checked; sampled current/archived lifecycle classifications were coherent, no conflicting current material was established, no archive mutation was justified, and the durable cursor advances to House of Tony.",
+        "completed_at": "2026-09-21T17:50:00+00:00",
+        "worker_id": "chatgpt-helm-session-2026-09-21-runtime-recovery",
+        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+        "accountable_owner": "Royal Palace",
+        "attempt": 1,
+        "retrieved_source_ids": [
+          "13ZW5khEzz_IPL3bR_DXtRY-s4z8qpKKQmUz7Lu06nWw",
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "15sUjJSU9z5YaXgMecV-2PeQw2x-2JfmDiTGXoM-T6S8",
+          "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE",
+          "1KiH8nsUBO8FA3HzcJSYnko_heuDiEQSpMe-np0-e7Sk",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "1RCbdhSLeU-pDgrRfZDkd2e7lcCVX46uti5RK9SvkTno",
+          "1RwwJX4yzsgTFLCoKel1geMNz0RqRje1ljfPhQHQrVSs",
+          "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
+          "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
+          "1fZ7_rv8nMkPgJIHCHOH45fYPmNdKKhVlUkDoyoIfKoU",
+          "1gS-V40twMOT29dBiXrNrNlo87dUD49u9t2e9yHGOS98",
+          "1iJU__qY2P-LSNJDqIaG5qZH2Dw6p2DnNZ35LUzGTkVg",
+          "1pMaDtUgcCGaRn1LaCk2JYMdr1Hqe-BY-auDQm1lTUqI",
+          "1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk",
+          "1ulQ0QDZLveGRvT_zJt5eUXDXgdIKntnwEliNK98zAc0",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY",
+          "1wxAoiO4kLqzK8_jrrzP8uI0EbU46PtA4-vXxCE8Eh_M"
+        ],
+        "evidence_refs": [
+          "Drive:current principal institution state pointers",
+          "Drive:House of Carol Information Estate Inventory & Canonical Record Register",
+          "Drive:House of Carol Business Plan 01 current executive state",
+          "GitHub:clock-state scheduled-duty queue"
+        ],
+        "writes": [
+          "GitHub clock-state/state/scheduled-duty-queue.json durable Heartbeat/patrol receipt"
+        ],
+        "readback_verified": true,
+        "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "external_effect": "NONE",
+        "new_model_provider_access_granted": false,
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false,
+        "integrity_patrol": {
+          "registry_version": 1,
+          "source_row": 21,
+          "estate_id": "house-of-carol",
+          "estate_label": "House of Carol — Business",
+          "visit_index": 1,
+          "cursor_after": "house-of-tony",
+          "current_authority_retrieved": true,
+          "findings": [],
+          "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
+          "royal_household_accessed": false,
+          "readback_verified": true
+        }
+      },
+      "claim": null
     },
     "government.daily-pulse:2026-09-21": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -1074,8 +1812,54 @@
       ],
       "scheduled_for": "2026-09-21T07:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "ACKNOWLEDGED_NO_ACTION",
+      "transition_class": "scheduled_duty_due",
+      "receipt": {
+        "schema_version": 1,
+        "outcome": "NO_ACTION",
+        "result_summary": "VERIFIED_CLOSED — the unique 21 September Government Pulse was executed late under its existing daily authority. Current post-reset Government/Civil Service state was reconciled; no archived programme or appointment was restored; no evidence-backed material political proposition, collective Cabinet question, parliamentary business or independent-institution matter required action. The runtime backlog was identified as Royal Palace/Computer-of-Series infrastructure, not converted into Government policy urgency. NO MATERIAL GOVERNMENT DECISION THIS PULSE.",
+        "completed_at": "2026-09-21T17:50:00+00:00",
+        "worker_id": "chatgpt-helm-session-2026-09-21-runtime-recovery",
+        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+        "accountable_owner": "House of Marianne — Centre of Government & Cabinet Coordination",
+        "attempt": 1,
+        "retrieved_source_ids": [
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
+          "1Z6jkA6SuaPDAQYWAAYEkjjRGg00wP8KF3odrf-fktxU",
+          "1azGscplmXUPsNxyiN5CFphRJtdomaE9yHBl9dzLzbjY",
+          "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
+          "1fZ7_rv8nMkPgJIHCHOH45fYPmNdKKhVlUkDoyoIfKoU",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY"
+        ],
+        "evidence_refs": [
+          "Drive:House of Marianne FIRST READ & Founding Constitution current post-reset override",
+          "Drive:House of Marianne Current State, Remediation & Handover Register",
+          "Drive:Royal Palace Scheduled Tasks row 12 due gate",
+          "GOV.UK:The Civil Service code — integrity, honesty, objectivity and impartiality"
+        ],
+        "writes": [
+          "GitHub clock-state/state/scheduled-duty-queue.json durable Government pulse receipt"
+        ],
+        "readback_verified": true,
+        "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL",
+          "PUBLIC_READ_ONLY"
+        ],
+        "external_effect": "NONE",
+        "new_model_provider_access_granted": false,
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false,
+        "parent_case_id": "government-pulse:2026-09-21",
+        "pulse_terminal_state": "VERIFIED_CLOSED",
+        "decision_state": "NO MATERIAL GOVERNMENT DECISION THIS PULSE"
+      },
+      "claim": null
     },
     "josie.morning-news:2026-09-21": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -1173,6 +1957,77 @@
       "service_class": "HEARTBEAT",
       "status": "ACKNOWLEDGED_ACTION",
       "transition_class": "scheduled_duty_due"
+    },
+    "government.red-box:2026-09-21": {
+      "event_id": "government.red-box:2026-09-21",
+      "event_type": "government.pulse.closed",
+      "transition_class": "government.pulse.closed",
+      "service_class": "TRAM",
+      "departure_mode": "COMPLETION",
+      "emitting_owner": "House of Marianne — Centre of Government & Cabinet Coordination",
+      "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 13",
+      "mission_ref": "government-pulse:2026-09-21",
+      "parent_case_id": "government-pulse:2026-09-21",
+      "destination": "Government Red Box Tram → Royal Palace / King's Balcony",
+      "acceptance": "Build decision/accountability Red Box only from the verified parent pulse evidence; deliver to Balcony and durably ACK/read back.",
+      "ack_to": "Daily Government Decision Red Box ledger / parent pulse",
+      "permitted_effects": [
+        "build decision/accountability Red Box from parent evidence",
+        "deliver user-visible Balcony return",
+        "write delivery ACK"
+      ],
+      "prohibited_effects": [
+        "run before parent closure",
+        "make a second Government decision",
+        "invent decisions/scrutiny"
+      ],
+      "payload": {
+        "duty_id": "government.red-box",
+        "source_row": 13,
+        "parent_terminal_state": "VERIFIED_CLOSED",
+        "decision_state": "NO MATERIAL GOVERNMENT DECISION THIS PULSE"
+      },
+      "scheduled_for": "2026-09-21T17:50:00+00:00",
+      "emitted_at": "2026-09-21T17:50:00+00:00",
+      "status": "ACKNOWLEDGED_ACTION",
+      "receipt": {
+        "schema_version": 1,
+        "outcome": "ACTION",
+        "result_summary": "DAILY ALDERNIAN GOVERNMENT RED BOX — 21 September 2026 recovery pulse. Government decisions: NO MATERIAL GOVERNMENT DECISION THIS PULSE. Work executed/country built: current Government state and due gate reconciled; no archived reset programme restored; the bus-runtime continuity defect remains with Royal Palace/Computer of Series. Civil Service advice/material dissent: preserve factual, authority and evidence boundaries; scheduler backlog is not policy urgency. Opposition: not activated because there was no material political proposition. Parliament: not engaged. Independent findings/STOPs: none engaged. What changed: Government pulse ledger moved from missed runtime to verified no-action close. Open Government business remains institution-owned under current state. Crown action: NONE. Next Government trigger: 2026-09-22 07:00 Europe/London.",
+        "completed_at": "2026-09-21T17:50:00+00:00",
+        "worker_id": "chatgpt-helm-session-2026-09-21-runtime-recovery",
+        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+        "accountable_owner": "House of Marianne — Centre of Government & Cabinet Coordination",
+        "attempt": 1,
+        "retrieved_source_ids": [
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "1Z6jkA6SuaPDAQYWAAYEkjjRGg00wP8KF3odrf-fktxU",
+          "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
+          "1fZ7_rv8nMkPgJIHCHOH45fYPmNdKKhVlUkDoyoIfKoU",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY"
+        ],
+        "evidence_refs": [
+          "GitHub:government.daily-pulse:2026-09-21 VERIFIED_CLOSED parent receipt",
+          "Drive:Royal Palace Scheduled Tasks row 13 Red Box contract"
+        ],
+        "writes": [
+          "GitHub clock-state/state/scheduled-duty-queue.json Red Box delivery ACK"
+        ],
+        "readback_verified": true,
+        "balcony_delivery_ack": true,
+        "parent_case_id": "government-pulse:2026-09-21",
+        "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "external_effect": "NONE",
+        "new_model_provider_access_granted": false,
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false
+      }
     }
   },
   "last_checked_at": "2026-09-21T17:22:53+00:00",
