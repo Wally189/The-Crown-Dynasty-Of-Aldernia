@@ -233,7 +233,45 @@ def parse_contract_cell(
         raise ContractError("execution contract is not valid JSON") from exc
     if not isinstance(value, Mapping):
         raise ContractError("execution contract JSON must be an object")
-    return parse_contract_mapping(value, expected_duty_id=expected_duty_id)
+
+    if "duties" not in value:
+        return parse_contract_mapping(value, expected_duty_id=expected_duty_id)
+
+    if set(value) != {"v", "duties"}:
+        raise ContractError(
+            "execution contract bundle may contain only v and duties"
+        )
+    if value.get("v") != CONTRACT_VERSION:
+        raise ContractError(
+            f"execution contract bundle v must equal {CONTRACT_VERSION}"
+        )
+    duties = value.get("duties")
+    if not isinstance(duties, Mapping) or not duties:
+        raise ContractError("execution contract bundle duties must be a non-empty object")
+    if expected_duty_id is None:
+        raise ContractError(
+            "execution contract bundle requires an expected duty_id"
+        )
+    selected = duties.get(expected_duty_id)
+    if not isinstance(selected, Mapping):
+        raise ContractError(
+            f"execution contract bundle has no entry for duty {expected_duty_id!r}"
+        )
+    allowed_entry = {"profile", "engine_mode", "catchup", "successor"}
+    unknown = set(selected) - allowed_entry
+    if unknown:
+        raise ContractError(
+            "execution contract bundle entry contains unsupported fields: "
+            + ", ".join(sorted(unknown))
+        )
+    return parse_contract_mapping(
+        {
+            "v": CONTRACT_VERSION,
+            "duty_id": expected_duty_id,
+            **dict(selected),
+        },
+        expected_duty_id=expected_duty_id,
+    )
 
 
 def contract_from_row(
