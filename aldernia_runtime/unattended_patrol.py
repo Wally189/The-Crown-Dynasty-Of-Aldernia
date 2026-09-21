@@ -14,6 +14,10 @@ from urllib.parse import quote, urlencode
 from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
+from aldernia_runtime.openai_provider import (
+    provider_available as openai_provider_available,
+    responses_create as openai_responses_create,
+)
 from aldernia_runtime.patrol import (
     ESTATES,
     PATROL_COMMON_SOURCE_IDS,
@@ -371,12 +375,37 @@ class DriveClient:
 
 
 class OpenAIClient:
-    def __init__(self, api_key: str):
-        if not api_key.strip():
-            raise PatrolRuntimeError("OpenAI API key is required")
-        self.headers = {
-            "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json",
+    def __init__(self, api_key: str = ""):
+        if not openai_provider_available(api_key=api_key):
+            raise PatrolRuntimeError(
+                "OpenAI provider is required: configure workload identity "
+                "or the bounded fallback API key"
+            )
+        self.api_key = api_key
+
+    @staticmethod
+    def _structured_output(response: Mapping[str, Any], *, label: str) -> tuple[dict[str, Any], dict[str, int]]:
+        output_text = None
+        for item in response.get("output") or []:
+            if not isinstance(item, Mapping) or item.get("type") != "message":
+                continue
+            for part in item.get("content") or []:
+                if isinstance(part, Mapping) and part.get("type") == "output_text":
+                    output_text = part.get("text")
+                    break
+            if output_text is not None:
+                break
+        if not isinstance(output_text, str):
+            raise PatrolRuntimeError(
+                f"OpenAI {label} response did not contain structured output_text"
+            )
+        result = json.loads(output_text)
+        if not isinstance(result, dict):
+            raise PatrolRuntimeError(f"OpenAI {label} output was not an object")
+        usage = response.get("usage") or {}
+        return result, {
+            "input_tokens": int(usage.get("input_tokens") or 0),
+            "output_tokens": int(usage.get("output_tokens") or 0),
         }
 
     def classify(self, prompt: str) -> tuple[dict[str, Any], dict[str, int]]:
@@ -409,7 +438,11 @@ class OpenAIClient:
                             "exact_question": {"type": ["string", "null"]},
                             "confidence": {
                                 "type": "string",
-                                "enum": ["UNAMBIGUOUS", "MATERIAL_CONFLICT", "INSUFFICIENT_EVIDENCE"],
+                                "enum": [
+                                    "UNAMBIGUOUS",
+                                    "MATERIAL_CONFLICT",
+                                    "INSUFFICIENT_EVIDENCE",
+                                ],
                             },
                         },
                         "required": [
@@ -459,34 +492,8 @@ class OpenAIClient:
                 }
             },
         }
-        response = _json_http(
-            "POST",
-            "https://api.openai.com/v1/responses",
-            headers=self.headers,
-            body=payload,
-            timeout=90,
-        )
-        output_text = None
-        for item in response.get("output") or []:
-            if not isinstance(item, Mapping) or item.get("type") != "message":
-                continue
-            for content in item.get("content") or []:
-                if isinstance(content, Mapping) and content.get("type") == "output_text":
-                    output_text = content.get("text")
-                    break
-            if output_text is not None:
-                break
-        if not isinstance(output_text, str):
-            raise PatrolRuntimeError("OpenAI response did not contain structured output_text")
-        result = json.loads(output_text)
-        if not isinstance(result, dict):
-            raise PatrolRuntimeError("OpenAI structured output was not an object")
-        usage = response.get("usage") or {}
-        return result, {
-            "input_tokens": int(usage.get("input_tokens") or 0),
-            "output_tokens": int(usage.get("output_tokens") or 0),
-        }
-
+        response = openai_responses_create(payload, api_key=self.api_key)
+        return self._structured_output(response, label="patrol")
 
     def heartbeat(
         self,
@@ -522,68 +529,42 @@ class OpenAIClient:
             ],
             "additionalProperties": False,
         }
-        response = _json_http(
-            "POST",
-            "https://api.openai.com/v1/responses",
-            headers=self.headers,
-            body={
-                "model": MODEL,
-                "reasoning": {"effort": "medium"},
-                "max_output_tokens": MAX_OUTPUT_TOKENS,
-                "input": [
-                    {
-                        "role": "system",
-                        "content": (
-                            "Operate one already-authorised Royal Palace Dynasty House Pulse / "
-                            "King's Balcony Heartbeat. Reconcile current principal governed "
-                            "institution states from the supplied current-source packet and "
-                            "Scheduled Tasks row. The same Heartbeat also carries exactly one "
-                            "bounded integrity-patrol slice whose result is supplied separately. "
-                            "Do not invent work, Crown attention, public events, decisions, "
-                            "citizens, outcomes or authority. Routine institution-owned work "
-                            "remains institution-owned. Do not access or infer private Royal "
-                            "Household material. No external contact, publication, spend, "
-                            "provider/account change or new mission is permitted. Return STOP "
-                            "if supplied evidence is insufficient to make the Heartbeat truthful. "
-                            "Crown attention must be empty unless a genuine reserved decision "
-                            "or binding STOP is evidenced."
-                        ),
-                    },
-                    {"role": "user", "content": prompt},
-                ],
-                "text": {
-                    "format": {
-                        "type": "json_schema",
-                        "name": "aldernia_dynasty_heartbeat",
-                        "strict": True,
-                        "schema": schema,
-                    }
+        payload = {
+            "model": MODEL,
+            "reasoning": {"effort": "medium"},
+            "max_output_tokens": MAX_OUTPUT_TOKENS,
+            "input": [
+                {
+                    "role": "system",
+                    "content": (
+                        "Operate one already-authorised Royal Palace Dynasty House Pulse / "
+                        "King's Balcony Heartbeat. Reconcile current principal governed "
+                        "institution states from the supplied current-source packet and "
+                        "Scheduled Tasks row. The same Heartbeat also carries exactly one "
+                        "bounded integrity-patrol slice whose result is supplied separately. "
+                        "Do not invent work, Crown attention, public events, decisions, "
+                        "citizens, outcomes or authority. Routine institution-owned work "
+                        "remains institution-owned. Do not access or infer private Royal "
+                        "Household material. No external contact, publication, spend, "
+                        "provider/account change or new mission is permitted. Return STOP "
+                        "if supplied evidence is insufficient to make the Heartbeat truthful. "
+                        "Crown attention must be empty unless a genuine reserved decision "
+                        "or binding STOP is evidenced."
+                    ),
                 },
+                {"role": "user", "content": prompt},
+            ],
+            "text": {
+                "format": {
+                    "type": "json_schema",
+                    "name": "aldernia_dynasty_heartbeat",
+                    "strict": True,
+                    "schema": schema,
+                }
             },
-            timeout=90,
-        )
-        output_text = None
-        for item in response.get("output") or []:
-            if not isinstance(item, Mapping) or item.get("type") != "message":
-                continue
-            for part in item.get("content") or []:
-                if isinstance(part, Mapping) and part.get("type") == "output_text":
-                    output_text = part.get("text")
-                    break
-            if output_text is not None:
-                break
-        if not isinstance(output_text, str):
-            raise PatrolRuntimeError(
-                "OpenAI Heartbeat response did not contain structured output_text"
-            )
-        result = json.loads(output_text)
-        if not isinstance(result, dict):
-            raise PatrolRuntimeError("OpenAI Heartbeat output was not an object")
-        usage = response.get("usage") or {}
-        return result, {
-            "input_tokens": int(usage.get("input_tokens") or 0),
-            "output_tokens": int(usage.get("output_tokens") or 0),
         }
+        response = openai_responses_create(payload, api_key=self.api_key)
+        return self._structured_output(response, label="Heartbeat")
 
 
 class BudgetLedger:
@@ -1092,8 +1073,21 @@ def main(argv: list[str] | None = None) -> int:
 
     drive_token = os.environ.get("GOOGLE_DRIVE_ACCESS_TOKEN", "")
     openai_key = os.environ.get("OPENAI_API_KEY", "")
-    if not drive_token or not openai_key:
-        print(json.dumps({"status": "PROVIDER_ACCESS_NOT_CONFIGURED", "action": "LEAVE_PENDING"}))
+    if not drive_token or not openai_provider_available(api_key=openai_key):
+        print(
+            json.dumps(
+                {
+                    "status": "PROVIDER_ACCESS_NOT_CONFIGURED",
+                    "action": "LEAVE_PENDING",
+                    "missing": {
+                        "google_drive_wif": not bool(drive_token),
+                        "openai_wif_or_fallback": not openai_provider_available(
+                            api_key=openai_key
+                        ),
+                    },
+                }
+            )
+        )
         return 0
 
     try:
