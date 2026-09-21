@@ -1,9 +1,5 @@
 (() => {
   'use strict';
-
-  if (window.location.pathname.includes('/country/')) {
-    document.body.classList.add('country-surface');
-  }
   const script = document.currentScript;
   const root = script?.dataset.root || './';
   const londonTime = new Intl.DateTimeFormat('en-GB', {
