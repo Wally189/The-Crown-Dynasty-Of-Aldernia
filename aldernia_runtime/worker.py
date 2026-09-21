@@ -12,6 +12,7 @@ from typing import Any, Mapping
 from aldernia_runtime.patrol import PatrolError, plan_slice, validate_patrol_result
 from aldernia_runtime.scheduler import load_scheduler_state, load_timetable
 from aldernia_runtime.session import load_session
+from aldernia_runtime.transport import pulse_completion_event
 
 WORKER_STATE_VERSION = 1
 CLAIM_LEASE = timedelta(minutes=30)
@@ -141,6 +142,88 @@ def _recover_expired_claim_in_memory(
     return "RECOVERED_TO_PENDING"
 
 
+
+def _create_government_red_box_child(
+    *,
+    state: dict[str, Any],
+    timetable_path: Path,
+    parent_event: dict[str, Any],
+    parent_event_id: str,
+    parent_receipt: dict[str, Any],
+    domain_terminal_state: str,
+    now: datetime,
+) -> str:
+    """Create exactly one completion-triggered Red Box child for one Government pulse."""
+    if domain_terminal_state not in {"VERIFIED_CLOSED", "FAILED_CLOSED"}:
+        raise WorkerError("Government pulse must terminate VERIFIED_CLOSED or FAILED_CLOSED")
+    red_box_duty = _duty_map(timetable_path).get("government.red-box")
+    if red_box_duty is None:
+        raise WorkerError("government.red-box event-child duty is missing from the current timetable")
+
+    date_key = parent_event_id.rsplit(":", 1)[-1]
+    child_id = f"government.red-box:{date_key}"
+    existing = state.get("events", {}).get(child_id)
+    if isinstance(existing, dict):
+        if (existing.get("payload") or {}).get("parent_event_id") != parent_event_id:
+            raise WorkerError("Government Red Box stable child identity conflicts with another parent")
+        parent_receipt["domain_terminal_state"] = domain_terminal_state
+        parent_receipt["red_box_child_event_id"] = child_id
+        return child_id
+
+    event_type = pulse_completion_event(domain_terminal_state)
+    scheduled_raw = parent_event.get("scheduled_for")
+    if not isinstance(scheduled_raw, str):
+        raise WorkerError("Government parent scheduled_for is missing")
+    child_scheduled = _iso(_dt(scheduled_raw) + timedelta(seconds=1))
+    source_row = int(red_box_duty.get("source_row") or 0)
+    state.setdefault("events", {})[child_id] = {
+        "event_id": child_id,
+        "event_type": event_type,
+        "emitted_at": _iso(now),
+        "emitting_owner": "House of Marianne — Centre of Government & Cabinet Coordination",
+        "authority_ref": (
+            "Royal Palace Scheduled Tasks Register "
+            "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, "
+            f"Scheduled Tasks row {source_row}"
+        ),
+        "mission_ref": f"government-pulse:{date_key}",
+        "departure_mode": "COMPLETION",
+        "service_class": "TRAM",
+        "destination": "Government Red Box Tram → Royal Palace / King's Balcony",
+        "acceptance": (
+            "Red Box is delivered to the King's Balcony and durable ACK/readback "
+            "is recorded for the same parent pulse."
+        ),
+        "ack_to": "Daily Government Decision Red Box ledger / parent pulse",
+        "scheduled_for": child_scheduled,
+        "status": "PENDING_RUNTIME",
+        "payload": {
+            "duty_id": "government.red-box",
+            "label": red_box_duty.get("label"),
+            "source_row": source_row,
+            "accountable_owner": red_box_duty.get("owner"),
+            "required_source_ids": list(red_box_duty.get("required_source_ids") or []),
+            "requires_model_runtime": True,
+            "evaluation_only": False,
+            "parent_event_id": parent_event_id,
+            "parent_case_id": f"government-pulse:{date_key}",
+            "parent_terminal_state": domain_terminal_state,
+        },
+        "permitted_effects": [
+            "build decision/accountability Red Box from parent evidence",
+            "deliver user-visible Balcony return",
+            "write delivery ACK",
+        ],
+        "prohibited_effects": [
+            "run before parent closure",
+            "make a second Government decision",
+            "invent decisions or scrutiny",
+        ],
+    }
+    parent_receipt["domain_terminal_state"] = domain_terminal_state
+    parent_receipt["red_box_child_event_id"] = child_id
+    return child_id
+
 def recover_expired_claim(
     *,
     state_path: Path,
@@ -158,6 +241,18 @@ def recover_expired_claim(
         state=state, timetable_path=timetable_path, event_id=event_id
     )
     result = _recover_expired_claim_in_memory(event, now=now)
+    if result == "FAILED_CLOSED" and duty["id"] == "government.daily-pulse":
+        receipt = event.get("receipt")
+        if isinstance(receipt, dict):
+            _create_government_red_box_child(
+                state=state,
+                timetable_path=timetable_path,
+                parent_event=event,
+                parent_event_id=event_id,
+                parent_receipt=receipt,
+                domain_terminal_state="FAILED_CLOSED",
+                now=now,
+            )
     _write_state(state_path, state)
     return {
         "event_id": event_id,
@@ -213,6 +308,18 @@ def claim_event(
                 "integrity_patrol": claim.get("integrity_patrol"),
             }
         if recovery == "FAILED_CLOSED":
+            if duty["id"] == "government.daily-pulse":
+                receipt = event.get("receipt")
+                if isinstance(receipt, dict):
+                    _create_government_red_box_child(
+                        state=state,
+                        timetable_path=timetable_path,
+                        parent_event=event,
+                        parent_event_id=event_id,
+                        parent_receipt=receipt,
+                        domain_terminal_state="FAILED_CLOSED",
+                        now=now,
+                    )
             _write_state(state_path, state)
             return {
                 "event_id": event_id,
@@ -405,6 +512,49 @@ def acknowledge_event(
     }
     if patrol_receipt is not None:
         receipt["integrity_patrol"] = patrol_receipt
+
+    if duty["id"] == "government.daily-pulse":
+        domain_terminal_state = execution_result.get("domain_terminal_state")
+        if outcome == "STOP" and domain_terminal_state != "FAILED_CLOSED":
+            raise WorkerError("Government STOP must terminate FAILED_CLOSED")
+        if outcome in {"ACTION", "NO_ACTION"} and domain_terminal_state != "VERIFIED_CLOSED":
+            raise WorkerError("completed Government pulse must terminate VERIFIED_CLOSED")
+        _create_government_red_box_child(
+            state=state,
+            timetable_path=timetable_path,
+            parent_event=event,
+            parent_event_id=event_id,
+            parent_receipt=receipt,
+            domain_terminal_state=str(domain_terminal_state),
+            now=now,
+        )
+        event["domain_terminal_state"] = domain_terminal_state
+
+    if duty["id"] == "government.red-box":
+        red_box_content = execution_result.get("red_box_content")
+        if not isinstance(red_box_content, str) or not red_box_content.strip():
+            raise WorkerError("Government Red Box completion requires actual Red Box content")
+        if execution_result.get("balcony_ack") is not True:
+            raise WorkerError(
+                "Government Red Box cannot close without durable King's Balcony ACK/readback"
+            )
+        parent_event_id = (event.get("payload") or {}).get("parent_event_id")
+        if not isinstance(parent_event_id, str):
+            raise WorkerError("Government Red Box is missing its parent event identity")
+        parent_event = state.get("events", {}).get(parent_event_id)
+        if not isinstance(parent_event, dict) or not isinstance(parent_event.get("receipt"), dict):
+            raise WorkerError("Government Red Box parent receipt is unavailable")
+        receipt["red_box_content"] = red_box_content.strip()
+        receipt["balcony_ack"] = True
+        parent_event["receipt"]["red_box_delivery"] = {
+            "event_id": event_id,
+            "status": terminal,
+            "balcony_ack": True,
+            "readback_verified": True,
+            "completed_at": _iso(now),
+            "red_box_content": red_box_content.strip(),
+        }
+
     event["status"] = terminal
     event["receipt"] = receipt
     event.setdefault("claim_history", []).append(dict(claim))

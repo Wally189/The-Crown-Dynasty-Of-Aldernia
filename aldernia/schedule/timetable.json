@@ -90,6 +90,22 @@
       ]
     },
     {
+      "id": "government.red-box",
+      "label": "Daily Government Decision Red Box — King's Balcony Tram",
+      "owner": "House of Marianne — Centre of Government & Cabinet Coordination → Royal Palace / King's Balcony",
+      "source_row": 13,
+      "identity_granularity": "parent",
+      "requires_model_runtime": true,
+      "schedule": {
+        "kind": "event_child"
+      },
+      "required_source_ids": [
+        "1Z6jkA6SuaPDAQYWAAYEkjjRGg00wP8KF3odrf-fktxU",
+        "1fZ7_rv8nMkPgJIHCHOH45fYPmNdKKhVlUkDoyoIfKoU",
+        "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE"
+      ]
+    },
+    {
       "id": "carol.business-opening",
       "label": "House of Carol Business Opening Bus",
       "owner": "House of Carol",

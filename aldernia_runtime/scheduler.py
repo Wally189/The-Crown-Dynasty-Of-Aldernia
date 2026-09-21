@@ -72,6 +72,8 @@ def load_timetable(path: Path) -> dict[str, Any]:
             _validate_clock_fields(schedule, duty_id, hourly=False)
         elif kind == "hourly_window":
             _validate_clock_fields(schedule, duty_id, hourly=True)
+        elif kind == "event_child":
+            pass
         else:
             raise SchedulerError(f"{duty_id} has unsupported schedule kind {kind!r}")
     return data
@@ -171,6 +173,8 @@ def _duty_occurrences(
     zone: ZoneInfo,
 ) -> Iterable[datetime]:
     schedule = duty["schedule"]
+    if schedule["kind"] == "event_child":
+        return
     if schedule["kind"] == "daily":
         yield from _daily_occurrences(
             start_local=start_local,
