@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - candidate/root-country-first-2026-09-21
   pull_request:
     branches:
       - main
