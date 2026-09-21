@@ -48,6 +48,11 @@ jobs:
           else
             printf '{"events":{},"last_checked_at":null,"schema_version":1}\n' > state/scheduled-duty-queue.json
           fi
+          if git cat-file -e origin/clock-state:state/patrol-budget.json 2>/dev/null; then
+            git show origin/clock-state:state/patrol-budget.json > state/patrol-budget.json
+          else
+            printf '{"schema_version":1,"month":"","input_tokens":0,"output_tokens":0,"estimated_usd":0.0,"calls":0}\n' > state/patrol-budget.json
+          fi
 
       - name: Bounded chime and timetable proof
         env:
@@ -61,19 +66,53 @@ jobs:
           --state state/scheduled-duty-queue.json
           --session state/bus-session.json
 
+      - name: Authenticate bounded patrol identity through Google WIF
+        id: patrol-google-auth
+        if: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER != '' && vars.GCP_PATROL_SERVICE_ACCOUNT != '' }}
+        uses: google-github-actions/auth@v3
+        with:
+          workload_identity_provider: ${{ vars.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ vars.GCP_PATROL_SERVICE_ACCOUNT }}
+          token_format: access_token
+          access_token_scopes: >-
+            https://www.googleapis.com/auth/drive
+            https://www.googleapis.com/auth/spreadsheets
+
+      - name: Execute at most one pending Dynasty integrity patrol slice
+        id: patrol-runtime
+        continue-on-error: true
+        env:
+          GOOGLE_DRIVE_ACCESS_TOKEN: ${{ steps.patrol-google-auth.outputs.access_token }}
+          OPENAI_API_KEY: ${{ secrets.ALDERNIA_PATROL_OPENAI_API_KEY }}
+        run: >-
+          python -m aldernia_runtime.unattended_patrol
+          --state state/scheduled-duty-queue.json
+          --timetable aldernia/schedule/timetable.json
+          --session state/bus-session.json
+          --budget state/patrol-budget.json
+          --worker-id "github-central-aldernia-clock-patrol-${GITHUB_RUN_ID}"
+
       - name: Persist Dynasty logical clock and scheduler state
         run: |
           cp state/clock-state.json /tmp/clock-state.json
           cp state/scheduled-duty-queue.json /tmp/scheduled-duty-queue.json
-          rm -f state/clock-state.json state/scheduled-duty-queue.json state/bus-session.json
+          cp state/patrol-budget.json /tmp/patrol-budget.json
+          rm -f state/clock-state.json state/scheduled-duty-queue.json state/patrol-budget.json state/bus-session.json
           git config user.name "Central Aldernia Clock"
           git config user.email "actions@users.noreply.github.com"
           git switch clock-state
           mkdir -p state
           cp /tmp/clock-state.json state/clock-state.json
           cp /tmp/scheduled-duty-queue.json state/scheduled-duty-queue.json
-          git add state/clock-state.json state/scheduled-duty-queue.json
+          cp /tmp/patrol-budget.json state/patrol-budget.json
+          git add state/clock-state.json state/scheduled-duty-queue.json state/patrol-budget.json
           if ! git diff --cached --quiet; then
             git commit -m "Clock/scheduler state: run ${GITHUB_RUN_ID} [skip ci]"
             git push origin clock-state
           fi
+
+      - name: Fail closed on unexpected patrol runtime crash
+        if: steps.patrol-runtime.outcome == 'failure'
+        run: |
+          echo "Unattended patrol runtime crashed after durable state persistence." >&2
+          exit 1
