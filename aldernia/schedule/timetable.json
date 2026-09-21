@@ -21,7 +21,8 @@
       },
       "required_source_ids": [
         "1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk"
-      ]
+      ],
+      "public_web_read": true
     },
     {
       "id": "dynasty.heartbeat",
@@ -54,7 +55,8 @@
       },
       "required_source_ids": [
         "1ulQ0QDZLveGRvT_zJt5eUXDXgdIKntnwEliNK98zAc0"
-      ]
+      ],
+      "public_web_read": true
     },
     {
       "id": "catholic.mass-readings",
@@ -70,7 +72,8 @@
       },
       "required_source_ids": [
         "1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk"
-      ]
+      ],
+      "public_web_read": true
     },
     {
       "id": "government.daily-pulse",
@@ -136,7 +139,8 @@
       },
       "required_source_ids": [
         "1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk"
-      ]
+      ],
+      "public_web_read": true
     },
     {
       "id": "catholic.sext",
@@ -152,7 +156,8 @@
       },
       "required_source_ids": [
         "1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk"
-      ]
+      ],
+      "public_web_read": true
     },
     {
       "id": "catholic.none",
@@ -168,7 +173,8 @@
       },
       "required_source_ids": [
         "1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk"
-      ]
+      ],
+      "public_web_read": true
     },
     {
       "id": "catholic.vespers",
@@ -184,7 +190,8 @@
       },
       "required_source_ids": [
         "1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk"
-      ]
+      ],
+      "public_web_read": true
     },
     {
       "id": "aldernia.evening-commons",
@@ -200,7 +207,8 @@
       },
       "required_source_ids": [
         "1ulQ0QDZLveGRvT_zJt5eUXDXgdIKntnwEliNK98zAc0"
-      ]
+      ],
+      "public_web_read": true
     },
     {
       "id": "aldernia.website-voice",
@@ -217,7 +225,8 @@
       "required_source_ids": [
         "1ulQ0QDZLveGRvT_zJt5eUXDXgdIKntnwEliNK98zAc0",
         "1Mc1-gpJKaqT5f08JWnMNKiN8rBhP66tuELSYJYbJiJk"
-      ]
+      ],
+      "public_web_read": true
     },
     {
       "id": "carol.availability-gate",
@@ -251,7 +260,8 @@
       },
       "required_source_ids": [
         "1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk"
-      ]
+      ],
+      "public_web_read": true
     }
   ]
 }
