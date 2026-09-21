@@ -10,6 +10,10 @@ from typing import Any, Mapping
 from urllib.parse import quote, urlencode
 from zoneinfo import ZoneInfo
 
+from aldernia_runtime.openai_provider import (
+    provider_available as openai_provider_available,
+    responses_create as openai_responses_create,
+)
 from aldernia_runtime.patrol import ESTATES, PATROL_COMMON_SOURCE_IDS
 from aldernia_runtime.scheduler import load_scheduler_state, load_timetable
 from aldernia_runtime.session import load_session
@@ -107,13 +111,13 @@ class RuntimeDrive(DriveClient):
 
 
 class DutyModel:
-    def __init__(self, api_key: str):
-        if not api_key.strip():
-            raise RuntimeExecutionError("OpenAI API key is required")
-        self.headers = {
-            "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json",
-        }
+    def __init__(self, api_key: str = ""):
+        if not openai_provider_available(api_key=api_key):
+            raise RuntimeExecutionError(
+                "OpenAI provider is required: configure workload identity "
+                "or the bounded fallback API key"
+            )
+        self.api_key = api_key
 
     def execute(
         self,
@@ -193,12 +197,9 @@ class DutyModel:
                     "search_context_size": "low",
                 }
             ]
-        response = _json_http(
-            "POST",
-            "https://api.openai.com/v1/responses",
-            headers=self.headers,
-            body=body,
-            timeout=90,
+        response = openai_responses_create(
+            body,
+            api_key=self.api_key,
         )
         output_text = None
         for item in response.get("output") or []:
@@ -611,12 +612,12 @@ def main(argv: list[str] | None = None) -> int:
 
     drive_token = os.environ.get("GOOGLE_DRIVE_ACCESS_TOKEN", "")
     openai_key = os.environ.get("OPENAI_API_KEY", "")
-    if not drive_token or not openai_key:
+    if not drive_token or not openai_provider_available(api_key=openai_key):
         missing: list[str] = []
         if not drive_token:
             missing.append("Google WIF/Drive access token")
-        if not openai_key:
-            missing.append("OpenAI runtime API key")
+        if not openai_provider_available(api_key=openai_key):
+            missing.append("OpenAI WIF identity or bounded fallback API key")
         detail = "Missing provider configuration: " + ", ".join(missing)
         write_health(
             health_path,
