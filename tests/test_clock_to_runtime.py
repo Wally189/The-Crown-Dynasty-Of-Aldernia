@@ -41,8 +41,10 @@ class FakeModel:
         self.fail_government = fail_government
         self.calls = []
 
-    def execute(self, prompt):
+    def execute(self, prompt, *, public_web_read=False):
         self.calls.append(prompt)
+        self.public_web_flags = getattr(self, "public_web_flags", [])
+        self.public_web_flags.append(public_web_read)
         if "DUTY_ID: government.daily-pulse" in prompt:
             if self.fail_government:
                 return {
@@ -202,6 +204,18 @@ class ClockToRuntimeTests(unittest.TestCase):
                     "red_box_content"
                 ],
             )
+
+    def test_public_web_is_explicitly_gated_by_duty(self):
+        timetable = json.loads(TIMETABLE.read_text())
+        duties = {duty["id"]: duty for duty in timetable["duties"]}
+        self.assertTrue(duties["josie.morning-news"]["public_web_read"])
+        self.assertTrue(duties["catholic.mass-readings"]["public_web_read"])
+        self.assertFalse(
+            bool(duties["government.daily-pulse"].get("public_web_read"))
+        )
+        self.assertFalse(
+            bool(duties["carol.business-opening"].get("public_web_read"))
+        )
 
     def test_generic_worker_skips_heartbeat_for_specialist_patrol_adapter(self):
         with tempfile.TemporaryDirectory() as td:
