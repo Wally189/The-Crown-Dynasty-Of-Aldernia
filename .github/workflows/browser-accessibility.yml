@@ -118,7 +118,7 @@ jobs:
             {name:'mobile', width:390, height:844, isMobile:true, hasTouch:true},
             {name:'desktop', width:1440, height:900, isMobile:false, hasTouch:false}
           ];
-          const screenshotRoutes = new Set(['/', '/experiment/', '/country/', '/country/map.html', '/country/assembly.html']);
+          const screenshotRoutes = new Set(['/', '/experiment/', '/country/', '/country/today.html', '/country/map.html', '/country/government.html', '/country/culture.html', '/country/data.html', '/country/assembly.html']);
           const failures = [];
           const browser = await puppeteer.launch({
             executablePath: process.env.CHROME_BIN,

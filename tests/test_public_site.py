@@ -228,5 +228,25 @@ class PublicSiteTests(unittest.TestCase):
         self.assertNotIn("Choose a door", text)
 
 
+    def test_internal_public_links_resolve(self):
+        from urllib.parse import urlsplit
+        repo_prefix = "/The-Crown-Dynasty-Of-Aldernia/"
+        for page in PUBLIC_PAGES:
+            parser_text = page.read_text(encoding="utf-8")
+            for href in __import__("re").findall(r'href=["\\']([^"\\']+)["\\']', parser_text):
+                if not href or href.startswith(("#", "http://", "https://", "mailto:", "tel:")):
+                    continue
+                clean = urlsplit(href).path
+                if clean.startswith(repo_prefix):
+                    target = ROOT / clean[len(repo_prefix):]
+                elif clean.startswith("/"):
+                    continue
+                else:
+                    target = (page.parent / clean).resolve()
+                if clean.endswith("/"):
+                    target = target / "index.html"
+                self.assertTrue(target.exists(), f"{page}: broken internal href {href} -> {target}")
+
+
 if __name__ == "__main__":
     unittest.main()
