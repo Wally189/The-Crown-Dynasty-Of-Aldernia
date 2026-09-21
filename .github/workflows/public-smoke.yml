@@ -91,6 +91,9 @@ jobs:
           grep -Fq 'rel="canonical"' <<<"$country"
           curl -fsSL "$BASE/sitemap.xml" | grep -Fq "/country/media.html"
           curl -fsSL "$BASE/404.html" | grep -Fq "This road appears not to have been built."
+          not_found_code="$(curl -sS -o /tmp/aldernia-404.html -w '%{http_code}' "$BASE/definitely-not-a-real-aldernia-page-404-check" || true)"
+          test "$not_found_code" = "404"
+          grep -Fq "This road appears not to have been built." /tmp/aldernia-404.html
           grep -Fq "An island that intends to have a Tuesday." <<<"$country"
           grep -Fq "Today has a shape" <<<"$country"
           grep -Fq 'class="country-surface country-zone-national"' <<<"$country"
