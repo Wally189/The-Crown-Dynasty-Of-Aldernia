@@ -1,0 +1,108 @@
+{
+  "events": {
+    "catholic.dawn-offices:2026-09-21": {
+      "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
+      "ack_to": "Central Aldernia Clock / scheduled-duty queue",
+      "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 16",
+      "departure_mode": "TIMETABLE",
+      "destination": "Dynasty Institutional Heartbeat impact discovery",
+      "emitted_at": "2026-09-21T05:24:09+00:00",
+      "emitting_owner": "Central Aldernia Clock / Scheduled Tasks",
+      "event_id": "catholic.dawn-offices:2026-09-21",
+      "event_type": "canonical.state.changed",
+      "mission_ref": "NONE — DUE EVALUATION ONLY",
+      "payload": {
+        "duty_id": "catholic.dawn-offices",
+        "evaluation_only": false,
+        "label": "Office of Readings then Lauds",
+        "requires_model_runtime": true,
+        "scheduled_for": "2026-09-21T05:00:00+01:00",
+        "source_row": 16
+      },
+      "permitted_effects": [
+        "evaluate already-authorised recurring duty",
+        "route through COS-BUS-001 when current due/authority gates pass",
+        "record ACK/NO_ACTION/STOP"
+      ],
+      "prohibited_effects": [
+        "create a mission from time alone",
+        "widen authority",
+        "treat this machine projection as task source of truth"
+      ],
+      "scheduled_for": "2026-09-21T05:00:00+01:00",
+      "service_class": "HEARTBEAT",
+      "status": "PENDING_RUNTIME",
+      "transition_class": "scheduled_duty_due"
+    },
+    "dynasty.heartbeat:2026-09-21T06:00": {
+      "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
+      "ack_to": "Central Aldernia Clock / scheduled-duty queue",
+      "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 2",
+      "departure_mode": "TIMETABLE",
+      "destination": "Dynasty Institutional Heartbeat impact discovery",
+      "emitted_at": "2026-09-21T05:24:09+00:00",
+      "emitting_owner": "Central Aldernia Clock / Scheduled Tasks",
+      "event_id": "dynasty.heartbeat:2026-09-21T06:00",
+      "event_type": "canonical.state.changed",
+      "mission_ref": "NONE — DUE EVALUATION ONLY",
+      "payload": {
+        "duty_id": "dynasty.heartbeat",
+        "evaluation_only": false,
+        "label": "Dynasty House Pulse / King's Balcony Heartbeat",
+        "requires_model_runtime": true,
+        "scheduled_for": "2026-09-21T06:00:00+01:00",
+        "source_row": 2
+      },
+      "permitted_effects": [
+        "evaluate already-authorised recurring duty",
+        "route through COS-BUS-001 when current due/authority gates pass",
+        "record ACK/NO_ACTION/STOP"
+      ],
+      "prohibited_effects": [
+        "create a mission from time alone",
+        "widen authority",
+        "treat this machine projection as task source of truth"
+      ],
+      "scheduled_for": "2026-09-21T06:00:00+01:00",
+      "service_class": "HEARTBEAT",
+      "status": "PENDING_RUNTIME",
+      "transition_class": "scheduled_duty_due"
+    },
+    "josie.morning-news:2026-09-21": {
+      "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
+      "ack_to": "Central Aldernia Clock / scheduled-duty queue",
+      "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 17",
+      "departure_mode": "TIMETABLE",
+      "destination": "Dynasty Institutional Heartbeat impact discovery",
+      "emitted_at": "2026-09-21T05:24:09+00:00",
+      "emitting_owner": "Central Aldernia Clock / Scheduled Tasks",
+      "event_id": "josie.morning-news:2026-09-21",
+      "event_type": "canonical.state.changed",
+      "mission_ref": "NONE — DUE EVALUATION ONLY",
+      "payload": {
+        "duty_id": "josie.morning-news",
+        "evaluation_only": false,
+        "label": "Josie Morning News Bus",
+        "requires_model_runtime": true,
+        "scheduled_for": "2026-09-21T06:00:00+01:00",
+        "source_row": 17
+      },
+      "permitted_effects": [
+        "evaluate already-authorised recurring duty",
+        "route through COS-BUS-001 when current due/authority gates pass",
+        "record ACK/NO_ACTION/STOP"
+      ],
+      "prohibited_effects": [
+        "create a mission from time alone",
+        "widen authority",
+        "treat this machine projection as task source of truth"
+      ],
+      "scheduled_for": "2026-09-21T06:00:00+01:00",
+      "service_class": "HEARTBEAT",
+      "status": "PENDING_RUNTIME",
+      "transition_class": "scheduled_duty_due"
+    }
+  },
+  "last_checked_at": "2026-09-21T05:24:09+00:00",
+  "schema_version": 1
+}
