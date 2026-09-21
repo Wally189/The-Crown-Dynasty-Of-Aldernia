@@ -17,7 +17,13 @@ from aldernia_runtime.openai_provider import (
 from aldernia_runtime.patrol import ESTATES, PATROL_COMMON_SOURCE_IDS
 from aldernia_runtime.scheduler import load_scheduler_state, load_timetable
 from aldernia_runtime.session import load_session
-from aldernia_runtime.unattended_patrol import DriveClient, PALACE_REGISTER_ID, _json_http
+from aldernia_runtime.unattended_patrol import (
+    BudgetLedger,
+    ControlledStop,
+    DriveClient,
+    PALACE_REGISTER_ID,
+    _json_http,
+)
 from aldernia_runtime.worker import (
     MODEL_RUNTIME_CLASS,
     acknowledge_event,
@@ -29,6 +35,21 @@ MODEL = "gpt-5.6-luna"
 MAX_OUTPUT_TOKENS = 1600
 MAX_SOURCE_CHARS = 12000
 DEFAULT_MAX_EVENTS = 4
+BUDGET_GUARD_INPUT_TOKENS = 70000
+
+DUTY_EXECUTION_CONTRACTS: dict[str, str] = {
+    "government.daily-pulse": (
+        "Execute exactly one bounded same-date Government Pulse from current post-reset "
+        "authority. Do not revive archived programmes, appointments or synthetic mandate. "
+        "A completed pulse must terminate VERIFIED_CLOSED; a STOP must terminate FAILED_CLOSED."
+    ),
+    "government.red-box": (
+        "Execute only from the genuine terminal parent Government receipt. Build the concise "
+        "accountability return from parent evidence, do not conduct a second Government "
+        "decision round, and require durable King's Balcony ACK/readback."
+    ),
+}
+SUPPORTED_DUTY_IDS = frozenset(DUTY_EXECUTION_CONTRACTS)
 
 
 class RuntimeExecutionError(RuntimeError):
@@ -220,6 +241,11 @@ class DutyModel:
             raise RuntimeExecutionError(
                 "OpenAI scheduled-duty result was not an object"
             )
+        usage = response.get("usage") or {}
+        value["_runtime_usage"] = {
+            "input_tokens": int(usage.get("input_tokens") or 0),
+            "output_tokens": int(usage.get("output_tokens") or 0),
+        }
         return value
 
 
@@ -371,6 +397,7 @@ def _build_prompt(
         f"ACCOUNTABLE_OWNER: {duty['owner']}\n"
         f"SCHEDULED_FOR: {event.get('scheduled_for')}\n"
         f"EVENT_TYPE: {event.get('event_type')}\n"
+        f"EXECUTION_CONTRACT: {DUTY_EXECUTION_CONTRACTS.get(str(duty['id']), 'UNSUPPORTED — FAIL CLOSED WITHOUT MODEL EXECUTION')}\n"
         "\nCURRENT SCHEDULED TASK ROW (A:K):\n"
         + json.dumps(row, ensure_ascii=False)
         + "\n\nPARENT RECEIPT (if any):\n"
@@ -402,6 +429,63 @@ def _evidence_text(
     return " ".join(piece for piece in pieces if piece)[:45000]
 
 
+def _ack_unsupported_duty(
+    *,
+    state_path: Path,
+    timetable_path: Path,
+    session_path: Path,
+    drive: RuntimeDrive,
+    event_id: str,
+    duty: Mapping[str, Any],
+    claim_id: str,
+    retrieved_source_ids: list[str],
+    now: datetime,
+) -> dict[str, Any]:
+    duty_id = str(duty.get("id") or "")
+    summary = (
+        f"STOP — unattended execution contract is not encoded for duty {duty_id}. "
+        "The due event was fail-closed without model execution, external effect, "
+        "authority widening or invented professional work."
+    )
+    local_now = now.astimezone(ZoneInfo("Europe/London"))
+    write_ref = drive.write_run_state(
+        row_number=int(duty["source_row"]),
+        last_run=local_now.strftime(
+            "%Y-%m-%d %H:%M %Z — CLOCK-TRIGGERED FAIL-CLOSED"
+        ),
+        outcome=summary,
+        evidence=(
+            f"Runtime event {event_id}. {summary} Sources: "
+            + ", ".join(retrieved_source_ids)
+        )[:45000],
+    )
+    return acknowledge_event(
+        state_path=state_path,
+        timetable_path=timetable_path,
+        session_path=session_path,
+        event_id=event_id,
+        claim_id=claim_id,
+        execution_result={
+            "outcome": "STOP",
+            "result_summary": summary,
+            "retrieved_source_ids": retrieved_source_ids,
+            "evidence_refs": (
+                [f"Drive:{value}" for value in retrieved_source_ids]
+                + [write_ref]
+            ),
+            "writes": [
+                write_ref,
+                "GitHub:clock-state/state/scheduled-duty-queue.json",
+            ],
+            "readback_verified": True,
+            "resource_classes_used": ["ALDERNIA_INTERNAL"],
+            "external_effect": "NONE",
+            "new_model_provider_access_granted": False,
+        },
+        now=now,
+    )
+
+
 def run_once(
     *,
     state_path: Path,
@@ -412,6 +496,7 @@ def run_once(
     worker_id: str,
     max_events: int,
     now: datetime,
+    budget: BudgetLedger | None = None,
 ) -> dict[str, Any]:
     if max_events < 1 or max_events > 8:
         raise RuntimeExecutionError("max_events must be between 1 and 8")
@@ -435,6 +520,13 @@ def run_once(
 
         event_id = str(candidate["event_id"])
         duty = candidate["duty"]
+
+        if str(duty["id"]) in SUPPORTED_DUTY_IDS and budget is not None:
+            budget.guard(
+                BUDGET_GUARD_INPUT_TOKENS,
+                max_output_tokens=MAX_OUTPUT_TOKENS,
+            )
+
         claim = claim_event(
             state_path=state_path,
             timetable_path=timetable_path,
@@ -469,6 +561,21 @@ def run_once(
             ):
                 parent_receipt = parent["receipt"]
 
+        if str(duty["id"]) not in SUPPORTED_DUTY_IDS:
+            ack = _ack_unsupported_duty(
+                state_path=state_path,
+                timetable_path=timetable_path,
+                session_path=session_path,
+                drive=drive,
+                event_id=event_id,
+                duty=duty,
+                claim_id=str(claim["claim_id"]),
+                retrieved_source_ids=retrieved,
+                now=now,
+            )
+            processed.append(dict(ack))
+            continue
+
         result = model.execute(
             _build_prompt(
                 event_id=event_id,
@@ -480,6 +587,9 @@ def run_once(
             ),
             public_web_read=bool(duty.get("public_web_read", False)),
         )
+        usage = result.pop("_runtime_usage", {})
+        if budget is not None:
+            budget.record(usage if isinstance(usage, Mapping) else {})
         outcome = str(result.get("outcome") or "")
 
         if duty["id"] == "government.daily-pulse":
@@ -590,6 +700,7 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument("--session", default="state/bus-session.json")
     parser.add_argument("--health", default="state/runtime-health.json")
+    parser.add_argument("--budget", default="state/patrol-budget.json")
     parser.add_argument(
         "--worker-id",
         default="github-central-aldernia-clock-runtime",
@@ -647,6 +758,7 @@ def main(argv: list[str] | None = None) -> int:
             worker_id=args.worker_id,
             max_events=args.max_events,
             now=datetime.now(timezone.utc),
+            budget=BudgetLedger(Path(args.budget)),
         )
         processed_ids = [
             str(item.get("event_id") or "")
@@ -663,6 +775,31 @@ def main(argv: list[str] | None = None) -> int:
             pending_count=int(result["pending_count"]),
         )
         print(json.dumps(result, indent=2, sort_keys=True))
+        return 0
+    except ControlledStop as exc:
+        state = load_scheduler_state(state_path)
+        pending = sum(
+            1
+            for event in state.get("events", {}).values()
+            if isinstance(event, Mapping)
+            and event.get("status") == "PENDING_RUNTIME"
+        )
+        write_health(
+            health_path,
+            status="BUDGET_STOP",
+            detail=str(exc),
+            processed=[],
+            pending_count=pending,
+        )
+        print(
+            json.dumps(
+                {
+                    "status": "BUDGET_STOP",
+                    "detail": str(exc),
+                    "pending_count": pending,
+                }
+            )
+        )
         return 0
     except Exception as exc:
         state = load_scheduler_state(state_path)

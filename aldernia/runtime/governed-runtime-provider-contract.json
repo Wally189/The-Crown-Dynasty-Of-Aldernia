@@ -29,10 +29,22 @@
     "Royal Household access",
     "authority widening"
   ],
-  "failure_mode": "If the dedicated Google WIF/Drive identity is unavailable, or neither OpenAI WIF nor the bounded fallback credential is configured, leave duties unclaimed and report PROVIDER_ACCESS_NOT_CONFIGURED. Do not simulate autonomy. Do not widen the dedicated patrol Google identity into general Government/House execution.",
+  "failure_mode": "If the dedicated Google WIF/Drive identity is unavailable, or neither OpenAI WIF nor the bounded fallback credential is configured, leave model-bearing supported duties unclaimed and report PROVIDER_ACCESS_NOT_CONFIGURED. Unsupported non-Heartbeat duties have no generic model handler and, once current Drive access exists, terminate STOP after current-source retrieval without model execution. Do not simulate autonomy or widen the dedicated patrol identity into general Government/House execution.",
   "openai_auth_preference": [
     "GitHub Actions OIDC -> OpenAI workload identity federation -> short-lived OpenAI access token",
     "bounded API key fallback only where WIF is not yet configured"
   ],
-  "openai_sdk_pin": "openai==3.16.2"
+  "openai_sdk_pin": "openai==3.16.2",
+  "supported_unattended_duty_handlers": [
+    "government.daily-pulse",
+    "government.red-box"
+  ],
+  "unsupported_duty_behavior": "After current required-source retrieval, terminally ACK STOP without model execution. No generic professional handler is inferred.",
+  "shared_model_budget": {
+    "state_file": "state/patrol-budget.json",
+    "monthly_cap_usd": 4,
+    "scope": "Combined GPT-5.6 Luna calls from the ordinary-duty runtime and integrity patrol.",
+    "stop_rule": "Before every supported ordinary-duty model call, guard projected input plus maximum output. If projected local monthly estimated spend would exceed USD 4.00, leave the event unclaimed and persist runtime-health as BUDGET_STOP. Patrol uses the same ledger and cap.",
+    "provider_side_cap_required": true
+  }
 }

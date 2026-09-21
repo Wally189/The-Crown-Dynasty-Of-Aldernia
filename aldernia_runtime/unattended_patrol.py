@@ -593,13 +593,18 @@ class BudgetLedger:
             + max(output_tokens, 0) * OUTPUT_USD_PER_MILLION / 1_000_000
         )
 
-    def guard(self, estimated_input_tokens: int) -> None:
+    def guard(
+        self,
+        estimated_input_tokens: int,
+        *,
+        max_output_tokens: int = MAX_OUTPUT_TOKENS,
+    ) -> None:
         projected = float(self.value.get("estimated_usd") or 0.0) + self.cost(
-            estimated_input_tokens, MAX_OUTPUT_TOKENS
+            estimated_input_tokens, max_output_tokens
         )
         if projected > MAX_LOCAL_MONTHLY_USD:
             raise ControlledStop(
-                f"local patrol budget STOP: projected ${projected:.4f} exceeds ${MAX_LOCAL_MONTHLY_USD:.2f}"
+                f"local model budget STOP: projected ${projected:.4f} exceeds ${MAX_LOCAL_MONTHLY_USD:.2f}"
             )
 
     def record(self, usage: Mapping[str, int]) -> None:

@@ -103,6 +103,7 @@ jobs:
           --timetable aldernia/schedule/timetable.json
           --session state/bus-session.json
           --health state/runtime-health.json
+          --budget state/patrol-budget.json
           --max-events 4
           --worker-id "github-central-aldernia-clock-runtime-${GITHUB_RUN_ID}"
 
