@@ -265,6 +265,14 @@ jobs:
               if (runtimeErrors.length) failures.push(`${viewport.name} ${route}: runtime console/page errors ${runtimeErrors.join(' | ')}`);
 
               if (screenshotRoutes.has(route)) {
+                await page.evaluate(() => {
+                  if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+                  window.scrollTo(0, 0);
+                  const nav = document.querySelector('.site-nav');
+                  if (nav) nav.scrollLeft = 0;
+                  const map = document.querySelector('.map-frame');
+                  if (map) map.scrollLeft = 0;
+                });
                 const slug = route === '/' ? 'threshold' : route.replace(/^\/|\/$/g,'').replace(/[\/\.]/g,'-');
                 await page.screenshot({
                   path: path.join('assurance','screens',`${viewport.name}-${slug}.png`),
