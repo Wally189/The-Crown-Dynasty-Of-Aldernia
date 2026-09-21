@@ -34,6 +34,44 @@
       "status": "PENDING_RUNTIME",
       "transition_class": "scheduled_duty_due"
     },
+    "catholic.mass-readings:2026-09-21": {
+      "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
+      "ack_to": "Central Aldernia Clock / scheduled-duty queue",
+      "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 14",
+      "departure_mode": "TIMETABLE",
+      "destination": "Dynasty Institutional Heartbeat impact discovery",
+      "emitted_at": "2026-09-21T05:47:14+00:00",
+      "emitting_owner": "Central Aldernia Clock / Scheduled Tasks",
+      "event_id": "catholic.mass-readings:2026-09-21",
+      "event_type": "canonical.state.changed",
+      "mission_ref": "NONE — DUE EVALUATION ONLY",
+      "payload": {
+        "accountable_owner": "House of Catholic",
+        "duty_id": "catholic.mass-readings",
+        "evaluation_only": false,
+        "label": "Daily Mass Readings & Papal Reflection Bus",
+        "required_source_ids": [
+          "1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk"
+        ],
+        "requires_model_runtime": true,
+        "scheduled_for": "2026-09-21T06:30:00+01:00",
+        "source_row": 14
+      },
+      "permitted_effects": [
+        "evaluate already-authorised recurring duty",
+        "route through COS-BUS-001 when current due/authority gates pass",
+        "record ACK/NO_ACTION/STOP"
+      ],
+      "prohibited_effects": [
+        "create a mission from time alone",
+        "widen authority",
+        "treat this machine projection as task source of truth"
+      ],
+      "scheduled_for": "2026-09-21T06:30:00+01:00",
+      "service_class": "HEARTBEAT",
+      "status": "PENDING_RUNTIME",
+      "transition_class": "scheduled_duty_due"
+    },
     "dynasty.heartbeat:2026-09-21T06:00": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
       "ack_to": "Central Aldernia Clock / scheduled-duty queue",
@@ -103,6 +141,6 @@
       "transition_class": "scheduled_duty_due"
     }
   },
-  "last_checked_at": "2026-09-21T05:29:29+00:00",
+  "last_checked_at": "2026-09-21T05:47:14+00:00",
   "schema_version": 1
 }
