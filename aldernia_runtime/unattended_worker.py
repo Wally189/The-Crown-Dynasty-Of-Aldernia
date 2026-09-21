@@ -10,6 +10,7 @@ from typing import Any, Mapping
 from urllib.parse import quote, urlencode
 from zoneinfo import ZoneInfo
 
+from aldernia_runtime.patrol import ESTATES, PATROL_COMMON_SOURCE_IDS
 from aldernia_runtime.scheduler import load_scheduler_state, load_timetable
 from aldernia_runtime.session import load_session
 from aldernia_runtime.unattended_patrol import DriveClient, PALACE_REGISTER_ID, _json_http
@@ -279,6 +280,37 @@ def _next_non_patrol(
     }
 
 
+def _owner_estate_source_ids(duty: Mapping[str, Any]) -> list[str]:
+    owner = str(duty.get("owner") or "").casefold()
+    aliases = {
+        "house of carol": "house-of-carol",
+        "house of catholic": "house-of-catholic",
+        "house of josie": "house-of-josie",
+        "house of marianne": "house-of-marianne",
+        "royal palace": "royal-palace",
+    }
+    estate_id = None
+    for token, candidate in aliases.items():
+        if token in owner:
+            estate_id = candidate
+            break
+    estate_sources: list[str] = []
+    if estate_id is not None:
+        for estate in ESTATES:
+            if estate.get("id") == estate_id:
+                estate_sources.extend(
+                    str(value) for value in estate.get("required_source_ids") or ()
+                )
+                break
+    return list(
+        dict.fromkeys(
+            [str(value) for value in PATROL_COMMON_SOURCE_IDS]
+            + estate_sources
+            + [str(value) for value in duty.get("required_source_ids") or []]
+        )
+    )
+
+
 def _source_packet(
     drive: RuntimeDrive,
     source_ids: list[str],
@@ -402,9 +434,12 @@ def run_once(
 
         state = load_scheduler_state(state_path)
         event = state["events"][event_id]
-        required_source_ids = [
-            str(value) for value in claim.get("required_source_ids") or []
-        ]
+        required_source_ids = list(
+            dict.fromkeys(
+                [str(value) for value in claim.get("required_source_ids") or []]
+                + _owner_estate_source_ids(duty)
+            )
+        )
         sources, retrieved = _source_packet(drive, required_source_ids)
         row_number = int(duty["source_row"])
         row = drive.scheduled_row(row_number)
