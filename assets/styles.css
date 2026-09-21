@@ -201,7 +201,7 @@ h3 { font-size: clamp(1.28rem, 2vw, 1.7rem); margin: 0 0 .4em; }
 @media (max-width: 660px) { .event { grid-template-columns: 1fr; } .event > :not(.event-date), .event-date { grid-column: 1; grid-row: auto; } }
 
 
-/* First Pulse threshold prototype — non-production branch */
+/* First Pulse threshold narrative layer */
 .threshold--story {
   --pulse-cream: #f6f2e8;
   --pulse-muted: #bfc8c6;
@@ -871,7 +871,7 @@ body.country-surface {
   padding:1.25rem 1.35rem;
   border:1px solid var(--line);
   border-top:.28rem solid var(--zone-accent);
-  border-radius:.8rem;
+  border-radius:.25rem;
   background:var(--white);
   color:var(--ink);
   text-decoration:none;
@@ -936,3 +936,22 @@ body.country-surface {
 }
 .route-links a::after { content:"→"; color:var(--zone-accent); }
 .route-links a:hover { text-decoration:underline; text-underline-offset:.2em; }
+
+
+/* Mobile country navigation stays compact without turning the header into a wall. */
+@media (max-width:760px) {
+  .country-surface .header-inner { gap:.65rem; }
+  .country-surface .site-nav {
+    width:100%;
+    max-width:100%;
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    overscroll-behavior-inline:contain;
+    scrollbar-width:thin;
+    padding-bottom:.2rem;
+  }
+  .country-surface .site-nav a { flex:0 0 auto; }
+  .country-surface .wordmark small { font-size:.66rem; }
+  .source-list li { grid-template-columns:1fr; gap:.25rem; }
+  .source-list li > :last-child { color:var(--muted); font-size:.82rem; }
+}
