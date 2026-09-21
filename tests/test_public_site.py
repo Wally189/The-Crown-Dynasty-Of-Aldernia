@@ -275,7 +275,7 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn('class="institution-ledger"', government)
         self.assertIn('class="regional-economy"', economy)
         self.assertIn('class="economy-lenses"', economy)
-        self.assertIn('class="life-desk"', life)
+        self.assertIn('class="wrap life-desk"', life)
         self.assertIn('class="day-rhythm"', life)
         self.assertIn('class="newsroom-grid"', media)
         self.assertIn('class="newsroom-rule"', media)
