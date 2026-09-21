@@ -188,7 +188,10 @@ class UnattendedPatrolTests(unittest.TestCase):
                     {
                         "classification": "CONFLICTING CURRENT MATERIAL",
                         "file_id": "candidate-1",
-                        "source_refs": ["Drive:candidate-1", "Drive:current-authority"],
+                        "source_refs": [
+                            "Drive:candidate-1",
+                            "Drive:15sUjJSU9z5YaXgMecV-2PeQw2x-2JfmDiTGXoM-T6S8",
+                        ],
                         "authority_evidence_refs": [],
                         "rationale": "Two current references disagree on the same owner.",
                         "proposition": "The same controlled resource has two current owners.",
