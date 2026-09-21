@@ -10,6 +10,19 @@ from typing import Any, Mapping
 from urllib.parse import quote, urlencode
 from zoneinfo import ZoneInfo
 
+from aldernia_runtime.execution_contracts import (
+    ADAPTER_PATROL,
+    ContractError,
+    ExecutionContract,
+    PROFILE_BALCONY_RETURN,
+    PROFILE_GOVERNMENT_PULSE,
+    build_declared_engine_plan,
+    catchup_decision,
+    contract_from_row,
+    profile_spec,
+    validate_execution_result,
+    validate_selected_engine_plan,
+)
 from aldernia_runtime.openai_provider import (
     provider_available as openai_provider_available,
     responses_create as openai_responses_create,
@@ -37,19 +50,6 @@ MAX_SOURCE_CHARS = 12000
 DEFAULT_MAX_EVENTS = 4
 BUDGET_GUARD_INPUT_TOKENS = 70000
 
-DUTY_EXECUTION_CONTRACTS: dict[str, str] = {
-    "government.daily-pulse": (
-        "Execute exactly one bounded same-date Government Pulse from current post-reset "
-        "authority. Do not revive archived programmes, appointments or synthetic mandate. "
-        "A completed pulse must terminate VERIFIED_CLOSED; a STOP must terminate FAILED_CLOSED."
-    ),
-    "government.red-box": (
-        "Execute only from the genuine terminal parent Government receipt. Build the concise "
-        "accountability return from parent evidence, do not conduct a second Government "
-        "decision round, and require durable King's Balcony ACK/readback."
-    ),
-}
-SUPPORTED_DUTY_IDS = frozenset(DUTY_EXECUTION_CONTRACTS)
 
 
 class RuntimeExecutionError(RuntimeError):
@@ -91,15 +91,15 @@ def write_health(
 
 class RuntimeDrive(DriveClient):
     def scheduled_row(self, row_number: int) -> list[str]:
-        rows = self.sheet_values(f"Scheduled Tasks!A{row_number}:K{row_number}")
+        rows = self.sheet_values(f"Scheduled Tasks!A{row_number}:L{row_number}")
         if len(rows) != 1:
             raise RuntimeExecutionError(
                 f"Scheduled Tasks row {row_number} could not be read exactly once"
             )
         row = list(rows[0])
-        while len(row) < 11:
+        while len(row) < 12:
             row.append("")
-        return row[:11]
+        return row[:12]
 
     def write_run_state(
         self,
