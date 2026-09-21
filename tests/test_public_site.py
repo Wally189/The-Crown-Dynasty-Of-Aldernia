@@ -332,10 +332,11 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn("Reality class: scheduled public-fictional editorial feature.", media)
 
 
-    def test_threshold_explains_fiction_and_real_experiment_up_front(self):
+    def test_root_discloses_fiction_and_keeps_experiment_secondary(self):
         text = (ROOT / "index.html").read_text(encoding="utf-8")
-        self.assertIn("<strong>Aldernia is a fictional country.</strong>", text)
-        self.assertIn("The Aldernian Experiment is the real project behind it", text)
+        self.assertIn("<strong>Fictional country.</strong>", text)
+        self.assertIn("The Aldernian Experiment is real.", text)
+        self.assertIn("The fictional country sits in front of a real project", text)
         self.assertLess(text.index('href="country/"'), text.index('href="experiment/"'))
 
     def test_experiment_exposes_method_falsification_and_measurement_limits(self):
