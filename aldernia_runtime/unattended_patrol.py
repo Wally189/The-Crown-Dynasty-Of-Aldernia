@@ -936,30 +936,126 @@ def run_once(
 
         raise ControlledStop(f"unsupported model classification {classification_name!r}")
 
+    patrol_receipt = {
+        "registry_version": plan["registry_version"],
+        "source_row": plan["source_row"],
+        "estate_id": plan["estate_id"],
+        "visit_index": plan["visit_index"],
+        "cursor_after": plan["cursor_after"],
+        "current_authority_retrieved": True,
+        "royal_household_accessed": False,
+        "readback_verified": True,
+        "findings": receipt_findings,
+    }
+
+    heartbeat_ids = _heartbeat_source_ids()
+    heartbeat_sources: list[dict[str, str]] = []
+    for file_id in heartbeat_ids:
+        meta, body = drive.read_text(
+            file_id,
+            max_chars=MAX_HEARTBEAT_SOURCE_CHARS,
+        )
+        if not body.strip():
+            raise ControlledStop(
+                f"Heartbeat current-source retrieval failed for {file_id}"
+            )
+        heartbeat_sources.append(
+            {
+                "id": file_id,
+                "name": str(meta.get("name") or file_id),
+                "mime": str(meta.get("mimeType") or ""),
+                "text": body,
+            }
+        )
+        retrieved_ids.append(file_id)
+        evidence_refs.append(f"Drive:{file_id}")
+
+    heartbeat_rows = drive.sheet_values("Scheduled Tasks!A2:K2")
+    if len(heartbeat_rows) != 1:
+        raise ControlledStop(
+            "Dynasty House Pulse Scheduled Tasks row 2 could not be read exactly once"
+        )
+
+    budget.guard(estimated_input_tokens=50000)
+    heartbeat, heartbeat_usage = model.heartbeat(
+        _heartbeat_prompt(
+            event_id=event_id,
+            row=heartbeat_rows[0],
+            sources=heartbeat_sources,
+            patrol_receipt=patrol_receipt,
+        )
+    )
+    budget.record(heartbeat_usage)
+
+    heartbeat_outcome = str(heartbeat.get("outcome") or "")
+    if heartbeat_outcome not in {"ACTION", "NO_ACTION", "STOP"}:
+        raise ControlledStop("Heartbeat returned an invalid outcome")
+    crown_attention = heartbeat.get("crown_attention")
+    if not isinstance(crown_attention, list):
+        raise ControlledStop("Heartbeat crown_attention must be a list")
+    institutions_checked = heartbeat.get("institutions_checked")
+    if not isinstance(institutions_checked, list) or not institutions_checked:
+        raise ControlledStop("Heartbeat must identify institutions checked")
+    heartbeat_summary = str(heartbeat.get("result_summary") or "").strip()
+    if not heartbeat_summary:
+        raise ControlledStop("Heartbeat result_summary is required")
+
+    combined_outcome = heartbeat_outcome
+    if heartbeat_outcome != "STOP" and outcome == "ACTION":
+        combined_outcome = "ACTION"
+
+    local_now = now.astimezone(ZoneInfo("Europe/London"))
+    run_evidence = (
+        heartbeat_summary
+        + " Integrity patrol: "
+        + str(plan["estate_label"])
+        + f" visit {plan['visit_index']}; "
+        + f"{len(receipt_findings)} findings processed. "
+        + "Crown attention: "
+        + (("; ".join(str(value) for value in crown_attention)) if crown_attention else "NONE")
+        + "."
+    )
+    heartbeat_write = drive.write_task_run_state(
+        row_number=2,
+        last_run=local_now.strftime(
+            "%Y-%m-%d %H:%M %Z — CLOCK-TRIGGERED HEARTBEAT"
+        ),
+        outcome=f"{combined_outcome} — {heartbeat_summary}"[:45000],
+        evidence=run_evidence[:45000],
+    )
+    writes.append(heartbeat_write)
+    evidence_refs.append(heartbeat_write)
+
     result = {
-        "outcome": outcome,
+        "outcome": combined_outcome,
         "result_summary": (
-            f"Unattended bounded patrol completed for {plan['estate_label']} visit {plan['visit_index']}; "
-            f"{len(receipt_findings)} material/current findings processed under current authority."
+            heartbeat_summary
+            + f" Integrity patrol completed for {plan['estate_label']} "
+            + f"visit {plan['visit_index']}."
         ),
         "retrieved_source_ids": list(dict.fromkeys(retrieved_ids)),
-        "evidence_refs": list(dict.fromkeys(evidence_refs)) or ["runtime:no-candidate-material"],
-        "writes": writes + ["GitHub:clock-state/state/scheduled-duty-queue.json"],
+        "evidence_refs": list(dict.fromkeys(evidence_refs))
+        or ["runtime:no-candidate-material"],
+        "writes": writes
+        + ["GitHub:clock-state/state/scheduled-duty-queue.json"],
         "readback_verified": True,
         "resource_classes_used": ["ALDERNIA_INTERNAL"],
         "external_effect": "NONE",
         "new_model_provider_access_granted": False,
-        "integrity_patrol": {
-            "registry_version": plan["registry_version"],
-            "source_row": plan["source_row"],
-            "estate_id": plan["estate_id"],
-            "visit_index": plan["visit_index"],
-            "cursor_after": plan["cursor_after"],
-            "current_authority_retrieved": True,
-            "royal_household_accessed": False,
+        "balcony_pulse": {
+            "institutions_checked": [
+                str(value) for value in institutions_checked
+            ],
+            "material_changes": [
+                str(value)
+                for value in heartbeat.get("material_changes") or []
+            ],
+            "crown_attention": [
+                str(value) for value in crown_attention
+            ],
             "readback_verified": True,
-            "findings": receipt_findings,
         },
+        "integrity_patrol": patrol_receipt,
     }
     ack = acknowledge_event(
         state_path=state_path,
@@ -968,7 +1064,7 @@ def run_once(
         event_id=event_id,
         claim_id=str(claim["claim_id"]),
         execution_result=result,
-        now=datetime.now(timezone.utc),
+        now=now,
     )
     return {
         "status": ack["status"],
@@ -976,7 +1072,10 @@ def run_once(
         "estate_id": plan["estate_id"],
         "visit_index": plan["visit_index"],
         "model": MODEL,
-        "usage": usage,
+        "usage": {
+            "patrol": usage,
+            "heartbeat": heartbeat_usage,
+        },
         "local_monthly_estimated_usd": budget.value["estimated_usd"],
         "writes": writes,
     }
