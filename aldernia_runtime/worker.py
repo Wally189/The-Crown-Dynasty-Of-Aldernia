@@ -483,6 +483,45 @@ def acknowledge_event(
         except PatrolError as exc:
             raise WorkerError(str(exc)) from exc
 
+    balcony_pulse = None
+    if duty["id"] == "dynasty.heartbeat":
+        raw_balcony = execution_result.get("balcony_pulse")
+        if not isinstance(raw_balcony, Mapping):
+            raise WorkerError(
+                "heartbeat completion requires a durable balcony_pulse result"
+            )
+        institutions_checked = raw_balcony.get("institutions_checked")
+        material_changes = raw_balcony.get("material_changes")
+        crown_attention = raw_balcony.get("crown_attention")
+        if not isinstance(institutions_checked, list) or not institutions_checked:
+            raise WorkerError(
+                "heartbeat balcony_pulse must identify institutions checked"
+            )
+        if not isinstance(material_changes, list):
+            raise WorkerError(
+                "heartbeat balcony_pulse material_changes must be a list"
+            )
+        if not isinstance(crown_attention, list):
+            raise WorkerError(
+                "heartbeat balcony_pulse crown_attention must be a list"
+            )
+        if raw_balcony.get("readback_verified") is not True:
+            raise WorkerError(
+                "heartbeat balcony_pulse requires durable readback verification"
+            )
+        balcony_pulse = {
+            "institutions_checked": [
+                str(value) for value in institutions_checked
+            ],
+            "material_changes": [
+                str(value) for value in material_changes
+            ],
+            "crown_attention": [
+                str(value) for value in crown_attention
+            ],
+            "readback_verified": True,
+        }
+
     terminal = {
         "ACTION": "ACKNOWLEDGED_ACTION",
         "NO_ACTION": "ACKNOWLEDGED_NO_ACTION",
@@ -512,6 +551,8 @@ def acknowledge_event(
     }
     if patrol_receipt is not None:
         receipt["integrity_patrol"] = patrol_receipt
+    if balcony_pulse is not None:
+        receipt["balcony_pulse"] = balcony_pulse
 
     if duty["id"] == "government.daily-pulse":
         domain_terminal_state = execution_result.get("domain_terminal_state")
