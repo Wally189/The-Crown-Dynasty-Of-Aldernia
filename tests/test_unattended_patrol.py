@@ -126,7 +126,7 @@ class UnattendedPatrolTests(unittest.TestCase):
                 drive=drive,
                 model=model,
                 worker_id="test-unattended-runtime",
-                now=datetime(2026, 9, 21, 5, 2, tzinfo=timezone.utc),
+                now=datetime.now(timezone.utc),
             )
             self.assertEqual(result["status"], "ACKNOWLEDGED_NO_ACTION")
             self.assertEqual(result["estate_id"], "house-of-carol")
@@ -166,7 +166,7 @@ class UnattendedPatrolTests(unittest.TestCase):
                 drive=drive,
                 model=model,
                 worker_id="test-unattended-runtime",
-                now=datetime(2026, 9, 21, 5, 2, tzinfo=timezone.utc),
+                now=datetime.now(timezone.utc),
             )
             self.assertEqual(result["status"], "ACKNOWLEDGED_ACTION")
             self.assertEqual(drive.archive_calls, 1)
@@ -205,7 +205,7 @@ class UnattendedPatrolTests(unittest.TestCase):
                 drive=drive,
                 model=model,
                 worker_id="test-unattended-runtime",
-                now=datetime(2026, 9, 21, 5, 2, tzinfo=timezone.utc),
+                now=datetime.now(timezone.utc),
             )
             self.assertEqual(result["status"], "ACKNOWLEDGED_ACTION")
             self.assertEqual(drive.queue_calls, 1)
@@ -232,7 +232,7 @@ class UnattendedPatrolTests(unittest.TestCase):
                 drive=drive,
                 model=model,
                 worker_id="test-unattended-runtime",
-                now=datetime(2026, 9, 21, 5, 2, tzinfo=timezone.utc),
+                now=datetime.now(timezone.utc),
             )
             self.assertEqual(result["status"], "HALTED")
             self.assertEqual(model.calls, 0)
