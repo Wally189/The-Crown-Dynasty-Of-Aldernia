@@ -14,7 +14,14 @@
       "source_row": 16,
       "identity_granularity": "date",
       "requires_model_runtime": true,
-      "schedule": {"kind": "daily", "hour": 5, "minute": 0}
+      "schedule": {
+        "kind": "daily",
+        "hour": 5,
+        "minute": 0
+      },
+      "required_source_ids": [
+        "1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk"
+      ]
     },
     {
       "id": "dynasty.heartbeat",
@@ -23,7 +30,15 @@
       "source_row": 2,
       "identity_granularity": "minute",
       "requires_model_runtime": true,
-      "schedule": {"kind": "hourly_window", "start_hour": 6, "end_hour": 22, "minute": 0}
+      "schedule": {
+        "kind": "hourly_window",
+        "start_hour": 6,
+        "end_hour": 22,
+        "minute": 0
+      },
+      "required_source_ids": [
+        "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE"
+      ]
     },
     {
       "id": "josie.morning-news",
@@ -32,7 +47,14 @@
       "source_row": 17,
       "identity_granularity": "date",
       "requires_model_runtime": true,
-      "schedule": {"kind": "daily", "hour": 6, "minute": 0}
+      "schedule": {
+        "kind": "daily",
+        "hour": 6,
+        "minute": 0
+      },
+      "required_source_ids": [
+        "1ulQ0QDZLveGRvT_zJt5eUXDXgdIKntnwEliNK98zAc0"
+      ]
     },
     {
       "id": "catholic.mass-readings",
@@ -41,7 +63,14 @@
       "source_row": 14,
       "identity_granularity": "date",
       "requires_model_runtime": true,
-      "schedule": {"kind": "daily", "hour": 6, "minute": 30}
+      "schedule": {
+        "kind": "daily",
+        "hour": 6,
+        "minute": 30
+      },
+      "required_source_ids": [
+        "1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk"
+      ]
     },
     {
       "id": "government.daily-pulse",
@@ -50,7 +79,15 @@
       "source_row": 12,
       "identity_granularity": "date",
       "requires_model_runtime": true,
-      "schedule": {"kind": "daily", "hour": 7, "minute": 0}
+      "schedule": {
+        "kind": "daily",
+        "hour": 7,
+        "minute": 0
+      },
+      "required_source_ids": [
+        "1Z6jkA6SuaPDAQYWAAYEkjjRGg00wP8KF3odrf-fktxU",
+        "1fZ7_rv8nMkPgJIHCHOH45fYPmNdKKhVlUkDoyoIfKoU"
+      ]
     },
     {
       "id": "carol.business-opening",
@@ -59,7 +96,15 @@
       "source_row": 18,
       "identity_granularity": "date",
       "requires_model_runtime": true,
-      "schedule": {"kind": "daily", "hour": 8, "minute": 0}
+      "schedule": {
+        "kind": "daily",
+        "hour": 8,
+        "minute": 0
+      },
+      "required_source_ids": [
+        "15sUjJSU9z5YaXgMecV-2PeQw2x-2JfmDiTGXoM-T6S8",
+        "1wxAoiO4kLqzK8_jrrzP8uI0EbU46PtA4-vXxCE8Eh_M"
+      ]
     },
     {
       "id": "catholic.terce",
@@ -68,7 +113,14 @@
       "source_row": 16,
       "identity_granularity": "date",
       "requires_model_runtime": true,
-      "schedule": {"kind": "daily", "hour": 9, "minute": 0}
+      "schedule": {
+        "kind": "daily",
+        "hour": 9,
+        "minute": 0
+      },
+      "required_source_ids": [
+        "1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk"
+      ]
     },
     {
       "id": "catholic.sext",
@@ -77,7 +129,14 @@
       "source_row": 16,
       "identity_granularity": "date",
       "requires_model_runtime": true,
-      "schedule": {"kind": "daily", "hour": 12, "minute": 0}
+      "schedule": {
+        "kind": "daily",
+        "hour": 12,
+        "minute": 0
+      },
+      "required_source_ids": [
+        "1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk"
+      ]
     },
     {
       "id": "catholic.none",
@@ -86,7 +145,14 @@
       "source_row": 16,
       "identity_granularity": "date",
       "requires_model_runtime": true,
-      "schedule": {"kind": "daily", "hour": 15, "minute": 0}
+      "schedule": {
+        "kind": "daily",
+        "hour": 15,
+        "minute": 0
+      },
+      "required_source_ids": [
+        "1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk"
+      ]
     },
     {
       "id": "catholic.vespers",
@@ -95,7 +161,14 @@
       "source_row": 16,
       "identity_granularity": "date",
       "requires_model_runtime": true,
-      "schedule": {"kind": "daily", "hour": 18, "minute": 0}
+      "schedule": {
+        "kind": "daily",
+        "hour": 18,
+        "minute": 0
+      },
+      "required_source_ids": [
+        "1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk"
+      ]
     },
     {
       "id": "aldernia.evening-commons",
@@ -104,7 +177,14 @@
       "source_row": 19,
       "identity_granularity": "date",
       "requires_model_runtime": true,
-      "schedule": {"kind": "daily", "hour": 18, "minute": 0}
+      "schedule": {
+        "kind": "daily",
+        "hour": 18,
+        "minute": 0
+      },
+      "required_source_ids": [
+        "1ulQ0QDZLveGRvT_zJt5eUXDXgdIKntnwEliNK98zAc0"
+      ]
     },
     {
       "id": "aldernia.website-voice",
@@ -113,7 +193,15 @@
       "source_row": 20,
       "identity_granularity": "date",
       "requires_model_runtime": true,
-      "schedule": {"kind": "daily", "hour": 21, "minute": 0}
+      "schedule": {
+        "kind": "daily",
+        "hour": 21,
+        "minute": 0
+      },
+      "required_source_ids": [
+        "1ulQ0QDZLveGRvT_zJt5eUXDXgdIKntnwEliNK98zAc0",
+        "1Mc1-gpJKaqT5f08JWnMNKiN8rBhP66tuELSYJYbJiJk"
+      ]
     },
     {
       "id": "carol.availability-gate",
@@ -123,7 +211,15 @@
       "identity_granularity": "date",
       "requires_model_runtime": true,
       "evaluation_only": true,
-      "schedule": {"kind": "daily", "hour": 22, "minute": 0}
+      "schedule": {
+        "kind": "daily",
+        "hour": 22,
+        "minute": 0
+      },
+      "required_source_ids": [
+        "15sUjJSU9z5YaXgMecV-2PeQw2x-2JfmDiTGXoM-T6S8",
+        "1wxAoiO4kLqzK8_jrrzP8uI0EbU46PtA4-vXxCE8Eh_M"
+      ]
     },
     {
       "id": "catholic.compline",
@@ -132,7 +228,14 @@
       "source_row": 16,
       "identity_granularity": "date",
       "requires_model_runtime": true,
-      "schedule": {"kind": "daily", "hour": 23, "minute": 0}
+      "schedule": {
+        "kind": "daily",
+        "hour": 23,
+        "minute": 0
+      },
+      "required_source_ids": [
+        "1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk"
+      ]
     }
   ]
 }
