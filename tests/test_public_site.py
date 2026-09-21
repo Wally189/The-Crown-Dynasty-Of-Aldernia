@@ -125,7 +125,7 @@ class PublicSiteTests(unittest.TestCase):
     def test_build_identity_is_single_json_source(self):
         build = json.loads((ROOT / "aldernia" / "build.json").read_text(encoding="utf-8"))
         self.assertEqual(build["schema_version"], 1)
-        self.assertEqual(build["id"], "ALD-CROWN-FOUNDING-09")
+        self.assertEqual(build["id"], "ALD-CROWN-FOUNDING-10")
         self.assertEqual(build["facets"], ["experiment", "country"])
         self.assertIn("today", build["country_layers"])
         self.assertIn("atlas", build["country_layers"])
@@ -180,6 +180,52 @@ class PublicSiteTests(unittest.TestCase):
         posture = build["privacy_posture"].lower()
         for word in ("accounts", "payments", "donations", "comments", "public voting"):
             self.assertIn(word, posture)
+
+
+    def test_country_shell_is_static_and_consistent(self):
+        required_nav = (
+            'href="./">Home</a>',
+            'href="today.html">Today</a>',
+            'href="map.html">Atlas</a>',
+            'href="places.html">Places</a>',
+            'href="life.html">Life</a>',
+            'href="government.html">Government</a>',
+            'href="media.html">Media</a>',
+            'href="learn.html">Learn</a>',
+        )
+        for page in COUNTRY_PAGES:
+            text = page.read_text(encoding="utf-8")
+            self.assertIn('<body class="country-surface country-zone-', text, page)
+            self.assertIn('aria-label="Country"', text, page)
+            for nav in required_nav:
+                self.assertIn(nav, text, page)
+
+    def test_country_pages_have_deliberate_journey_handoffs(self):
+        for page in COUNTRY_PAGES:
+            if page.name == "index.html":
+                continue
+            text = page.read_text(encoding="utf-8")
+            self.assertIn('class="section journey-section"', text, page)
+            self.assertIn('aria-label="Continue through Aldernia"', text, page)
+
+    def test_public_country_copy_keeps_internal_runtime_backstage(self):
+        corpus = "\n".join(page.read_text(encoding="utf-8").lower() for page in COUNTRY_PAGES)
+        for token in (
+            "computational-bus operating lease",
+            "central aldernia clock can supply",
+            "timer can wake the system",
+            "fresh crown commission",
+            "current fictional-world publication state",
+        ):
+            self.assertNotIn(token, corpus)
+
+    def test_country_home_routes_by_human_question_not_flat_directory(self):
+        text = (ROOT / "country" / "index.html").read_text(encoding="utf-8")
+        self.assertIn("Start with the question you actually have.", text)
+        self.assertIn("What is happening?", text)
+        self.assertIn("Where am I?", text)
+        self.assertIn("How does it work?", text)
+        self.assertNotIn("Choose a door", text)
 
 
 if __name__ == "__main__":
