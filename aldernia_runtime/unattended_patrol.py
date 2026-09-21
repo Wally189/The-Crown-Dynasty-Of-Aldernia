@@ -14,7 +14,12 @@ from urllib.parse import quote, urlencode
 from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
-from aldernia_runtime.patrol import REVIEW_TRIGGER, stable_conflict_id
+from aldernia_runtime.patrol import (
+    ESTATES,
+    PATROL_COMMON_SOURCE_IDS,
+    REVIEW_TRIGGER,
+    stable_conflict_id,
+)
 from aldernia_runtime.scheduler import load_scheduler_state
 from aldernia_runtime.session import load_session
 from aldernia_runtime.worker import MODEL_RUNTIME_CLASS, acknowledge_event, claim_event
@@ -29,6 +34,7 @@ MAX_TREE_DEPTH = 3
 MAX_CANDIDATE_FILES = 6
 MAX_AUTHORITY_CHARS = 16000
 MAX_CANDIDATE_CHARS = 10000
+MAX_HEARTBEAT_SOURCE_CHARS = 5000
 
 PALACE_REGISTER_ID = "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA"
 COMMON_ARCHIVE_ID = "1hhxQzNa4UrNYmKPgkZD9xS37X17ZuWct"
@@ -277,6 +283,32 @@ class DriveClient:
         )
         rows = value.get("values") or []
         return [[str(cell) for cell in row] for row in rows if isinstance(row, list)]
+
+    def write_task_run_state(
+        self,
+        *,
+        row_number: int,
+        last_run: str,
+        outcome: str,
+        evidence: str,
+    ) -> str:
+        a1 = f"Scheduled Tasks!H{row_number}:J{row_number}"
+        values = [[last_run, outcome, evidence]]
+        _json_http(
+            "PUT",
+            f"https://sheets.googleapis.com/v4/spreadsheets/{PALACE_REGISTER_ID}/values/"
+            + quote(a1, safe="")
+            + "?"
+            + urlencode({"valueInputOption": "RAW"}),
+            headers={**self.headers, "Content-Type": "application/json"},
+            body={"range": a1, "majorDimension": "ROWS", "values": values},
+        )
+        readback = self.sheet_values(a1)
+        if readback != values:
+            raise PatrolRuntimeError(
+                f"Scheduled Tasks row {row_number} run-state write did not read back"
+            )
+        return f"Drive:{PALACE_REGISTER_ID}:Scheduled Tasks!H{row_number}:J{row_number}"
 
     def append_queue_row(self, row: list[str]) -> None:
         _json_http(
