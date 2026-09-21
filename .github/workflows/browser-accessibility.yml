@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - candidate/root-country-first-2026-09-21
   pull_request:
     branches:
       - main
@@ -28,7 +29,7 @@ jobs:
         run: python -m unittest discover -s tests -v
 
       - name: Wait for the accepted public build
-        if: github.event_name != 'pull_request'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         shell: bash
         run: |
           set -euo pipefail
@@ -50,7 +51,7 @@ jobs:
           exit 1
 
       - name: Start candidate server
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' || github.ref != 'refs/heads/main'
         shell: bash
         run: |
           set -euo pipefail
@@ -81,7 +82,7 @@ jobs:
       - name: Run desktop/mobile browser and WCAG checks
         env:
           CHROME_BIN: ${{ steps.chrome.outputs.bin }}
-          BASE_URL: ${{ github.event_name == 'pull_request' && 'http://127.0.0.1:8000/The-Crown-Dynasty-Of-Aldernia' || 'https://wally189.github.io/The-Crown-Dynasty-Of-Aldernia' }}
+          BASE_URL: ${{ (github.event_name == 'pull_request' || github.ref != 'refs/heads/main') && 'http://127.0.0.1:8000/The-Crown-Dynasty-Of-Aldernia' || 'https://wally189.github.io/The-Crown-Dynasty-Of-Aldernia' }}
         shell: bash
         run: |
           mkdir -p assurance/screens
