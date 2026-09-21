@@ -1,14 +1,4 @@
 {
-  "schema_version": 1,
-  "operating_state": "ACTIVE_COMMAND",
-  "session_mode": "COMMAND",
-  "activation_id": "aldernia-website-rebuild-20260921",
-  "mission_id": "aldernia-website-engine-rebuild-2026-09-21",
-  "command_ref": "CROWN COMMISSION — WEBSITE ENGINE MULTI-PASS ALDERNIA REBUILD — 21 SEPTEMBER 2026",
-  "accountable_owner": "HOC-WEB-001 — Website Lifecycle Programme & Engine",
-  "activated_at": "2026-09-21T05:53:18+00:00",
-  "timed_expires_at": null,
-  "last_30_minute_checkpoint": "2026-09-21T05:53:18+00:00",
   "acceptance": [
     "Website Engine owns the commission end to end under HOC-WEB-001 lifecycle",
     "COS-SEL-001 selects and records materially competent engine/resource coalition",
@@ -19,7 +9,17 @@
     "Source regression, served artifact, browser/mobile/accessibility and visual before-after verification pass before closure",
     "Final accepted state and engine invocation evidence are recorded in the canonical Public World Blueprint"
   ],
-  "halt_at": null,
+  "accountable_owner": "HOC-WEB-001 \u2014 Website Lifecycle Programme & Engine",
+  "activated_at": "2026-09-21T05:53:18+00:00",
+  "activation_id": "aldernia-website-rebuild-20260921",
+  "command_ref": "CROWN COMMISSION \u2014 WEBSITE ENGINE MULTI-PASS ALDERNIA REBUILD \u2014 21 SEPTEMBER 2026",
   "complete_at": null,
-  "last_transition_reason": "CROWN COMMAND ACTIVATION — CURRENT WEBSITE ENGINE REBUILD; PRIOR BUS-TRIGGER OPERATIONALISATION LEASE SUPERSEDED BY NEWER CROWN COMMAND"
+  "halt_at": null,
+  "last_30_minute_checkpoint": "2026-09-21T06:57:57+00:00",
+  "last_transition_reason": "30-MINUTE COMMAND CHECKPOINT \u2014 MISSION CONTINUES",
+  "mission_id": "aldernia-website-engine-rebuild-2026-09-21",
+  "operating_state": "ACTIVE_COMMAND",
+  "schema_version": 1,
+  "session_mode": "COMMAND",
+  "timed_expires_at": null
 }
