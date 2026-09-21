@@ -1506,3 +1506,19 @@ body.country-surface{background:var(--alder-paper);background-image:none;font-fa
 @media(prefers-reduced-motion:reduce){
   .world-tile img { transition:none !important; }
 }
+
+
+/* Candidate assurance repair: keep the Atlas horizontally scrollable inside its own
+   frame at narrow reflow widths without widening the document viewport. */
+@media(max-width:360px){
+  .country-surface .map-shell,
+  .country-surface .map-frame {
+    max-width:100%;
+    min-width:0;
+  }
+  .country-surface .map-shell { overflow:hidden; }
+  .country-surface .map-frame {
+    overflow-x:auto;
+    overscroll-behavior-inline:contain;
+  }
+}
