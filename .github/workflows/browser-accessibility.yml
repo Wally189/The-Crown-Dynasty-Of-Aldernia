@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
-      - name: Check out accepted main
+      - name: Check out candidate or accepted main
         uses: actions/checkout@v4
 
       - name: Structural regression tests
