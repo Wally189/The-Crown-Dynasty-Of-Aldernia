@@ -1,27 +1,28 @@
 {
   "events": {
-    "catholic.dawn-offices:2026-09-21": {
+    "carol.business-opening:2026-09-21": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
       "ack_to": "Central Aldernia Clock / scheduled-duty queue",
-      "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 16",
+      "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 18",
       "departure_mode": "TIMETABLE",
       "destination": "Dynasty Institutional Heartbeat impact discovery",
-      "emitted_at": "2026-09-21T05:24:09+00:00",
+      "emitted_at": "2026-09-21T09:41:09+00:00",
       "emitting_owner": "Central Aldernia Clock / Scheduled Tasks",
-      "event_id": "catholic.dawn-offices:2026-09-21",
+      "event_id": "carol.business-opening:2026-09-21",
       "event_type": "canonical.state.changed",
       "mission_ref": "NONE — DUE EVALUATION ONLY",
       "payload": {
-        "duty_id": "catholic.dawn-offices",
+        "accountable_owner": "House of Carol",
+        "duty_id": "carol.business-opening",
         "evaluation_only": false,
-        "label": "Office of Readings then Lauds",
-        "requires_model_runtime": true,
-        "scheduled_for": "2026-09-21T05:00:00+01:00",
-        "source_row": 16,
-        "accountable_owner": "House of Catholic",
+        "label": "House of Carol Business Opening Bus",
         "required_source_ids": [
-          "1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk"
-        ]
+          "15sUjJSU9z5YaXgMecV-2PeQw2x-2JfmDiTGXoM-T6S8",
+          "1wxAoiO4kLqzK8_jrrzP8uI0EbU46PtA4-vXxCE8Eh_M"
+        ],
+        "requires_model_runtime": true,
+        "scheduled_for": "2026-09-21T08:00:00+01:00",
+        "source_row": 18
       },
       "permitted_effects": [
         "evaluate already-authorised recurring duty",
@@ -33,21 +34,85 @@
         "widen authority",
         "treat this machine projection as task source of truth"
       ],
-      "scheduled_for": "2026-09-21T05:00:00+01:00",
+      "scheduled_for": "2026-09-21T08:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "ACKNOWLEDGED_ACTION",
-      "transition_class": "scheduled_duty_due",
+      "status": "PENDING_RUNTIME",
+      "transition_class": "scheduled_duty_due"
+    },
+    "catholic.dawn-offices:2026-09-21": {
+      "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
+      "ack_to": "Central Aldernia Clock / scheduled-duty queue",
+      "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 16",
       "claim": null,
-      "receipt": {
-        "schema_version": 1,
-        "outcome": "ACTION",
-        "result_summary": "05:00 catch-up completed under House of Catholic source control. The 21 September St Matthew Office of Readings and Morning Prayer/Lauds were identified through the controlled Catholic source hierarchy and Universalis presentation service, and the common-observance route was reconciled. No sacramental, ecclesiastical-office or human interior-prayer claim was made; no substantial copyrighted liturgical text was copied.",
-        "completed_at": "2026-09-21T05:53:02+00:00",
-        "worker_id": "chatgpt-helm-session-2026-09-21-catchup",
-        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+      "claim_history": [
+        {
+          "accountable_owner": "House of Catholic",
+          "attempt": 1,
+          "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 16",
+          "claim_id": "bd6fb510388e9464da452d91",
+          "claimed_at": "2026-09-21T05:52:00+00:00",
+          "estate_scope": "ALDERNIA",
+          "external_access_grants": [],
+          "lease_expires_at": "2026-09-21T06:22:00+00:00",
+          "mission_ref": "NONE — DUE EVALUATION ONLY",
+          "new_model_provider_access_granted": false,
+          "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+          "schema_version": 1,
+          "worker_id": "chatgpt-helm-session-2026-09-21-catchup"
+        }
+      ],
+      "departure_mode": "TIMETABLE",
+      "destination": "Dynasty Institutional Heartbeat impact discovery",
+      "emitted_at": "2026-09-21T05:24:09+00:00",
+      "emitting_owner": "Central Aldernia Clock / Scheduled Tasks",
+      "event_id": "catholic.dawn-offices:2026-09-21",
+      "event_type": "canonical.state.changed",
+      "mission_ref": "NONE — DUE EVALUATION ONLY",
+      "payload": {
         "accountable_owner": "House of Catholic",
-        "claim_id": "bd6fb510388e9464da452d91",
+        "duty_id": "catholic.dawn-offices",
+        "evaluation_only": false,
+        "label": "Office of Readings then Lauds",
+        "required_source_ids": [
+          "1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk"
+        ],
+        "requires_model_runtime": true,
+        "scheduled_for": "2026-09-21T05:00:00+01:00",
+        "source_row": 16
+      },
+      "permitted_effects": [
+        "evaluate already-authorised recurring duty",
+        "route through COS-BUS-001 when current due/authority gates pass",
+        "record ACK/NO_ACTION/STOP"
+      ],
+      "prohibited_effects": [
+        "create a mission from time alone",
+        "widen authority",
+        "treat this machine projection as task source of truth"
+      ],
+      "receipt": {
+        "accountable_owner": "House of Catholic",
         "attempt": 1,
+        "authority_unchanged": true,
+        "claim_id": "bd6fb510388e9464da452d91",
+        "completed_at": "2026-09-21T05:53:02+00:00",
+        "estate_scope": "ALDERNIA",
+        "evidence_refs": [
+          "Drive:SRC-032 Universalis presentation-service control",
+          "https://universalis.com/w/20260921/readings.htm",
+          "https://universalis.com/L/Europe.England.Ordinariate/20260921/lauds.htm"
+        ],
+        "external_effect": "NONE",
+        "mission_created_by_worker": false,
+        "new_model_provider_access_granted": false,
+        "outcome": "ACTION",
+        "ownership_unchanged": true,
+        "readback_verified": true,
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL",
+          "PUBLIC_READ_ONLY"
+        ],
+        "result_summary": "05:00 catch-up completed under House of Catholic source control. The 21 September St Matthew Office of Readings and Morning Prayer/Lauds were identified through the controlled Catholic source hierarchy and Universalis presentation service, and the common-observance route was reconciled. No sacramental, ecclesiastical-office or human interior-prayer claim was made; no substantial copyrighted liturgical text was copied.",
         "retrieved_source_ids": [
           "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
           "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
@@ -57,48 +122,40 @@
           "1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk",
           "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY"
         ],
-        "evidence_refs": [
-          "Drive:SRC-032 Universalis presentation-service control",
-          "https://universalis.com/w/20260921/readings.htm",
-          "https://universalis.com/L/Europe.England.Ordinariate/20260921/lauds.htm"
-        ],
+        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-21-catchup",
         "writes": [
           "GitHub clock-state/state/scheduled-duty-queue.json durable receipt"
-        ],
-        "readback_verified": true,
-        "estate_scope": "ALDERNIA",
-        "resource_classes_used": [
-          "ALDERNIA_INTERNAL",
-          "PUBLIC_READ_ONLY"
-        ],
-        "external_effect": "NONE",
-        "new_model_provider_access_granted": false,
-        "authority_unchanged": true,
-        "ownership_unchanged": true,
-        "mission_created_by_worker": false
+        ]
       },
-      "claim_history": [
-        {
-          "schema_version": 1,
-          "claim_id": "bd6fb510388e9464da452d91",
-          "worker_id": "chatgpt-helm-session-2026-09-21-catchup",
-          "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
-          "accountable_owner": "House of Catholic",
-          "claimed_at": "2026-09-21T05:52:00+00:00",
-          "lease_expires_at": "2026-09-21T06:22:00+00:00",
-          "attempt": 1,
-          "estate_scope": "ALDERNIA",
-          "new_model_provider_access_granted": false,
-          "external_access_grants": [],
-          "mission_ref": "NONE — DUE EVALUATION ONLY",
-          "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 16"
-        }
-      ]
+      "scheduled_for": "2026-09-21T05:00:00+01:00",
+      "service_class": "HEARTBEAT",
+      "status": "ACKNOWLEDGED_ACTION",
+      "transition_class": "scheduled_duty_due"
     },
     "catholic.mass-readings:2026-09-21": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
       "ack_to": "Central Aldernia Clock / scheduled-duty queue",
       "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 14",
+      "claim": null,
+      "claim_history": [
+        {
+          "accountable_owner": "House of Catholic",
+          "attempt": 1,
+          "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 14",
+          "claim_id": "55c948cd439a3e742cb1abb8",
+          "claimed_at": "2026-09-21T05:52:00+00:00",
+          "estate_scope": "ALDERNIA",
+          "external_access_grants": [],
+          "lease_expires_at": "2026-09-21T06:22:00+00:00",
+          "mission_ref": "NONE — DUE EVALUATION ONLY",
+          "new_model_provider_access_granted": false,
+          "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+          "schema_version": 1,
+          "worker_id": "chatgpt-helm-session-2026-09-21-catchup"
+        }
+      ],
       "departure_mode": "TIMETABLE",
       "destination": "Dynasty Institutional Heartbeat impact discovery",
       "emitted_at": "2026-09-21T05:47:14+00:00",
@@ -128,21 +185,30 @@
         "widen authority",
         "treat this machine projection as task source of truth"
       ],
-      "scheduled_for": "2026-09-21T06:30:00+01:00",
-      "service_class": "HEARTBEAT",
-      "status": "ACKNOWLEDGED_ACTION",
-      "transition_class": "scheduled_duty_due",
-      "claim": null,
       "receipt": {
-        "schema_version": 1,
-        "outcome": "ACTION",
-        "result_summary": "06:30 Mass-readings formation catch-up completed. England calendar: Feast of Saint Matthew, Apostle and Evangelist, red. Reading references: Ephesians 4:1-7,11-13; Psalm 19(18); Gospel Matthew 9:9-13. The Vatican News commentary is Pope Benedict XVI, Angelus, 8 June 2008—not generically a 'Vatican-approved homily'. Formation synthesis: Christian vocation is ordered to unity and service in building up the Body of Christ, while Matthew's call places mercy and conversion at the centre. Internal formation only; no sacramental-attendance claim.",
-        "completed_at": "2026-09-21T05:53:02+00:00",
-        "worker_id": "chatgpt-helm-session-2026-09-21-catchup",
-        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
         "accountable_owner": "House of Catholic",
-        "claim_id": "55c948cd439a3e742cb1abb8",
         "attempt": 1,
+        "authority_unchanged": true,
+        "claim_id": "55c948cd439a3e742cb1abb8",
+        "completed_at": "2026-09-21T05:53:02+00:00",
+        "estate_scope": "ALDERNIA",
+        "evidence_refs": [
+          "Drive:SRC-016 England/Wales Lectionary baseline",
+          "Drive:SRC-031 Vatican News Word of the Day",
+          "https://www.vaticannews.va/en/word-of-the-day/2026/09/21.html",
+          "https://universalis.com/Europe.England/mass.htm"
+        ],
+        "external_effect": "NONE",
+        "mission_created_by_worker": false,
+        "new_model_provider_access_granted": false,
+        "outcome": "ACTION",
+        "ownership_unchanged": true,
+        "readback_verified": true,
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL",
+          "PUBLIC_READ_ONLY"
+        ],
+        "result_summary": "06:30 Mass-readings formation catch-up completed. England calendar: Feast of Saint Matthew, Apostle and Evangelist, red. Reading references: Ephesians 4:1-7,11-13; Psalm 19(18); Gospel Matthew 9:9-13. The Vatican News commentary is Pope Benedict XVI, Angelus, 8 June 2008—not generically a 'Vatican-approved homily'. Formation synthesis: Christian vocation is ordered to unity and service in building up the Body of Christ, while Matthew's call places mercy and conversion at the centre. Internal formation only; no sacramental-attendance claim.",
         "retrieved_source_ids": [
           "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
           "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
@@ -152,67 +218,40 @@
           "1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk",
           "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY"
         ],
-        "evidence_refs": [
-          "Drive:SRC-016 England/Wales Lectionary baseline",
-          "Drive:SRC-031 Vatican News Word of the Day",
-          "https://www.vaticannews.va/en/word-of-the-day/2026/09/21.html",
-          "https://universalis.com/Europe.England/mass.htm"
-        ],
+        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-21-catchup",
         "writes": [
           "GitHub clock-state/state/scheduled-duty-queue.json durable receipt"
-        ],
-        "readback_verified": true,
-        "estate_scope": "ALDERNIA",
-        "resource_classes_used": [
-          "ALDERNIA_INTERNAL",
-          "PUBLIC_READ_ONLY"
-        ],
-        "external_effect": "NONE",
-        "new_model_provider_access_granted": false,
-        "authority_unchanged": true,
-        "ownership_unchanged": true,
-        "mission_created_by_worker": false
+        ]
       },
-      "claim_history": [
-        {
-          "schema_version": 1,
-          "claim_id": "55c948cd439a3e742cb1abb8",
-          "worker_id": "chatgpt-helm-session-2026-09-21-catchup",
-          "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
-          "accountable_owner": "House of Catholic",
-          "claimed_at": "2026-09-21T05:52:00+00:00",
-          "lease_expires_at": "2026-09-21T06:22:00+00:00",
-          "attempt": 1,
-          "estate_scope": "ALDERNIA",
-          "new_model_provider_access_granted": false,
-          "external_access_grants": [],
-          "mission_ref": "NONE — DUE EVALUATION ONLY",
-          "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 14"
-        }
-      ]
+      "scheduled_for": "2026-09-21T06:30:00+01:00",
+      "service_class": "HEARTBEAT",
+      "status": "ACKNOWLEDGED_ACTION",
+      "transition_class": "scheduled_duty_due"
     },
-    "dynasty.heartbeat:2026-09-21T06:00": {
+    "catholic.terce:2026-09-21": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
       "ack_to": "Central Aldernia Clock / scheduled-duty queue",
-      "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 2",
+      "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 16",
       "departure_mode": "TIMETABLE",
       "destination": "Dynasty Institutional Heartbeat impact discovery",
-      "emitted_at": "2026-09-21T05:24:09+00:00",
+      "emitted_at": "2026-09-21T09:41:09+00:00",
       "emitting_owner": "Central Aldernia Clock / Scheduled Tasks",
-      "event_id": "dynasty.heartbeat:2026-09-21T06:00",
+      "event_id": "catholic.terce:2026-09-21",
       "event_type": "canonical.state.changed",
       "mission_ref": "NONE — DUE EVALUATION ONLY",
       "payload": {
-        "duty_id": "dynasty.heartbeat",
+        "accountable_owner": "House of Catholic",
+        "duty_id": "catholic.terce",
         "evaluation_only": false,
-        "label": "Dynasty House Pulse / King's Balcony Heartbeat",
-        "requires_model_runtime": true,
-        "scheduled_for": "2026-09-21T06:00:00+01:00",
-        "source_row": 2,
-        "accountable_owner": "Royal Palace",
+        "label": "Terce / Mid-morning Prayer",
         "required_source_ids": [
-          "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE"
-        ]
+          "1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk"
+        ],
+        "requires_model_runtime": true,
+        "scheduled_for": "2026-09-21T09:00:00+01:00",
+        "source_row": 16
       },
       "permitted_effects": [
         "evaluate already-authorised recurring duty",
@@ -224,21 +263,84 @@
         "widen authority",
         "treat this machine projection as task source of truth"
       ],
-      "scheduled_for": "2026-09-21T06:00:00+01:00",
+      "scheduled_for": "2026-09-21T09:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "ACKNOWLEDGED_ACTION",
-      "transition_class": "scheduled_duty_due",
+      "status": "PENDING_RUNTIME",
+      "transition_class": "scheduled_duty_due"
+    },
+    "dynasty.heartbeat:2026-09-21T06:00": {
+      "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
+      "ack_to": "Central Aldernia Clock / scheduled-duty queue",
+      "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 2",
       "claim": null,
-      "receipt": {
-        "schema_version": 1,
-        "outcome": "ACTION",
-        "result_summary": "06:00 Dynasty Heartbeat catch-up completed from current House-owned records. Principal institutions were checked without transferring ownership: Carol is live-operating with external evidence boundaries intact; Nathaniel, Vivienne and Tony retain bounded evidence-earned capability states; Josie remains internal-operating-pilot with external publication on hold; House of Catholic remains controlled internal under real Church authority; HMDF has no current live mission or external capability; Government remains on its controlled current-state route with open public-money capability work; independent-institution commissioning limits remain visible. No new Crown-reserved decision was identified. The missed Dawn/News/Mass occurrences were recognised and routed for catch-up.",
-        "completed_at": "2026-09-21T05:53:02+00:00",
-        "worker_id": "chatgpt-helm-session-2026-09-21-catchup",
-        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+      "claim_history": [
+        {
+          "accountable_owner": "Royal Palace",
+          "attempt": 1,
+          "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 2",
+          "claim_id": "edcb58e07c5bcc4437ce26a4",
+          "claimed_at": "2026-09-21T05:52:00+00:00",
+          "estate_scope": "ALDERNIA",
+          "external_access_grants": [],
+          "lease_expires_at": "2026-09-21T06:22:00+00:00",
+          "mission_ref": "NONE — DUE EVALUATION ONLY",
+          "new_model_provider_access_granted": false,
+          "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+          "schema_version": 1,
+          "worker_id": "chatgpt-helm-session-2026-09-21-catchup"
+        }
+      ],
+      "departure_mode": "TIMETABLE",
+      "destination": "Dynasty Institutional Heartbeat impact discovery",
+      "emitted_at": "2026-09-21T05:24:09+00:00",
+      "emitting_owner": "Central Aldernia Clock / Scheduled Tasks",
+      "event_id": "dynasty.heartbeat:2026-09-21T06:00",
+      "event_type": "canonical.state.changed",
+      "mission_ref": "NONE — DUE EVALUATION ONLY",
+      "payload": {
         "accountable_owner": "Royal Palace",
-        "claim_id": "edcb58e07c5bcc4437ce26a4",
+        "duty_id": "dynasty.heartbeat",
+        "evaluation_only": false,
+        "label": "Dynasty House Pulse / King's Balcony Heartbeat",
+        "required_source_ids": [
+          "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE"
+        ],
+        "requires_model_runtime": true,
+        "scheduled_for": "2026-09-21T06:00:00+01:00",
+        "source_row": 2
+      },
+      "permitted_effects": [
+        "evaluate already-authorised recurring duty",
+        "route through COS-BUS-001 when current due/authority gates pass",
+        "record ACK/NO_ACTION/STOP"
+      ],
+      "prohibited_effects": [
+        "create a mission from time alone",
+        "widen authority",
+        "treat this machine projection as task source of truth"
+      ],
+      "receipt": {
+        "accountable_owner": "Royal Palace",
         "attempt": 1,
+        "authority_unchanged": true,
+        "claim_id": "edcb58e07c5bcc4437ce26a4",
+        "completed_at": "2026-09-21T05:53:02+00:00",
+        "estate_scope": "ALDERNIA",
+        "evidence_refs": [
+          "Drive:current principal institution state pointers",
+          "GitHub:clock-state scheduled-duty queue"
+        ],
+        "external_effect": "NONE",
+        "mission_created_by_worker": false,
+        "new_model_provider_access_granted": false,
+        "outcome": "ACTION",
+        "ownership_unchanged": true,
+        "readback_verified": true,
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL",
+          "PUBLIC_READ_ONLY"
+        ],
+        "result_summary": "06:00 Dynasty Heartbeat catch-up completed from current House-owned records. Principal institutions were checked without transferring ownership: Carol is live-operating with external evidence boundaries intact; Nathaniel, Vivienne and Tony retain bounded evidence-earned capability states; Josie remains internal-operating-pilot with external publication on hold; House of Catholic remains controlled internal under real Church authority; HMDF has no current live mission or external capability; Government remains on its controlled current-state route with open public-money capability work; independent-institution commissioning limits remain visible. No new Crown-reserved decision was identified. The missed Dawn/News/Mass occurrences were recognised and routed for catch-up.",
         "retrieved_source_ids": [
           "13ZW5khEzz_IPL3bR_DXtRY-s4z8qpKKQmUz7Lu06nWw",
           "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
@@ -256,65 +358,45 @@
           "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY",
           "1wxAoiO4kLqzK8_jrrzP8uI0EbU46PtA4-vXxCE8Eh_M"
         ],
-        "evidence_refs": [
-          "Drive:current principal institution state pointers",
-          "GitHub:clock-state scheduled-duty queue"
-        ],
+        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-21-catchup",
         "writes": [
           "GitHub clock-state/state/scheduled-duty-queue.json durable receipt"
-        ],
-        "readback_verified": true,
-        "estate_scope": "ALDERNIA",
-        "resource_classes_used": [
-          "ALDERNIA_INTERNAL",
-          "PUBLIC_READ_ONLY"
-        ],
-        "external_effect": "NONE",
-        "new_model_provider_access_granted": false,
-        "authority_unchanged": true,
-        "ownership_unchanged": true,
-        "mission_created_by_worker": false
+        ]
       },
-      "claim_history": [
-        {
-          "schema_version": 1,
-          "claim_id": "edcb58e07c5bcc4437ce26a4",
-          "worker_id": "chatgpt-helm-session-2026-09-21-catchup",
-          "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
-          "accountable_owner": "Royal Palace",
-          "claimed_at": "2026-09-21T05:52:00+00:00",
-          "lease_expires_at": "2026-09-21T06:22:00+00:00",
-          "attempt": 1,
-          "estate_scope": "ALDERNIA",
-          "new_model_provider_access_granted": false,
-          "external_access_grants": [],
-          "mission_ref": "NONE — DUE EVALUATION ONLY",
-          "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 2"
-        }
-      ]
+      "scheduled_for": "2026-09-21T06:00:00+01:00",
+      "service_class": "HEARTBEAT",
+      "status": "ACKNOWLEDGED_ACTION",
+      "transition_class": "scheduled_duty_due"
     },
-    "josie.morning-news:2026-09-21": {
+    "dynasty.heartbeat:2026-09-21T07:00": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
       "ack_to": "Central Aldernia Clock / scheduled-duty queue",
-      "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 17",
+      "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 2",
       "departure_mode": "TIMETABLE",
       "destination": "Dynasty Institutional Heartbeat impact discovery",
-      "emitted_at": "2026-09-21T05:24:09+00:00",
+      "emitted_at": "2026-09-21T09:41:09+00:00",
       "emitting_owner": "Central Aldernia Clock / Scheduled Tasks",
-      "event_id": "josie.morning-news:2026-09-21",
+      "event_id": "dynasty.heartbeat:2026-09-21T07:00",
       "event_type": "canonical.state.changed",
       "mission_ref": "NONE — DUE EVALUATION ONLY",
       "payload": {
-        "duty_id": "josie.morning-news",
+        "accountable_owner": "Royal Palace",
+        "duty_id": "dynasty.heartbeat",
         "evaluation_only": false,
-        "label": "Josie Morning News Bus",
-        "requires_model_runtime": true,
-        "scheduled_for": "2026-09-21T06:00:00+01:00",
-        "source_row": 17,
-        "accountable_owner": "House of Josie",
+        "integrity_patrol": {
+          "mode": "ONE_BOUNDED_SLICE_PER_HEARTBEAT",
+          "registry_version": 1,
+          "source_row": 21
+        },
+        "label": "Dynasty House Pulse / King's Balcony Heartbeat",
         "required_source_ids": [
-          "1ulQ0QDZLveGRvT_zJt5eUXDXgdIKntnwEliNK98zAc0"
-        ]
+          "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE"
+        ],
+        "requires_model_runtime": true,
+        "scheduled_for": "2026-09-21T07:00:00+01:00",
+        "source_row": 2
       },
       "permitted_effects": [
         "evaluate already-authorised recurring duty",
@@ -326,21 +408,255 @@
         "widen authority",
         "treat this machine projection as task source of truth"
       ],
-      "scheduled_for": "2026-09-21T06:00:00+01:00",
+      "scheduled_for": "2026-09-21T07:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "ACKNOWLEDGED_ACTION",
-      "transition_class": "scheduled_duty_due",
+      "status": "PENDING_RUNTIME",
+      "transition_class": "scheduled_duty_due"
+    },
+    "dynasty.heartbeat:2026-09-21T08:00": {
+      "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
+      "ack_to": "Central Aldernia Clock / scheduled-duty queue",
+      "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 2",
+      "departure_mode": "TIMETABLE",
+      "destination": "Dynasty Institutional Heartbeat impact discovery",
+      "emitted_at": "2026-09-21T09:41:09+00:00",
+      "emitting_owner": "Central Aldernia Clock / Scheduled Tasks",
+      "event_id": "dynasty.heartbeat:2026-09-21T08:00",
+      "event_type": "canonical.state.changed",
+      "mission_ref": "NONE — DUE EVALUATION ONLY",
+      "payload": {
+        "accountable_owner": "Royal Palace",
+        "duty_id": "dynasty.heartbeat",
+        "evaluation_only": false,
+        "integrity_patrol": {
+          "mode": "ONE_BOUNDED_SLICE_PER_HEARTBEAT",
+          "registry_version": 1,
+          "source_row": 21
+        },
+        "label": "Dynasty House Pulse / King's Balcony Heartbeat",
+        "required_source_ids": [
+          "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE"
+        ],
+        "requires_model_runtime": true,
+        "scheduled_for": "2026-09-21T08:00:00+01:00",
+        "source_row": 2
+      },
+      "permitted_effects": [
+        "evaluate already-authorised recurring duty",
+        "route through COS-BUS-001 when current due/authority gates pass",
+        "record ACK/NO_ACTION/STOP"
+      ],
+      "prohibited_effects": [
+        "create a mission from time alone",
+        "widen authority",
+        "treat this machine projection as task source of truth"
+      ],
+      "scheduled_for": "2026-09-21T08:00:00+01:00",
+      "service_class": "HEARTBEAT",
+      "status": "PENDING_RUNTIME",
+      "transition_class": "scheduled_duty_due"
+    },
+    "dynasty.heartbeat:2026-09-21T09:00": {
+      "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
+      "ack_to": "Central Aldernia Clock / scheduled-duty queue",
+      "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 2",
+      "departure_mode": "TIMETABLE",
+      "destination": "Dynasty Institutional Heartbeat impact discovery",
+      "emitted_at": "2026-09-21T09:41:09+00:00",
+      "emitting_owner": "Central Aldernia Clock / Scheduled Tasks",
+      "event_id": "dynasty.heartbeat:2026-09-21T09:00",
+      "event_type": "canonical.state.changed",
+      "mission_ref": "NONE — DUE EVALUATION ONLY",
+      "payload": {
+        "accountable_owner": "Royal Palace",
+        "duty_id": "dynasty.heartbeat",
+        "evaluation_only": false,
+        "integrity_patrol": {
+          "mode": "ONE_BOUNDED_SLICE_PER_HEARTBEAT",
+          "registry_version": 1,
+          "source_row": 21
+        },
+        "label": "Dynasty House Pulse / King's Balcony Heartbeat",
+        "required_source_ids": [
+          "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE"
+        ],
+        "requires_model_runtime": true,
+        "scheduled_for": "2026-09-21T09:00:00+01:00",
+        "source_row": 2
+      },
+      "permitted_effects": [
+        "evaluate already-authorised recurring duty",
+        "route through COS-BUS-001 when current due/authority gates pass",
+        "record ACK/NO_ACTION/STOP"
+      ],
+      "prohibited_effects": [
+        "create a mission from time alone",
+        "widen authority",
+        "treat this machine projection as task source of truth"
+      ],
+      "scheduled_for": "2026-09-21T09:00:00+01:00",
+      "service_class": "HEARTBEAT",
+      "status": "PENDING_RUNTIME",
+      "transition_class": "scheduled_duty_due"
+    },
+    "dynasty.heartbeat:2026-09-21T10:00": {
+      "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
+      "ack_to": "Central Aldernia Clock / scheduled-duty queue",
+      "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 2",
+      "departure_mode": "TIMETABLE",
+      "destination": "Dynasty Institutional Heartbeat impact discovery",
+      "emitted_at": "2026-09-21T09:41:09+00:00",
+      "emitting_owner": "Central Aldernia Clock / Scheduled Tasks",
+      "event_id": "dynasty.heartbeat:2026-09-21T10:00",
+      "event_type": "canonical.state.changed",
+      "mission_ref": "NONE — DUE EVALUATION ONLY",
+      "payload": {
+        "accountable_owner": "Royal Palace",
+        "duty_id": "dynasty.heartbeat",
+        "evaluation_only": false,
+        "integrity_patrol": {
+          "mode": "ONE_BOUNDED_SLICE_PER_HEARTBEAT",
+          "registry_version": 1,
+          "source_row": 21
+        },
+        "label": "Dynasty House Pulse / King's Balcony Heartbeat",
+        "required_source_ids": [
+          "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE"
+        ],
+        "requires_model_runtime": true,
+        "scheduled_for": "2026-09-21T10:00:00+01:00",
+        "source_row": 2
+      },
+      "permitted_effects": [
+        "evaluate already-authorised recurring duty",
+        "route through COS-BUS-001 when current due/authority gates pass",
+        "record ACK/NO_ACTION/STOP"
+      ],
+      "prohibited_effects": [
+        "create a mission from time alone",
+        "widen authority",
+        "treat this machine projection as task source of truth"
+      ],
+      "scheduled_for": "2026-09-21T10:00:00+01:00",
+      "service_class": "HEARTBEAT",
+      "status": "PENDING_RUNTIME",
+      "transition_class": "scheduled_duty_due"
+    },
+    "government.daily-pulse:2026-09-21": {
+      "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
+      "ack_to": "Central Aldernia Clock / scheduled-duty queue",
+      "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 12",
+      "departure_mode": "TIMETABLE",
+      "destination": "Dynasty Institutional Heartbeat impact discovery",
+      "emitted_at": "2026-09-21T09:41:09+00:00",
+      "emitting_owner": "Central Aldernia Clock / Scheduled Tasks",
+      "event_id": "government.daily-pulse:2026-09-21",
+      "event_type": "canonical.state.changed",
+      "mission_ref": "NONE — DUE EVALUATION ONLY",
+      "payload": {
+        "accountable_owner": "House of Marianne — Centre of Government & Cabinet Coordination",
+        "duty_id": "government.daily-pulse",
+        "evaluation_only": false,
+        "label": "Daily Aldernian Government Pulse",
+        "required_source_ids": [
+          "1Z6jkA6SuaPDAQYWAAYEkjjRGg00wP8KF3odrf-fktxU",
+          "1fZ7_rv8nMkPgJIHCHOH45fYPmNdKKhVlUkDoyoIfKoU"
+        ],
+        "requires_model_runtime": true,
+        "scheduled_for": "2026-09-21T07:00:00+01:00",
+        "source_row": 12
+      },
+      "permitted_effects": [
+        "evaluate already-authorised recurring duty",
+        "route through COS-BUS-001 when current due/authority gates pass",
+        "record ACK/NO_ACTION/STOP"
+      ],
+      "prohibited_effects": [
+        "create a mission from time alone",
+        "widen authority",
+        "treat this machine projection as task source of truth"
+      ],
+      "scheduled_for": "2026-09-21T07:00:00+01:00",
+      "service_class": "HEARTBEAT",
+      "status": "PENDING_RUNTIME",
+      "transition_class": "scheduled_duty_due"
+    },
+    "josie.morning-news:2026-09-21": {
+      "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
+      "ack_to": "Central Aldernia Clock / scheduled-duty queue",
+      "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 17",
       "claim": null,
-      "receipt": {
-        "schema_version": 1,
-        "outcome": "ACTION",
-        "result_summary": "06:00 Josie Morning News catch-up completed as an internal intelligence packet. Priority signals: reported Fed/BoE scrutiny of bank exposure after large trading-firm losses linked to an AI-focused fund; a live cybercrime feud involving alleged Oracle E-Business Suite zero-day exploitation; Chinese regulatory scrutiny of humanoid-robot IPO valuations/revenue quality; UK Iran-sanctions amendments due 29 September; and continued UK rate/inflation sensitivity. Relevance was routed as evidence/risk context only, not Government direction or Carol strategy. No external publication occurred.",
-        "completed_at": "2026-09-21T05:53:02+00:00",
-        "worker_id": "chatgpt-helm-session-2026-09-21-catchup",
-        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+      "claim_history": [
+        {
+          "accountable_owner": "House of Josie",
+          "attempt": 1,
+          "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 17",
+          "claim_id": "c51f9913c4b887416b4a5a1c",
+          "claimed_at": "2026-09-21T05:52:00+00:00",
+          "estate_scope": "ALDERNIA",
+          "external_access_grants": [],
+          "lease_expires_at": "2026-09-21T06:22:00+00:00",
+          "mission_ref": "NONE — DUE EVALUATION ONLY",
+          "new_model_provider_access_granted": false,
+          "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+          "schema_version": 1,
+          "worker_id": "chatgpt-helm-session-2026-09-21-catchup"
+        }
+      ],
+      "departure_mode": "TIMETABLE",
+      "destination": "Dynasty Institutional Heartbeat impact discovery",
+      "emitted_at": "2026-09-21T05:24:09+00:00",
+      "emitting_owner": "Central Aldernia Clock / Scheduled Tasks",
+      "event_id": "josie.morning-news:2026-09-21",
+      "event_type": "canonical.state.changed",
+      "mission_ref": "NONE — DUE EVALUATION ONLY",
+      "payload": {
         "accountable_owner": "House of Josie",
-        "claim_id": "c51f9913c4b887416b4a5a1c",
+        "duty_id": "josie.morning-news",
+        "evaluation_only": false,
+        "label": "Josie Morning News Bus",
+        "required_source_ids": [
+          "1ulQ0QDZLveGRvT_zJt5eUXDXgdIKntnwEliNK98zAc0"
+        ],
+        "requires_model_runtime": true,
+        "scheduled_for": "2026-09-21T06:00:00+01:00",
+        "source_row": 17
+      },
+      "permitted_effects": [
+        "evaluate already-authorised recurring duty",
+        "route through COS-BUS-001 when current due/authority gates pass",
+        "record ACK/NO_ACTION/STOP"
+      ],
+      "prohibited_effects": [
+        "create a mission from time alone",
+        "widen authority",
+        "treat this machine projection as task source of truth"
+      ],
+      "receipt": {
+        "accountable_owner": "House of Josie",
         "attempt": 1,
+        "authority_unchanged": true,
+        "claim_id": "c51f9913c4b887416b4a5a1c",
+        "completed_at": "2026-09-21T05:53:02+00:00",
+        "estate_scope": "ALDERNIA",
+        "evidence_refs": [
+          "https://www.reuters.com/business/finance/us-fed-boe-step-up-scrutiny-bank-exposure-trading-firms-after-jane-street-loss-2026-09-21/",
+          "https://www.reuters.com/legal/government/cybercrime-feud-erupts-dark-web-notorious-group-claims-hijack-rivals-website-2026-09-21/",
+          "https://www.reuters.com/business/finance/china-slows-humanoid-robot-ipo-rush-hype-outruns-reality-2026-09-21/",
+          "https://www.gov.uk/government/publications/notice-to-exporters-202618-iran-sanctions-amendments-effective-from-29-september-2026/nte-202618-iran-sanctions-amendments-effective-from-29-september-2026",
+          "https://www.reuters.com/business/investors-cheer-boe-move-pause-gilt-sales-driving-bond-rally-2026-09-17/"
+        ],
+        "external_effect": "NONE",
+        "mission_created_by_worker": false,
+        "new_model_provider_access_granted": false,
+        "outcome": "ACTION",
+        "ownership_unchanged": true,
+        "readback_verified": true,
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL",
+          "PUBLIC_READ_ONLY"
+        ],
+        "result_summary": "06:00 Josie Morning News catch-up completed as an internal intelligence packet. Priority signals: reported Fed/BoE scrutiny of bank exposure after large trading-firm losses linked to an AI-focused fund; a live cybercrime feud involving alleged Oracle E-Business Suite zero-day exploitation; Chinese regulatory scrutiny of humanoid-robot IPO valuations/revenue quality; UK Iran-sanctions amendments due 29 September; and continued UK rate/inflation sensitivity. Relevance was routed as evidence/risk context only, not Government direction or Carol strategy. No external publication occurred.",
         "retrieved_source_ids": [
           "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
           "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
@@ -350,47 +666,19 @@
           "1ulQ0QDZLveGRvT_zJt5eUXDXgdIKntnwEliNK98zAc0",
           "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY"
         ],
-        "evidence_refs": [
-          "https://www.reuters.com/business/finance/us-fed-boe-step-up-scrutiny-bank-exposure-trading-firms-after-jane-street-loss-2026-09-21/",
-          "https://www.reuters.com/legal/government/cybercrime-feud-erupts-dark-web-notorious-group-claims-hijack-rivals-website-2026-09-21/",
-          "https://www.reuters.com/business/finance/china-slows-humanoid-robot-ipo-rush-hype-outruns-reality-2026-09-21/",
-          "https://www.gov.uk/government/publications/notice-to-exporters-202618-iran-sanctions-amendments-effective-from-29-september-2026/nte-202618-iran-sanctions-amendments-effective-from-29-september-2026",
-          "https://www.reuters.com/business/investors-cheer-boe-move-pause-gilt-sales-driving-bond-rally-2026-09-17/"
-        ],
+        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-21-catchup",
         "writes": [
           "GitHub clock-state/state/scheduled-duty-queue.json durable receipt"
-        ],
-        "readback_verified": true,
-        "estate_scope": "ALDERNIA",
-        "resource_classes_used": [
-          "ALDERNIA_INTERNAL",
-          "PUBLIC_READ_ONLY"
-        ],
-        "external_effect": "NONE",
-        "new_model_provider_access_granted": false,
-        "authority_unchanged": true,
-        "ownership_unchanged": true,
-        "mission_created_by_worker": false
+        ]
       },
-      "claim_history": [
-        {
-          "schema_version": 1,
-          "claim_id": "c51f9913c4b887416b4a5a1c",
-          "worker_id": "chatgpt-helm-session-2026-09-21-catchup",
-          "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
-          "accountable_owner": "House of Josie",
-          "claimed_at": "2026-09-21T05:52:00+00:00",
-          "lease_expires_at": "2026-09-21T06:22:00+00:00",
-          "attempt": 1,
-          "estate_scope": "ALDERNIA",
-          "new_model_provider_access_granted": false,
-          "external_access_grants": [],
-          "mission_ref": "NONE — DUE EVALUATION ONLY",
-          "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 17"
-        }
-      ]
+      "scheduled_for": "2026-09-21T06:00:00+01:00",
+      "service_class": "HEARTBEAT",
+      "status": "ACKNOWLEDGED_ACTION",
+      "transition_class": "scheduled_duty_due"
     }
   },
-  "last_checked_at": "2026-09-21T05:47:14+00:00",
+  "last_checked_at": "2026-09-21T09:41:09+00:00",
   "schema_version": 1
 }
