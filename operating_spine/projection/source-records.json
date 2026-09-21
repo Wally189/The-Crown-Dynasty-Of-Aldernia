@@ -1,0 +1,482 @@
+[
+  {
+    "schema_version": "1.0.0",
+    "source_id": "src:cat123",
+    "title": "CAT-123 · Manual Catholix Operating Protocol",
+    "publisher_or_authority": "Alan W. Gallagher / Catholix",
+    "source_type": "CONTROLLED_DRIVE_RECORD",
+    "authority_class": "GOVERNING_INTERNAL",
+    "jurisdiction": "Aldernia internal / UK real-world controls where applicable",
+    "domain": "Catholix / operational governance",
+    "canonical_locator": "drive:14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+    "version_or_revision": "ANLCKQn5niVEDZXow_Fd1B-EURFKHFYAQ9c6jTSk8n2VAoEoQtMxQ6eFeJxYe1br3cWfOupEXBC1w5e63hAggU6Tr0P2u-90ZcZyCsqke_s",
+    "publication_date": null,
+    "retrieved_at": "2026-09-21T05:21:00+01:00",
+    "last_verified_at": "2026-09-21T05:21:00+01:00",
+    "freshness_class": "EVENT_DRIVEN",
+    "refresh_trigger": "Refresh on material source/revision/release/capability change or point of consequential use.",
+    "scope_supported": [
+      "Catholix / operational governance"
+    ],
+    "claims_supported": [
+      "Authority order, source-of-truth and deployment verification rules."
+    ],
+    "limitations": [
+      "Projection pointer only; consult the canonical source at point of consequential use."
+    ],
+    "supersedes": [],
+    "superseded_by": null,
+    "copyright_or_reuse_note": "Reference/provenance metadata only; source rights remain with the source owner.",
+    "owning_specialist": "House of Catholic / Catholix governance",
+    "status": "CURRENT",
+    "projection_authoritative": false
+  },
+  {
+    "schema_version": "1.0.0",
+    "source_id": "src:palace-settlement",
+    "title": "The Royal Palace — Founding Constitutional & Operating Settlement 01",
+    "publisher_or_authority": "The Royal Palace",
+    "source_type": "CONTROLLED_DRIVE_RECORD",
+    "authority_class": "GOVERNING_INTERNAL",
+    "jurisdiction": "Aldernia internal / UK real-world controls where applicable",
+    "domain": "Aldernia constitutional governance",
+    "canonical_locator": "drive:17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE",
+    "version_or_revision": "ANLCKQlx7F3h7wCa95D93vYLZT0kHJLhJ8fWbTPNrG7o7aV_b4crwOn-mUF-gilQDkz_HsxbSNJ8butWG7urCnIXrjV7xHdZD9rzdtJmuiE",
+    "publication_date": null,
+    "retrieved_at": "2026-09-21T05:21:00+01:00",
+    "last_verified_at": "2026-09-21T05:21:00+01:00",
+    "freshness_class": "EVENT_DRIVEN",
+    "refresh_trigger": "Refresh on material source/revision/release/capability change or point of consequential use.",
+    "scope_supported": [
+      "Aldernia constitutional governance"
+    ],
+    "claims_supported": [
+      "Reset, constitutional boundaries and Crown authority."
+    ],
+    "limitations": [
+      "Projection pointer only; consult the canonical source at point of consequential use."
+    ],
+    "supersedes": [],
+    "superseded_by": null,
+    "copyright_or_reuse_note": "Reference/provenance metadata only; source rights remain with the source owner.",
+    "owning_specialist": "The Royal Palace",
+    "status": "CURRENT",
+    "projection_authoritative": false
+  },
+  {
+    "schema_version": "1.0.0",
+    "source_id": "src:public-world-blueprint",
+    "title": "The Royal Palace — Aldernia Public World Blueprint 01",
+    "publisher_or_authority": "The Royal Palace",
+    "source_type": "CONTROLLED_DRIVE_RECORD",
+    "authority_class": "GOVERNING_INTERNAL",
+    "jurisdiction": "Aldernia internal / UK real-world controls where applicable",
+    "domain": "Aldernia public world",
+    "canonical_locator": "drive:1rpI4JSdxbrcIyr84Ezg-HX7qHdS5xi0oSYsO02Bwct8",
+    "version_or_revision": "ANLCKQl4Dj_EBH-TH236gvH0Po45FM0YvSLhheUdjLlW-k2Dlhb6wqRT2t4fzQIFKnXooOZ_9grcmPqYHoRvPOA7OwxRvqEXF7a6ZQwalkM",
+    "publication_date": null,
+    "retrieved_at": "2026-09-21T05:21:00+01:00",
+    "last_verified_at": "2026-09-21T05:21:00+01:00",
+    "freshness_class": "EVENT_DRIVEN",
+    "refresh_trigger": "Refresh on material source/revision/release/capability change or point of consequential use.",
+    "scope_supported": [
+      "Aldernia public world"
+    ],
+    "claims_supported": [
+      "Current public-world canon and release record."
+    ],
+    "limitations": [
+      "Projection pointer only; consult the canonical source at point of consequential use."
+    ],
+    "supersedes": [],
+    "superseded_by": null,
+    "copyright_or_reuse_note": "Reference/provenance metadata only; source rights remain with the source owner.",
+    "owning_specialist": "The Royal Palace / House of Josie for editorial ownership",
+    "status": "CURRENT",
+    "projection_authoritative": false
+  },
+  {
+    "schema_version": "1.0.0",
+    "source_id": "src:engine-manifest",
+    "title": "Dynasty Engine Definition Schema & Current Engine Manifest 01",
+    "publisher_or_authority": "Computer of Series / House of Series",
+    "source_type": "CONTROLLED_DRIVE_RECORD",
+    "authority_class": "GOVERNING_INTERNAL",
+    "jurisdiction": "Aldernia internal / UK real-world controls where applicable",
+    "domain": "Engine capability and routing",
+    "canonical_locator": "drive:1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+    "version_or_revision": "ANLCKQmBvfI8TYtULHz7lDrklZPJJvxVzCkX5ZT84UyFewVKUOOVRqfcztIkdPEzHh70N20VlMB6IiGweR9yXtGSraplX0T1WM5JdOGFzws",
+    "publication_date": null,
+    "retrieved_at": "2026-09-21T05:21:00+01:00",
+    "last_verified_at": "2026-09-21T05:21:00+01:00",
+    "freshness_class": "EVENT_DRIVEN",
+    "refresh_trigger": "Refresh on material source/revision/release/capability change or point of consequential use.",
+    "scope_supported": [
+      "Engine capability and routing"
+    ],
+    "claims_supported": [
+      "Current engine definitions including COS-BUS, selector bindings, Seamus, Moira and Josie pipeline."
+    ],
+    "limitations": [
+      "Projection pointer only; consult the canonical source at point of consequential use."
+    ],
+    "supersedes": [],
+    "superseded_by": null,
+    "copyright_or_reuse_note": "Reference/provenance metadata only; source rights remain with the source owner.",
+    "owning_specialist": "Computer of Series",
+    "status": "CURRENT",
+    "projection_authoritative": false
+  },
+  {
+    "schema_version": "1.0.0",
+    "source_id": "src:series-control",
+    "title": "House of Series — AI, Resource, Execution & Assurance Control Register 01",
+    "publisher_or_authority": "House of Series",
+    "source_type": "CONTROLLED_DRIVE_RECORD",
+    "authority_class": "GOVERNING_INTERNAL",
+    "jurisdiction": "Aldernia internal / UK real-world controls where applicable",
+    "domain": "AI/runtime/resource assurance",
+    "canonical_locator": "drive:1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
+    "version_or_revision": "ANLCKQk520mEeUGF4Vwq-D49VwgMck2e5l3Nm0BgiZTuXsO85tzjBNCRucV9GID1hrAWA-rNkL0dP8l2zxLERvJ1hn2S5l3wg2pYg-1DHsw",
+    "publication_date": null,
+    "retrieved_at": "2026-09-21T05:21:00+01:00",
+    "last_verified_at": "2026-09-21T05:21:00+01:00",
+    "freshness_class": "EVENT_DRIVEN",
+    "refresh_trigger": "Refresh on material source/revision/release/capability change or point of consequential use.",
+    "scope_supported": [
+      "AI/runtime/resource assurance"
+    ],
+    "claims_supported": [
+      "Common AI, resource, execution, assurance, CAPA, resilience and heartbeat controls."
+    ],
+    "limitations": [
+      "Projection pointer only; consult the canonical source at point of consequential use."
+    ],
+    "supersedes": [],
+    "superseded_by": null,
+    "copyright_or_reuse_note": "Reference/provenance metadata only; source rights remain with the source owner.",
+    "owning_specialist": "House of Series",
+    "status": "CURRENT",
+    "projection_authoritative": false
+  },
+  {
+    "schema_version": "1.0.0",
+    "source_id": "src:capability-registry",
+    "title": "House of Series — Institutional Capability Registry & Exchange 01",
+    "publisher_or_authority": "House of Series",
+    "source_type": "CONTROLLED_DRIVE_RECORD",
+    "authority_class": "GOVERNING_INTERNAL",
+    "jurisdiction": "Aldernia internal / UK real-world controls where applicable",
+    "domain": "Capability discovery and exchange",
+    "canonical_locator": "drive:1f9ehuX67WRwYMLK0JD7s1q-NEN9BGqdzNC3kfxyLl7s",
+    "version_or_revision": "ANLCKQlBNqOAh0x6mQRPbK5MaXBgDDfNJ9_6uZrBJkeIW371rNiVWV_YOnSqtG69ch1XTOTewuZpmA680_e1SmGASpWqmxDE7ByhhR8TpHQ",
+    "publication_date": null,
+    "retrieved_at": "2026-09-21T05:21:00+01:00",
+    "last_verified_at": "2026-09-21T05:21:00+01:00",
+    "freshness_class": "EVENT_DRIVEN",
+    "refresh_trigger": "Refresh on material source/revision/release/capability change or point of consequential use.",
+    "scope_supported": [
+      "Capability discovery and exchange"
+    ],
+    "claims_supported": [
+      "Evidenced capability discovery without transfer of ownership."
+    ],
+    "limitations": [
+      "Projection pointer only; consult the canonical source at point of consequential use."
+    ],
+    "supersedes": [],
+    "superseded_by": null,
+    "copyright_or_reuse_note": "Reference/provenance metadata only; source rights remain with the source owner.",
+    "owning_specialist": "House of Series",
+    "status": "CURRENT",
+    "projection_authoritative": false
+  },
+  {
+    "schema_version": "1.0.0",
+    "source_id": "src:josie-first-read",
+    "title": "House of Josie — Media — FIRST READ, Founding Constitution & Bootstrap Control 01",
+    "publisher_or_authority": "House of Josie — Media",
+    "source_type": "CONTROLLED_DRIVE_RECORD",
+    "authority_class": "SPECIALIST_INTERNAL",
+    "jurisdiction": "Aldernia internal / UK real-world controls where applicable",
+    "domain": "Journalism/editorial/public accountability",
+    "canonical_locator": "drive:1ulQ0QDZLveGRvT_zJt5eUXDXgdIKntnwEliNK98zAc0",
+    "version_or_revision": "ANLCKQkDpaQqJ-7VxPi3gRyUgaInK2VDfEYRtmj_6JU8y6NuXXT4vU2pKIvc_MknVb2ildr5eHsRkUnIztfAd4iYrTEIPJYviT0EaLHl8qg",
+    "publication_date": null,
+    "retrieved_at": "2026-09-21T05:21:00+01:00",
+    "last_verified_at": "2026-09-21T05:21:00+01:00",
+    "freshness_class": "EVENT_DRIVEN",
+    "refresh_trigger": "Refresh on material source/revision/release/capability change or point of consequential use.",
+    "scope_supported": [
+      "Journalism/editorial/public accountability"
+    ],
+    "claims_supported": [
+      "Editorial independence, evidence, correction, learning and publication boundaries."
+    ],
+    "limitations": [
+      "Projection pointer only; consult the canonical source at point of consequential use."
+    ],
+    "supersedes": [],
+    "superseded_by": null,
+    "copyright_or_reuse_note": "Reference/provenance metadata only; source rights remain with the source owner.",
+    "owning_specialist": "House of Josie — Media",
+    "status": "CURRENT",
+    "projection_authoritative": false
+  },
+  {
+    "schema_version": "1.0.0",
+    "source_id": "src:tony-build",
+    "title": "House of Tony — Education — Build Programme & Question Register 01",
+    "publisher_or_authority": "House of Tony — Education",
+    "source_type": "CONTROLLED_DRIVE_RECORD",
+    "authority_class": "SPECIALIST_INTERNAL",
+    "jurisdiction": "Aldernia internal / UK real-world controls where applicable",
+    "domain": "Learning/research/institutional memory",
+    "canonical_locator": "drive:1TL472yM0_AQdAs4PzEByZxg85Xf1RhuDFj812HcjbWY",
+    "version_or_revision": "ANLCKQmJQeuDu2zH58baj2bCe60s5gE1AfML09tydZX-kdJ5eKwPfFHuHzI1MJAHxH9LX8nuTc_ROfMnBGSsQfEIKUn_DgU5Bu3m37rYWm4",
+    "publication_date": null,
+    "retrieved_at": "2026-09-21T05:21:00+01:00",
+    "last_verified_at": "2026-09-21T05:21:00+01:00",
+    "freshness_class": "EVENT_DRIVEN",
+    "refresh_trigger": "Refresh on material source/revision/release/capability change or point of consequential use.",
+    "scope_supported": [
+      "Learning/research/institutional memory"
+    ],
+    "claims_supported": [
+      "Current education/research operating state and reusable learning method."
+    ],
+    "limitations": [
+      "Projection pointer only; consult the canonical source at point of consequential use."
+    ],
+    "supersedes": [],
+    "superseded_by": null,
+    "copyright_or_reuse_note": "Reference/provenance metadata only; source rights remain with the source owner.",
+    "owning_specialist": "House of Tony — Education",
+    "status": "CURRENT",
+    "projection_authoritative": false
+  },
+  {
+    "schema_version": "1.0.0",
+    "source_id": "src:catholic-first-read",
+    "title": "House of Catholic — Religion — FIRST READ & Founding Constitution 01",
+    "publisher_or_authority": "House of Catholic — Religion",
+    "source_type": "CONTROLLED_DRIVE_RECORD",
+    "authority_class": "SPECIALIST_INTERNAL",
+    "jurisdiction": "Aldernia internal / UK real-world controls where applicable",
+    "domain": "Catholic research, provenance and authority classification",
+    "canonical_locator": "drive:1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk",
+    "version_or_revision": "ANLCKQk09OlRsRWEk3ma-rg2XSsD-HKUeu3BpZEjf3pgv-9aIzHR4EbmLgS5yAEQ6w8AXScVxpsXRSpWS2zTZAj_iv5ZWILPLhyyZa4Il3o",
+    "publication_date": null,
+    "retrieved_at": "2026-09-21T05:21:00+01:00",
+    "last_verified_at": "2026-09-21T05:21:00+01:00",
+    "freshness_class": "EVENT_DRIVEN",
+    "refresh_trigger": "Refresh on material source/revision/release/capability change or point of consequential use.",
+    "scope_supported": [
+      "Catholic research, provenance and authority classification"
+    ],
+    "claims_supported": [
+      "Catholic specialist provenance; competent real Church authority remains superior."
+    ],
+    "limitations": [
+      "Projection pointer only; consult the canonical source at point of consequential use."
+    ],
+    "supersedes": [],
+    "superseded_by": null,
+    "copyright_or_reuse_note": "Reference/provenance metadata only; source rights remain with the source owner.",
+    "owning_specialist": "House of Catholic — Religion",
+    "status": "CURRENT",
+    "projection_authoritative": false
+  },
+  {
+    "schema_version": "1.0.0",
+    "source_id": "src:government-current-state",
+    "title": "House of Marianne — Government — Current State, Remediation & Handover Register 01",
+    "publisher_or_authority": "House of Marianne — Government",
+    "source_type": "CONTROLLED_DRIVE_RECORD",
+    "authority_class": "SPECIALIST_INTERNAL",
+    "jurisdiction": "Aldernia internal / UK real-world controls where applicable",
+    "domain": "Aldernian in-world Government state",
+    "canonical_locator": "drive:1fZ7_rv8nMkPgJIHCHOH45fYPmNdKKhVlUkDoyoIfKoU",
+    "version_or_revision": "ANLCKQmNtgHcZJKFBdwql-b2y6ah9POGk9nVb0jxGRRqoeoB4-1MUVaVyNAqCWNGFDXWyZbZh-KMv0XQcpwXsePgb5YZoqWBo49LScZ1iw0",
+    "publication_date": null,
+    "retrieved_at": "2026-09-21T05:21:00+01:00",
+    "last_verified_at": "2026-09-21T05:21:00+01:00",
+    "freshness_class": "EVENT_DRIVEN",
+    "refresh_trigger": "Refresh on material source/revision/release/capability change or point of consequential use.",
+    "scope_supported": [
+      "Aldernian in-world Government state"
+    ],
+    "claims_supported": [
+      "Current Government state within constitutional and simulation boundaries."
+    ],
+    "limitations": [
+      "Projection pointer only; consult the canonical source at point of consequential use."
+    ],
+    "supersedes": [],
+    "superseded_by": null,
+    "copyright_or_reuse_note": "Reference/provenance metadata only; source rights remain with the source owner.",
+    "owning_specialist": "House of Marianne — Government",
+    "status": "CURRENT",
+    "projection_authoritative": false
+  },
+  {
+    "schema_version": "1.0.0",
+    "source_id": "src:scheduled-tasks",
+    "title": "The Royal Palace — Scheduled Tasks Register 01",
+    "publisher_or_authority": "The Royal Palace",
+    "source_type": "CONTROLLED_SHEET_RECORD",
+    "authority_class": "GOVERNING_INTERNAL",
+    "jurisdiction": "Aldernia internal / UK real-world controls where applicable",
+    "domain": "Recurring duties and AEO control",
+    "canonical_locator": "drive:1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+    "version_or_revision": null,
+    "publication_date": null,
+    "retrieved_at": "2026-09-21T05:21:00+01:00",
+    "last_verified_at": "2026-09-21T05:21:00+01:00",
+    "freshness_class": "EVENT_DRIVEN",
+    "refresh_trigger": "Refresh on material source/revision/release/capability change or point of consequential use.",
+    "scope_supported": [
+      "Recurring duties and AEO control"
+    ],
+    "claims_supported": [
+      "Current scheduled duties including Website Voice Bus and AEO-DEF-001."
+    ],
+    "limitations": [
+      "Projection pointer only; consult the canonical source at point of consequential use."
+    ],
+    "supersedes": [],
+    "superseded_by": null,
+    "copyright_or_reuse_note": "Reference/provenance metadata only; source rights remain with the source owner.",
+    "owning_specialist": "The Royal Palace",
+    "status": "CURRENT",
+    "projection_authoritative": false
+  },
+  {
+    "schema_version": "1.0.0",
+    "source_id": "src:github-main-81f8",
+    "title": "GitHub main commit 81f8af9942881738977b0913eed2f96d1c0c78d2",
+    "publisher_or_authority": "GitHub / repository owner",
+    "source_type": "GITHUB_SOURCE_EVIDENCE",
+    "authority_class": "TECHNICAL_EVIDENCE",
+    "jurisdiction": "Technical service evidence",
+    "domain": "Source/release evidence",
+    "canonical_locator": "github:commit:81f8af9942881738977b0913eed2f96d1c0c78d2",
+    "version_or_revision": "81f8af9942881738977b0913eed2f96d1c0c78d2",
+    "publication_date": null,
+    "retrieved_at": "2026-09-21T05:21:00+01:00",
+    "last_verified_at": "2026-09-21T05:21:00+01:00",
+    "freshness_class": "EVENT_DRIVEN",
+    "refresh_trigger": "Refresh on material source/revision/release/capability change or point of consequential use.",
+    "scope_supported": [
+      "Source/release evidence"
+    ],
+    "claims_supported": [
+      "Exact source commit that introduced the current ALD-CROWN-FOUNDING-09 public editorial build; later production control-code commits may sit above it without changing that public editorial build identity."
+    ],
+    "limitations": [
+      "Projection pointer only; consult the canonical source at point of consequential use."
+    ],
+    "supersedes": [],
+    "superseded_by": null,
+    "copyright_or_reuse_note": "Reference/provenance metadata only; source rights remain with the source owner.",
+    "owning_specialist": "The Royal Palace release record",
+    "status": "CURRENT",
+    "projection_authoritative": false
+  },
+  {
+    "schema_version": "1.0.0",
+    "source_id": "src:pages-run-35560455677",
+    "title": "GitHub Pages build and deployment run 35560455677",
+    "publisher_or_authority": "GitHub Actions",
+    "source_type": "GITHUB_DEPLOYMENT_EVIDENCE",
+    "authority_class": "TECHNICAL_EVIDENCE",
+    "jurisdiction": "Technical service evidence",
+    "domain": "Deployment evidence",
+    "canonical_locator": "github:actions:35560455677",
+    "version_or_revision": "81f8af9942881738977b0913eed2f96d1c0c78d2",
+    "publication_date": null,
+    "retrieved_at": "2026-09-21T05:21:00+01:00",
+    "last_verified_at": "2026-09-21T05:21:00+01:00",
+    "freshness_class": "EVENT_DRIVEN",
+    "refresh_trigger": "Refresh on material source/revision/release/capability change or point of consequential use.",
+    "scope_supported": [
+      "Deployment evidence"
+    ],
+    "claims_supported": [
+      "Official Pages deployment succeeded for the exact current main SHA."
+    ],
+    "limitations": [
+      "Projection pointer only; consult the canonical source at point of consequential use."
+    ],
+    "supersedes": [],
+    "superseded_by": null,
+    "copyright_or_reuse_note": "Reference/provenance metadata only; source rights remain with the source owner.",
+    "owning_specialist": "The Royal Palace release record",
+    "status": "CURRENT",
+    "projection_authoritative": false
+  },
+  {
+    "schema_version": "1.0.0",
+    "source_id": "src:smoke-run-35560456216",
+    "title": "Aldernia Public Smoke run 35560456216",
+    "publisher_or_authority": "GitHub Actions",
+    "source_type": "SERVED_ARTIFACT_EVIDENCE",
+    "authority_class": "TECHNICAL_EVIDENCE",
+    "jurisdiction": "Technical service evidence",
+    "domain": "Served-artifact verification",
+    "canonical_locator": "github:actions:35560456216",
+    "version_or_revision": "81f8af9942881738977b0913eed2f96d1c0c78d2",
+    "publication_date": null,
+    "retrieved_at": "2026-09-21T05:21:00+01:00",
+    "last_verified_at": "2026-09-21T05:21:00+01:00",
+    "freshness_class": "EVENT_DRIVEN",
+    "refresh_trigger": "Refresh on material source/revision/release/capability change or point of consequential use.",
+    "scope_supported": [
+      "Served-artifact verification"
+    ],
+    "claims_supported": [
+      "Fetched production Pages and observed ALD-CROWN-FOUNDING-09."
+    ],
+    "limitations": [
+      "Projection pointer only; consult the canonical source at point of consequential use."
+    ],
+    "supersedes": [],
+    "superseded_by": null,
+    "copyright_or_reuse_note": "Reference/provenance metadata only; source rights remain with the source owner.",
+    "owning_specialist": "The Royal Palace release record",
+    "status": "CURRENT",
+    "projection_authoritative": false
+  },
+  {
+    "schema_version": "1.0.0",
+    "source_id": "src:browser-run-35560456252",
+    "title": "Aldernia Browser & Accessibility Assurance run 35560456252",
+    "publisher_or_authority": "GitHub Actions",
+    "source_type": "SERVED_ARTIFACT_EVIDENCE",
+    "authority_class": "TECHNICAL_EVIDENCE",
+    "jurisdiction": "Technical service evidence",
+    "domain": "Browser/accessibility verification",
+    "canonical_locator": "github:actions:35560456252",
+    "version_or_revision": "81f8af9942881738977b0913eed2f96d1c0c78d2",
+    "publication_date": null,
+    "retrieved_at": "2026-09-21T05:21:00+01:00",
+    "last_verified_at": "2026-09-21T05:21:00+01:00",
+    "freshness_class": "EVENT_DRIVEN",
+    "refresh_trigger": "Refresh on material source/revision/release/capability change or point of consequential use.",
+    "scope_supported": [
+      "Browser/accessibility verification"
+    ],
+    "claims_supported": [
+      "Fetched production Pages, observed ALD-CROWN-FOUNDING-09 and passed configured mobile/desktop routes."
+    ],
+    "limitations": [
+      "Projection pointer only; consult the canonical source at point of consequential use."
+    ],
+    "supersedes": [],
+    "superseded_by": null,
+    "copyright_or_reuse_note": "Reference/provenance metadata only; source rights remain with the source owner.",
+    "owning_specialist": "House of Josie / release QA",
+    "status": "CURRENT",
+    "projection_authoritative": false
+  }
+]
