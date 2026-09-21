@@ -33,7 +33,7 @@ MAX_CANDIDATE_CHARS = 10000
 PALACE_REGISTER_ID = "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA"
 COMMON_ARCHIVE_ID = "1hhxQzNa4UrNYmKPgkZD9xS37X17ZuWct"
 ROYAL_HOUSEHOLD_TOKENS = ("royal household", "private household")
-ARCHIVE_NAME_RE = re.compile(r"(?:^|\\b)(archive|archived|superseded)(?:\\b|$)", re.I)
+ARCHIVE_NAME_RE = re.compile(r"(?:^|\b)(archive|archived|superseded)(?:\b|$)", re.I)
 
 
 class PatrolRuntimeError(RuntimeError):
@@ -46,7 +46,7 @@ class ControlledStop(RuntimeError):
 
 def _atomic_json(path: Path, value: Mapping[str, Any]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    payload = json.dumps(value, indent=2, sort_keys=True, ensure_ascii=False) + "\\n"
+    payload = json.dumps(value, indent=2, sort_keys=True, ensure_ascii=False) + "\n"
     with tempfile.NamedTemporaryFile(
         "w", encoding="utf-8", dir=path.parent, delete=False, prefix=f".{path.name}."
     ) as tmp:
@@ -205,12 +205,12 @@ class DriveClient:
             chunks.append(f"## {a1}")
             for row in rows:
                 if isinstance(row, list):
-                    chunks.append("\\t".join(str(cell) for cell in row))
+                    chunks.append("\t".join(str(cell) for cell in row))
                 if sum(len(x) for x in chunks) >= max_chars:
                     break
             if sum(len(x) for x in chunks) >= max_chars:
                 break
-        return "\\n".join(chunks)[:max_chars]
+        return "\n".join(chunks)[:max_chars]
 
     def read_text(self, file_id: str, *, max_chars: int) -> tuple[dict[str, Any], str]:
         meta = self.metadata(file_id)
@@ -527,10 +527,10 @@ def _format_sources(sources: list[dict[str, str]], heading: str) -> str:
     blocks = [f"# {heading}"]
     for item in sources:
         blocks.append(
-            f"\\n## {item['name']}\\nFILE_ID: {item['id']}\\nMIME: {item['mime']}\\n"
+            f"\n## {item['name']}\nFILE_ID: {item['id']}\nMIME: {item['mime']}\n"
             + item["text"]
         )
-    return "\\n".join(blocks)
+    return "\n".join(blocks)
 
 
 def _build_prompt(
@@ -542,13 +542,13 @@ def _build_prompt(
     return (
         "PATROL ESTATE: "
         + str(plan["estate_label"])
-        + "\\nVISIT INDEX: "
+        + "\nVISIT INDEX: "
         + str(plan["visit_index"])
-        + "\\nROYAL HOUSEHOLD ACCESS: PROHIBITED\\n"
+        + "\nROYAL HOUSEHOLD ACCESS: PROHIBITED\n"
         + _format_sources(authorities, "CURRENT AUTHORITIES - READ BEFORE CLASSIFICATION")
-        + "\\n"
+        + "\n"
         + _format_sources(candidates, "BOUNDED CANDIDATE MATERIAL")
-        + "\\nReturn only material findings for the supplied candidate FILE_IDs. "
+        + "\nReturn only material findings for the supplied candidate FILE_IDs. "
         "For stale/duplicate findings, authority_evidence_refs must name current authority FILE_IDs that explicitly "
         "establish supersession/duplication. For conflicts, source_refs must identify at least two current references "
         "on the same proposition. Do not propose deletion."
@@ -690,6 +690,9 @@ def run_once(
             raise ControlledStop("model referenced a file outside the bounded candidate slice")
         source_refs = [str(value) for value in raw.get("source_refs") or [] if str(value)]
         authority_refs = [str(value) for value in raw.get("authority_evidence_refs") or [] if str(value)]
+        allowed_source_refs = {f"Drive:{value}" for value in required_set | set(candidate_meta)}
+        if any(ref not in allowed_source_refs for ref in source_refs):
+            raise ControlledStop("model cited a source reference outside the bounded patrol packet")
         if any(ref not in required_set for ref in authority_refs):
             raise ControlledStop("model cited non-current material as authority evidence")
 
