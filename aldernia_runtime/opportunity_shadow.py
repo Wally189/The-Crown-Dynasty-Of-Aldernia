@@ -327,7 +327,7 @@ def run_shadow(
         "last_observed_at": now.isoformat(),
     }
     trace: dict[str, object] = {
-        "schema_version": SHADO_SCHEMA_VERSION,
+        "schema_version": SHADOW_SCHEMA_VERSION,
         "adapter_version": ADAPTER_VERSION,
         "shadow_mode": True,
         "observed_at": now.isoformat(),

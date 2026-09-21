@@ -158,7 +158,7 @@ class Stage1ResolverTests(unittest.TestCase):
         self.assertTrue(candidates[0].idea_only)
         self.assertFalse(candidates[0].accepted_objective)
 
-    def test_unknown_fact_kind_creates_no_workhself):
+    def test_unknown_fact_kind_creates_no_work(self):
         facts = [SourceFact("f1", "Drive:A", "Owner", "Unknown", True, "h", "SOMETHING_NEW", objective_id="OBJ", authority_ref="AUTH")]
         self.assertEqual(discover_candidates(facts), ())
 
