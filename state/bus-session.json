@@ -1,25 +1,25 @@
 {
-  "acceptance": [
-    "Authorised events dispatch without fresh Crown activation inside existing authority",
-    "Government Pulse due state is machine-decidable",
-    "Government Pulse completion dispatches the Red Box return route with durable ACK semantics",
-    "Cross-institution dependency and heartbeat routes preserve ownership and acknowledge terminal states",
-    "Stable event identity deduplicates replay",
-    "Missing ACK receives at most one safe idempotent retry then fails closed",
-    "HALT dominates dispatch and retry",
-    "Canonical controls and executable regression are read back"
-  ],
-  "accountable_owner": "Computer of Series / Royal Palace",
-  "activated_at": "2026-09-20T20:45:21+00:00",
-  "activation_id": "bus-trigger-operationalisation-20260920",
-  "command_ref": "CROWN COMMISSION \u2014 OPERATIONALISE THE ALDERNIAN COMPUTATIONAL BUS TRIGGERS",
-  "complete_at": null,
-  "halt_at": null,
-  "last_30_minute_checkpoint": "2026-09-21T01:30:23+00:00",
-  "last_transition_reason": "30-MINUTE COMMAND CHECKPOINT \u2014 MISSION CONTINUES",
-  "mission_id": "aldernia-bus-triggers-2026-09-20",
-  "operating_state": "ACTIVE_COMMAND",
   "schema_version": 1,
+  "operating_state": "ACTIVE_COMMAND",
   "session_mode": "COMMAND",
-  "timed_expires_at": null
+  "activation_id": "aldernia-website-rebuild-20260921",
+  "mission_id": "aldernia-website-engine-rebuild-2026-09-21",
+  "command_ref": "CROWN COMMISSION — WEBSITE ENGINE MULTI-PASS ALDERNIA REBUILD — 21 SEPTEMBER 2026",
+  "accountable_owner": "HOC-WEB-001 — Website Lifecycle Programme & Engine",
+  "activated_at": "2026-09-21T05:53:18+00:00",
+  "timed_expires_at": null,
+  "last_30_minute_checkpoint": "2026-09-21T05:53:18+00:00",
+  "acceptance": [
+    "Website Engine owns the commission end to end under HOC-WEB-001 lifecycle",
+    "COS-SEL-001 selects and records materially competent engine/resource coalition",
+    "Cross-House specialist contributions are executed through current engine methods and returned to Website Engine without transferring ownership",
+    "Candidate is materially different in first-frame composition and information architecture from ALD-CROWN-FOUNDING-11 while preserving strongest current content and controls",
+    "No ChatGPT Automations or off-Dynasty scheduler is created",
+    "Operating Spine, clock/bus runtime, privacy boundaries, fiction/reality disclosure and accessibility controls are preserved",
+    "Source regression, served artifact, browser/mobile/accessibility and visual before-after verification pass before closure",
+    "Final accepted state and engine invocation evidence are recorded in the canonical Public World Blueprint"
+  ],
+  "halt_at": null,
+  "complete_at": null,
+  "last_transition_reason": "CROWN COMMAND ACTIVATION — CURRENT WEBSITE ENGINE REBUILD; PRIOR BUS-TRIGGER OPERATIONALISATION LEASE SUPERSEDED BY NEWER CROWN COMMAND"
 }
