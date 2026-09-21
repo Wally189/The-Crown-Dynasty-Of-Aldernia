@@ -19,7 +19,7 @@ jobs:
     timeout-minutes: 5
     steps:
       - name: Check out accepted main
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Wait for served build identity
         shell: bash
@@ -80,13 +80,22 @@ jobs:
           community="$(curl -fsSL "$BASE/country/community.html")"
           calendar="$(curl -fsSL "$BASE/aldernia/calendar.json")"
 
-          grep -Fq "Enter the experiment" <<<"$index"
+          grep -Fq "See the experiment" <<<"$index"
           grep -Fq "Enter Aldernia" <<<"$index"
           grep -Fq "data-computing-time" <<<"$index"
           grep -Fq "data-human-time" <<<"$index"
           grep -Fq "The machine was asked to stop being merely helpful." <<<"$experiment"
+          grep -Fq "A testable project needs ways to be wrong." <<<"$experiment"
+          grep -Fq "Measurement plan" <<<"$experiment"
+          grep -Fq "The desk today" <<<"$(curl -fsSL "$BASE/country/media.html")"
+          grep -Fq 'rel="canonical"' <<<"$country"
+          curl -fsSL "$BASE/sitemap.xml" | grep -Fq "/country/media.html"
+          curl -fsSL "$BASE/404.html" | grep -Fq "This road appears not to have been built."
+          not_found_code="$(curl -sS -o /tmp/aldernia-404.html -w '%{http_code}' "$BASE/definitely-not-a-real-aldernia-page-404-check" || true)"
+          test "$not_found_code" = "404"
+          grep -Fq "This road appears not to have been built." /tmp/aldernia-404.html
           grep -Fq "An island that intends to have a Tuesday." <<<"$country"
-          grep -Fq "Start with the question you actually have." <<<"$country"
+          grep -Fq "Today has a shape" <<<"$country"
           grep -Fq 'class="country-surface country-zone-national"' <<<"$country"
           grep -Fq "Aldernia is shaped by water." <<<"$atlas"
           grep -Fq 'class="aldernia-map"' <<<"$atlas"

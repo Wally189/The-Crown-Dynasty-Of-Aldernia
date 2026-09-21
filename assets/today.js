@@ -3,7 +3,8 @@
   const script = document.currentScript;
   const source = script?.dataset.calendar;
   const target = document.getElementById('today-events');
-  if (!source || !target) return;
+  const homeTarget = document.getElementById('home-events');
+  if (!source || (!target && !homeTarget)) return;
 
   const dateFmt = new Intl.DateTimeFormat('en-GB', {
     timeZone:'Europe/London', weekday:'short', day:'numeric', month:'short'
@@ -60,30 +61,66 @@
         })
         .slice(0,7);
 
-      if(!items.length){
-        target.innerHTML='<p>No scheduled public-world item is due. The country is allowed a quiet day.</p>';
-        return;
+      if(target){
+        if(!items.length){
+          target.textContent='';
+          const empty=document.createElement('p');
+          empty.textContent='No scheduled public-world item is due. The country is allowed a quiet day.';
+          target.append(empty);
+        } else {
+          target.textContent='';
+          for(const e of items){
+            const article=document.createElement('article');
+            article.className='event';
+            const when=document.createElement('p');
+            when.className='event-date';
+            when.textContent=(e.date===today?'Today · ':'')+dateFmt.format(safeDate(e.date));
+            const h=document.createElement('h3');
+            h.textContent=e.title;
+            const p=document.createElement('p');
+            p.textContent=e.summary;
+            const meta=document.createElement('p');
+            meta.className='small';
+            meta.textContent=`${e.region} · ${String(e.status).toLowerCase()} · fictional calendar`;
+            article.append(when,h,p,meta);
+            target.append(article);
+          }
+        }
       }
 
-      target.innerHTML='';
-      for(const e of items){
-        const article=document.createElement('article');
-        article.className='event';
-        const when=document.createElement('p');
-        when.className='event-date';
-        when.textContent=(e.date===today?'Today · ':'')+dateFmt.format(safeDate(e.date));
-        const h=document.createElement('h3');
-        h.textContent=e.title;
-        const p=document.createElement('p');
-        p.textContent=e.summary;
-        const meta=document.createElement('p');
-        meta.className='small';
-        meta.textContent=`${e.region} · ${String(e.status).toLowerCase()} · fictional calendar`;
-        article.append(when,h,p,meta);
-        target.append(article);
+      if(homeTarget){
+        homeTarget.textContent='';
+        const preview=items.slice(0,3);
+        if(!preview.length){
+          const empty=document.createElement('p');
+          empty.textContent='Nothing is scheduled. Aldernia is allowed a quiet day.';
+          homeTarget.append(empty);
+        }
+        for(const e of preview){
+          const article=document.createElement('article');
+          article.className='home-event';
+          const when=document.createElement('p');
+          when.className='story-tag';
+          when.textContent=(e.date===today?'Today · ':'')+dateFmt.format(safeDate(e.date));
+          const h=document.createElement('h3');
+          h.textContent=e.title;
+          const p=document.createElement('p');
+          p.textContent=e.summary;
+          const meta=document.createElement('p');
+          meta.className='small';
+          meta.textContent=`${e.region} · public-fictional calendar`;
+          article.append(when,h,p,meta);
+          homeTarget.append(article);
+        }
       }
     })
     .catch(()=>{
-      target.innerHTML='<p>The public calendar could not be loaded. No event has been inferred from the failure.</p>';
+      for(const el of [target,homeTarget]){
+        if(!el) continue;
+        el.textContent='';
+        const p=document.createElement('p');
+        p.textContent='The public calendar could not be loaded. No event has been inferred from the failure.';
+        el.append(p);
+      }
     });
 })();

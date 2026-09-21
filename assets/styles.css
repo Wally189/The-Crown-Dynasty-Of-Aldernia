@@ -1125,3 +1125,88 @@ body.country-surface{background:var(--alder-paper);background-image:none;font-fa
 .country-surface .journey-link.journey-boundary .small {
   color: #eef2f0;
 }
+
+
+/* FOUNDING-13 — public comprehension, living desk and research transparency */
+.threshold-orientation {
+  max-width: 58ch;
+  margin: 1.35rem 0 0;
+  padding: 1rem 1.1rem;
+  border-left: 3px solid var(--pulse-gold);
+  background: rgba(255,253,248,.06);
+  color: #e5ebe8;
+  font-size: clamp(.98rem,1.7vw,1.12rem);
+}
+.threshold-orientation strong { color:#fffdf8; }
+
+.live-desk { background:var(--alder-chalk); }
+.live-desk-grid {
+  display:grid;
+  grid-template-columns:minmax(220px,.65fr) minmax(0,1.35fr);
+  gap:clamp(2rem,6vw,5rem);
+  align-items:start;
+}
+.home-event-grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:1.25rem;
+  border-top:4px solid var(--zone-accent);
+}
+.home-event {
+  min-width:0;
+  padding:1.1rem 0 0;
+}
+.home-event h3 {
+  margin:.25rem 0 .55rem;
+  font-size:clamp(1.35rem,2.3vw,2rem);
+}
+.home-event p { margin:.45rem 0; }
+.front-door-links {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:1.5rem 2rem;
+  margin-top:2rem;
+}
+.front-door-links article {
+  border-top:4px solid var(--zone-accent);
+  padding-top:1rem;
+}
+.front-door-links h3 { font-size:clamp(1.55rem,2.8vw,2.35rem); }
+
+.experiment-research .research-grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:0 2.5rem;
+  border-top:3px solid var(--ink);
+}
+.experiment-research .research-grid article {
+  padding:1.25rem 0;
+  border-bottom:1px solid var(--line);
+}
+.falsification-box {
+  max-width:72ch;
+  margin-top:2.5rem;
+  padding:1.25rem 1.4rem;
+  border-left:4px solid var(--gold);
+  background:var(--white);
+}
+.metric-list {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:0 2.5rem;
+  margin:2rem 0 0;
+  border-top:3px solid var(--ink);
+}
+.metric-list div { padding:1.1rem 0;border-bottom:1px solid var(--line); }
+.metric-list dt { font-weight:850; }
+.metric-list dd { margin:.3rem 0 0;color:var(--muted); }
+
+@media(max-width:760px){
+  .live-desk-grid,.home-event-grid,.front-door-links,.experiment-research .research-grid,.metric-list{grid-template-columns:1fr}
+  .country-surface .site-nav {
+    scrollbar-width:auto;
+    padding-bottom:.6rem;
+    scroll-snap-type:x proximity;
+  }
+  .country-surface .site-nav a { scroll-snap-align:start; }
+}

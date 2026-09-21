@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://wally189.github.io/The-Crown-Dynasty-Of-Aldernia/sitemap.xml
+# This repository is currently served as a GitHub Pages project path.
+# Domain-root crawler policy remains controlled by the host until a custom domain or user-site root is authorised.

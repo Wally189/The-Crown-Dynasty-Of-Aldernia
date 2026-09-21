@@ -125,7 +125,7 @@ class PublicSiteTests(unittest.TestCase):
     def test_build_identity_is_single_json_source(self):
         build = json.loads((ROOT / "aldernia" / "build.json").read_text(encoding="utf-8"))
         self.assertEqual(build["schema_version"], 1)
-        self.assertEqual(build["id"], "ALD-CROWN-FOUNDING-12")
+        self.assertEqual(build["id"], "ALD-CROWN-FOUNDING-13")
         self.assertEqual(build["facets"], ["experiment", "country"])
         self.assertIn("today", build["country_layers"])
         self.assertIn("atlas", build["country_layers"])
@@ -219,12 +219,13 @@ class PublicSiteTests(unittest.TestCase):
         ):
             self.assertNotIn(token, corpus)
 
-    def test_country_home_routes_by_human_question_not_flat_directory(self):
+    def test_country_home_prioritises_living_editorial_hierarchy(self):
         text = (ROOT / "country" / "index.html").read_text(encoding="utf-8")
-        self.assertIn("Start with the question you actually have.", text)
-        self.assertIn("What is happening?", text)
-        self.assertIn("Where am I?", text)
-        self.assertIn("How does it work?", text)
+        self.assertIn("Today has a shape", text)
+        self.assertIn('id="home-events"', text)
+        self.assertIn("Three ways further in.", text)
+        self.assertIn('class="front-door-links"', text)
+        self.assertNotIn('class="question-rails"', text)
         self.assertNotIn("Choose a door", text)
 
 
@@ -254,7 +255,8 @@ class PublicSiteTests(unittest.TestCase):
             'class="national-broadside"',
             'class="section country-desk"',
             'class="region-ribbon"',
-            'class="question-rails"',
+            'class="section live-desk"',
+            'class="front-door-links"',
             "Useful today",
             "The national desk",
         ):
@@ -278,7 +280,80 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn('class="wrap life-desk"', life)
         self.assertIn('class="day-rhythm"', life)
         self.assertIn('class="newsroom-grid"', media)
-        self.assertIn('class="newsroom-rule"', media)
+        self.assertIn("The desk today", media)
+        self.assertIn("Reality class: scheduled public-fictional editorial feature.", media)
+
+
+    def test_threshold_explains_fiction_and_real_experiment_up_front(self):
+        text = (ROOT / "index.html").read_text(encoding="utf-8")
+        self.assertIn("<strong>Aldernia is a fictional country.</strong>", text)
+        self.assertIn("The Aldernian Experiment is the real project behind it", text)
+        self.assertLess(text.index('href="country/"'), text.index('href="experiment/"'))
+
+    def test_experiment_exposes_method_falsification_and_measurement_limits(self):
+        text = (ROOT / "experiment" / "index.html").read_text(encoding="utf-8")
+        for marker in (
+            "Research design",
+            "What would count against the approach?",
+            "A clean controlled comparison",
+            "Measurement plan",
+            "no result is published until the denominator, method and observation period exist",
+            "Human burden",
+        ):
+            self.assertIn(marker, text)
+        self.assertNotIn("success rate: 100%", text.lower())
+
+    def test_media_demonstrates_editorial_work_not_release_notes(self):
+        text = (ROOT / "country" / "media.html").read_text(encoding="utf-8")
+        self.assertIn("The desk today", text)
+        self.assertIn("St Aurelia is more than the government quarter.", text)
+        self.assertIn("Reality class: scheduled public-fictional editorial feature.", text)
+        self.assertNotIn("Founding archive", text)
+        self.assertNotIn("Civic-depth edition", text)
+
+    def test_public_pages_have_canonical_and_share_metadata(self):
+        for page in PUBLIC_PAGES:
+            text = page.read_text(encoding="utf-8")
+            self.assertEqual(text.count('rel="canonical"'), 1, page)
+            self.assertEqual(text.count('property="og:title"'), 1, page)
+            self.assertEqual(text.count('property="og:description"'), 1, page)
+            self.assertEqual(text.count('property="og:url"'), 1, page)
+            self.assertEqual(text.count('name="twitter:card"'), 1, page)
+
+    def test_discovery_and_not_found_files_exist(self):
+        sitemap = ROOT / "sitemap.xml"
+        robots = ROOT / "robots.txt"
+        not_found = ROOT / "404.html"
+        self.assertTrue(sitemap.exists())
+        self.assertTrue(robots.exists())
+        self.assertTrue(not_found.exists())
+        sitemap_text = sitemap.read_text(encoding="utf-8")
+        self.assertIn("https://wally189.github.io/The-Crown-Dynasty-Of-Aldernia/", sitemap_text)
+        self.assertIn("/country/media.html", sitemap_text)
+        self.assertNotIn("/404.html", sitemap_text)
+        self.assertIn("Sitemap:", robots.read_text(encoding="utf-8"))
+        not_found_text = not_found.read_text(encoding="utf-8")
+        self.assertIn('name="robots" content="noindex"', not_found_text)
+        self.assertEqual(not_found_text.count("<h1"), 1)
+
+    def test_material_page_sections_are_balanced(self):
+        for page in PUBLIC_PAGES:
+            text = page.read_text(encoding="utf-8")
+            self.assertEqual(text.count("<section"), text.count("</section>"), page)
+
+    def test_calendar_preview_reuses_governed_calendar_without_new_data_source(self):
+        home = (ROOT / "country" / "index.html").read_text(encoding="utf-8")
+        script = (ROOT / "assets" / "today.js").read_text(encoding="utf-8")
+        self.assertIn('data-calendar="../aldernia/calendar.json"', home)
+        self.assertIn("home-events", script)
+        self.assertIn("public-fictional calendar", script)
+
+    def test_non_clock_pages_do_not_run_one_second_timer(self):
+        script = (ROOT / "assets" / "site.js").read_text(encoding="utf-8")
+        self.assertIn("hasSecondClock", script)
+        self.assertIn("60000", script)
+        self.assertIn("if (hasSecondClock)", script)
+        self.assertIn("cache: 'no-cache'", script)
 
 
 if __name__ == "__main__":
