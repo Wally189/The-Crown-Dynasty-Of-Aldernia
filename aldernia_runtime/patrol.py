@@ -149,6 +149,8 @@ def next_estate_id(state: Mapping[str, Any]) -> str:
             receipt = event.get("receipt")
             if not isinstance(receipt, Mapping):
                 continue
+            if receipt.get("outcome") == "STOP":
+                continue
             patrol = receipt.get("integrity_patrol")
             if not isinstance(patrol, Mapping) or patrol.get("readback_verified") is not True:
                 continue
@@ -243,14 +245,18 @@ def validate_patrol_result(
                 raise PatrolError("CURRENT material may not be mutated by the patrol")
 
         if classification in {"STALE/SUPERSEDED", "DUPLICATE-CURRENT"}:
-            if raw.get("disposition") not in {"ARCHIVED", "SUPERSEDED"}:
-                raise PatrolError("stale or duplicate-current material requires controlled archive/supersession")
+            disposition = raw.get("disposition")
+            if disposition not in {"ARCHIVED", "SUPERSEDED", "STOP_NO_SAFE_ARCHIVE"}:
+                raise PatrolError("stale or duplicate-current material requires controlled archive/supersession or a bounded STOP")
             if raw.get("provenance_preserved") is not True:
                 raise PatrolError("archive/supersession must preserve provenance")
             if raw.get("readback_verified") is not True:
                 raise PatrolError("archive/supersession requires readback verification")
             if raw.get("destructive_delete") is not False:
                 raise PatrolError("patrol archive may not destructively delete material")
+            if disposition == "STOP_NO_SAFE_ARCHIVE":
+                if not isinstance(raw.get("archive_error"), str) or not raw["archive_error"].strip():
+                    raise PatrolError("bounded archive STOP requires archive_error evidence")
 
         if classification == "CONFLICTING CURRENT MATERIAL":
             proposition = raw.get("proposition")
@@ -273,7 +279,7 @@ def validate_patrol_result(
 
         normalized_findings.append(finding)
 
-    return {
+    receipt = {
         "registry_version": PATROL_REGISTRY_VERSION,
         "source_row": PATROL_SOURCE_ROW,
         "estate_id": plan["estate_id"],
@@ -285,3 +291,16 @@ def validate_patrol_result(
         "royal_household_accessed": False,
         "readback_verified": True,
     }
+    scan_before = patrol_result.get("scan_cursor_before")
+    scan_after = patrol_result.get("scan_cursor_after")
+    scan_truncated = patrol_result.get("scan_truncated")
+    if scan_before is not None and not isinstance(scan_before, str):
+        raise PatrolError("scan_cursor_before must be a string or null")
+    if scan_after is not None and not isinstance(scan_after, str):
+        raise PatrolError("scan_cursor_after must be a string or null")
+    if scan_truncated is not None and not isinstance(scan_truncated, bool):
+        raise PatrolError("scan_truncated must be a boolean when provided")
+    receipt["scan_cursor_before"] = scan_before
+    receipt["scan_cursor_after"] = scan_after
+    receipt["scan_truncated"] = bool(scan_truncated)
+    return receipt
