@@ -411,7 +411,8 @@ class PublicSiteTests(unittest.TestCase):
         script = (ROOT / "assets" / "today.js").read_text(encoding="utf-8")
         self.assertIn('data-calendar="../aldernia/calendar.json"', home)
         self.assertIn("home-events", script)
-        self.assertIn("public-fictional calendar", script)
+        self.assertIn("fictional calendar", script)
+        self.assertNotIn("public-fictional calendar", script)
 
     def test_non_clock_pages_do_not_run_one_second_timer(self):
         script = (ROOT / "assets" / "site.js").read_text(encoding="utf-8")
