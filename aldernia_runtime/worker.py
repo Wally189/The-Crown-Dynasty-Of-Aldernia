@@ -516,6 +516,7 @@ def acknowledge_event(
     if now.astimezone(timezone.utc) >= _dt(claim["lease_expires_at"]):
         raise WorkerError("claim lease expired before acknowledgement")
 
+    contract = _claim_contract(event)
     outcome = execution_result.get("outcome")
     if outcome not in {"ACTION", "NO_ACTION", "STOP"}:
         raise WorkerError("outcome must be ACTION, NO_ACTION or STOP")
@@ -523,8 +524,13 @@ def acknowledge_event(
         raise WorkerError("HALT permits only a STOP acknowledgement")
 
     if execution_result.get("external_effect") != "NONE":
-        raise WorkerError("worker completion cannot claim or perform an external effect")
-    if execution_result.get("new_model_provider_access_granted") not in {False, None}:
+        raise WorkerError(
+            "worker completion cannot claim or perform an external effect"
+        )
+    if execution_result.get("new_model_provider_access_granted") not in {
+        False,
+        None,
+    }:
         raise WorkerError("worker may not grant model/provider access")
 
     resource_classes = execution_result.get("resource_classes_used")
@@ -542,12 +548,22 @@ def acknowledge_event(
         raise WorkerError("retrieved_source_ids must be a list")
     retrieved_set = {str(value) for value in retrieved}
     required = set(COMMON_REQUIRED_SOURCE_IDS)
-    required.update(str(value) for value in duty.get("required_source_ids") or [])
-    patrol_plan = claim.get("integrity_patrol") if duty["id"] == "dynasty.heartbeat" else None
-    if duty["id"] == "dynasty.heartbeat" and not isinstance(patrol_plan, Mapping):
-        raise WorkerError("heartbeat claim is missing its required integrity patrol slice")
-    if isinstance(patrol_plan, Mapping):
-        required.update(str(value) for value in patrol_plan.get("required_source_ids") or [])
+    required.update(
+        str(value) for value in duty.get("required_source_ids") or []
+    )
+
+    patrol_plan = None
+    if contract is not None and contract.profile == PROFILE_HEARTBEAT_PATROL:
+        patrol_plan = claim.get("integrity_patrol")
+        if not isinstance(patrol_plan, Mapping):
+            raise WorkerError(
+                "specialist patrol claim is missing its integrity patrol slice"
+            )
+        required.update(
+            str(value)
+            for value in patrol_plan.get("required_source_ids") or []
+        )
+
     missing = sorted(required - retrieved_set)
     if missing:
         raise WorkerError(
@@ -565,6 +581,12 @@ def acknowledge_event(
     if not isinstance(evidence_refs, list) or not evidence_refs:
         raise WorkerError("at least one evidence_ref is required")
 
+    if contract is not None:
+        try:
+            validate_execution_result(contract, execution_result)
+        except ContractError as exc:
+            raise WorkerError(str(exc)) from exc
+
     patrol_receipt = None
     if isinstance(patrol_plan, Mapping):
         try:
@@ -577,30 +599,30 @@ def acknowledge_event(
             raise WorkerError(str(exc)) from exc
 
     balcony_pulse = None
-    if duty["id"] == "dynasty.heartbeat":
+    if contract is not None and contract.profile == PROFILE_HEARTBEAT_PATROL:
         raw_balcony = execution_result.get("balcony_pulse")
         if not isinstance(raw_balcony, Mapping):
             raise WorkerError(
-                "heartbeat completion requires a durable balcony_pulse result"
+                "Heartbeat completion requires a durable balcony_pulse result"
             )
         institutions_checked = raw_balcony.get("institutions_checked")
         material_changes = raw_balcony.get("material_changes")
         crown_attention = raw_balcony.get("crown_attention")
         if not isinstance(institutions_checked, list) or not institutions_checked:
             raise WorkerError(
-                "heartbeat balcony_pulse must identify institutions checked"
+                "Heartbeat balcony_pulse must identify institutions checked"
             )
         if not isinstance(material_changes, list):
             raise WorkerError(
-                "heartbeat balcony_pulse material_changes must be a list"
+                "Heartbeat balcony_pulse material_changes must be a list"
             )
         if not isinstance(crown_attention, list):
             raise WorkerError(
-                "heartbeat balcony_pulse crown_attention must be a list"
+                "Heartbeat balcony_pulse crown_attention must be a list"
             )
         if raw_balcony.get("readback_verified") is not True:
             raise WorkerError(
-                "heartbeat balcony_pulse requires durable readback verification"
+                "Heartbeat balcony_pulse requires durable readback verification"
             )
         balcony_pulse = {
             "institutions_checked": [
@@ -609,9 +631,7 @@ def acknowledge_event(
             "material_changes": [
                 str(value) for value in material_changes
             ],
-            "crown_attention": [
-                str(value) for value in crown_attention
-            ],
+            "crown_attention": [str(value) for value in crown_attention],
             "readback_verified": True,
         }
 
@@ -642,43 +662,55 @@ def acknowledge_event(
         "ownership_unchanged": True,
         "mission_created_by_worker": False,
     }
+    if contract is not None:
+        receipt["execution_profile"] = contract.profile
+        receipt["execution_contract_version"] = contract.v
+        if isinstance(execution_result.get("engine_plan"), Mapping):
+            receipt["engine_plan"] = dict(execution_result["engine_plan"])
     if patrol_receipt is not None:
         receipt["integrity_patrol"] = patrol_receipt
     if balcony_pulse is not None:
         receipt["balcony_pulse"] = balcony_pulse
 
-    if duty["id"] == "government.daily-pulse":
-        domain_terminal_state = execution_result.get("domain_terminal_state")
-        if outcome == "STOP" and domain_terminal_state != "FAILED_CLOSED":
-            raise WorkerError("Government STOP must terminate FAILED_CLOSED")
-        if outcome in {"ACTION", "NO_ACTION"} and domain_terminal_state != "VERIFIED_CLOSED":
-            raise WorkerError("completed Government pulse must terminate VERIFIED_CLOSED")
-        _create_government_red_box_child(
+    if contract is not None and contract.profile == PROFILE_GOVERNMENT_PULSE:
+        domain_terminal_state = str(
+            execution_result.get("domain_terminal_state")
+        )
+        child_id = _create_successor_child(
             state=state,
             timetable_path=timetable_path,
             parent_event=event,
             parent_event_id=event_id,
             parent_receipt=receipt,
-            domain_terminal_state=str(domain_terminal_state),
+            contract=contract,
+            terminal_state=domain_terminal_state,
             now=now,
         )
         event["domain_terminal_state"] = domain_terminal_state
+        if child_id is not None:
+            receipt["red_box_child_event_id"] = child_id
 
-    if duty["id"] == "government.red-box":
-        red_box_content = execution_result.get("red_box_content")
-        if not isinstance(red_box_content, str) or not red_box_content.strip():
-            raise WorkerError("Government Red Box completion requires actual Red Box content")
+    if contract is not None and contract.profile == PROFILE_BALCONY_RETURN:
+        red_box_content = str(
+            execution_result.get("red_box_content") or ""
+        ).strip()
         if execution_result.get("balcony_ack") is not True:
             raise WorkerError(
-                "Government Red Box cannot close without durable King's Balcony ACK/readback"
+                "Balcony return cannot close without durable King's Balcony "
+                "ACK/readback"
             )
         parent_event_id = (event.get("payload") or {}).get("parent_event_id")
         if not isinstance(parent_event_id, str):
-            raise WorkerError("Government Red Box is missing its parent event identity")
+            raise WorkerError(
+                "Balcony return is missing its parent event identity"
+            )
         parent_event = state.get("events", {}).get(parent_event_id)
-        if not isinstance(parent_event, dict) or not isinstance(parent_event.get("receipt"), dict):
-            raise WorkerError("Government Red Box parent receipt is unavailable")
-        receipt["red_box_content"] = red_box_content.strip()
+        if (
+            not isinstance(parent_event, dict)
+            or not isinstance(parent_event.get("receipt"), dict)
+        ):
+            raise WorkerError("Balcony return parent receipt is unavailable")
+        receipt["red_box_content"] = red_box_content
         receipt["balcony_ack"] = True
         parent_event["receipt"]["red_box_delivery"] = {
             "event_id": event_id,
@@ -686,7 +718,7 @@ def acknowledge_event(
             "balcony_ack": True,
             "readback_verified": True,
             "completed_at": _iso(now),
-            "red_box_content": red_box_content.strip(),
+            "red_box_content": red_box_content,
         }
 
     event["status"] = terminal
@@ -701,7 +733,6 @@ def acknowledge_event(
         "accountable_owner": duty["owner"],
         "readback_verified": True,
     }
-
 
 def next_claimable(
     *,
@@ -732,7 +763,6 @@ def next_claimable(
         "scheduled_for": scheduled_for,
         "accountable_owner": duty["owner"],
         "requires_model_runtime": True,
-        "integrity_patrol_required": duty["id"] == "dynasty.heartbeat",
     }
 
 
