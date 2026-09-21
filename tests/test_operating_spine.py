@@ -59,6 +59,11 @@ class OperatingSpinePhase1Tests(unittest.TestCase):
         self.assertIn("ARMED", aeo["status"])
         self.assertIn("NOT YET ACTIVE", aeo["status"])
 
+    def test_jekyll_excludes_operating_spine_from_public_pages(self):
+        config = (ROOT.parent / "_config.yml").read_text(encoding="utf-8")
+        self.assertIn("exclude:", config)
+        self.assertIn("- operating_spine", config)
+
 
 if __name__ == "__main__":
     unittest.main()

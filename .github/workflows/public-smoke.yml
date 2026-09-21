@@ -42,6 +42,25 @@ jobs:
           echo "Expected served build $EXPECTED but last observed $seen" >&2
           exit 1
 
+      - name: Wait for backstage control paths to be absent
+        shell: bash
+        run: |
+          set -euo pipefail
+          BASE="https://wally189.github.io/The-Crown-Dynasty-Of-Aldernia"
+          last_root=""
+          last_manifest=""
+          for attempt in $(seq 1 30); do
+            last_root="$(curl -sS -o /dev/null -w '%{http_code}' --connect-timeout 5 --max-time 15 "$BASE/operating_spine/" || true)"
+            last_manifest="$(curl -sS -o /dev/null -w '%{http_code}' --connect-timeout 5 --max-time 15 "$BASE/operating_spine/projection/manifest.json" || true)"
+            if [ "$last_root" = "404" ] && [ "$last_manifest" = "404" ]; then
+              echo "Backstage Operating Spine paths are absent from served Pages."
+              exit 0
+            fi
+            sleep 4
+          done
+          echo "Expected backstage Operating Spine paths to be absent; observed root=$last_root manifest=$last_manifest" >&2
+          exit 1
+
       - name: Verify public routes and working-country layers
         shell: bash
         run: |

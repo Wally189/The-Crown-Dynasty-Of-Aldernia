@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - crown/aldernia-operating-spine-phase-1-2026-09-21
+      - "crown/operating-spine-*"
   workflow_dispatch:
 
 permissions:
