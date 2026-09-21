@@ -9,6 +9,7 @@ from pathlib import Path
 import tempfile
 from typing import Any, Mapping
 
+from aldernia_runtime.patrol import PatrolError, plan_slice, validate_patrol_result
 from aldernia_runtime.scheduler import load_scheduler_state, load_timetable
 from aldernia_runtime.session import load_session
 
@@ -209,6 +210,7 @@ def claim_event(
                 "attempt": claim["attempt"],
                 "accountable_owner": duty["owner"],
                 "lease_expires_at": claim["lease_expires_at"],
+                "integrity_patrol": claim.get("integrity_patrol"),
             }
         if recovery == "FAILED_CLOSED":
             _write_state(state_path, state)
@@ -232,6 +234,7 @@ def claim_event(
     if attempt > MAX_ATTEMPTS:
         raise WorkerError("safe claim attempt limit exceeded")
 
+    patrol_plan = plan_slice(state) if duty["id"] == "dynasty.heartbeat" else None
     claim_id = _claim_id(event_id, worker_id, attempt, now)
     claim = {
         "schema_version": WORKER_STATE_VERSION,
@@ -248,22 +251,36 @@ def claim_event(
         "mission_ref": event.get("mission_ref"),
         "authority_ref": event.get("authority_ref"),
     }
+    if patrol_plan is not None:
+        claim["integrity_patrol"] = patrol_plan
+
+    required_source_ids = list(COMMON_REQUIRED_SOURCE_IDS) + list(
+        duty.get("required_source_ids") or []
+    )
+    if patrol_plan is not None:
+        required_source_ids.extend(patrol_plan["required_source_ids"])
+    required_source_ids = list(dict.fromkeys(required_source_ids))
+
     event["status"] = "CLAIMED_RUNTIME"
     event["claim"] = claim
     event["payload"]["accountable_owner"] = duty["owner"]
     event["payload"]["required_source_ids"] = list(duty.get("required_source_ids") or [])
+    if patrol_plan is not None:
+        event["payload"]["integrity_patrol"] = patrol_plan
     _write_state(state_path, state)
 
-    return {
+    result = {
         "event_id": event_id,
         "status": "CLAIMED_RUNTIME",
         "claim_id": claim_id,
         "attempt": attempt,
         "accountable_owner": duty["owner"],
         "lease_expires_at": claim["lease_expires_at"],
-        "required_source_ids": list(COMMON_REQUIRED_SOURCE_IDS)
-        + list(duty.get("required_source_ids") or []),
+        "required_source_ids": required_source_ids,
     }
+    if patrol_plan is not None:
+        result["integrity_patrol"] = patrol_plan
+    return result
 
 
 def acknowledge_event(
@@ -326,6 +343,11 @@ def acknowledge_event(
     retrieved_set = {str(value) for value in retrieved}
     required = set(COMMON_REQUIRED_SOURCE_IDS)
     required.update(str(value) for value in duty.get("required_source_ids") or [])
+    patrol_plan = claim.get("integrity_patrol") if duty["id"] == "dynasty.heartbeat" else None
+    if duty["id"] == "dynasty.heartbeat" and not isinstance(patrol_plan, Mapping):
+        raise WorkerError("heartbeat claim is missing its required integrity patrol slice")
+    if isinstance(patrol_plan, Mapping):
+        required.update(str(value) for value in patrol_plan.get("required_source_ids") or [])
     missing = sorted(required - retrieved_set)
     if missing:
         raise WorkerError(
@@ -342,6 +364,17 @@ def acknowledge_event(
     evidence_refs = execution_result.get("evidence_refs")
     if not isinstance(evidence_refs, list) or not evidence_refs:
         raise WorkerError("at least one evidence_ref is required")
+
+    patrol_receipt = None
+    if isinstance(patrol_plan, Mapping):
+        try:
+            patrol_receipt = validate_patrol_result(
+                plan=patrol_plan,
+                patrol_result=execution_result.get("integrity_patrol"),
+                retrieved_source_ids=retrieved_set,
+            )
+        except PatrolError as exc:
+            raise WorkerError(str(exc)) from exc
 
     terminal = {
         "ACTION": "ACKNOWLEDGED_ACTION",
@@ -370,6 +403,8 @@ def acknowledge_event(
         "ownership_unchanged": True,
         "mission_created_by_worker": False,
     }
+    if patrol_receipt is not None:
+        receipt["integrity_patrol"] = patrol_receipt
     event["status"] = terminal
     event["receipt"] = receipt
     event.setdefault("claim_history", []).append(dict(claim))
@@ -413,6 +448,7 @@ def next_claimable(
         "scheduled_for": scheduled_for,
         "accountable_owner": duty["owner"],
         "requires_model_runtime": True,
+        "integrity_patrol_required": duty["id"] == "dynasty.heartbeat",
     }
 
 
