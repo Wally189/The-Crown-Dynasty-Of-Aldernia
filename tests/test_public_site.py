@@ -248,5 +248,38 @@ class PublicSiteTests(unittest.TestCase):
                 self.assertTrue(target.exists(), f"{page}: broken internal href {href} -> {target}")
 
 
+    def test_website_engine_material_rebuild_architecture(self):
+        home = (ROOT / "country" / "index.html").read_text(encoding="utf-8")
+        for marker in (
+            'class="national-broadside"',
+            'class="section country-desk"',
+            'class="region-ribbon"',
+            'class="question-rails"',
+            "Useful today",
+            "The national desk",
+        ):
+            self.assertIn(marker, home)
+        self.assertNotIn('class="grid-3 route-grid"', home)
+
+        for page in COUNTRY_PAGES:
+            text = page.read_text(encoding="utf-8")
+            self.assertIn('class="country-utility"', text, page)
+            self.assertNotIn(r"\\n<div class=\"country-utility\"", text, page)
+
+    def test_subject_pages_use_distinct_compositions(self):
+        government = (ROOT / "country" / "government.html").read_text(encoding="utf-8")
+        economy = (ROOT / "country" / "economy.html").read_text(encoding="utf-8")
+        life = (ROOT / "country" / "life.html").read_text(encoding="utf-8")
+        media = (ROOT / "country" / "media.html").read_text(encoding="utf-8")
+        self.assertIn('class="power-flow"', government)
+        self.assertIn('class="institution-ledger"', government)
+        self.assertIn('class="regional-economy"', economy)
+        self.assertIn('class="economy-lenses"', economy)
+        self.assertIn('class="life-desk"', life)
+        self.assertIn('class="day-rhythm"', life)
+        self.assertIn('class="newsroom-grid"', media)
+        self.assertIn('class="newsroom-rule"', media)
+
+
 if __name__ == "__main__":
     unittest.main()
