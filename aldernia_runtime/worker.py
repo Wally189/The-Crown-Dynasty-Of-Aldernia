@@ -27,6 +27,8 @@ COMMON_REQUIRED_SOURCE_IDS = (
 
 ALLOWED_RESOURCE_CLASSES = {"ALDERNIA_INTERNAL", "PUBLIC_READ_ONLY"}
 MODEL_RUNTIME_CLASS = "CONNECTED_GOVERNED_MODEL_RUNTIME"
+PERSISTENT_MODEL_RUNTIME_CLASS = "PERSISTENT_GOVERNED_MODEL_RUNTIME"
+MODEL_RUNTIME_CLASSES = {MODEL_RUNTIME_CLASS, PERSISTENT_MODEL_RUNTIME_CLASS}
 TERMINAL_STATUSES = {
     "ACKNOWLEDGED_ACTION",
     "ACKNOWLEDGED_NO_ACTION",
@@ -224,8 +226,8 @@ def claim_event(
         raise WorkerError(f"event is not claimable from status {event.get('status')!r}")
 
     requires_model = bool(event.get("payload", {}).get("requires_model_runtime"))
-    if requires_model and runtime_class != MODEL_RUNTIME_CLASS:
-        raise WorkerError("model-bearing duty requires a governed connected model runtime")
+    if requires_model and runtime_class not in MODEL_RUNTIME_CLASSES:
+        raise WorkerError("model-bearing duty requires an authorised governed model runtime")
 
     prior_claims = event.get("claim_history") or []
     if not isinstance(prior_claims, list):
@@ -376,6 +378,17 @@ def acknowledge_event(
         except PatrolError as exc:
             raise WorkerError(str(exc)) from exc
 
+    model_usage = execution_result.get("model_usage")
+    if model_usage is not None:
+        if not isinstance(model_usage, Mapping):
+            raise WorkerError("model_usage must be an object when provided")
+        try:
+            conservative_cost = float(model_usage.get("conservative_cost_usd") or 0.0)
+        except (TypeError, ValueError) as exc:
+            raise WorkerError("model_usage conservative_cost_usd must be numeric") from exc
+        if conservative_cost < 0:
+            raise WorkerError("model_usage conservative_cost_usd may not be negative")
+
     terminal = {
         "ACTION": "ACKNOWLEDGED_ACTION",
         "NO_ACTION": "ACKNOWLEDGED_NO_ACTION",
@@ -405,6 +418,8 @@ def acknowledge_event(
     }
     if patrol_receipt is not None:
         receipt["integrity_patrol"] = patrol_receipt
+    if model_usage is not None:
+        receipt["model_usage"] = dict(model_usage)
     event["status"] = terminal
     event["receipt"] = receipt
     event.setdefault("claim_history", []).append(dict(claim))
