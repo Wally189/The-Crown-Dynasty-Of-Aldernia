@@ -17,7 +17,11 @@
         "label": "Office of Readings then Lauds",
         "requires_model_runtime": true,
         "scheduled_for": "2026-09-21T05:00:00+01:00",
-        "source_row": 16
+        "source_row": 16,
+        "accountable_owner": "House of Catholic",
+        "required_source_ids": [
+          "1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk"
+        ]
       },
       "permitted_effects": [
         "evaluate already-authorised recurring duty",
@@ -31,8 +35,23 @@
       ],
       "scheduled_for": "2026-09-21T05:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "CLAIMED_RUNTIME",
+      "transition_class": "scheduled_duty_due",
+      "claim": {
+        "schema_version": 1,
+        "claim_id": "bd6fb510388e9464da452d91",
+        "worker_id": "chatgpt-helm-session-2026-09-21-catchup",
+        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+        "accountable_owner": "House of Catholic",
+        "claimed_at": "2026-09-21T05:52:00+00:00",
+        "lease_expires_at": "2026-09-21T06:22:00+00:00",
+        "attempt": 1,
+        "estate_scope": "ALDERNIA",
+        "new_model_provider_access_granted": false,
+        "external_access_grants": [],
+        "mission_ref": "NONE — DUE EVALUATION ONLY",
+        "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 16"
+      }
     },
     "catholic.mass-readings:2026-09-21": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -69,8 +88,23 @@
       ],
       "scheduled_for": "2026-09-21T06:30:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "CLAIMED_RUNTIME",
+      "transition_class": "scheduled_duty_due",
+      "claim": {
+        "schema_version": 1,
+        "claim_id": "55c948cd439a3e742cb1abb8",
+        "worker_id": "chatgpt-helm-session-2026-09-21-catchup",
+        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+        "accountable_owner": "House of Catholic",
+        "claimed_at": "2026-09-21T05:52:00+00:00",
+        "lease_expires_at": "2026-09-21T06:22:00+00:00",
+        "attempt": 1,
+        "estate_scope": "ALDERNIA",
+        "new_model_provider_access_granted": false,
+        "external_access_grants": [],
+        "mission_ref": "NONE — DUE EVALUATION ONLY",
+        "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 14"
+      }
     },
     "dynasty.heartbeat:2026-09-21T06:00": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -89,7 +123,11 @@
         "label": "Dynasty House Pulse / King's Balcony Heartbeat",
         "requires_model_runtime": true,
         "scheduled_for": "2026-09-21T06:00:00+01:00",
-        "source_row": 2
+        "source_row": 2,
+        "accountable_owner": "Royal Palace",
+        "required_source_ids": [
+          "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE"
+        ]
       },
       "permitted_effects": [
         "evaluate already-authorised recurring duty",
@@ -103,8 +141,23 @@
       ],
       "scheduled_for": "2026-09-21T06:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "CLAIMED_RUNTIME",
+      "transition_class": "scheduled_duty_due",
+      "claim": {
+        "schema_version": 1,
+        "claim_id": "edcb58e07c5bcc4437ce26a4",
+        "worker_id": "chatgpt-helm-session-2026-09-21-catchup",
+        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+        "accountable_owner": "Royal Palace",
+        "claimed_at": "2026-09-21T05:52:00+00:00",
+        "lease_expires_at": "2026-09-21T06:22:00+00:00",
+        "attempt": 1,
+        "estate_scope": "ALDERNIA",
+        "new_model_provider_access_granted": false,
+        "external_access_grants": [],
+        "mission_ref": "NONE — DUE EVALUATION ONLY",
+        "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 2"
+      }
     },
     "josie.morning-news:2026-09-21": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -123,7 +176,11 @@
         "label": "Josie Morning News Bus",
         "requires_model_runtime": true,
         "scheduled_for": "2026-09-21T06:00:00+01:00",
-        "source_row": 17
+        "source_row": 17,
+        "accountable_owner": "House of Josie",
+        "required_source_ids": [
+          "1ulQ0QDZLveGRvT_zJt5eUXDXgdIKntnwEliNK98zAc0"
+        ]
       },
       "permitted_effects": [
         "evaluate already-authorised recurring duty",
@@ -137,8 +194,23 @@
       ],
       "scheduled_for": "2026-09-21T06:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "CLAIMED_RUNTIME",
+      "transition_class": "scheduled_duty_due",
+      "claim": {
+        "schema_version": 1,
+        "claim_id": "c51f9913c4b887416b4a5a1c",
+        "worker_id": "chatgpt-helm-session-2026-09-21-catchup",
+        "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+        "accountable_owner": "House of Josie",
+        "claimed_at": "2026-09-21T05:52:00+00:00",
+        "lease_expires_at": "2026-09-21T06:22:00+00:00",
+        "attempt": 1,
+        "estate_scope": "ALDERNIA",
+        "new_model_provider_access_granted": false,
+        "external_access_grants": [],
+        "mission_ref": "NONE — DUE EVALUATION ONLY",
+        "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 17"
+      }
     }
   },
   "last_checked_at": "2026-09-21T05:47:14+00:00",
