@@ -317,7 +317,7 @@ def _duty_map(timetable_path: Path) -> dict[str, dict[str, Any]]:
     }
 
 
-def _recover_expired_non_patrol_claims(
+def _recover_expired_claims(
     *,
     state_path: Path,
     timetable_path: Path,
@@ -327,10 +327,13 @@ def _recover_expired_non_patrol_claims(
     state = load_scheduler_state(state_path)
     duties = _duty_map(timetable_path)
     for event_id, event in list(state.get("events", {}).items()):
-        if not isinstance(event, Mapping) or event.get("status") != "CLAIMED_RUNTIME":
+        if (
+            not isinstance(event, Mapping)
+            or event.get("status") != "CLAIMED_RUNTIME"
+        ):
             continue
         duty_id = str((event.get("payload") or {}).get("duty_id") or "")
-        if duty_id == "dynasty.heartbeat" or duty_id not in duties:
+        if duty_id not in duties:
             continue
         claim = event.get("claim") or {}
         expiry = claim.get("lease_expires_at")
@@ -339,7 +342,8 @@ def _recover_expired_non_patrol_claims(
         parsed = datetime.fromisoformat(expiry.replace("Z", "+00:00"))
         if (
             parsed.tzinfo is not None
-            and now.astimezone(timezone.utc) >= parsed.astimezone(timezone.utc)
+            and now.astimezone(timezone.utc)
+            >= parsed.astimezone(timezone.utc)
         ):
             recover_expired_claim(
                 state_path=state_path,
@@ -350,37 +354,40 @@ def _recover_expired_non_patrol_claims(
             )
 
 
-def _next_non_patrol(
+def _pending_candidates(
     *,
     state_path: Path,
     timetable_path: Path,
     session_path: Path,
-) -> dict[str, Any] | None:
+) -> list[dict[str, Any]]:
     session = load_session(session_path)
     if session.get("operating_state") == "HALTED":
-        return None
+        return []
     state = load_scheduler_state(state_path)
     duties = _duty_map(timetable_path)
     candidates: list[tuple[str, str, dict[str, Any]]] = []
     for event_id, event in state.get("events", {}).items():
-        if not isinstance(event, Mapping) or event.get("status") != "PENDING_RUNTIME":
+        if (
+            not isinstance(event, Mapping)
+            or event.get("status") != "PENDING_RUNTIME"
+        ):
             continue
         duty_id = str((event.get("payload") or {}).get("duty_id") or "")
         duty = duties.get(duty_id)
-        if duty is None or duty_id == "dynasty.heartbeat":
+        if duty is None:
             continue
         candidates.append(
             (str(event.get("scheduled_for") or ""), str(event_id), duty)
         )
-    if not candidates:
-        return None
     candidates.sort()
-    scheduled_for, event_id, duty = candidates[0]
-    return {
-        "event_id": event_id,
-        "scheduled_for": scheduled_for,
-        "duty": duty,
-    }
+    return [
+        {
+            "event_id": event_id,
+            "scheduled_for": scheduled_for,
+            "duty": duty,
+        }
+        for scheduled_for, event_id, duty in candidates
+    ]
 
 
 def _owner_estate_source_ids(duty: Mapping[str, Any]) -> list[str]:
@@ -402,7 +409,8 @@ def _owner_estate_source_ids(duty: Mapping[str, Any]) -> list[str]:
         for estate in ESTATES:
             if estate.get("id") == estate_id:
                 estate_sources.extend(
-                    str(value) for value in estate.get("required_source_ids") or ()
+                    str(value)
+                    for value in estate.get("required_source_ids") or ()
                 )
                 break
     return list(
@@ -438,35 +446,68 @@ def _source_packet(
     return packet, retrieved
 
 
-def _build_prompt(
+def _source_blocks(sources: list[dict[str, str]]) -> str:
+    return "".join(
+        f"\n## {src['name']}\nFILE_ID: {src['id']}\n{src['text']}"
+        for src in sources
+    )
+
+
+def _selector_prompt(
     *,
     event_id: str,
     event: Mapping[str, Any],
     duty: Mapping[str, Any],
     row: list[str],
     sources: list[dict[str, str]],
+) -> str:
+    return (
+        f"EVENT_ID: {event_id}\n"
+        f"DUTY_ID: {duty['id']}\n"
+        f"ACCOUNTABLE_OWNER: {duty['owner']}\n"
+        f"SCHEDULED_FOR: {event.get('scheduled_for')}\n"
+        "\nCURRENT SCHEDULED TASK ROW (A:L):\n"
+        + json.dumps(row, ensure_ascii=False)
+        + "\n\nCURRENT AUTHORITATIVE SOURCES:\n"
+        + _source_blocks(sources)
+        + "\n\nReturn only an EnginePlan using machine engine IDs explicitly "
+        "present in the supplied current Engine Manifest. Selection changes "
+        "routing only and creates no new authority."
+    )
+
+
+def _build_prompt(
+    *,
+    event_id: str,
+    event: Mapping[str, Any],
+    duty: Mapping[str, Any],
+    row: list[str],
+    contract: ExecutionContract,
+    engine_plan: Mapping[str, Any],
+    sources: list[dict[str, str]],
     parent_receipt: Mapping[str, Any] | None,
 ) -> str:
-    source_blocks: list[str] = []
-    for src in sources:
-        source_blocks.append(
-            f"\n## {src['name']}\nFILE_ID: {src['id']}\n{src['text']}"
-        )
     return (
         f"EVENT_ID: {event_id}\n"
         f"DUTY_ID: {duty['id']}\n"
         f"ACCOUNTABLE_OWNER: {duty['owner']}\n"
         f"SCHEDULED_FOR: {event.get('scheduled_for')}\n"
         f"EVENT_TYPE: {event.get('event_type')}\n"
-        f"EXECUTION_CONTRACT: {DUTY_EXECUTION_CONTRACTS.get(str(duty['id']), 'UNSUPPORTED — FAIL CLOSED WITHOUT MODEL EXECUTION')}\n"
-        "\nCURRENT SCHEDULED TASK ROW (A:K):\n"
+        f"EXECUTION_PROFILE: {contract.profile}\n"
+        f"ENGINE_MODE: {contract.engine_mode}\n"
+        f"CATCHUP_POLICY: {contract.catchup}\n"
+        "\nENGINE PLAN:\n"
+        + json.dumps(engine_plan, ensure_ascii=False)
+        + "\n\nCURRENT SCHEDULED TASK ROW (A:L):\n"
         + json.dumps(row, ensure_ascii=False)
         + "\n\nPARENT RECEIPT (if any):\n"
         + json.dumps(parent_receipt, ensure_ascii=False, default=str)
         + "\n\nCURRENT AUTHORITATIVE SOURCES:\n"
-        + "".join(source_blocks)
-        + "\n\nReturn only the structured result. Evidence references must "
-        "identify supplied FILE_IDs or the parent receipt."
+        + _source_blocks(sources)
+        + "\n\nExecute only the current row's authorised instruction through "
+        "the validated EnginePlan. Return only the structured result. "
+        "Evidence references must identify supplied FILE_IDs, the parent "
+        "receipt where applicable, or material public-read-only URLs."
     )
 
 
@@ -475,11 +516,12 @@ def _evidence_text(
     event_id: str,
     result: Mapping[str, Any],
     source_ids: list[str],
+    profile: str | None = None,
 ) -> str:
-    pieces = [
-        f"Runtime event {event_id}.",
-        str(result.get("result_summary") or "").strip(),
-    ]
+    pieces = [f"Runtime event {event_id}."]
+    if profile:
+        pieces.append(f"Execution profile: {profile}.")
+    pieces.append(str(result.get("result_summary") or "").strip())
     domain = result.get("domain_terminal_state")
     if domain:
         pieces.append(f"Terminal state: {domain}.")
@@ -490,7 +532,36 @@ def _evidence_text(
     return " ".join(piece for piece in pieces if piece)[:45000]
 
 
-def _ack_unsupported_duty(
+def _control_stop_result(
+    *,
+    contract: ExecutionContract | None,
+    summary: str,
+    retrieved_source_ids: list[str],
+    evidence_refs: list[str],
+    writes: list[str],
+) -> dict[str, Any]:
+    result: dict[str, Any] = {
+        "outcome": "STOP",
+        "result_summary": summary,
+        "retrieved_source_ids": retrieved_source_ids,
+        "evidence_refs": evidence_refs,
+        "writes": writes,
+        "readback_verified": True,
+        "resource_classes_used": ["ALDERNIA_INTERNAL"],
+        "external_effect": "NONE",
+        "new_model_provider_access_granted": False,
+    }
+    if contract is not None and contract.profile == PROFILE_GOVERNMENT_PULSE:
+        result["domain_terminal_state"] = "FAILED_CLOSED"
+    if contract is not None and contract.profile == PROFILE_BALCONY_RETURN:
+        result["red_box_content"] = (
+            "DAILY ALDERNIAN GOVERNMENT RED BOX — EXCEPTION — " + summary
+        )
+        result["balcony_ack"] = True
+    return result
+
+
+def _ack_controlled_stop(
     *,
     state_path: Path,
     timetable_path: Path,
@@ -501,20 +572,65 @@ def _ack_unsupported_duty(
     claim_id: str,
     retrieved_source_ids: list[str],
     now: datetime,
+    summary: str,
+    contract: ExecutionContract | None = None,
 ) -> dict[str, Any]:
-    duty_id = str(duty.get("id") or "")
-    summary = (
-        f"STOP — unattended execution contract is not encoded for duty {duty_id}. "
-        "The due event was fail-closed without model execution, external effect, "
-        "authority widening or invented professional work."
-    )
     local_now = now.astimezone(ZoneInfo("Europe/London"))
     write_ref = drive.write_run_state(
         row_number=int(duty["source_row"]),
         last_run=local_now.strftime(
             "%Y-%m-%d %H:%M %Z — CLOCK-TRIGGERED FAIL-CLOSED"
         ),
-        outcome=summary,
+        outcome=summary[:45000],
+        evidence=(
+            f"Runtime event {event_id}. {summary} Sources: "
+            + ", ".join(retrieved_source_ids)
+        )[:45000],
+    )
+    return acknowledge_event(
+        state_path=state_path,
+        timetable_path=timetable_path,
+        session_path=session_path,
+        event_id=event_id,
+        claim_id=claim_id,
+        execution_result=_control_stop_result(
+            contract=contract,
+            summary=summary,
+            retrieved_source_ids=retrieved_source_ids,
+            evidence_refs=(
+                [f"Drive:{value}" for value in retrieved_source_ids]
+                + [write_ref]
+            ),
+            writes=[
+                write_ref,
+                "GitHub:clock-state/state/scheduled-duty-queue.json",
+            ],
+        ),
+        now=now,
+    )
+
+
+def _ack_catchup_no_action(
+    *,
+    state_path: Path,
+    timetable_path: Path,
+    session_path: Path,
+    drive: RuntimeDrive,
+    event_id: str,
+    duty: Mapping[str, Any],
+    claim_id: str,
+    retrieved_source_ids: list[str],
+    now: datetime,
+    detail: str,
+) -> dict[str, Any]:
+    summary = "EXPIRED / NO_ACTION — " + detail
+    local_now = now.astimezone(ZoneInfo("Europe/London"))
+    write_ref = drive.write_run_state(
+        row_number=int(duty["source_row"]),
+        last_run=local_now.strftime(
+            "%Y-%m-%d %H:%M %Z — CLOCK-TRIGGERED CATCH-UP DISPOSITION"
+        ),
+        outcome=summary[:45000],
         evidence=(
             f"Runtime event {event_id}. {summary} Sources: "
             + ", ".join(retrieved_source_ids)
@@ -527,7 +643,7 @@ def _ack_unsupported_duty(
         event_id=event_id,
         claim_id=claim_id,
         execution_result={
-            "outcome": "STOP",
+            "outcome": "NO_ACTION",
             "result_summary": summary,
             "retrieved_source_ids": retrieved_source_ids,
             "evidence_refs": (
@@ -547,6 +663,28 @@ def _ack_unsupported_duty(
     )
 
 
+def _required_sources(
+    claim: Mapping[str, Any],
+    duty: Mapping[str, Any],
+) -> list[str]:
+    return list(
+        dict.fromkeys(
+            [str(value) for value in claim.get("required_source_ids") or []]
+            + _owner_estate_source_ids(duty)
+        )
+    )
+
+
+def _pending_count(state_path: Path) -> int:
+    state = load_scheduler_state(state_path)
+    return sum(
+        1
+        for event in state.get("events", {}).values()
+        if isinstance(event, Mapping)
+        and event.get("status") == "PENDING_RUNTIME"
+    )
+
+
 def run_once(
     *,
     state_path: Path,
@@ -562,7 +700,7 @@ def run_once(
     if max_events < 1 or max_events > 8:
         raise RuntimeExecutionError("max_events must be between 1 and 8")
 
-    _recover_expired_non_patrol_claims(
+    _recover_expired_claims(
         state_path=state_path,
         timetable_path=timetable_path,
         session_path=session_path,
@@ -571,39 +709,214 @@ def run_once(
 
     processed: list[dict[str, Any]] = []
     for _ in range(max_events):
-        candidate = _next_non_patrol(
+        candidates = _pending_candidates(
             state_path=state_path,
             timetable_path=timetable_path,
             session_path=session_path,
         )
-        if candidate is None:
+        if not candidates:
             break
 
+        selected: tuple[
+            dict[str, Any],
+            list[str],
+            ExecutionContract | None,
+            Exception | None,
+        ] | None = None
+
+        for candidate in candidates:
+            duty = candidate["duty"]
+            row = drive.scheduled_row(int(duty["source_row"]))
+            try:
+                contract = contract_from_row(
+                    row, expected_duty_id=str(duty["id"])
+                )
+                spec = profile_spec(contract)
+                if spec["adapter"] == ADAPTER_PATROL:
+                    continue
+                selected = (candidate, row, contract, None)
+                break
+            except Exception as exc:
+                selected = (candidate, row, None, exc)
+                break
+
+        if selected is None:
+            break
+
+        candidate, row, contract, contract_error = selected
         event_id = str(candidate["event_id"])
         duty = candidate["duty"]
+        state = load_scheduler_state(state_path)
+        event = state["events"][event_id]
 
-        if str(duty["id"]) in SUPPORTED_DUTY_IDS and model is None:
-            state = load_scheduler_state(state_path)
-            pending = sum(
-                1
-                for event in state.get("events", {}).values()
-                if isinstance(event, Mapping)
-                and event.get("status") == "PENDING_RUNTIME"
+        if contract_error is not None:
+            claim = claim_event(
+                state_path=state_path,
+                timetable_path=timetable_path,
+                session_path=session_path,
+                event_id=event_id,
+                worker_id=worker_id,
+                runtime_class=MODEL_RUNTIME_CLASS,
+                now=now,
             )
+            if claim.get("status") in {
+                "DUPLICATE_TERMINAL",
+                "FAILED_CLOSED",
+            }:
+                processed.append(dict(claim))
+                continue
+            required = _required_sources(claim, duty)
+            _, retrieved = _source_packet(drive, required)
+            summary = (
+                "STOP — scheduled-duty execution contract failed closed: "
+                + str(contract_error)
+            )
+            ack = _ack_controlled_stop(
+                state_path=state_path,
+                timetable_path=timetable_path,
+                session_path=session_path,
+                drive=drive,
+                event_id=event_id,
+                duty=duty,
+                claim_id=str(claim["claim_id"]),
+                retrieved_source_ids=retrieved,
+                now=now,
+                summary=summary,
+            )
+            processed.append(dict(ack))
+            continue
+
+        if contract is None:
+            raise RuntimeExecutionError("internal contract selection failure")
+
+        decision = catchup_decision(
+            contract,
+            event_id=event_id,
+            event=event,
+            state=state,
+            now=now,
+        )
+        if decision.disposition == "WAIT":
+            break
+
+        if decision.disposition.startswith("EXPIRE"):
+            claim = claim_event(
+                state_path=state_path,
+                timetable_path=timetable_path,
+                session_path=session_path,
+                event_id=event_id,
+                worker_id=worker_id,
+                runtime_class=MODEL_RUNTIME_CLASS,
+                now=now,
+            )
+            if claim.get("status") in {
+                "DUPLICATE_TERMINAL",
+                "FAILED_CLOSED",
+            }:
+                processed.append(dict(claim))
+                continue
+            required = _required_sources(claim, duty)
+            _, retrieved = _source_packet(drive, required)
+            ack = _ack_catchup_no_action(
+                state_path=state_path,
+                timetable_path=timetable_path,
+                session_path=session_path,
+                drive=drive,
+                event_id=event_id,
+                duty=duty,
+                claim_id=str(claim["claim_id"]),
+                retrieved_source_ids=retrieved,
+                now=now,
+                detail=decision.detail,
+            )
+            processed.append(dict(ack))
+            continue
+
+        spec = profile_spec(contract)
+        if spec["adapter"] != "MODEL":
+            summary = (
+                "STOP — ordinary worker cannot execute specialist profile "
+                + contract.profile
+            )
+            claim = claim_event(
+                state_path=state_path,
+                timetable_path=timetable_path,
+                session_path=session_path,
+                event_id=event_id,
+                worker_id=worker_id,
+                runtime_class=MODEL_RUNTIME_CLASS,
+                now=now,
+                execution_contract=contract.to_mapping(),
+            )
+            required = _required_sources(claim, duty)
+            _, retrieved = _source_packet(drive, required)
+            ack = _ack_controlled_stop(
+                state_path=state_path,
+                timetable_path=timetable_path,
+                session_path=session_path,
+                drive=drive,
+                event_id=event_id,
+                duty=duty,
+                claim_id=str(claim["claim_id"]),
+                retrieved_source_ids=retrieved,
+                now=now,
+                summary=summary,
+                contract=contract,
+            )
+            processed.append(dict(ack))
+            continue
+
+        if bool(spec["requires_model"]) and model is None:
             return {
                 "status": "PROVIDER_ACCESS_NOT_CONFIGURED",
                 "detail": (
-                    "OpenAI provider is not configured for supported duty "
-                    + str(duty["id"])
+                    "OpenAI provider is not configured for execution profile "
+                    + contract.profile
                 ),
                 "processed": processed,
-                "pending_count": pending,
+                "pending_count": _pending_count(state_path),
             }
 
-        if str(duty["id"]) in SUPPORTED_DUTY_IDS and budget is not None:
+        if (
+            contract.profile == "MODEL_PUBLIC_READ_V1"
+            and not bool(duty.get("public_web_read", False))
+        ):
+            claim = claim_event(
+                state_path=state_path,
+                timetable_path=timetable_path,
+                session_path=session_path,
+                event_id=event_id,
+                worker_id=worker_id,
+                runtime_class=MODEL_RUNTIME_CLASS,
+                now=now,
+                execution_contract=contract.to_mapping(),
+            )
+            required = _required_sources(claim, duty)
+            _, retrieved = _source_packet(drive, required)
+            ack = _ack_controlled_stop(
+                state_path=state_path,
+                timetable_path=timetable_path,
+                session_path=session_path,
+                drive=drive,
+                event_id=event_id,
+                duty=duty,
+                claim_id=str(claim["claim_id"]),
+                retrieved_source_ids=retrieved,
+                now=now,
+                summary=(
+                    "STOP — current timetable projection does not permit "
+                    "public-read-only access for this contracted profile."
+                ),
+                contract=contract,
+            )
+            processed.append(dict(ack))
+            continue
+
+        if budget is not None:
+            calls = 2 if contract.engine_mode == "SELECT" else 1
             budget.guard(
-                BUDGET_GUARD_INPUT_TOKENS,
-                max_output_tokens=MAX_OUTPUT_TOKENS,
+                BUDGET_GUARD_INPUT_TOKENS * calls,
+                max_output_tokens=MAX_OUTPUT_TOKENS * calls,
             )
 
         claim = claim_event(
@@ -614,22 +927,19 @@ def run_once(
             worker_id=worker_id,
             runtime_class=MODEL_RUNTIME_CLASS,
             now=now,
+            execution_contract=contract.to_mapping(),
         )
-        if claim.get("status") in {"DUPLICATE_TERMINAL", "FAILED_CLOSED"}:
+        if claim.get("status") in {
+            "DUPLICATE_TERMINAL",
+            "FAILED_CLOSED",
+        }:
             processed.append(dict(claim))
             continue
 
         state = load_scheduler_state(state_path)
         event = state["events"][event_id]
-        required_source_ids = list(
-            dict.fromkeys(
-                [str(value) for value in claim.get("required_source_ids") or []]
-                + _owner_estate_source_ids(duty)
-            )
-        )
-        sources, retrieved = _source_packet(drive, required_source_ids)
-        row_number = int(duty["source_row"])
-        row = drive.scheduled_row(row_number)
+        required = _required_sources(claim, duty)
+        sources, retrieved = _source_packet(drive, required)
 
         parent_receipt = None
         parent_event_id = (event.get("payload") or {}).get("parent_event_id")
@@ -640,8 +950,41 @@ def run_once(
             ):
                 parent_receipt = parent["receipt"]
 
-        if str(duty["id"]) not in SUPPORTED_DUTY_IDS:
-            ack = _ack_unsupported_duty(
+        try:
+            if contract.engine_mode == "DECLARED":
+                engine_plan = build_declared_engine_plan(
+                    contract,
+                    duty=duty,
+                    row=row,
+                    sources=sources,
+                )
+            elif contract.engine_mode == "SELECT":
+                if model is None:
+                    raise RuntimeExecutionError(
+                        "SELECT engine mode requires a model provider"
+                    )
+                selected_plan, selector_usage = model.select_engine(
+                    _selector_prompt(
+                        event_id=event_id,
+                        event=event,
+                        duty=duty,
+                        row=row,
+                        sources=sources,
+                    )
+                )
+                if budget is not None:
+                    budget.record(selector_usage)
+                engine_plan = validate_selected_engine_plan(
+                    selected_plan,
+                    sources=sources,
+                    accountable_owner=str(duty["owner"]),
+                )
+            else:
+                raise RuntimeExecutionError(
+                    "SPECIALIST profile reached ordinary MODEL adapter"
+                )
+        except Exception as exc:
+            ack = _ack_controlled_stop(
                 state_path=state_path,
                 timetable_path=timetable_path,
                 session_path=session_path,
@@ -651,13 +994,15 @@ def run_once(
                 claim_id=str(claim["claim_id"]),
                 retrieved_source_ids=retrieved,
                 now=now,
+                summary="STOP — EnginePlan validation failed closed: " + str(exc),
+                contract=contract,
             )
             processed.append(dict(ack))
             continue
 
         if model is None:
             raise RuntimeExecutionError(
-                "supported model-bearing duty reached execution without an OpenAI provider"
+                "model-bearing profile reached execution without provider"
             )
         result = model.execute(
             _build_prompt(
@@ -665,66 +1010,73 @@ def run_once(
                 event=event,
                 duty=duty,
                 row=row,
+                contract=contract,
+                engine_plan=engine_plan,
                 sources=sources,
                 parent_receipt=parent_receipt,
             ),
-            public_web_read=bool(duty.get("public_web_read", False)),
+            public_web_read=bool(spec["public_web_read"]),
+            profile_instruction=str(spec["instruction"]),
         )
         usage = result.pop("_runtime_usage", {})
         if budget is not None:
-            budget.record(usage if isinstance(usage, Mapping) else {})
+            budget.record(
+                usage if isinstance(usage, Mapping) else {}
+            )
+        try:
+            validate_execution_result(contract, result)
+        except ContractError as exc:
+            ack = _ack_controlled_stop(
+                state_path=state_path,
+                timetable_path=timetable_path,
+                session_path=session_path,
+                drive=drive,
+                event_id=event_id,
+                duty=duty,
+                claim_id=str(claim["claim_id"]),
+                retrieved_source_ids=retrieved,
+                now=now,
+                summary=(
+                    "STOP — execution result failed profile validation: "
+                    + str(exc)
+                ),
+                contract=contract,
+            )
+            processed.append(dict(ack))
+            continue
+
         outcome = str(result.get("outcome") or "")
-
-        if duty["id"] == "government.daily-pulse":
-            domain = result.get("domain_terminal_state")
-            if outcome == "STOP" and domain != "FAILED_CLOSED":
-                raise RuntimeExecutionError(
-                    "Government STOP must return FAILED_CLOSED"
-                )
-            if outcome in {"ACTION", "NO_ACTION"} and domain != "VERIFIED_CLOSED":
-                raise RuntimeExecutionError(
-                    "Completed Government pulse must return VERIFIED_CLOSED"
-                )
-        elif result.get("domain_terminal_state") is not None:
-            raise RuntimeExecutionError(
-                "Only the Government pulse may set domain_terminal_state"
-            )
-
-        if duty["id"] == "government.red-box":
-            red_box = result.get("red_box_content")
-            if not isinstance(red_box, str) or not red_box.strip():
-                raise RuntimeExecutionError(
-                    "Government Red Box task returned no Red Box content"
-                )
-        elif result.get("red_box_content") is not None:
-            raise RuntimeExecutionError(
-                "Only the Government Red Box task may return red_box_content"
-            )
-
         local_now = now.astimezone(ZoneInfo("Europe/London"))
         evidence = _evidence_text(
             event_id=event_id,
             result=result,
             source_ids=retrieved,
+            profile=contract.profile,
         )
         write_ref = drive.write_run_state(
-            row_number=row_number,
+            row_number=int(duty["source_row"]),
             last_run=local_now.strftime(
                 "%Y-%m-%d %H:%M %Z — CLOCK-TRIGGERED GOVERNED RUNTIME"
             ),
             outcome=(
-                f"{outcome} — {str(result.get('result_summary') or '').strip()}"
+                f"{outcome} — "
+                f"{str(result.get('result_summary') or '').strip()}"
             )[:45000],
             evidence=evidence,
         )
 
         execution_result: dict[str, Any] = {
             "outcome": outcome,
-            "result_summary": str(result.get("result_summary") or "").strip(),
+            "result_summary": str(
+                result.get("result_summary") or ""
+            ).strip(),
             "retrieved_source_ids": retrieved,
             "evidence_refs": (
                 [f"Drive:{value}" for value in retrieved]
-                + [str(value) for value in result.get("evidence_refs") or []]
+                + [
+                    str(value)
+                    for value in result.get("evidence_refs") or []
+                ]
                 + [write_ref]
             ),
             "writes": [
@@ -732,15 +1084,16 @@ def run_once(
                 "GitHub:clock-state/state/scheduled-duty-queue.json",
             ],
             "readback_verified": True,
-            "resource_classes_used": ["ALDERNIA_INTERNAL"],
+            "resource_classes_used": list(spec["resource_classes"]),
             "external_effect": "NONE",
             "new_model_provider_access_granted": False,
+            "engine_plan": engine_plan,
         }
-        if duty["id"] == "government.daily-pulse":
+        if contract.profile == PROFILE_GOVERNMENT_PULSE:
             execution_result["domain_terminal_state"] = result[
                 "domain_terminal_state"
             ]
-        if duty["id"] == "government.red-box":
+        if contract.profile == PROFILE_BALCONY_RETURN:
             execution_result["red_box_content"] = str(
                 result["red_box_content"]
             ).strip()
@@ -757,18 +1110,11 @@ def run_once(
         )
         processed.append(dict(ack))
 
-    state = load_scheduler_state(state_path)
-    pending = sum(
-        1
-        for event in state.get("events", {}).values()
-        if isinstance(event, Mapping) and event.get("status") == "PENDING_RUNTIME"
-    )
     return {
         "status": "COMPLETE",
         "processed": processed,
-        "pending_count": pending,
+        "pending_count": _pending_count(state_path),
     }
-
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(
@@ -843,7 +1189,7 @@ def main(argv: list[str] | None = None) -> int:
             str(item.get("event_id") or "")
             for item in result["processed"]
         ]
-        if result.get("status") == "PROVIDER_ACCESS_NOT_CONFIGURED" or not openai_ready:
+        if result.get("status") == "PROVIDER_ACCESS_NOT_CONFIGURED":
             detail = str(
                 result.get("detail")
                 or "Missing provider configuration: OpenAI WIF identity or bounded fallback API key"
