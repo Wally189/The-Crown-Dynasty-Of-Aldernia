@@ -64,6 +64,13 @@ class OperatingSpinePhase1Tests(unittest.TestCase):
         self.assertIn("exclude:", config)
         self.assertIn("- operating_spine", config)
 
+    def test_public_release_origin_is_not_mislabelled_as_current_repository_head(self):
+        sources = json.loads((ROOT / "projection" / "source-records.json").read_text(encoding="utf-8"))
+        github_origin = next(source for source in sources if source["source_id"] == "src:github-main-81f8")
+        claim = " ".join(github_origin["claims_supported"])
+        self.assertNotIn("Exact current main source commit", claim)
+        self.assertIn("introduced the current ALD-CROWN-FOUNDING-09 public editorial build", claim)
+
 
 if __name__ == "__main__":
     unittest.main()

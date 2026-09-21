@@ -371,7 +371,7 @@
       "Source/release evidence"
     ],
     "claims_supported": [
-      "Exact current main source commit; not constitutional truth."
+      "Exact source commit that introduced the current ALD-CROWN-FOUNDING-09 public editorial build; later production control-code commits may sit above it without changing that public editorial build identity."
     ],
     "limitations": [
       "Projection pointer only; consult the canonical source at point of consequential use."
