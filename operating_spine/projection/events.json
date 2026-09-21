@@ -1,0 +1,88 @@
+[
+  {
+    "schema_version": "1.0.0",
+    "event_id": "event:2026-09-21:release-ald-crown-founding-09",
+    "event_type": "accepted_release",
+    "occurred_at": "2026-09-21T04:18:50Z",
+    "effective_at": "2026-09-21T04:18:50Z",
+    "emitter": "royal-palace",
+    "owning_institution": "royal-palace",
+    "authority_ref": "drive:1rpI4JSdxbrcIyr84Ezg-HX7qHdS5xi0oSYsO02Bwct8",
+    "trigger_ref": "Crown publication authority for exact candidate 81f8af9942881738977b0913eed2f96d1c0c78d2",
+    "reality_class": "REAL_EXTERNAL_FACT",
+    "prior_state_refs": [
+      "ALD-CROWN-FOUNDING-08"
+    ],
+    "affected_entity_ids": [
+      "aldernia:public-release",
+      "aldernia:public-world"
+    ],
+    "evidence_refs": [
+      "src:pages-run-35560455677",
+      "src:smoke-run-35560456216",
+      "src:browser-run-35560456252"
+    ],
+    "source_refs": [
+      "src:public-world-blueprint",
+      "src:github-main-81f8",
+      "src:pages-run-35560455677",
+      "src:smoke-run-35560456216",
+      "src:browser-run-35560456252"
+    ],
+    "engine_plan_ref": null,
+    "material_facts": [
+      "Production main equals exact authorised commit 81f8af9942881738977b0913eed2f96d1c0c78d2.",
+      "Official GitHub Pages deployment run 35560455677 reported success for that SHA.",
+      "Public smoke and browser assurance independently observed served build ALD-CROWN-FOUNDING-09."
+    ],
+    "assumptions": [],
+    "uncertainties": [],
+    "proposed_transition": "ALD-CROWN-FOUNDING-08 → ALD-CROWN-FOUNDING-09",
+    "gates_required": [
+      "exact_source",
+      "official_pages_deployment",
+      "served_artifact",
+      "browser_accessibility",
+      "canonical_record"
+    ],
+    "gate_results": [
+      {
+        "gate": "exact_source",
+        "result": "PASS",
+        "evidence_ref": "src:github-main-81f8"
+      },
+      {
+        "gate": "official_pages_deployment",
+        "result": "PASS",
+        "evidence_ref": "src:pages-run-35560455677"
+      },
+      {
+        "gate": "served_artifact",
+        "result": "PASS",
+        "evidence_ref": "src:smoke-run-35560456216"
+      },
+      {
+        "gate": "browser_accessibility",
+        "result": "PASS",
+        "evidence_ref": "src:browser-run-35560456252"
+      },
+      {
+        "gate": "canonical_record",
+        "result": "PASS",
+        "evidence_ref": "src:public-world-blueprint"
+      }
+    ],
+    "decision": "ACCEPTED_CHANGE",
+    "resulting_state_refs": [
+      "aldernia:public-release"
+    ],
+    "public_consequence": "PUBLISHED",
+    "publication_candidate_ref": "github:commit:81f8af9942881738977b0913eed2f96d1c0c78d2",
+    "correction_of": null,
+    "supersedes_event": null,
+    "transport_state": "ACKED",
+    "ack_ref": "src:public-world-blueprint",
+    "recorded_at": "2026-09-21T05:21:00+01:00",
+    "projection_authoritative": false
+  }
+]
