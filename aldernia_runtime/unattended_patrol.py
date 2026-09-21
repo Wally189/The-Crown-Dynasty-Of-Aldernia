@@ -586,101 +586,18 @@ def _archive_folder(
     return None
 
 
-def run_once(
+def _apply_findings(
     *,
-    state_path: Path,
-    timetable_path: Path,
-    session_path: Path,
-    budget_path: Path,
+    raw_findings: list[Any],
+    plan: Mapping[str, Any],
+    candidate_meta: Mapping[str, dict[str, Any]],
+    required_set: set[str],
+    archive_target: str | None,
     drive: DriveClient,
-    model: OpenAIClient,
-    worker_id: str,
-    now: datetime,
-) -> dict[str, Any]:
-    session = load_session(session_path)
-    if session.get("operating_state") == "HALTED":
-        return {"status": "HALTED", "action": "NONE"}
-
-    state = load_scheduler_state(state_path)
-    event_id = _next_pending_heartbeat(state)
-    if event_id is None:
-        return {"status": "NO_PENDING_HEARTBEAT", "action": "NONE"}
-
-    budget = BudgetLedger(budget_path)
-    budget.guard(estimated_input_tokens=70000)
-
-    claim = claim_event(
-        state_path=state_path,
-        timetable_path=timetable_path,
-        session_path=session_path,
-        event_id=event_id,
-        worker_id=worker_id,
-        runtime_class=MODEL_RUNTIME_CLASS,
-        now=now,
-    )
-    plan = claim.get("integrity_patrol")
-    if not isinstance(plan, Mapping):
-        raise PatrolRuntimeError("heartbeat claim did not include an integrity patrol plan")
-
-    required_ids = [str(value) for value in claim.get("required_source_ids") or []]
-    required_set = set(required_ids)
-    authorities: list[dict[str, str]] = []
-    retrieved_ids: list[str] = []
-    evidence_refs: list[str] = []
-    for file_id in required_ids:
-        meta, text = drive.read_text(file_id, max_chars=MAX_AUTHORITY_CHARS)
-        if not text.strip():
-            raise PatrolRuntimeError(f"required authority {file_id} could not be read as text")
-        authorities.append(
-            {
-                "id": file_id,
-                "name": str(meta.get("name") or file_id),
-                "mime": str(meta.get("mimeType") or ""),
-                "text": text,
-            }
-        )
-        retrieved_ids.append(file_id)
-        evidence_refs.append(f"Drive:{file_id}")
-
-    root_ids = [str(value) for value in plan.get("root_folder_ids") or []]
-    all_items, archive_folders = drive.bounded_tree(root_ids) if root_ids else ([], [])
-    selected_meta = _candidate_slice(
-        all_items=all_items,
-        required_ids=required_set,
-        visit_index=int(plan.get("visit_index") or 1),
-    )
-    candidates: list[dict[str, str]] = []
-    candidate_meta: dict[str, dict[str, Any]] = {}
-    for item in selected_meta:
-        file_id = str(item.get("id") or "")
-        if not file_id:
-            continue
-        meta, text = drive.read_text(file_id, max_chars=MAX_CANDIDATE_CHARS)
-        candidate_meta[file_id] = {**item, **meta}
-        candidates.append(
-            {
-                "id": file_id,
-                "name": str(meta.get("name") or file_id),
-                "mime": str(meta.get("mimeType") or ""),
-                "text": text or "[No bounded text extraction available; metadata-only candidate.]",
-            }
-        )
-        retrieved_ids.append(file_id)
-        evidence_refs.append(f"Drive:{file_id}")
-
-    prompt = _build_prompt(plan=plan, authorities=authorities, candidates=candidates)
-    classification, usage = model.classify(prompt)
-    budget.record(usage)
-
-    raw_findings = classification.get("findings") or []
-    if not isinstance(raw_findings, list):
-        raise PatrolRuntimeError("model findings were not a list")
-
+) -> tuple[list[dict[str, Any]], list[str], str]:
     receipt_findings: list[dict[str, Any]] = []
     writes: list[str] = []
     outcome = "NO_ACTION"
-    archive_target = _archive_folder(plan=plan, archive_folders=archive_folders)
-
     for raw in raw_findings:
         if not isinstance(raw, Mapping):
             raise PatrolRuntimeError("model finding was not an object")
@@ -853,3 +770,147 @@ def main(argv: list[str] | None = None) -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+    return receipt_findings, writes, outcome
+
+def run_once(
+    *,
+    state_path: Path,
+    timetable_path: Path,
+    session_path: Path,
+    budget_path: Path,
+    drive: DriveClient,
+    model: OpenAIClient,
+    worker_id: str,
+    now: datetime,
+) -> dict[str, Any]:
+    session = load_session(session_path)
+    if session.get("operating_state") == "HALTED":
+        return {"status": "HALTED", "action": "NONE"}
+
+    state = load_scheduler_state(state_path)
+    event_id = _next_pending_heartbeat(state)
+    if event_id is None:
+        return {"status": "NO_PENDING_HEARTBEAT", "action": "NONE"}
+
+    budget = BudgetLedger(budget_path)
+    budget.guard(estimated_input_tokens=70000)
+
+    claim = claim_event(
+        state_path=state_path,
+        timetable_path=timetable_path,
+        session_path=session_path,
+        event_id=event_id,
+        worker_id=worker_id,
+        runtime_class=MODEL_RUNTIME_CLASS,
+        now=now,
+    )
+    plan = claim.get("integrity_patrol")
+    if not isinstance(plan, Mapping):
+        raise PatrolRuntimeError("heartbeat claim did not include an integrity patrol plan")
+
+    required_ids = [str(value) for value in claim.get("required_source_ids") or []]
+    required_set = set(required_ids)
+    authorities: list[dict[str, str]] = []
+    retrieved_ids: list[str] = []
+    evidence_refs: list[str] = []
+    for file_id in required_ids:
+        meta, text = drive.read_text(file_id, max_chars=MAX_AUTHORITY_CHARS)
+        if not text.strip():
+            raise PatrolRuntimeError(f"required authority {file_id} could not be read as text")
+        authorities.append(
+            {
+                "id": file_id,
+                "name": str(meta.get("name") or file_id),
+                "mime": str(meta.get("mimeType") or ""),
+                "text": text,
+            }
+        )
+        retrieved_ids.append(file_id)
+        evidence_refs.append(f"Drive:{file_id}")
+
+    root_ids = [str(value) for value in plan.get("root_folder_ids") or []]
+    all_items, archive_folders = drive.bounded_tree(root_ids) if root_ids else ([], [])
+    selected_meta = _candidate_slice(
+        all_items=all_items,
+        required_ids=required_set,
+        visit_index=int(plan.get("visit_index") or 1),
+    )
+    candidates: list[dict[str, str]] = []
+    candidate_meta: dict[str, dict[str, Any]] = {}
+    for item in selected_meta:
+        file_id = str(item.get("id") or "")
+        if not file_id:
+            continue
+        meta, text = drive.read_text(file_id, max_chars=MAX_CANDIDATE_CHARS)
+        candidate_meta[file_id] = {**item, **meta}
+        candidates.append(
+            {
+                "id": file_id,
+                "name": str(meta.get("name") or file_id),
+                "mime": str(meta.get("mimeType") or ""),
+                "text": text or "[No bounded text extraction available; metadata-only candidate.]",
+            }
+        )
+        retrieved_ids.append(file_id)
+        evidence_refs.append(f"Drive:{file_id}")
+
+    prompt = _build_prompt(plan=plan, authorities=authorities, candidates=candidates)
+    classification, usage = model.classify(prompt)
+    budget.record(usage)
+
+    raw_findings = classification.get("findings") or []
+    if not isinstance(raw_findings, list):
+        raise PatrolRuntimeError("model findings were not a list")
+
+    writes: list[str] = []
+    archive_target = _archive_folder(plan=plan, archive_folders=archive_folders)
+
+    try:
+        receipt_findings, writes, outcome = _apply_findings(
+            raw_findings=raw_findings,
+            plan=plan,
+            candidate_meta=candidate_meta,
+            required_set=required_set,
+            archive_target=archive_target,
+            drive=drive,
+        )
+    except ControlledStop as exc:
+        stop_result = {
+            "outcome": "STOP",
+            "result_summary": "Bounded patrol stopped without widening authority: " + str(exc),
+            "retrieved_source_ids": list(dict.fromkeys(retrieved_ids)),
+            "evidence_refs": list(dict.fromkeys(evidence_refs)) or ["runtime:controlled-stop"],
+            "writes": writes + ["GitHub:clock-state/state/scheduled-duty-queue.json"],
+            "readback_verified": True,
+            "resource_classes_used": ["ALDERNIA_INTERNAL"],
+            "external_effect": "NONE",
+            "new_model_provider_access_granted": False,
+            "integrity_patrol": {
+                "registry_version": plan["registry_version"],
+                "source_row": plan["source_row"],
+                "estate_id": plan["estate_id"],
+                "visit_index": plan["visit_index"],
+                "cursor_after": plan["cursor_after"],
+                "current_authority_retrieved": True,
+                "royal_household_accessed": False,
+                "readback_verified": True,
+                "findings": [],
+            },
+        }
+        ack = acknowledge_event(
+            state_path=state_path,
+            timetable_path=timetable_path,
+            session_path=session_path,
+            event_id=event_id,
+            claim_id=str(claim["claim_id"]),
+            execution_result=stop_result,
+            now=datetime.now(timezone.utc),
+        )
+        return {
+            "status": ack["status"],
+            "event_id": event_id,
+            "estate_id": plan["estate_id"],
+            "visit_index": plan["visit_index"],
+            "controlled_stop": str(exc),
+        }
+
