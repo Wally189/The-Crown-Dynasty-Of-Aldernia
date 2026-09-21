@@ -125,7 +125,7 @@ class PublicSiteTests(unittest.TestCase):
     def test_build_identity_is_single_json_source(self):
         build = json.loads((ROOT / "aldernia" / "build.json").read_text(encoding="utf-8"))
         self.assertEqual(build["schema_version"], 1)
-        self.assertEqual(build["id"], "ALD-CROWN-FOUNDING-10")
+        self.assertEqual(build["id"], "ALD-CROWN-FOUNDING-11")
         self.assertEqual(build["facets"], ["experiment", "country"])
         self.assertIn("today", build["country_layers"])
         self.assertIn("atlas", build["country_layers"])

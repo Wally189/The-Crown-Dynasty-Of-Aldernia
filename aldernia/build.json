@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "id": "ALD-CROWN-FOUNDING-10",
+  "id": "ALD-CROWN-FOUNDING-11",
   "date": "2026-09-21",
-  "status": "Cohesion rebuild candidate — unified country journey and first-paint identity",
+  "status": "Cohesion rebuild — final immutable release identity after acceptance remediation",
   "facets": [
     "experiment",
     "country"
