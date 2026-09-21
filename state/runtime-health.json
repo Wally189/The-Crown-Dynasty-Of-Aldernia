@@ -1,0 +1,9 @@
+{
+  "checked_at": "2026-09-21T18:04:02+00:00",
+  "detail": "Missing provider configuration: Google WIF/Drive access token, OpenAI runtime API key",
+  "normal_path_requires_king_prompt": false,
+  "pending_count": 1,
+  "processed_event_ids": [],
+  "schema_version": 1,
+  "status": "PROVIDER_ACCESS_NOT_CONFIGURED"
+}
