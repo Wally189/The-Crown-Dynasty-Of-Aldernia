@@ -9,10 +9,19 @@ from pathlib import Path
 import tempfile
 from typing import Any, Mapping
 
+from aldernia_runtime.execution_contracts import (
+    ContractError,
+    ExecutionContract,
+    PROFILE_BALCONY_RETURN,
+    PROFILE_GOVERNMENT_PULSE,
+    PROFILE_HEARTBEAT_PATROL,
+    parse_contract_mapping,
+    validate_execution_result,
+)
 from aldernia_runtime.patrol import PatrolError, plan_slice, validate_patrol_result
 from aldernia_runtime.scheduler import load_scheduler_state, load_timetable
 from aldernia_runtime.session import load_session
-from aldernia_runtime.transport import pulse_completion_event
+from aldernia_runtime.transport import ROUTES, default_service_class
 
 WORKER_STATE_VERSION = 1
 CLAIM_LEASE = timedelta(minutes=30)
@@ -143,85 +152,127 @@ def _recover_expired_claim_in_memory(
 
 
 
-def _create_government_red_box_child(
+def _claim_contract(event: Mapping[str, Any]) -> ExecutionContract | None:
+    claim = event.get("claim")
+    candidates: list[Mapping[str, Any]] = []
+    if isinstance(claim, Mapping):
+        candidates.append(claim)
+    history = event.get("claim_history")
+    if isinstance(history, list):
+        candidates.extend(
+            item for item in reversed(history) if isinstance(item, Mapping)
+        )
+    for item in candidates:
+        raw = item.get("execution_contract")
+        if isinstance(raw, Mapping):
+            try:
+                return parse_contract_mapping(raw)
+            except ContractError as exc:
+                raise WorkerError(str(exc)) from exc
+    return None
+
+
+def _parent_key(parent_event_id: str) -> str:
+    return parent_event_id.split(":", 1)[1] if ":" in parent_event_id else parent_event_id
+
+
+def _create_successor_child(
     *,
     state: dict[str, Any],
     timetable_path: Path,
     parent_event: dict[str, Any],
     parent_event_id: str,
     parent_receipt: dict[str, Any],
-    domain_terminal_state: str,
+    contract: ExecutionContract,
+    terminal_state: str,
     now: datetime,
-) -> str:
-    """Create exactly one completion-triggered Red Box child for one Government pulse."""
-    if domain_terminal_state not in {"VERIFIED_CLOSED", "FAILED_CLOSED"}:
-        raise WorkerError("Government pulse must terminate VERIFIED_CLOSED or FAILED_CLOSED")
-    red_box_duty = _duty_map(timetable_path).get("government.red-box")
-    if red_box_duty is None:
-        raise WorkerError("government.red-box event-child duty is missing from the current timetable")
+) -> str | None:
+    successor = contract.successor
+    if not isinstance(successor, Mapping):
+        return None
+    terminal_map = successor.get("terminal_map")
+    if not isinstance(terminal_map, Mapping):
+        raise WorkerError("successor terminal_map is missing")
+    event_type = terminal_map.get(terminal_state)
+    if event_type is None:
+        return None
+    route = ROUTES.get(str(event_type))
+    if route is None:
+        raise WorkerError(f"successor event type {event_type!r} has no transport route")
 
-    date_key = parent_event_id.rsplit(":", 1)[-1]
-    child_id = f"government.red-box:{date_key}"
+    target_id = str(successor.get("duty_id") or "")
+    target_duty = _duty_map(timetable_path).get(target_id)
+    if target_duty is None:
+        raise WorkerError(f"successor duty {target_id!r} is absent from current timetable")
+
+    key = _parent_key(parent_event_id)
+    child_id = f"{target_id}:{key}"
     existing = state.get("events", {}).get(child_id)
     if isinstance(existing, dict):
         if (existing.get("payload") or {}).get("parent_event_id") != parent_event_id:
-            raise WorkerError("Government Red Box stable child identity conflicts with another parent")
-        parent_receipt["domain_terminal_state"] = domain_terminal_state
-        parent_receipt["red_box_child_event_id"] = child_id
+            raise WorkerError("stable successor identity conflicts with another parent")
+        if contract.profile == PROFILE_GOVERNMENT_PULSE:
+            parent_receipt["domain_terminal_state"] = terminal_state
+            parent_receipt["red_box_child_event_id"] = child_id
         return child_id
 
-    event_type = pulse_completion_event(domain_terminal_state)
     scheduled_raw = parent_event.get("scheduled_for")
     if not isinstance(scheduled_raw, str):
-        raise WorkerError("Government parent scheduled_for is missing")
+        raise WorkerError("parent scheduled_for is missing")
     child_scheduled = _iso(_dt(scheduled_raw) + timedelta(seconds=1))
-    source_row = int(red_box_duty.get("source_row") or 0)
+    source_row = int(target_duty.get("source_row") or 0)
+    parent_case = (
+        f"{successor['parent_case_prefix']}:{key}"
+        if successor.get("parent_case_prefix")
+        else parent_event_id
+    )
+
     state.setdefault("events", {})[child_id] = {
         "event_id": child_id,
-        "event_type": event_type,
+        "event_type": str(event_type),
         "emitted_at": _iso(now),
-        "emitting_owner": "House of Marianne — Centre of Government & Cabinet Coordination",
+        "emitting_owner": str(
+            (parent_event.get("payload") or {}).get("accountable_owner") or ""
+        ),
         "authority_ref": (
             "Royal Palace Scheduled Tasks Register "
             "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, "
             f"Scheduled Tasks row {source_row}"
         ),
-        "mission_ref": f"government-pulse:{date_key}",
+        "mission_ref": parent_case,
         "departure_mode": "COMPLETION",
-        "service_class": "TRAM",
-        "destination": "Government Red Box Tram → Royal Palace / King's Balcony",
-        "acceptance": (
-            "Red Box is delivered to the King's Balcony and durable ACK/readback "
-            "is recorded for the same parent pulse."
-        ),
-        "ack_to": "Daily Government Decision Red Box ledger / parent pulse",
+        "service_class": default_service_class(str(event_type)),
+        "destination": route.destination,
+        "acceptance": route.acceptance,
+        "ack_to": route.ack_destination,
         "scheduled_for": child_scheduled,
         "status": "PENDING_RUNTIME",
         "payload": {
-            "duty_id": "government.red-box",
-            "label": red_box_duty.get("label"),
+            "duty_id": target_id,
+            "label": target_duty.get("label"),
             "source_row": source_row,
-            "accountable_owner": red_box_duty.get("owner"),
-            "required_source_ids": list(red_box_duty.get("required_source_ids") or []),
-            "requires_model_runtime": True,
-            "evaluation_only": False,
+            "accountable_owner": target_duty.get("owner"),
+            "required_source_ids": list(
+                target_duty.get("required_source_ids") or []
+            ),
+            "requires_model_runtime": bool(
+                target_duty.get("requires_model_runtime", False)
+            ),
+            "evaluation_only": bool(target_duty.get("evaluation_only", False)),
             "parent_event_id": parent_event_id,
-            "parent_case_id": f"government-pulse:{date_key}",
-            "parent_terminal_state": domain_terminal_state,
+            "parent_case_id": parent_case,
+            "parent_terminal_state": terminal_state,
         },
-        "permitted_effects": [
-            "build decision/accountability Red Box from parent evidence",
-            "deliver user-visible Balcony return",
-            "write delivery ACK",
-        ],
-        "prohibited_effects": [
-            "run before parent closure",
-            "make a second Government decision",
-            "invent decisions or scrutiny",
-        ],
+        "permitted_effects": list(route.permitted_effects),
+        "prohibited_effects": list(route.prohibited_effects),
     }
-    parent_receipt["domain_terminal_state"] = domain_terminal_state
-    parent_receipt["red_box_child_event_id"] = child_id
+
+    if contract.profile == PROFILE_GOVERNMENT_PULSE:
+        parent_receipt["domain_terminal_state"] = terminal_state
+        parent_receipt["red_box_child_event_id"] = child_id
+    else:
+        parent_receipt["successor_event_id"] = child_id
+        parent_receipt["terminal_state"] = terminal_state
     return child_id
 
 def recover_expired_claim(
