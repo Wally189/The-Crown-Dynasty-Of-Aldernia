@@ -14,6 +14,11 @@ from urllib.parse import quote, urlencode
 from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
+from aldernia_runtime.execution_contracts import (
+    PROFILE_HEARTBEAT_PATROL,
+    catchup_decision,
+    contract_from_row,
+)
 from aldernia_runtime.openai_provider import (
     provider_available as openai_provider_available,
     responses_create as openai_responses_create,
@@ -638,7 +643,7 @@ def _heartbeat_prompt(
     blocks = [
         f"EVENT_ID: {event_id}",
         "ROYAL HOUSEHOLD ACCESS: PROHIBITED",
-        "CURRENT SCHEDULED TASK ROW A:K:",
+        "CURRENT SCHEDULED TASK ROW A:L:",
         json.dumps(row, ensure_ascii=False),
         "INTEGRITY PATROL RESULT:",
         json.dumps(patrol_receipt, ensure_ascii=False),
@@ -655,22 +660,56 @@ def _heartbeat_prompt(
     return "\n".join(blocks)
 
 
-def _next_pending_heartbeat(state: Mapping[str, Any]) -> str | None:
-    candidates: list[tuple[str, str]] = []
+def _next_pending_patrol(
+    state: Mapping[str, Any],
+    drive: DriveClient,
+) -> dict[str, Any] | None:
+    candidates: list[tuple[str, str, Mapping[str, Any]]] = []
     events = state.get("events")
     if not isinstance(events, Mapping):
         return None
     for event_id, event in events.items():
-        if not isinstance(event, Mapping) or event.get("status") != "PENDING_RUNTIME":
+        if (
+            not isinstance(event, Mapping)
+            or event.get("status") != "PENDING_RUNTIME"
+        ):
             continue
-        payload = event.get("payload")
-        if not isinstance(payload, Mapping) or payload.get("duty_id") != "dynasty.heartbeat":
-            continue
-        candidates.append((str(event.get("scheduled_for") or ""), str(event_id)))
-    if not candidates:
-        return None
+        candidates.append(
+            (str(event.get("scheduled_for") or ""), str(event_id), event)
+        )
     candidates.sort()
-    return candidates[0][1]
+    for _, event_id, event in candidates:
+        payload = event.get("payload")
+        if not isinstance(payload, Mapping):
+            continue
+        duty_id = str(payload.get("duty_id") or "")
+        row_number = int(payload.get("source_row") or 0)
+        if not duty_id or row_number < 1:
+            continue
+        rows = drive.sheet_values(
+            f"Scheduled Tasks!A{row_number}:L{row_number}"
+        )
+        if len(rows) != 1:
+            continue
+        row = list(rows[0])
+        while len(row) < 12:
+            row.append("")
+        try:
+            contract = contract_from_row(
+                row, expected_duty_id=duty_id
+            )
+        except Exception:
+            continue
+        if contract.profile != PROFILE_HEARTBEAT_PATROL:
+            continue
+        return {
+            "event_id": event_id,
+            "event": event,
+            "row": row[:12],
+            "row_number": row_number,
+            "contract": contract,
+        }
+    return None
 
 
 def _format_sources(sources: list[dict[str, str]], heading: str) -> str:
