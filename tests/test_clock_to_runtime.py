@@ -130,15 +130,24 @@ class ClockToRuntimeTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
             self.seed_government(root)
+            model = FakeModel()
             result = run_once(
                 **self.paths(root),
                 drive=FakeDrive(),
-                model=FakeModel(),
+                model=model,
                 worker_id="github-clock-runtime-test",
                 max_events=2,
                 now=datetime(2026, 9, 21, 6, 2, tzinfo=timezone.utc),
             )
             self.assertEqual(len(result["processed"]), 2)
+            self.assertIn(
+                "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
+                model.calls[0],
+            )
+            self.assertIn(
+                "1Z6jkA6SuaPDAQYWAAYEkjjRGg00wP8KF3odrf-fktxU",
+                model.calls[0],
+            )
             state = json.loads(
                 (root / "scheduled-duty-queue.json").read_text()
             )
