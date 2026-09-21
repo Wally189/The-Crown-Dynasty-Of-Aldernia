@@ -234,6 +234,8 @@ def _packet_for(
             "label": duty.get("label"),
             "scheduled_for": local_due.isoformat(),
             "source_row": source_row,
+            "accountable_owner": duty.get("owner"),
+            "required_source_ids": list(duty.get("required_source_ids") or []),
             "requires_model_runtime": bool(duty.get("requires_model_runtime", False)),
             "evaluation_only": bool(duty.get("evaluation_only", False)),
         },
