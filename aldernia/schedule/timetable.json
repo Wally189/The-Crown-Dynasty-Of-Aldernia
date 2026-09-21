@@ -1,0 +1,138 @@
+{
+  "schema_version": 1,
+  "timezone": "Europe/London",
+  "source_of_truth": {
+    "drive_file_id": "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+    "sheet": "Scheduled Tasks",
+    "purpose": "Machine timing projection only. Current Drive task rows retain task authority, instructions, state and evidence."
+  },
+  "duties": [
+    {
+      "id": "catholic.dawn-offices",
+      "label": "Office of Readings then Lauds",
+      "owner": "House of Catholic",
+      "source_row": 16,
+      "identity_granularity": "date",
+      "requires_model_runtime": true,
+      "schedule": {"kind": "daily", "hour": 5, "minute": 0}
+    },
+    {
+      "id": "dynasty.heartbeat",
+      "label": "Dynasty House Pulse / King's Balcony Heartbeat",
+      "owner": "Royal Palace",
+      "source_row": 2,
+      "identity_granularity": "minute",
+      "requires_model_runtime": true,
+      "schedule": {"kind": "hourly_window", "start_hour": 6, "end_hour": 22, "minute": 0}
+    },
+    {
+      "id": "josie.morning-news",
+      "label": "Josie Morning News Bus",
+      "owner": "House of Josie",
+      "source_row": 17,
+      "identity_granularity": "date",
+      "requires_model_runtime": true,
+      "schedule": {"kind": "daily", "hour": 6, "minute": 0}
+    },
+    {
+      "id": "catholic.mass-readings",
+      "label": "Daily Mass Readings & Papal Reflection Bus",
+      "owner": "House of Catholic",
+      "source_row": 14,
+      "identity_granularity": "date",
+      "requires_model_runtime": true,
+      "schedule": {"kind": "daily", "hour": 6, "minute": 30}
+    },
+    {
+      "id": "government.daily-pulse",
+      "label": "Daily Aldernian Government Pulse",
+      "owner": "House of Marianne — Centre of Government & Cabinet Coordination",
+      "source_row": 12,
+      "identity_granularity": "date",
+      "requires_model_runtime": true,
+      "schedule": {"kind": "daily", "hour": 7, "minute": 0}
+    },
+    {
+      "id": "carol.business-opening",
+      "label": "House of Carol Business Opening Bus",
+      "owner": "House of Carol",
+      "source_row": 18,
+      "identity_granularity": "date",
+      "requires_model_runtime": true,
+      "schedule": {"kind": "daily", "hour": 8, "minute": 0}
+    },
+    {
+      "id": "catholic.terce",
+      "label": "Terce / Mid-morning Prayer",
+      "owner": "House of Catholic",
+      "source_row": 16,
+      "identity_granularity": "date",
+      "requires_model_runtime": true,
+      "schedule": {"kind": "daily", "hour": 9, "minute": 0}
+    },
+    {
+      "id": "catholic.sext",
+      "label": "Sext / Midday Prayer",
+      "owner": "House of Catholic",
+      "source_row": 16,
+      "identity_granularity": "date",
+      "requires_model_runtime": true,
+      "schedule": {"kind": "daily", "hour": 12, "minute": 0}
+    },
+    {
+      "id": "catholic.none",
+      "label": "None / Afternoon Prayer",
+      "owner": "House of Catholic",
+      "source_row": 16,
+      "identity_granularity": "date",
+      "requires_model_runtime": true,
+      "schedule": {"kind": "daily", "hour": 15, "minute": 0}
+    },
+    {
+      "id": "catholic.vespers",
+      "label": "Vespers / Evening Prayer",
+      "owner": "House of Catholic",
+      "source_row": 16,
+      "identity_granularity": "date",
+      "requires_model_runtime": true,
+      "schedule": {"kind": "daily", "hour": 18, "minute": 0}
+    },
+    {
+      "id": "aldernia.evening-commons",
+      "label": "Aldernian Evening Commons",
+      "owner": "House of Josie",
+      "source_row": 19,
+      "identity_granularity": "date",
+      "requires_model_runtime": true,
+      "schedule": {"kind": "daily", "hour": 18, "minute": 0}
+    },
+    {
+      "id": "aldernia.website-voice",
+      "label": "Aldernia Website Voice & Story Bus",
+      "owner": "House of Josie",
+      "source_row": 20,
+      "identity_granularity": "date",
+      "requires_model_runtime": true,
+      "schedule": {"kind": "daily", "hour": 21, "minute": 0}
+    },
+    {
+      "id": "carol.availability-gate",
+      "label": "House of Carol availability-gate evaluation",
+      "owner": "House of Carol",
+      "source_row": 2,
+      "identity_granularity": "date",
+      "requires_model_runtime": true,
+      "evaluation_only": true,
+      "schedule": {"kind": "daily", "hour": 22, "minute": 0}
+    },
+    {
+      "id": "catholic.compline",
+      "label": "Compline / Night Prayer",
+      "owner": "House of Catholic",
+      "source_row": 16,
+      "identity_granularity": "date",
+      "requires_model_runtime": true,
+      "schedule": {"kind": "daily", "hour": 23, "minute": 0}
+    }
+  ]
+}
