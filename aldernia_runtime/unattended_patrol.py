@@ -200,7 +200,7 @@ class DriveClient:
             return ""
         ranges: list[str] = []
         if spreadsheet_id == PALACE_REGISTER_ID:
-            ranges = ["Scheduled Tasks!A1:K30", "King's Consideration Queue!A1:L120"]
+            ranges = ["Scheduled Tasks!A1:L30", "King's Consideration Queue!A1:L120"]
         else:
             title = str(((sheets[0] or {}).get("properties") or {}).get("title") or "")
             if not title:
@@ -791,9 +791,97 @@ def run_once(
         return {"status": "HALTED", "action": "NONE"}
 
     state = load_scheduler_state(state_path)
-    event_id = _next_pending_heartbeat(state)
-    if event_id is None:
+    candidate = _next_pending_patrol(state, drive)
+    if candidate is None:
         return {"status": "NO_PENDING_HEARTBEAT", "action": "NONE"}
+
+    event_id = str(candidate["event_id"])
+    event = candidate["event"]
+    heartbeat_row = list(candidate["row"])
+    heartbeat_row_number = int(candidate["row_number"])
+    contract = candidate["contract"]
+
+    decision = catchup_decision(
+        contract,
+        event_id=event_id,
+        event=event,
+        state=state,
+        now=now,
+    )
+    if decision.disposition == "WAIT":
+        return {
+            "status": "NOT_DUE_YET",
+            "event_id": event_id,
+            "action": "NONE",
+        }
+
+    if decision.disposition.startswith("EXPIRE"):
+        claim = claim_event(
+            state_path=state_path,
+            timetable_path=timetable_path,
+            session_path=session_path,
+            event_id=event_id,
+            worker_id=worker_id,
+            runtime_class=MODEL_RUNTIME_CLASS,
+            now=now,
+        )
+        required_ids = [
+            str(value)
+            for value in claim.get("required_source_ids") or []
+        ]
+        retrieved: list[str] = []
+        for file_id in required_ids:
+            _, text = drive.read_text(
+                file_id, max_chars=MAX_AUTHORITY_CHARS
+            )
+            if not text.strip():
+                raise PatrolRuntimeError(
+                    f"required authority {file_id} could not be read as text"
+                )
+            retrieved.append(file_id)
+        summary = "EXPIRED / NO_ACTION — " + decision.detail
+        local_now = now.astimezone(ZoneInfo("Europe/London"))
+        write_ref = drive.write_task_run_state(
+            row_number=heartbeat_row_number,
+            last_run=local_now.strftime(
+                "%Y-%m-%d %H:%M %Z — CLOCK-TRIGGERED CATCH-UP DISPOSITION"
+            ),
+            outcome=summary,
+            evidence=(
+                f"Runtime event {event_id}. {summary} Sources: "
+                + ", ".join(retrieved)
+            )[:45000],
+        )
+        ack = acknowledge_event(
+            state_path=state_path,
+            timetable_path=timetable_path,
+            session_path=session_path,
+            event_id=event_id,
+            claim_id=str(claim["claim_id"]),
+            execution_result={
+                "outcome": "NO_ACTION",
+                "result_summary": summary,
+                "retrieved_source_ids": retrieved,
+                "evidence_refs": (
+                    [f"Drive:{value}" for value in retrieved]
+                    + [write_ref]
+                ),
+                "writes": [
+                    write_ref,
+                    "GitHub:clock-state/state/scheduled-duty-queue.json",
+                ],
+                "readback_verified": True,
+                "resource_classes_used": ["ALDERNIA_INTERNAL"],
+                "external_effect": "NONE",
+                "new_model_provider_access_granted": False,
+            },
+            now=now,
+        )
+        return {
+            "status": ack["status"],
+            "event_id": event_id,
+            "action": "CATCHUP_NO_ACTION",
+        }
 
     budget = BudgetLedger(budget_path)
     budget.guard(estimated_input_tokens=70000)
@@ -806,12 +894,18 @@ def run_once(
         worker_id=worker_id,
         runtime_class=MODEL_RUNTIME_CLASS,
         now=now,
+        execution_contract=contract.to_mapping(),
     )
     plan = claim.get("integrity_patrol")
     if not isinstance(plan, Mapping):
-        raise PatrolRuntimeError("heartbeat claim did not include an integrity patrol plan")
+        raise PatrolRuntimeError(
+            "specialist patrol claim did not include an integrity patrol plan"
+        )
 
-    required_ids = [str(value) for value in claim.get("required_source_ids") or []]
+    required_ids = [
+        str(value)
+        for value in claim.get("required_source_ids") or []
+    ]
     required_set = set(required_ids)
     authorities: list[dict[str, str]] = []
     retrieved_ids: list[str] = []
@@ -995,17 +1089,11 @@ def run_once(
         retrieved_ids.append(file_id)
         evidence_refs.append(f"Drive:{file_id}")
 
-    heartbeat_rows = drive.sheet_values("Scheduled Tasks!A2:K2")
-    if len(heartbeat_rows) != 1:
-        raise ControlledStop(
-            "Dynasty House Pulse Scheduled Tasks row 2 could not be read exactly once"
-        )
-
     budget.guard(estimated_input_tokens=50000)
     heartbeat, heartbeat_usage = model.heartbeat(
         _heartbeat_prompt(
             event_id=event_id,
-            row=heartbeat_rows[0],
+            row=heartbeat_row,
             sources=heartbeat_sources,
             patrol_receipt=patrol_receipt,
         )
@@ -1041,7 +1129,7 @@ def run_once(
         + "."
     )
     heartbeat_write = drive.write_task_run_state(
-        row_number=2,
+        row_number=heartbeat_row_number,
         last_run=local_now.strftime(
             "%Y-%m-%d %H:%M %Z — CLOCK-TRIGGERED HEARTBEAT"
         ),
