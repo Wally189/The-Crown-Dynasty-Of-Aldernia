@@ -255,7 +255,7 @@ class PublicSiteTests(unittest.TestCase):
             'class="national-broadside"',
             'class="section country-desk"',
             'class="region-ribbon"',
-            'class="live-desk"',
+            'class="section live-desk"',
             'class="front-door-links"',
             "Useful today",
             "The national desk",
@@ -280,7 +280,8 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn('class="wrap life-desk"', life)
         self.assertIn('class="day-rhythm"', life)
         self.assertIn('class="newsroom-grid"', media)
-        self.assertIn('class="newsroom-rule"', media)
+        self.assertIn("The desk today", media)
+        self.assertIn("Reality class: scheduled public-fictional editorial feature.", media)
 
 
     def test_threshold_explains_fiction_and_real_experiment_up_front(self):
