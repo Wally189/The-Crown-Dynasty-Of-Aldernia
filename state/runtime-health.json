@@ -1,6 +1,6 @@
 {
-  "checked_at": "2026-09-21T18:35:45+00:00",
-  "detail": "Missing provider configuration: Google WIF/Drive access token, OpenAI WIF identity or bounded fallback API key",
+  "checked_at": "2026-09-21T18:39:57+00:00",
+  "detail": "Missing provider configuration: Google WIF/Drive access token",
   "normal_path_requires_king_prompt": false,
   "pending_count": 1,
   "processed_event_ids": [],
