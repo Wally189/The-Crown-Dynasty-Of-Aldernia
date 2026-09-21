@@ -148,15 +148,26 @@ jobs:
                 continue;
               }
 
-              const layout = await page.evaluate(() => ({
-                scrollWidth: document.documentElement.scrollWidth,
-                clientWidth: document.documentElement.clientWidth,
-                h1: document.querySelectorAll('h1').length,
-                skip: Boolean(document.querySelector('a.skip-link')),
-                scrollBehavior: getComputedStyle(document.documentElement).scrollBehavior
-              }));
+              const layout = await page.evaluate(() => {
+                const clientWidth = document.documentElement.clientWidth;
+                const overflowers = [...document.querySelectorAll('body *')]
+                  .map(el => {
+                    const r = el.getBoundingClientRect();
+                    return {tag:el.tagName.toLowerCase(), cls:String(el.className || '').slice(0,80), id:el.id || '', left:Math.round(r.left), right:Math.round(r.right), width:Math.round(r.width)};
+                  })
+                  .filter(r => r.right > clientWidth + 1 || r.left < -1)
+                  .slice(0,12);
+                return {
+                  scrollWidth: document.documentElement.scrollWidth,
+                  clientWidth,
+                  h1: document.querySelectorAll('h1').length,
+                  skip: Boolean(document.querySelector('a.skip-link')),
+                  scrollBehavior: getComputedStyle(document.documentElement).scrollBehavior,
+                  overflowers
+                };
+              });
               if (layout.scrollWidth > layout.clientWidth + 1) {
-                failures.push(`${viewport.name} ${route}: horizontal overflow ${layout.scrollWidth} > ${layout.clientWidth}`);
+                failures.push(`${viewport.name} ${route}: horizontal overflow ${layout.scrollWidth} > ${layout.clientWidth}; offenders ${JSON.stringify(layout.overflowers)}`);
               }
               if (layout.h1 !== 1) failures.push(`${viewport.name} ${route}: expected exactly one h1, saw ${layout.h1}`);
               if (!layout.skip) failures.push(`${viewport.name} ${route}: missing skip link`);
