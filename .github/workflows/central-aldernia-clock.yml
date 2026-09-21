@@ -63,6 +63,16 @@ jobs:
           else
             printf '{"schema_version":1,"status":"NOT_YET_CHECKED","detail":"No governed ordinary-duty runtime health check has run yet.","processed_event_ids":[],"pending_count":0,"normal_path_requires_king_prompt":false}\n' > state/runtime-health.json
           fi
+          if git cat-file -e origin/clock-state:state/opportunity-resolver-state.json 2>/dev/null; then
+            git show origin/clock-state:state/opportunity-resolver-state.json > state/opportunity-resolver-state.json
+          else
+            printf '{"schema_version":1,"adapter_version":1,"resolver_state":{"schema_version":1,"blockers":{},"candidates":{}},"last_source_fingerprint":null,"last_decision_fingerprint":null,"run_count":0,"last_observed_at":null}\n' > state/opportunity-resolver-state.json
+          fi
+          if git cat-file -e origin/clock-state:state/opportunity-resolver-trace.json 2>/dev/null; then
+            git show origin/clock-state:state/opportunity-resolver-trace.json > state/opportunity-resolver-trace.json
+          else
+            printf '{}\n' > state/opportunity-resolver-trace.json
+          fi
 
       - name: Bounded chime and timetable proof
         env:
@@ -136,13 +146,24 @@ jobs:
           --budget state/patrol-budget.json
           --worker-id "github-central-aldernia-clock-patrol-${GITHUB_RUN_ID}"
 
+      - name: Observe Opportunity Resolver in shadow mode
+        run: >-
+          python -m aldernia_runtime.opportunity_shadow
+          --queue state/scheduled-duty-queue.json
+          --health state/runtime-health.json
+          --state state/opportunity-resolver-state.json
+          --trace state/opportunity-resolver-trace.json
+          --run-id "${GITHUB_RUN_ID}"
+
       - name: Persist Dynasty logical clock and scheduler state
         run: |
           cp state/clock-state.json /tmp/clock-state.json
           cp state/scheduled-duty-queue.json /tmp/scheduled-duty-queue.json
           cp state/patrol-budget.json /tmp/patrol-budget.json
           cp state/runtime-health.json /tmp/runtime-health.json
-          rm -f state/clock-state.json state/scheduled-duty-queue.json state/patrol-budget.json state/runtime-health.json state/bus-session.json
+          cp state/opportunity-resolver-state.json /tmp/opportunity-resolver-state.json
+          cp state/opportunity-resolver-trace.json /tmp/opportunity-resolver-trace.json
+          rm -f state/clock-state.json state/scheduled-duty-queue.json state/patrol-budget.json state/runtime-health.json state/opportunity-resolver-state.json state/opportunity-resolver-trace.json state/bus-session.json
           git config user.name "Central Aldernia Clock"
           git config user.email "actions@users.noreply.github.com"
           git switch clock-state
@@ -151,7 +172,9 @@ jobs:
           cp /tmp/scheduled-duty-queue.json state/scheduled-duty-queue.json
           cp /tmp/patrol-budget.json state/patrol-budget.json
           cp /tmp/runtime-health.json state/runtime-health.json
-          git add state/clock-state.json state/scheduled-duty-queue.json state/patrol-budget.json state/runtime-health.json
+          cp /tmp/opportunity-resolver-state.json state/opportunity-resolver-state.json
+          cp /tmp/opportunity-resolver-trace.json state/opportunity-resolver-trace.json
+          git add state/clock-state.json state/scheduled-duty-queue.json state/patrol-budget.json state/runtime-health.json state/opportunity-resolver-state.json state/opportunity-resolver-trace.json
           if ! git diff --cached --quiet; then
             git commit -m "Clock/scheduler state: run ${GITHUB_RUN_ID} [skip ci]"
             git push origin clock-state
