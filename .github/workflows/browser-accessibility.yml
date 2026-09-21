@@ -168,7 +168,17 @@ jobs:
                 };
               });
               if (layout.scrollWidth > layout.clientWidth + 1) {
-                failures.push(`${viewport.name} ${route}: horizontal overflow ${layout.scrollWidth} > ${layout.clientWidth}; offenders ${JSON.stringify(layout.overflowers)}`);
+                const pagePan = await page.evaluate(() => {
+                  window.scrollTo(1000, 0);
+                  const x = window.scrollX;
+                  window.scrollTo(0, 0);
+                  return x;
+                });
+                if (pagePan > 1) {
+                  failures.push(`${viewport.name} ${route}: page-level horizontal pan ${pagePan}px; extent ${layout.scrollWidth} > ${layout.clientWidth}; offenders ${JSON.stringify(layout.overflowers)}`);
+                } else {
+                  console.log(`PASS ${viewport.name} ${route}: overflow is contained inside a local scroller; no page-level pan`);
+                }
               }
               if (layout.h1 !== 1) failures.push(`${viewport.name} ${route}: expected exactly one h1, saw ${layout.h1}`);
               if (!layout.skip) failures.push(`${viewport.name} ${route}: missing skip link`);
@@ -187,6 +197,27 @@ jobs:
                 };
               });
               if (!focus.skip || !focus.visible) failures.push(`${viewport.name} ${route}: first keyboard focus is not a visible skip link`);
+
+              if (route === '/country/map.html' && viewport.name === 'reflow') {
+                const atlasScroll = await page.evaluate(() => {
+                  const frame = document.querySelector('.map-frame');
+                  if (!frame) return {present:false};
+                  const before = frame.scrollLeft;
+                  frame.scrollLeft = 120;
+                  const after = frame.scrollLeft;
+                  frame.scrollLeft = before;
+                  return {
+                    present:true,
+                    clientWidth:frame.clientWidth,
+                    scrollWidth:frame.scrollWidth,
+                    canScroll:after > before
+                  };
+                });
+                if (!atlasScroll.present) failures.push('reflow /country/map.html: map frame missing');
+                else if (!(atlasScroll.scrollWidth > atlasScroll.clientWidth && atlasScroll.canScroll)) {
+                  failures.push(`reflow /country/map.html: two-dimensional atlas is not contained in an operable local scroller ${JSON.stringify(atlasScroll)}`);
+                }
+              }
 
               if (route === '/' && viewport.name !== 'desktop') {
                 const firstFrame = await page.evaluate(() => {
