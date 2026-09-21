@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
@@ -18,10 +21,14 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 8
     steps:
-      - name: Check out accepted main
+      - name: Check out candidate or accepted main
         uses: actions/checkout@v4
 
+      - name: Structural regression tests
+        run: python -m unittest discover -s tests -v
+
       - name: Wait for the accepted public build
+        if: github.event_name != 'pull_request'
         shell: bash
         run: |
           set -euo pipefail
@@ -42,6 +49,21 @@ jobs:
           echo "Expected served build $EXPECTED but last observed $seen" >&2
           exit 1
 
+      - name: Start candidate server
+        if: github.event_name == 'pull_request'
+        shell: bash
+        run: |
+          set -euo pipefail
+          python -m http.server 8000 --bind 127.0.0.1 >/tmp/aldernia-http.log 2>&1 &
+          for attempt in $(seq 1 20); do
+            if curl -fsS http://127.0.0.1:8000/aldernia/build.json >/dev/null; then
+              exit 0
+            fi
+            sleep 1
+          done
+          cat /tmp/aldernia-http.log >&2 || true
+          exit 1
+
       - name: Locate Chrome
         id: chrome
         shell: bash
@@ -59,6 +81,7 @@ jobs:
       - name: Run desktop/mobile browser and WCAG checks
         env:
           CHROME_BIN: ${{ steps.chrome.outputs.bin }}
+          BASE_URL: ${{ github.event_name == 'pull_request' && 'http://127.0.0.1:8000' || 'https://wally189.github.io/The-Crown-Dynasty-Of-Aldernia' }}
         shell: bash
         run: |
           mkdir -p assurance/screens
@@ -68,7 +91,7 @@ jobs:
           const axePath = require.resolve('axe-core/axe.min.js');
 
           (async () => {
-          const base = 'https://wally189.github.io/The-Crown-Dynasty-Of-Aldernia';
+          const base = process.env.BASE_URL || 'https://wally189.github.io/The-Crown-Dynasty-Of-Aldernia';
           const routes = [
             '/',
             '/experiment/',
@@ -95,7 +118,7 @@ jobs:
             {name:'mobile', width:390, height:844, isMobile:true, hasTouch:true},
             {name:'desktop', width:1440, height:900, isMobile:false, hasTouch:false}
           ];
-          const screenshotRoutes = new Set(['/', '/experiment/', '/country/', '/country/map.html', '/country/assembly.html']);
+          const screenshotRoutes = new Set(['/', '/experiment/', '/country/', '/country/today.html', '/country/map.html', '/country/government.html', '/country/culture.html', '/country/data.html', '/country/assembly.html']);
           const failures = [];
           const browser = await puppeteer.launch({
             executablePath: process.env.CHROME_BIN,

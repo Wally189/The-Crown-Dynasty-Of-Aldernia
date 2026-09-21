@@ -10,10 +10,10 @@ Current post-reset public implementation of **Aldernia**: a governed AI experime
 - **Human** — Europe/London civil time.
 - **Human moment** — weekday/daypart context from the current public-state layer.
 
-The threshold now opens into two deliberately separate public facets:
+The threshold opens into two deliberately separate public facets:
 
 1. **The Aldernian Experiment** — the real, public-safe account of the governed LLM experiment.
-2. **Aldernia** — the fictional country and participatory editorial world, now including an accessible schematic national Atlas.
+2. **Aldernia** — the fictional country and participatory editorial world, with an accessible schematic national Atlas and a shared country journey linking current public layers.
 
 ## Current public edition
 
@@ -38,6 +38,14 @@ The Central Aldernia Clock and command-scoped computational bus remain separate 
 `CLOCK SIGNAL != MISSION`
 
 The runtime uses CloudEvents-style envelopes, COS-SEL-001 engine plans, exact permitted writes, idempotency and fail-closed handlers. Current deterministic public-state handling remains in `aldernia_runtime/`.
+
+## Country experience
+
+Country pages use a static first-paint Aldernian surface, one shared primary navigation grammar and deliberate page-to-page handoffs. The country home groups routes by visitor question rather than mirroring the internal file or institutional structure.
+
+## Candidate assurance
+
+Pull-request candidates are designed to run the same structural, desktop/mobile, reduced-motion and WCAG-tagged browser checks locally against the candidate before production publication. Production pushes still verify the independently served GitHub Pages artifact.
 
 ## Tests
 

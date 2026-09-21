@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
-  "id": "ALD-CROWN-FOUNDING-09",
-  "date": "2026-09-20",
-  "status": "Aldernian visual-atlas edition — editorial boundary corrected",
+  "id": "ALD-CROWN-FOUNDING-10",
+  "date": "2026-09-21",
+  "status": "Cohesion rebuild candidate — unified country journey and first-paint identity",
   "facets": [
     "experiment",
     "country"
@@ -19,6 +19,7 @@
     "infrastructure",
     "culture",
     "community",
+    "life",
     "media",
     "learning",
     "data"
