@@ -107,6 +107,14 @@ class ClockToRuntimeTests(unittest.TestCase):
             **self.paths(root),
             now=datetime(2026, 9, 21, 6, 1, tzinfo=timezone.utc),
         )
+        state_path = root / "scheduled-duty-queue.json"
+        state = json.loads(state_path.read_text())
+        state["events"] = {
+            event_id: event
+            for event_id, event in state["events"].items()
+            if event_id == GOV_EVENT or event_id == "dynasty.heartbeat:2026-09-21T06:00"
+        }
+        state_path.write_text(json.dumps(state))
 
     def test_scheduler_does_not_emit_event_child_from_time(self):
         with tempfile.TemporaryDirectory() as td:
