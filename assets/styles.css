@@ -913,3 +913,26 @@ body.country-surface {
   .journey-grid { grid-template-columns:1fr; }
   .journey-next { text-align:left; }
 }
+
+
+.route-grid { align-items: stretch; }
+.route-card { display:flex; flex-direction:column; }
+.route-card .eyebrow { margin-bottom:.45rem; }
+.route-card h3 { margin-bottom:.7rem; }
+.route-links {
+  list-style:none;
+  padding:0;
+  margin:auto 0 0;
+  border-top:1px solid var(--line);
+}
+.route-links li { border-bottom:1px solid var(--line); }
+.route-links a {
+  display:flex;
+  justify-content:space-between;
+  gap:1rem;
+  padding:.7rem 0;
+  font-weight:750;
+  text-decoration:none;
+}
+.route-links a::after { content:"→"; color:var(--zone-accent); }
+.route-links a:hover { text-decoration:underline; text-underline-offset:.2em; }
