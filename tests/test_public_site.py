@@ -143,6 +143,11 @@ class PublicSiteTests(unittest.TestCase):
         ):
             self.assertNotIn(token, text)
 
+    def test_home_calendar_preview_uses_reader_language_not_schema_language(self):
+        text = (ROOT / "assets" / "today.js").read_text(encoding="utf-8").lower()
+        self.assertNotIn("public-fictional calendar", text)
+        self.assertIn("fictional calendar", text)
+
     def test_root_visual_assets_are_local_and_present(self):
         text = (ROOT / "index.html").read_text(encoding="utf-8")
         names = ("coast", "capital", "highlands", "village", "people", "ferry", "governance", "workland", "history", "tomorrow")
