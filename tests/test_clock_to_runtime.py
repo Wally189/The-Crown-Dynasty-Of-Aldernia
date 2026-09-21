@@ -4,18 +4,82 @@ import unittest
 from datetime import datetime, timezone
 from pathlib import Path
 
+from aldernia_runtime.execution_contracts import (
+    PROFILE_BALCONY_RETURN,
+    PROFILE_GOVERNMENT_PULSE,
+    PROFILE_HEARTBEAT_PATROL,
+)
 from aldernia_runtime.scheduler import run_scheduler
-from aldernia_runtime.unattended_worker import _next_non_patrol, run_once
+from aldernia_runtime.unattended_worker import run_once
 
 HERE = Path(__file__).resolve().parents[1]
 TIMETABLE = HERE / "aldernia" / "schedule" / "timetable.json"
 GOV_EVENT = "government.daily-pulse:2026-09-21"
 RED_BOX_EVENT = "government.red-box:2026-09-21"
+HEARTBEAT = "dynasty.heartbeat:2026-09-21T06:00"
+
+
+def encoded(value):
+    return json.dumps(value, separators=(",", ":"))
+
+
+HEARTBEAT_CONTRACT = encoded(
+    {
+        "v": 1,
+        "duty_id": "dynasty.heartbeat",
+        "profile": PROFILE_HEARTBEAT_PATROL,
+        "engine_mode": "SPECIALIST",
+        "catchup": "LATEST_SUPERSEDES_PRIOR",
+    }
+)
+GOV_CONTRACT = encoded(
+    {
+        "v": 1,
+        "duty_id": "government.daily-pulse",
+        "profile": PROFILE_GOVERNMENT_PULSE,
+        "engine_mode": "DECLARED",
+        "catchup": "SAME_DAY_ALLOWED",
+        "successor": {
+            "duty_id": "government.red-box",
+            "parent_case_prefix": "government-pulse",
+            "terminal_map": {
+                "VERIFIED_CLOSED": "government.pulse.closed",
+                "FAILED_CLOSED": "government.pulse.failed_closed",
+            },
+        },
+    }
+)
+RED_CONTRACT = encoded(
+    {
+        "v": 1,
+        "duty_id": "government.red-box",
+        "profile": PROFILE_BALCONY_RETURN,
+        "engine_mode": "DECLARED",
+        "catchup": "SAME_DAY_ALLOWED",
+    }
+)
+
+
+def task_row(assigned_engine, contract):
+    row = ["test"] * 12
+    row[3] = assigned_engine
+    row[11] = contract
+    return row
 
 
 class FakeDrive:
     def __init__(self):
-        self.rows = {}
+        self.rows = {
+            2: task_row("", HEARTBEAT_CONTRACT),
+            12: task_row(
+                "House of Marianne — Centre of Government & Cabinet Coordination",
+                GOV_CONTRACT,
+            ),
+            13: task_row(
+                "House of Marianne — Centre of Government → Royal Palace",
+                RED_CONTRACT,
+            ),
+        }
         self.writes = []
 
     def read_text(self, file_id, *, max_chars):
@@ -29,7 +93,7 @@ class FakeDrive:
         )
 
     def scheduled_row(self, row_number):
-        return self.rows.setdefault(row_number, ["test"] * 11)
+        return list(self.rows[row_number])
 
     def write_run_state(self, *, row_number, last_run, outcome, evidence):
         self.writes.append((row_number, last_run, outcome, evidence))
@@ -41,7 +105,13 @@ class FakeModel:
         self.fail_government = fail_government
         self.calls = []
 
-    def execute(self, prompt, *, public_web_read=False):
+    def execute(
+        self,
+        prompt,
+        *,
+        public_web_read=False,
+        profile_instruction="",
+    ):
         self.calls.append(prompt)
         self.public_web_flags = getattr(self, "public_web_flags", [])
         self.public_web_flags.append(public_web_read)
@@ -86,14 +156,10 @@ class FakeModel:
                 ),
                 "crown_action_required": False,
             }
-        return {
-            "outcome": "NO_ACTION",
-            "result_summary": "No material action due in this controlled test.",
-            "evidence_refs": ["test:no-action"],
-            "domain_terminal_state": None,
-            "red_box_content": None,
-            "crown_action_required": False,
-        }
+        raise AssertionError("unexpected model duty")
+
+    def select_engine(self, prompt):
+        raise AssertionError("Government regression uses DECLARED routing")
 
 
 class ClockToRuntimeTests(unittest.TestCase):
@@ -114,7 +180,7 @@ class ClockToRuntimeTests(unittest.TestCase):
         state["events"] = {
             event_id: event
             for event_id, event in state["events"].items()
-            if event_id == GOV_EVENT or event_id == "dynasty.heartbeat:2026-09-21T06:00"
+            if event_id in {GOV_EVENT, HEARTBEAT}
         }
         state_path.write_text(json.dumps(state))
 
@@ -157,12 +223,10 @@ class ClockToRuntimeTests(unittest.TestCase):
             red = state["events"][RED_BOX_EVENT]
             self.assertEqual(gov["status"], "ACKNOWLEDGED_ACTION")
             self.assertEqual(
-                gov["domain_terminal_state"],
-                "VERIFIED_CLOSED",
+                gov["domain_terminal_state"], "VERIFIED_CLOSED"
             )
             self.assertEqual(
-                gov["receipt"]["domain_terminal_state"],
-                "VERIFIED_CLOSED",
+                gov["receipt"]["domain_terminal_state"], "VERIFIED_CLOSED"
             )
             self.assertEqual(red["event_type"], "government.pulse.closed")
             self.assertEqual(red["status"], "ACKNOWLEDGED_ACTION")
@@ -173,6 +237,14 @@ class ClockToRuntimeTests(unittest.TestCase):
             self.assertIn(
                 "DAILY ALDERNIAN GOVERNMENT RED BOX",
                 red["receipt"]["red_box_content"],
+            )
+            self.assertEqual(
+                gov["receipt"]["execution_profile"],
+                PROFILE_GOVERNMENT_PULSE,
+            )
+            self.assertEqual(
+                red["receipt"]["execution_profile"],
+                PROFILE_BALCONY_RETURN,
             )
 
     def test_failed_government_emits_exception_child(self):
@@ -205,7 +277,39 @@ class ClockToRuntimeTests(unittest.TestCase):
                 ],
             )
 
-    def test_public_web_is_explicitly_gated_by_duty(self):
+    def test_successor_creation_is_idempotent(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            self.seed_government(root)
+            drive = FakeDrive()
+            model = FakeModel()
+            run_once(
+                **self.paths(root),
+                drive=drive,
+                model=model,
+                worker_id="github-clock-runtime-test",
+                max_events=2,
+                now=datetime(2026, 9, 21, 6, 2, tzinfo=timezone.utc),
+            )
+            run_once(
+                **self.paths(root),
+                drive=drive,
+                model=model,
+                worker_id="github-clock-runtime-test",
+                max_events=2,
+                now=datetime(2026, 9, 21, 6, 3, tzinfo=timezone.utc),
+            )
+            state = json.loads(
+                (root / "scheduled-duty-queue.json").read_text()
+            )
+            red_ids = [
+                event_id
+                for event_id in state["events"]
+                if event_id.startswith("government.red-box:")
+            ]
+            self.assertEqual(red_ids, [RED_BOX_EVENT])
+
+    def test_public_web_is_explicitly_gated_by_projection(self):
         timetable = json.loads(TIMETABLE.read_text())
         duties = {duty["id"]: duty for duty in timetable["duties"]}
         self.assertTrue(duties["josie.morning-news"]["public_web_read"])
@@ -217,13 +321,27 @@ class ClockToRuntimeTests(unittest.TestCase):
             bool(duties["carol.business-opening"].get("public_web_read"))
         )
 
-    def test_generic_worker_skips_heartbeat_for_specialist_patrol_adapter(self):
+    def test_ordinary_worker_skips_specialist_profile_not_duty_name(self):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
             self.seed_government(root)
-            candidate = _next_non_patrol(**self.paths(root))
-            self.assertIsNotNone(candidate)
-            self.assertEqual(candidate["event_id"], GOV_EVENT)
+            run_once(
+                **self.paths(root),
+                drive=FakeDrive(),
+                model=FakeModel(),
+                worker_id="github-clock-runtime-test",
+                max_events=1,
+                now=datetime(2026, 9, 21, 6, 2, tzinfo=timezone.utc),
+            )
+            state = json.loads(
+                (root / "scheduled-duty-queue.json").read_text()
+            )
+            self.assertEqual(
+                state["events"][HEARTBEAT]["status"], "PENDING_RUNTIME"
+            )
+            self.assertEqual(
+                state["events"][GOV_EVENT]["status"], "ACKNOWLEDGED_ACTION"
+            )
 
 
 if __name__ == "__main__":
