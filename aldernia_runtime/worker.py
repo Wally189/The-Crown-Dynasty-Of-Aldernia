@@ -139,6 +139,7 @@ def _recover_expired_claim_in_memory(
             "resource_classes_used": ["ALDERNIA_INTERNAL"],
             "failure_class": "DELIVERY_UNCONFIRMED",
         }
+        event["claim"] = None
         return "FAILED_CLOSED"
 
     event["status"] = "PENDING_RUNTIME"
