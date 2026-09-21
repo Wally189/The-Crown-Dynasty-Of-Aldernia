@@ -635,6 +635,40 @@ class BudgetLedger:
         _atomic_json(self.path, self.value)
 
 
+def _heartbeat_source_ids() -> list[str]:
+    ids = [str(value) for value in PATROL_COMMON_SOURCE_IDS]
+    for estate in ESTATES:
+        ids.extend(str(value) for value in estate.get("required_source_ids") or ())
+    return list(dict.fromkeys(ids))
+
+
+def _heartbeat_prompt(
+    *,
+    event_id: str,
+    row: list[str],
+    sources: list[dict[str, str]],
+    patrol_receipt: Mapping[str, Any],
+) -> str:
+    blocks = [
+        f"EVENT_ID: {event_id}",
+        "ROYAL HOUSEHOLD ACCESS: PROHIBITED",
+        "CURRENT SCHEDULED TASK ROW A:K:",
+        json.dumps(row, ensure_ascii=False),
+        "INTEGRITY PATROL RESULT:",
+        json.dumps(patrol_receipt, ensure_ascii=False),
+        "CURRENT GOVERNED INSTITUTION SOURCES:",
+    ]
+    for source in sources:
+        blocks.append(
+            f"\n## {source['name']}\nFILE_ID: {source['id']}\n{source['text']}"
+        )
+    blocks.append(
+        "\nReconcile only material present state. Distinguish routine institution-owned "
+        "state from genuine Crown attention. Do not manufacture activity to fill the Pulse."
+    )
+    return "\n".join(blocks)
+
+
 def _next_pending_heartbeat(state: Mapping[str, Any]) -> str | None:
     candidates: list[tuple[str, str]] = []
     events = state.get("events")
