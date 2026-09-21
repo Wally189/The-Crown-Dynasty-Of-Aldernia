@@ -2,6 +2,12 @@ name: Central Aldernia Clock
 
 on:
   workflow_dispatch:
+    inputs:
+      patrol_acceptance:
+        description: "Run controlled Option-B fixture acceptance before the normal bounded patrol claim"
+        required: false
+        default: false
+        type: boolean
   push:
     branches:
       - main
@@ -10,6 +16,7 @@ on:
 
 permissions:
   contents: write
+  id-token: write
 
 concurrency:
   group: aldernia-runtime-state
@@ -18,7 +25,7 @@ concurrency:
 jobs:
   clock-health-and-chime:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 8
     steps:
       - name: Check out production main
         uses: actions/checkout@v4
@@ -61,7 +68,72 @@ jobs:
           --state state/scheduled-duty-queue.json
           --session state/bus-session.json
 
-      - name: Persist Dynasty logical clock and scheduler state
+      - name: Check Option-B provider bindings
+        id: option_b
+        env:
+          WIF_PROVIDER: ${{ vars.ALDERNIA_PATROL_WIF_PROVIDER }}
+          SERVICE_ACCOUNT: ${{ vars.ALDERNIA_PATROL_GCP_SERVICE_ACCOUNT }}
+          GCP_PROJECT_ID: ${{ vars.ALDERNIA_PATROL_GCP_PROJECT_ID }}
+          OPENAI_API_KEY: ${{ secrets.ALDERNIA_PATROL_OPENAI_API_KEY }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if [ -n "$WIF_PROVIDER" ] && [ -n "$SERVICE_ACCOUNT" ] && [ -n "$GCP_PROJECT_ID" ] && [ -n "$OPENAI_API_KEY" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+            echo "Option-B provider bindings are present."
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "Option-B provider bindings are incomplete; scheduler state will persist but unattended patrol will remain pending."
+          fi
+
+      - name: Obtain short-lived Google patrol token
+        id: google_auth
+        if: steps.option_b.outputs.configured == 'true'
+        uses: google-github-actions/auth@v3
+        with:
+          project_id: ${{ vars.ALDERNIA_PATROL_GCP_PROJECT_ID }}
+          workload_identity_provider: ${{ vars.ALDERNIA_PATROL_WIF_PROVIDER }}
+          service_account: ${{ vars.ALDERNIA_PATROL_GCP_SERVICE_ACCOUNT }}
+          token_format: access_token
+          access_token_lifetime: 900s
+          access_token_scopes: https://www.googleapis.com/auth/drive
+          create_credentials_file: false
+
+      - name: Controlled Option-B acceptance fixtures
+        id: fixture
+        if: >-
+          steps.option_b.outputs.configured == 'true' &&
+          github.event_name == 'workflow_dispatch' &&
+          inputs.patrol_acceptance == true
+        continue-on-error: true
+        env:
+          GOOGLE_OAUTH_ACCESS_TOKEN: ${{ steps.google_auth.outputs.access_token }}
+          OPENAI_API_KEY: ${{ secrets.ALDERNIA_PATROL_OPENAI_API_KEY }}
+          ALDERNIA_PATROL_MODEL: gpt-5.6-luna
+        run: >-
+          python -m aldernia_runtime.unattended_patrol
+          --state state/scheduled-duty-queue.json
+          --timetable aldernia/schedule/timetable.json
+          --session state/bus-session.json
+          --fixture-test
+
+      - name: Run one bounded unattended Heartbeat patrol slice
+        id: patrol
+        if: >-
+          steps.option_b.outputs.configured == 'true' &&
+          steps.fixture.outcome != 'failure'
+        continue-on-error: true
+        env:
+          GOOGLE_OAUTH_ACCESS_TOKEN: ${{ steps.google_auth.outputs.access_token }}
+          OPENAI_API_KEY: ${{ secrets.ALDERNIA_PATROL_OPENAI_API_KEY }}
+          ALDERNIA_PATROL_MODEL: gpt-5.6-luna
+        run: >-
+          python -m aldernia_runtime.unattended_patrol
+          --state state/scheduled-duty-queue.json
+          --timetable aldernia/schedule/timetable.json
+          --session state/bus-session.json
+
+      - name: Persist Dynasty logical clock, scheduler and worker state
         run: |
           cp state/clock-state.json /tmp/clock-state.json
           cp state/scheduled-duty-queue.json /tmp/scheduled-duty-queue.json
@@ -77,3 +149,11 @@ jobs:
             git commit -m "Clock/scheduler state: run ${GITHUB_RUN_ID} [skip ci]"
             git push origin clock-state
           fi
+
+      - name: Fail closed after persisting an Option-B runtime exception
+        if: >-
+          steps.fixture.outcome == 'failure' ||
+          steps.patrol.outcome == 'failure'
+        run: |
+          echo "Option-B runtime failed after durable scheduler/claim state was persisted." >&2
+          exit 1
