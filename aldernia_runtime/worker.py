@@ -528,6 +528,7 @@ def acknowledge_event(
             domain_terminal_state=str(domain_terminal_state),
             now=now,
         )
+        event["domain_terminal_state"] = domain_terminal_state
 
     if duty["id"] == "government.red-box":
         red_box_content = execution_result.get("red_box_content")
