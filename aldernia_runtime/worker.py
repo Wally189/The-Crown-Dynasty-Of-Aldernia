@@ -291,17 +291,19 @@ def recover_expired_claim(
     event, duty = _event_and_duty(
         state=state, timetable_path=timetable_path, event_id=event_id
     )
+    contract = _claim_contract(event)
     result = _recover_expired_claim_in_memory(event, now=now)
-    if result == "FAILED_CLOSED" and duty["id"] == "government.daily-pulse":
+    if result == "FAILED_CLOSED" and contract is not None:
         receipt = event.get("receipt")
         if isinstance(receipt, dict):
-            _create_government_red_box_child(
+            _create_successor_child(
                 state=state,
                 timetable_path=timetable_path,
                 parent_event=event,
                 parent_event_id=event_id,
                 parent_receipt=receipt,
-                domain_terminal_state="FAILED_CLOSED",
+                contract=contract,
+                terminal_state="FAILED_CLOSED",
                 now=now,
             )
     _write_state(state_path, state)
@@ -312,7 +314,6 @@ def recover_expired_claim(
         "accountable_owner": duty["owner"],
     }
 
-
 def claim_event(
     *,
     state_path: Path,
@@ -322,6 +323,7 @@ def claim_event(
     worker_id: str,
     runtime_class: str,
     now: datetime,
+    execution_contract: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     if not worker_id.strip():
         raise WorkerError("worker_id is required")
@@ -334,6 +336,15 @@ def claim_event(
         state=state, timetable_path=timetable_path, event_id=event_id
     )
 
+    contract = None
+    if execution_contract is not None:
+        try:
+            contract = parse_contract_mapping(
+                execution_contract, expected_duty_id=str(duty["id"])
+            )
+        except ContractError as exc:
+            raise WorkerError(str(exc)) from exc
+
     if event.get("status") in TERMINAL_STATUSES:
         return {
             "event_id": event_id,
@@ -345,30 +356,45 @@ def claim_event(
     if event.get("status") == "CLAIMED_RUNTIME":
         recovery = _recover_expired_claim_in_memory(event, now=now)
         if recovery == "CLAIM_ACTIVE":
-            claim = event["claim"]
-            if claim.get("worker_id") != worker_id:
-                raise WorkerError("event already has an active claim by another runtime")
+            active = event["claim"]
+            if active.get("worker_id") != worker_id:
+                raise WorkerError(
+                    "event already has an active claim by another runtime"
+                )
             _write_state(state_path, state)
+            required_source_ids = list(COMMON_REQUIRED_SOURCE_IDS) + list(
+                duty.get("required_source_ids") or []
+            )
+            patrol = active.get("integrity_patrol")
+            if isinstance(patrol, Mapping):
+                required_source_ids.extend(
+                    str(value)
+                    for value in patrol.get("required_source_ids") or []
+                )
             return {
                 "event_id": event_id,
                 "status": "RESUMED_CLAIM",
-                "claim_id": claim["claim_id"],
-                "attempt": claim["attempt"],
+                "claim_id": active["claim_id"],
+                "attempt": active["attempt"],
                 "accountable_owner": duty["owner"],
-                "lease_expires_at": claim["lease_expires_at"],
-                "integrity_patrol": claim.get("integrity_patrol"),
+                "lease_expires_at": active["lease_expires_at"],
+                "integrity_patrol": active.get("integrity_patrol"),
+                "execution_contract": active.get("execution_contract"),
+                "required_source_ids": list(dict.fromkeys(required_source_ids)),
             }
         if recovery == "FAILED_CLOSED":
-            if duty["id"] == "government.daily-pulse":
+            failed_contract = contract or _claim_contract(event)
+            if failed_contract is not None:
                 receipt = event.get("receipt")
                 if isinstance(receipt, dict):
-                    _create_government_red_box_child(
+                    _create_successor_child(
                         state=state,
                         timetable_path=timetable_path,
                         parent_event=event,
                         parent_event_id=event_id,
                         parent_receipt=receipt,
-                        domain_terminal_state="FAILED_CLOSED",
+                        contract=failed_contract,
+                        terminal_state="FAILED_CLOSED",
                         now=now,
                     )
             _write_state(state_path, state)
@@ -379,11 +405,17 @@ def claim_event(
             }
 
     if event.get("status") != "PENDING_RUNTIME":
-        raise WorkerError(f"event is not claimable from status {event.get('status')!r}")
+        raise WorkerError(
+            f"event is not claimable from status {event.get('status')!r}"
+        )
 
-    requires_model = bool(event.get("payload", {}).get("requires_model_runtime"))
+    requires_model = bool(
+        event.get("payload", {}).get("requires_model_runtime")
+    )
     if requires_model and runtime_class != MODEL_RUNTIME_CLASS:
-        raise WorkerError("model-bearing duty requires a governed connected model runtime")
+        raise WorkerError(
+            "model-bearing duty requires a governed connected model runtime"
+        )
 
     prior_claims = event.get("claim_history") or []
     if not isinstance(prior_claims, list):
@@ -392,7 +424,12 @@ def claim_event(
     if attempt > MAX_ATTEMPTS:
         raise WorkerError("safe claim attempt limit exceeded")
 
-    patrol_plan = plan_slice(state) if duty["id"] == "dynasty.heartbeat" else None
+    patrol_plan = (
+        plan_slice(state)
+        if contract is not None
+        and contract.profile == PROFILE_HEARTBEAT_PATROL
+        else None
+    )
     claim_id = _claim_id(event_id, worker_id, attempt, now)
     claim = {
         "schema_version": WORKER_STATE_VERSION,
@@ -409,6 +446,8 @@ def claim_event(
         "mission_ref": event.get("mission_ref"),
         "authority_ref": event.get("authority_ref"),
     }
+    if contract is not None:
+        claim["execution_contract"] = contract.to_mapping()
     if patrol_plan is not None:
         claim["integrity_patrol"] = patrol_plan
 
@@ -422,7 +461,9 @@ def claim_event(
     event["status"] = "CLAIMED_RUNTIME"
     event["claim"] = claim
     event["payload"]["accountable_owner"] = duty["owner"]
-    event["payload"]["required_source_ids"] = list(duty.get("required_source_ids") or [])
+    event["payload"]["required_source_ids"] = list(
+        duty.get("required_source_ids") or []
+    )
     if patrol_plan is not None:
         event["payload"]["integrity_patrol"] = patrol_plan
     _write_state(state_path, state)
@@ -436,10 +477,11 @@ def claim_event(
         "lease_expires_at": claim["lease_expires_at"],
         "required_source_ids": required_source_ids,
     }
+    if contract is not None:
+        result["execution_contract"] = contract.to_mapping()
     if patrol_plan is not None:
         result["integrity_patrol"] = patrol_plan
     return result
-
 
 def acknowledge_event(
     *,
