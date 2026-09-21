@@ -1,8 +1,8 @@
 {
   "adapter_version": 1,
-  "last_decision_fingerprint": "f1e8806a92b7c19acee2e5b39fb7f5d63678e90bd5ef57b19095814047ee3e06",
-  "last_observed_at": "2026-09-21T20:57:44.572667+00:00",
-  "last_source_fingerprint": "89a1e83fceaabffc735c89b23dd9979727f1ddd6e31f6b4013c66c255aa0f716",
+  "last_decision_fingerprint": "c90cc0f925715432c7d8f2121798447647c9b3fd695c16436c0f9406a7bef54f",
+  "last_observed_at": "2026-09-21T23:59:40.076193+00:00",
+  "last_source_fingerprint": "ebfa2b525dbbdfdf6e3ae92676181540be1d0095784c9056a13bbb67c8add65a",
   "resolver_state": {
     "blockers": {
       "google-wif-drive-provider-access": {
@@ -16,6 +16,18 @@
       "DUE::aldernia.website-voice:2026-09-21": {
         "candidate_id": "DUE::aldernia.website-voice:2026-09-21",
         "evidence_hash": "3cd13c8968dffbf7e2597ddc7320c54e936115faa75db34762bc39c417f5ed03",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
+      "DUE::carol.availability-gate:2026-09-21": {
+        "candidate_id": "DUE::carol.availability-gate:2026-09-21",
+        "evidence_hash": "90fcfe11a0be12cda3bfe3a4a8c612be651effbc85fe486c271e8d29f4044657",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
+      "DUE::catholic.compline:2026-09-21": {
+        "candidate_id": "DUE::catholic.compline:2026-09-21",
+        "evidence_hash": "b86a49534754411b1ab352f7ff8c6ecc2b026241354435a300d3b9fcd19a8bdd",
         "next_review_trigger": null,
         "terminal_classification": "BLOCKED"
       },
@@ -34,6 +46,12 @@
       "DUE::dynasty.heartbeat:2026-09-21T21:00": {
         "candidate_id": "DUE::dynasty.heartbeat:2026-09-21T21:00",
         "evidence_hash": "8bccaf54ccecdf50d519bce1854556f723382de4a5882bff4d9def48f3bd7ee5",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
+      "DUE::dynasty.heartbeat:2026-09-21T22:00": {
+        "candidate_id": "DUE::dynasty.heartbeat:2026-09-21T22:00",
+        "evidence_hash": "0e7064a0ea6358015174865ade4aee128ef88bfc59e28e78a8f519c632793df8",
         "next_review_trigger": null,
         "terminal_classification": "BLOCKED"
       },
@@ -58,6 +76,6 @@
     },
     "schema_version": 1
   },
-  "run_count": 4,
+  "run_count": 5,
   "schema_version": 1
 }
