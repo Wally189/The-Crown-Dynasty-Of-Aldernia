@@ -35,23 +35,65 @@
       ],
       "scheduled_for": "2026-09-21T05:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "CLAIMED_RUNTIME",
+      "status": "ACKNOWLEDGED_ACTION",
       "transition_class": "scheduled_duty_due",
-      "claim": {
+      "claim": null,
+      "receipt": {
         "schema_version": 1,
-        "claim_id": "bd6fb510388e9464da452d91",
+        "outcome": "ACTION",
+        "result_summary": "05:00 catch-up completed under House of Catholic source control. The 21 September St Matthew Office of Readings and Morning Prayer/Lauds were identified through the controlled Catholic source hierarchy and Universalis presentation service, and the common-observance route was reconciled. No sacramental, ecclesiastical-office or human interior-prayer claim was made; no substantial copyrighted liturgical text was copied.",
+        "completed_at": "2026-09-21T05:53:02+00:00",
         "worker_id": "chatgpt-helm-session-2026-09-21-catchup",
         "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
         "accountable_owner": "House of Catholic",
-        "claimed_at": "2026-09-21T05:52:00+00:00",
-        "lease_expires_at": "2026-09-21T06:22:00+00:00",
+        "claim_id": "bd6fb510388e9464da452d91",
         "attempt": 1,
+        "retrieved_source_ids": [
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
+          "1qt5MfeHOQZji_p3nBSbz8hTvFMq1uThHtSaOMo6qh24",
+          "1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY"
+        ],
+        "evidence_refs": [
+          "Drive:SRC-032 Universalis presentation-service control",
+          "https://universalis.com/w/20260921/readings.htm",
+          "https://universalis.com/L/Europe.England.Ordinariate/20260921/lauds.htm"
+        ],
+        "writes": [
+          "GitHub clock-state/state/scheduled-duty-queue.json durable receipt"
+        ],
+        "readback_verified": true,
         "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL",
+          "PUBLIC_READ_ONLY"
+        ],
+        "external_effect": "NONE",
         "new_model_provider_access_granted": false,
-        "external_access_grants": [],
-        "mission_ref": "NONE — DUE EVALUATION ONLY",
-        "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 16"
-      }
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false
+      },
+      "claim_history": [
+        {
+          "schema_version": 1,
+          "claim_id": "bd6fb510388e9464da452d91",
+          "worker_id": "chatgpt-helm-session-2026-09-21-catchup",
+          "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+          "accountable_owner": "House of Catholic",
+          "claimed_at": "2026-09-21T05:52:00+00:00",
+          "lease_expires_at": "2026-09-21T06:22:00+00:00",
+          "attempt": 1,
+          "estate_scope": "ALDERNIA",
+          "new_model_provider_access_granted": false,
+          "external_access_grants": [],
+          "mission_ref": "NONE — DUE EVALUATION ONLY",
+          "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 16"
+        }
+      ]
     },
     "catholic.mass-readings:2026-09-21": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -88,23 +130,66 @@
       ],
       "scheduled_for": "2026-09-21T06:30:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "CLAIMED_RUNTIME",
+      "status": "ACKNOWLEDGED_ACTION",
       "transition_class": "scheduled_duty_due",
-      "claim": {
+      "claim": null,
+      "receipt": {
         "schema_version": 1,
-        "claim_id": "55c948cd439a3e742cb1abb8",
+        "outcome": "ACTION",
+        "result_summary": "06:30 Mass-readings formation catch-up completed. England calendar: Feast of Saint Matthew, Apostle and Evangelist, red. Reading references: Ephesians 4:1-7,11-13; Psalm 19(18); Gospel Matthew 9:9-13. The Vatican News commentary is Pope Benedict XVI, Angelus, 8 June 2008—not generically a 'Vatican-approved homily'. Formation synthesis: Christian vocation is ordered to unity and service in building up the Body of Christ, while Matthew's call places mercy and conversion at the centre. Internal formation only; no sacramental-attendance claim.",
+        "completed_at": "2026-09-21T05:53:02+00:00",
         "worker_id": "chatgpt-helm-session-2026-09-21-catchup",
         "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
         "accountable_owner": "House of Catholic",
-        "claimed_at": "2026-09-21T05:52:00+00:00",
-        "lease_expires_at": "2026-09-21T06:22:00+00:00",
+        "claim_id": "55c948cd439a3e742cb1abb8",
         "attempt": 1,
+        "retrieved_source_ids": [
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
+          "1qt5MfeHOQZji_p3nBSbz8hTvFMq1uThHtSaOMo6qh24",
+          "1tUVJfn1r5joQEgGTmG8frxmQXLuOmyNzUY8gqL1oSVk",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY"
+        ],
+        "evidence_refs": [
+          "Drive:SRC-016 England/Wales Lectionary baseline",
+          "Drive:SRC-031 Vatican News Word of the Day",
+          "https://www.vaticannews.va/en/word-of-the-day/2026/09/21.html",
+          "https://universalis.com/Europe.England/mass.htm"
+        ],
+        "writes": [
+          "GitHub clock-state/state/scheduled-duty-queue.json durable receipt"
+        ],
+        "readback_verified": true,
         "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL",
+          "PUBLIC_READ_ONLY"
+        ],
+        "external_effect": "NONE",
         "new_model_provider_access_granted": false,
-        "external_access_grants": [],
-        "mission_ref": "NONE — DUE EVALUATION ONLY",
-        "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 14"
-      }
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false
+      },
+      "claim_history": [
+        {
+          "schema_version": 1,
+          "claim_id": "55c948cd439a3e742cb1abb8",
+          "worker_id": "chatgpt-helm-session-2026-09-21-catchup",
+          "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+          "accountable_owner": "House of Catholic",
+          "claimed_at": "2026-09-21T05:52:00+00:00",
+          "lease_expires_at": "2026-09-21T06:22:00+00:00",
+          "attempt": 1,
+          "estate_scope": "ALDERNIA",
+          "new_model_provider_access_granted": false,
+          "external_access_grants": [],
+          "mission_ref": "NONE — DUE EVALUATION ONLY",
+          "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 14"
+        }
+      ]
     },
     "dynasty.heartbeat:2026-09-21T06:00": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -141,23 +226,72 @@
       ],
       "scheduled_for": "2026-09-21T06:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "CLAIMED_RUNTIME",
+      "status": "ACKNOWLEDGED_ACTION",
       "transition_class": "scheduled_duty_due",
-      "claim": {
+      "claim": null,
+      "receipt": {
         "schema_version": 1,
-        "claim_id": "edcb58e07c5bcc4437ce26a4",
+        "outcome": "ACTION",
+        "result_summary": "06:00 Dynasty Heartbeat catch-up completed from current House-owned records. Principal institutions were checked without transferring ownership: Carol is live-operating with external evidence boundaries intact; Nathaniel, Vivienne and Tony retain bounded evidence-earned capability states; Josie remains internal-operating-pilot with external publication on hold; House of Catholic remains controlled internal under real Church authority; HMDF has no current live mission or external capability; Government remains on its controlled current-state route with open public-money capability work; independent-institution commissioning limits remain visible. No new Crown-reserved decision was identified. The missed Dawn/News/Mass occurrences were recognised and routed for catch-up.",
+        "completed_at": "2026-09-21T05:53:02+00:00",
         "worker_id": "chatgpt-helm-session-2026-09-21-catchup",
         "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
         "accountable_owner": "Royal Palace",
-        "claimed_at": "2026-09-21T05:52:00+00:00",
-        "lease_expires_at": "2026-09-21T06:22:00+00:00",
+        "claim_id": "edcb58e07c5bcc4437ce26a4",
         "attempt": 1,
+        "retrieved_source_ids": [
+          "13ZW5khEzz_IPL3bR_DXtRY-s4z8qpKKQmUz7Lu06nWw",
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE",
+          "1KiH8nsUBO8FA3HzcJSYnko_heuDiEQSpMe-np0-e7Sk",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "1RCbdhSLeU-pDgrRfZDkd2e7lcCVX46uti5RK9SvkTno",
+          "1RwwJX4yzsgTFLCoKel1geMNz0RqRje1ljfPhQHQrVSs",
+          "1X4fjKOe7dM95RlDstT7DAUbwR8eyZwkGvqdJ44OVOz0",
+          "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
+          "1fZ7_rv8nMkPgJIHCHOH45fYPmNdKKhVlUkDoyoIfKoU",
+          "1ffQZMgXnQPe0tlI_RUdYhnAKOASGi_6yRXlEprVUSiw",
+          "1iyPMszZukxm9rnQeRHkHf1v6EC9kMDy_zyRZPVRbe3A",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY",
+          "1wxAoiO4kLqzK8_jrrzP8uI0EbU46PtA4-vXxCE8Eh_M"
+        ],
+        "evidence_refs": [
+          "Drive:current principal institution state pointers",
+          "GitHub:clock-state scheduled-duty queue"
+        ],
+        "writes": [
+          "GitHub clock-state/state/scheduled-duty-queue.json durable receipt"
+        ],
+        "readback_verified": true,
         "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL",
+          "PUBLIC_READ_ONLY"
+        ],
+        "external_effect": "NONE",
         "new_model_provider_access_granted": false,
-        "external_access_grants": [],
-        "mission_ref": "NONE — DUE EVALUATION ONLY",
-        "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 2"
-      }
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false
+      },
+      "claim_history": [
+        {
+          "schema_version": 1,
+          "claim_id": "edcb58e07c5bcc4437ce26a4",
+          "worker_id": "chatgpt-helm-session-2026-09-21-catchup",
+          "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+          "accountable_owner": "Royal Palace",
+          "claimed_at": "2026-09-21T05:52:00+00:00",
+          "lease_expires_at": "2026-09-21T06:22:00+00:00",
+          "attempt": 1,
+          "estate_scope": "ALDERNIA",
+          "new_model_provider_access_granted": false,
+          "external_access_grants": [],
+          "mission_ref": "NONE — DUE EVALUATION ONLY",
+          "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 2"
+        }
+      ]
     },
     "josie.morning-news:2026-09-21": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -194,23 +328,67 @@
       ],
       "scheduled_for": "2026-09-21T06:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "CLAIMED_RUNTIME",
+      "status": "ACKNOWLEDGED_ACTION",
       "transition_class": "scheduled_duty_due",
-      "claim": {
+      "claim": null,
+      "receipt": {
         "schema_version": 1,
-        "claim_id": "c51f9913c4b887416b4a5a1c",
+        "outcome": "ACTION",
+        "result_summary": "06:00 Josie Morning News catch-up completed as an internal intelligence packet. Priority signals: reported Fed/BoE scrutiny of bank exposure after large trading-firm losses linked to an AI-focused fund; a live cybercrime feud involving alleged Oracle E-Business Suite zero-day exploitation; Chinese regulatory scrutiny of humanoid-robot IPO valuations/revenue quality; UK Iran-sanctions amendments due 29 September; and continued UK rate/inflation sensitivity. Relevance was routed as evidence/risk context only, not Government direction or Carol strategy. No external publication occurred.",
+        "completed_at": "2026-09-21T05:53:02+00:00",
         "worker_id": "chatgpt-helm-session-2026-09-21-catchup",
         "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
         "accountable_owner": "House of Josie",
-        "claimed_at": "2026-09-21T05:52:00+00:00",
-        "lease_expires_at": "2026-09-21T06:22:00+00:00",
+        "claim_id": "c51f9913c4b887416b4a5a1c",
         "attempt": 1,
+        "retrieved_source_ids": [
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
+          "1ffQZMgXnQPe0tlI_RUdYhnAKOASGi_6yRXlEprVUSiw",
+          "1ulQ0QDZLveGRvT_zJt5eUXDXgdIKntnwEliNK98zAc0",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY"
+        ],
+        "evidence_refs": [
+          "https://www.reuters.com/business/finance/us-fed-boe-step-up-scrutiny-bank-exposure-trading-firms-after-jane-street-loss-2026-09-21/",
+          "https://www.reuters.com/legal/government/cybercrime-feud-erupts-dark-web-notorious-group-claims-hijack-rivals-website-2026-09-21/",
+          "https://www.reuters.com/business/finance/china-slows-humanoid-robot-ipo-rush-hype-outruns-reality-2026-09-21/",
+          "https://www.gov.uk/government/publications/notice-to-exporters-202618-iran-sanctions-amendments-effective-from-29-september-2026/nte-202618-iran-sanctions-amendments-effective-from-29-september-2026",
+          "https://www.reuters.com/business/investors-cheer-boe-move-pause-gilt-sales-driving-bond-rally-2026-09-17/"
+        ],
+        "writes": [
+          "GitHub clock-state/state/scheduled-duty-queue.json durable receipt"
+        ],
+        "readback_verified": true,
         "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL",
+          "PUBLIC_READ_ONLY"
+        ],
+        "external_effect": "NONE",
         "new_model_provider_access_granted": false,
-        "external_access_grants": [],
-        "mission_ref": "NONE — DUE EVALUATION ONLY",
-        "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 17"
-      }
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false
+      },
+      "claim_history": [
+        {
+          "schema_version": 1,
+          "claim_id": "c51f9913c4b887416b4a5a1c",
+          "worker_id": "chatgpt-helm-session-2026-09-21-catchup",
+          "runtime_class": "CONNECTED_GOVERNED_MODEL_RUNTIME",
+          "accountable_owner": "House of Josie",
+          "claimed_at": "2026-09-21T05:52:00+00:00",
+          "lease_expires_at": "2026-09-21T06:22:00+00:00",
+          "attempt": 1,
+          "estate_scope": "ALDERNIA",
+          "new_model_provider_access_granted": false,
+          "external_access_grants": [],
+          "mission_ref": "NONE — DUE EVALUATION ONLY",
+          "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 17"
+        }
+      ]
     }
   },
   "last_checked_at": "2026-09-21T05:47:14+00:00",
