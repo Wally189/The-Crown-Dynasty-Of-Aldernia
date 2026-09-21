@@ -132,6 +132,17 @@ class PublicSiteTests(unittest.TestCase):
         ):
             self.assertNotIn(legacy, text)
 
+    def test_root_public_copy_keeps_calendar_governance_backstage(self):
+        text = (ROOT / "index.html").read_text(encoding="utf-8").lower()
+        for token in (
+            "governed fictional calendar",
+            "governed editorial calendar",
+            "world-state",
+            "runtime",
+            "commission",
+        ):
+            self.assertNotIn(token, text)
+
     def test_root_visual_assets_are_local_and_present(self):
         text = (ROOT / "index.html").read_text(encoding="utf-8")
         names = ("coast", "capital", "highlands", "village", "people", "ferry", "governance", "workland", "history", "tomorrow")
