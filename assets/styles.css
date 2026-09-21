@@ -1522,3 +1522,13 @@ body.country-surface{background:var(--alder-paper);background-image:none;font-fa
     overscroll-behavior-inline:contain;
   }
 }
+
+
+/* Reflow containment: the Atlas and country navigation retain their own horizontal
+   scroll affordance where needed, while the page viewport itself must not pan. */
+@media(max-width:360px){
+  body.country-surface {
+    overflow-x:hidden;
+    overflow-x:clip;
+  }
+}
