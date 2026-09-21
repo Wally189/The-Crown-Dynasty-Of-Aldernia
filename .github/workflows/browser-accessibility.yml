@@ -235,6 +235,7 @@ jobs:
 
           const noJs = await browser.newPage();
           await noJs.setJavaScriptEnabled(false);
+          await noJs.setCacheEnabled(false);
           await noJs.setViewport({width:390,height:844,isMobile:true,hasTouch:true});
           const noJsResponse = await noJs.goto(base + '/', {waitUntil:'domcontentloaded', timeout:30000});
           if (!noJsResponse || !noJsResponse.ok()) failures.push(`no-js /: HTTP ${noJsResponse ? noJsResponse.status() : 'no response'}`);
