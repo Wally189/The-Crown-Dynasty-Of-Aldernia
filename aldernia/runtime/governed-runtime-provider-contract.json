@@ -3,13 +3,11 @@
   "status": "IMPLEMENTED_IN_CODE_PROVIDER_CONFIGURATION_REQUIRED",
   "purpose": "Provider boundary for the Central Aldernia Clock governed runtime worker. Time may wake already-authorised duties but does not create authority.",
   "github_variables": {
-    "workload_identity_provider": "GCP_WORKLOAD_IDENTITY_PROVIDER",
-    "service_account": "GCP_ALDERNIA_RUNTIME_SERVICE_ACCOUNT",
-    "legacy_service_account_fallback": "GCP_PATROL_SERVICE_ACCOUNT"
+    "workload_identity_provider": "GCP_ALDERNIA_RUNTIME_WORKLOAD_IDENTITY_PROVIDER",
+    "service_account": "GCP_ALDERNIA_RUNTIME_SERVICE_ACCOUNT"
   },
   "github_secrets": {
-    "openai_api_key": "ALDERNIA_RUNTIME_OPENAI_API_KEY",
-    "legacy_openai_key_fallback": "ALDERNIA_PATROL_OPENAI_API_KEY"
+    "openai_api_key": "ALDERNIA_RUNTIME_OPENAI_API_KEY"
   },
   "google_scopes": [
     "https://www.googleapis.com/auth/drive",
@@ -27,5 +25,5 @@
     "Royal Household access",
     "authority widening"
   ],
-  "failure_mode": "If either Google WIF/Drive access or the OpenAI runtime key is unavailable, leave events unclaimed, persist runtime-health as PROVIDER_ACCESS_NOT_CONFIGURED, and do not simulate autonomy."
+  "failure_mode": "If either the dedicated general-runtime Google WIF/Drive identity or the OpenAI runtime key is unavailable, leave ordinary scheduled duties unclaimed, persist runtime-health as PROVIDER_ACCESS_NOT_CONFIGURED, and do not simulate autonomy. Do not widen the dedicated patrol identity into general Government/House execution."
 }
