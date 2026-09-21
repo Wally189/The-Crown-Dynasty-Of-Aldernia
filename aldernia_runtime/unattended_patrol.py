@@ -14,7 +14,16 @@ from urllib.parse import quote, urlencode
 from urllib.request import Request, urlopen
 from zoneinfo import ZoneInfo
 
-from aldernia_runtime.patrol import REVIEW_TRIGGER, stable_conflict_id
+from aldernia_runtime.openai_provider import (
+    provider_available as openai_provider_available,
+    responses_create as openai_responses_create,
+)
+from aldernia_runtime.patrol import (
+    ESTATES,
+    PATROL_COMMON_SOURCE_IDS,
+    REVIEW_TRIGGER,
+    stable_conflict_id,
+)
 from aldernia_runtime.scheduler import load_scheduler_state
 from aldernia_runtime.session import load_session
 from aldernia_runtime.worker import MODEL_RUNTIME_CLASS, acknowledge_event, claim_event
@@ -29,6 +38,7 @@ MAX_TREE_DEPTH = 3
 MAX_CANDIDATE_FILES = 6
 MAX_AUTHORITY_CHARS = 16000
 MAX_CANDIDATE_CHARS = 10000
+MAX_HEARTBEAT_SOURCE_CHARS = 5000
 
 PALACE_REGISTER_ID = "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA"
 COMMON_ARCHIVE_ID = "1hhxQzNa4UrNYmKPgkZD9xS37X17ZuWct"
@@ -278,6 +288,32 @@ class DriveClient:
         rows = value.get("values") or []
         return [[str(cell) for cell in row] for row in rows if isinstance(row, list)]
 
+    def write_task_run_state(
+        self,
+        *,
+        row_number: int,
+        last_run: str,
+        outcome: str,
+        evidence: str,
+    ) -> str:
+        a1 = f"Scheduled Tasks!H{row_number}:J{row_number}"
+        values = [[last_run, outcome, evidence]]
+        _json_http(
+            "PUT",
+            f"https://sheets.googleapis.com/v4/spreadsheets/{PALACE_REGISTER_ID}/values/"
+            + quote(a1, safe="")
+            + "?"
+            + urlencode({"valueInputOption": "RAW"}),
+            headers={**self.headers, "Content-Type": "application/json"},
+            body={"range": a1, "majorDimension": "ROWS", "values": values},
+        )
+        readback = self.sheet_values(a1)
+        if readback != values:
+            raise PatrolRuntimeError(
+                f"Scheduled Tasks row {row_number} run-state write did not read back"
+            )
+        return f"Drive:{PALACE_REGISTER_ID}:Scheduled Tasks!H{row_number}:J{row_number}"
+
     def append_queue_row(self, row: list[str]) -> None:
         _json_http(
             "POST",
@@ -339,12 +375,37 @@ class DriveClient:
 
 
 class OpenAIClient:
-    def __init__(self, api_key: str):
-        if not api_key.strip():
-            raise PatrolRuntimeError("OpenAI API key is required")
-        self.headers = {
-            "Authorization": f"Bearer {api_key}",
-            "Content-Type": "application/json",
+    def __init__(self, api_key: str = ""):
+        if not openai_provider_available(api_key=api_key):
+            raise PatrolRuntimeError(
+                "OpenAI provider is required: configure workload identity "
+                "or the bounded fallback API key"
+            )
+        self.api_key = api_key
+
+    @staticmethod
+    def _structured_output(response: Mapping[str, Any], *, label: str) -> tuple[dict[str, Any], dict[str, int]]:
+        output_text = None
+        for item in response.get("output") or []:
+            if not isinstance(item, Mapping) or item.get("type") != "message":
+                continue
+            for part in item.get("content") or []:
+                if isinstance(part, Mapping) and part.get("type") == "output_text":
+                    output_text = part.get("text")
+                    break
+            if output_text is not None:
+                break
+        if not isinstance(output_text, str):
+            raise PatrolRuntimeError(
+                f"OpenAI {label} response did not contain structured output_text"
+            )
+        result = json.loads(output_text)
+        if not isinstance(result, dict):
+            raise PatrolRuntimeError(f"OpenAI {label} output was not an object")
+        usage = response.get("usage") or {}
+        return result, {
+            "input_tokens": int(usage.get("input_tokens") or 0),
+            "output_tokens": int(usage.get("output_tokens") or 0),
         }
 
     def classify(self, prompt: str) -> tuple[dict[str, Any], dict[str, int]]:
@@ -377,7 +438,11 @@ class OpenAIClient:
                             "exact_question": {"type": ["string", "null"]},
                             "confidence": {
                                 "type": "string",
-                                "enum": ["UNAMBIGUOUS", "MATERIAL_CONFLICT", "INSUFFICIENT_EVIDENCE"],
+                                "enum": [
+                                    "UNAMBIGUOUS",
+                                    "MATERIAL_CONFLICT",
+                                    "INSUFFICIENT_EVIDENCE",
+                                ],
                             },
                         },
                         "required": [
@@ -427,33 +492,79 @@ class OpenAIClient:
                 }
             },
         }
-        response = _json_http(
-            "POST",
-            "https://api.openai.com/v1/responses",
-            headers=self.headers,
-            body=payload,
-            timeout=90,
-        )
-        output_text = None
-        for item in response.get("output") or []:
-            if not isinstance(item, Mapping) or item.get("type") != "message":
-                continue
-            for content in item.get("content") or []:
-                if isinstance(content, Mapping) and content.get("type") == "output_text":
-                    output_text = content.get("text")
-                    break
-            if output_text is not None:
-                break
-        if not isinstance(output_text, str):
-            raise PatrolRuntimeError("OpenAI response did not contain structured output_text")
-        result = json.loads(output_text)
-        if not isinstance(result, dict):
-            raise PatrolRuntimeError("OpenAI structured output was not an object")
-        usage = response.get("usage") or {}
-        return result, {
-            "input_tokens": int(usage.get("input_tokens") or 0),
-            "output_tokens": int(usage.get("output_tokens") or 0),
+        response = openai_responses_create(payload, api_key=self.api_key)
+        return self._structured_output(response, label="patrol")
+
+    def heartbeat(
+        self,
+        prompt: str,
+    ) -> tuple[dict[str, Any], dict[str, int]]:
+        schema = {
+            "type": "object",
+            "properties": {
+                "outcome": {
+                    "type": "string",
+                    "enum": ["ACTION", "NO_ACTION", "STOP"],
+                },
+                "result_summary": {"type": "string"},
+                "institutions_checked": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                },
+                "material_changes": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                },
+                "crown_attention": {
+                    "type": "array",
+                    "items": {"type": "string"},
+                },
+            },
+            "required": [
+                "outcome",
+                "result_summary",
+                "institutions_checked",
+                "material_changes",
+                "crown_attention",
+            ],
+            "additionalProperties": False,
         }
+        payload = {
+            "model": MODEL,
+            "reasoning": {"effort": "medium"},
+            "max_output_tokens": MAX_OUTPUT_TOKENS,
+            "input": [
+                {
+                    "role": "system",
+                    "content": (
+                        "Operate one already-authorised Royal Palace Dynasty House Pulse / "
+                        "King's Balcony Heartbeat. Reconcile current principal governed "
+                        "institution states from the supplied current-source packet and "
+                        "Scheduled Tasks row. The same Heartbeat also carries exactly one "
+                        "bounded integrity-patrol slice whose result is supplied separately. "
+                        "Do not invent work, Crown attention, public events, decisions, "
+                        "citizens, outcomes or authority. Routine institution-owned work "
+                        "remains institution-owned. Do not access or infer private Royal "
+                        "Household material. No external contact, publication, spend, "
+                        "provider/account change or new mission is permitted. Return STOP "
+                        "if supplied evidence is insufficient to make the Heartbeat truthful. "
+                        "Crown attention must be empty unless a genuine reserved decision "
+                        "or binding STOP is evidenced."
+                    ),
+                },
+                {"role": "user", "content": prompt},
+            ],
+            "text": {
+                "format": {
+                    "type": "json_schema",
+                    "name": "aldernia_dynasty_heartbeat",
+                    "strict": True,
+                    "schema": schema,
+                }
+            },
+        }
+        response = openai_responses_create(payload, api_key=self.api_key)
+        return self._structured_output(response, label="Heartbeat")
 
 
 class BudgetLedger:
@@ -503,6 +614,40 @@ class BudgetLedger:
         self.value["last_model"] = MODEL
         self.value["updated_at"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
         _atomic_json(self.path, self.value)
+
+
+def _heartbeat_source_ids() -> list[str]:
+    ids = [str(value) for value in PATROL_COMMON_SOURCE_IDS]
+    for estate in ESTATES:
+        ids.extend(str(value) for value in estate.get("required_source_ids") or ())
+    return list(dict.fromkeys(ids))
+
+
+def _heartbeat_prompt(
+    *,
+    event_id: str,
+    row: list[str],
+    sources: list[dict[str, str]],
+    patrol_receipt: Mapping[str, Any],
+) -> str:
+    blocks = [
+        f"EVENT_ID: {event_id}",
+        "ROYAL HOUSEHOLD ACCESS: PROHIBITED",
+        "CURRENT SCHEDULED TASK ROW A:K:",
+        json.dumps(row, ensure_ascii=False),
+        "INTEGRITY PATROL RESULT:",
+        json.dumps(patrol_receipt, ensure_ascii=False),
+        "CURRENT GOVERNED INSTITUTION SOURCES:",
+    ]
+    for source in sources:
+        blocks.append(
+            f"\n## {source['name']}\nFILE_ID: {source['id']}\n{source['text']}"
+        )
+    blocks.append(
+        "\nReconcile only material present state. Distinguish routine institution-owned "
+        "state from genuine Crown attention. Do not manufacture activity to fill the Pulse."
+    )
+    return "\n".join(blocks)
 
 
 def _next_pending_heartbeat(state: Mapping[str, Any]) -> str | None:
@@ -772,30 +917,126 @@ def run_once(
 
         raise ControlledStop(f"unsupported model classification {classification_name!r}")
 
+    patrol_receipt = {
+        "registry_version": plan["registry_version"],
+        "source_row": plan["source_row"],
+        "estate_id": plan["estate_id"],
+        "visit_index": plan["visit_index"],
+        "cursor_after": plan["cursor_after"],
+        "current_authority_retrieved": True,
+        "royal_household_accessed": False,
+        "readback_verified": True,
+        "findings": receipt_findings,
+    }
+
+    heartbeat_ids = _heartbeat_source_ids()
+    heartbeat_sources: list[dict[str, str]] = []
+    for file_id in heartbeat_ids:
+        meta, body = drive.read_text(
+            file_id,
+            max_chars=MAX_HEARTBEAT_SOURCE_CHARS,
+        )
+        if not body.strip():
+            raise ControlledStop(
+                f"Heartbeat current-source retrieval failed for {file_id}"
+            )
+        heartbeat_sources.append(
+            {
+                "id": file_id,
+                "name": str(meta.get("name") or file_id),
+                "mime": str(meta.get("mimeType") or ""),
+                "text": body,
+            }
+        )
+        retrieved_ids.append(file_id)
+        evidence_refs.append(f"Drive:{file_id}")
+
+    heartbeat_rows = drive.sheet_values("Scheduled Tasks!A2:K2")
+    if len(heartbeat_rows) != 1:
+        raise ControlledStop(
+            "Dynasty House Pulse Scheduled Tasks row 2 could not be read exactly once"
+        )
+
+    budget.guard(estimated_input_tokens=50000)
+    heartbeat, heartbeat_usage = model.heartbeat(
+        _heartbeat_prompt(
+            event_id=event_id,
+            row=heartbeat_rows[0],
+            sources=heartbeat_sources,
+            patrol_receipt=patrol_receipt,
+        )
+    )
+    budget.record(heartbeat_usage)
+
+    heartbeat_outcome = str(heartbeat.get("outcome") or "")
+    if heartbeat_outcome not in {"ACTION", "NO_ACTION", "STOP"}:
+        raise ControlledStop("Heartbeat returned an invalid outcome")
+    crown_attention = heartbeat.get("crown_attention")
+    if not isinstance(crown_attention, list):
+        raise ControlledStop("Heartbeat crown_attention must be a list")
+    institutions_checked = heartbeat.get("institutions_checked")
+    if not isinstance(institutions_checked, list) or not institutions_checked:
+        raise ControlledStop("Heartbeat must identify institutions checked")
+    heartbeat_summary = str(heartbeat.get("result_summary") or "").strip()
+    if not heartbeat_summary:
+        raise ControlledStop("Heartbeat result_summary is required")
+
+    combined_outcome = heartbeat_outcome
+    if heartbeat_outcome != "STOP" and outcome == "ACTION":
+        combined_outcome = "ACTION"
+
+    local_now = now.astimezone(ZoneInfo("Europe/London"))
+    run_evidence = (
+        heartbeat_summary
+        + " Integrity patrol: "
+        + str(plan["estate_label"])
+        + f" visit {plan['visit_index']}; "
+        + f"{len(receipt_findings)} findings processed. "
+        + "Crown attention: "
+        + (("; ".join(str(value) for value in crown_attention)) if crown_attention else "NONE")
+        + "."
+    )
+    heartbeat_write = drive.write_task_run_state(
+        row_number=2,
+        last_run=local_now.strftime(
+            "%Y-%m-%d %H:%M %Z — CLOCK-TRIGGERED HEARTBEAT"
+        ),
+        outcome=f"{combined_outcome} — {heartbeat_summary}"[:45000],
+        evidence=run_evidence[:45000],
+    )
+    writes.append(heartbeat_write)
+    evidence_refs.append(heartbeat_write)
+
     result = {
-        "outcome": outcome,
+        "outcome": combined_outcome,
         "result_summary": (
-            f"Unattended bounded patrol completed for {plan['estate_label']} visit {plan['visit_index']}; "
-            f"{len(receipt_findings)} material/current findings processed under current authority."
+            heartbeat_summary
+            + f" Integrity patrol completed for {plan['estate_label']} "
+            + f"visit {plan['visit_index']}."
         ),
         "retrieved_source_ids": list(dict.fromkeys(retrieved_ids)),
-        "evidence_refs": list(dict.fromkeys(evidence_refs)) or ["runtime:no-candidate-material"],
-        "writes": writes + ["GitHub:clock-state/state/scheduled-duty-queue.json"],
+        "evidence_refs": list(dict.fromkeys(evidence_refs))
+        or ["runtime:no-candidate-material"],
+        "writes": writes
+        + ["GitHub:clock-state/state/scheduled-duty-queue.json"],
         "readback_verified": True,
         "resource_classes_used": ["ALDERNIA_INTERNAL"],
         "external_effect": "NONE",
         "new_model_provider_access_granted": False,
-        "integrity_patrol": {
-            "registry_version": plan["registry_version"],
-            "source_row": plan["source_row"],
-            "estate_id": plan["estate_id"],
-            "visit_index": plan["visit_index"],
-            "cursor_after": plan["cursor_after"],
-            "current_authority_retrieved": True,
-            "royal_household_accessed": False,
+        "balcony_pulse": {
+            "institutions_checked": [
+                str(value) for value in institutions_checked
+            ],
+            "material_changes": [
+                str(value)
+                for value in heartbeat.get("material_changes") or []
+            ],
+            "crown_attention": [
+                str(value) for value in crown_attention
+            ],
             "readback_verified": True,
-            "findings": receipt_findings,
         },
+        "integrity_patrol": patrol_receipt,
     }
     ack = acknowledge_event(
         state_path=state_path,
@@ -804,7 +1045,7 @@ def run_once(
         event_id=event_id,
         claim_id=str(claim["claim_id"]),
         execution_result=result,
-        now=datetime.now(timezone.utc),
+        now=now,
     )
     return {
         "status": ack["status"],
@@ -812,7 +1053,10 @@ def run_once(
         "estate_id": plan["estate_id"],
         "visit_index": plan["visit_index"],
         "model": MODEL,
-        "usage": usage,
+        "usage": {
+            "patrol": usage,
+            "heartbeat": heartbeat_usage,
+        },
         "local_monthly_estimated_usd": budget.value["estimated_usd"],
         "writes": writes,
     }
@@ -829,8 +1073,21 @@ def main(argv: list[str] | None = None) -> int:
 
     drive_token = os.environ.get("GOOGLE_DRIVE_ACCESS_TOKEN", "")
     openai_key = os.environ.get("OPENAI_API_KEY", "")
-    if not drive_token or not openai_key:
-        print(json.dumps({"status": "PROVIDER_ACCESS_NOT_CONFIGURED", "action": "LEAVE_PENDING"}))
+    if not drive_token or not openai_provider_available(api_key=openai_key):
+        print(
+            json.dumps(
+                {
+                    "status": "PROVIDER_ACCESS_NOT_CONFIGURED",
+                    "action": "LEAVE_PENDING",
+                    "missing": {
+                        "google_drive_wif": not bool(drive_token),
+                        "openai_wif_or_fallback": not openai_provider_available(
+                            api_key=openai_key
+                        ),
+                    },
+                }
+            )
+        )
         return 0
 
     try:

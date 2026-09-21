@@ -66,6 +66,16 @@ class IntegrityPatrolTests(unittest.TestCase):
                 "readback_verified": True,
                 "findings": list(findings or []),
             },
+            "balcony_pulse": {
+                "institutions_checked": [
+                    "Royal Palace",
+                    "House of Carol",
+                    "House of Marianne",
+                ],
+                "material_changes": [],
+                "crown_attention": [],
+                "readback_verified": True,
+            },
         }
 
     def test_scheduler_marks_native_heartbeat_with_patrol_obligation(self):
@@ -182,6 +192,22 @@ class IntegrityPatrolTests(unittest.TestCase):
             receipt = state["events"][HEARTBEAT_0600]["receipt"]["integrity_patrol"]
             self.assertEqual(receipt["findings"][0]["conflict_id"], conflict_id)
             self.assertEqual(receipt["findings"][0]["queue_review_trigger"], REVIEW_TRIGGER)
+
+    def test_heartbeat_ack_fails_without_balcony_pulse(self):
+        with tempfile.TemporaryDirectory() as td:
+            root = Path(td)
+            self.seed_heartbeat(root)
+            claim = self.claim_heartbeat(root)
+            result = self.result_for(claim)
+            del result["balcony_pulse"]
+            with self.assertRaises(WorkerError):
+                acknowledge_event(
+                    **self.paths(root),
+                    event_id=HEARTBEAT_0600,
+                    claim_id=claim["claim_id"],
+                    execution_result=result,
+                    now=datetime(2026, 9, 21, 5, 3, tzinfo=timezone.utc),
+                )
 
     def test_heartbeat_ack_fails_without_patrol_result(self):
         with tempfile.TemporaryDirectory() as td:

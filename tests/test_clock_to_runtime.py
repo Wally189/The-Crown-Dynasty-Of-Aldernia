@@ -41,8 +41,10 @@ class FakeModel:
         self.fail_government = fail_government
         self.calls = []
 
-    def execute(self, prompt):
+    def execute(self, prompt, *, public_web_read=False):
         self.calls.append(prompt)
+        self.public_web_flags = getattr(self, "public_web_flags", [])
+        self.public_web_flags.append(public_web_read)
         if "DUTY_ID: government.daily-pulse" in prompt:
             if self.fail_government:
                 return {
@@ -130,15 +132,24 @@ class ClockToRuntimeTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as td:
             root = Path(td)
             self.seed_government(root)
+            model = FakeModel()
             result = run_once(
                 **self.paths(root),
                 drive=FakeDrive(),
-                model=FakeModel(),
+                model=model,
                 worker_id="github-clock-runtime-test",
                 max_events=2,
                 now=datetime(2026, 9, 21, 6, 2, tzinfo=timezone.utc),
             )
             self.assertEqual(len(result["processed"]), 2)
+            self.assertIn(
+                "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
+                model.calls[0],
+            )
+            self.assertIn(
+                "1Z6jkA6SuaPDAQYWAAYEkjjRGg00wP8KF3odrf-fktxU",
+                model.calls[0],
+            )
             state = json.loads(
                 (root / "scheduled-duty-queue.json").read_text()
             )
@@ -193,6 +204,18 @@ class ClockToRuntimeTests(unittest.TestCase):
                     "red_box_content"
                 ],
             )
+
+    def test_public_web_is_explicitly_gated_by_duty(self):
+        timetable = json.loads(TIMETABLE.read_text())
+        duties = {duty["id"]: duty for duty in timetable["duties"]}
+        self.assertTrue(duties["josie.morning-news"]["public_web_read"])
+        self.assertTrue(duties["catholic.mass-readings"]["public_web_read"])
+        self.assertFalse(
+            bool(duties["government.daily-pulse"].get("public_web_read"))
+        )
+        self.assertFalse(
+            bool(duties["carol.business-opening"].get("public_web_read"))
+        )
 
     def test_generic_worker_skips_heartbeat_for_specialist_patrol_adapter(self):
         with tempfile.TemporaryDirectory() as td:

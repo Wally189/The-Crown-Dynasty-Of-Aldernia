@@ -3,11 +3,15 @@
   "status": "IMPLEMENTED_IN_CODE_PROVIDER_CONFIGURATION_REQUIRED",
   "purpose": "Provider boundary for the Central Aldernia Clock governed runtime worker. Time may wake already-authorised duties but does not create authority.",
   "github_variables": {
-    "workload_identity_provider": "GCP_ALDERNIA_RUNTIME_WORKLOAD_IDENTITY_PROVIDER",
-    "service_account": "GCP_ALDERNIA_RUNTIME_SERVICE_ACCOUNT"
+    "google_workload_identity_provider": "GCP_ALDERNIA_RUNTIME_WORKLOAD_IDENTITY_PROVIDER",
+    "google_service_account": "GCP_ALDERNIA_RUNTIME_SERVICE_ACCOUNT",
+    "openai_wif_audience": "OPENAI_WIF_AUDIENCE",
+    "openai_identity_provider_id": "OPENAI_IDENTITY_PROVIDER_ID",
+    "openai_service_account_id": "OPENAI_SERVICE_ACCOUNT_ID"
   },
   "github_secrets": {
-    "openai_api_key": "ALDERNIA_RUNTIME_OPENAI_API_KEY"
+    "openai_runtime_api_key_fallback": "ALDERNIA_RUNTIME_OPENAI_API_KEY",
+    "openai_patrol_api_key_fallback": "ALDERNIA_PATROL_OPENAI_API_KEY"
   },
   "google_scopes": [
     "https://www.googleapis.com/auth/drive",
@@ -25,5 +29,10 @@
     "Royal Household access",
     "authority widening"
   ],
-  "failure_mode": "If either the dedicated general-runtime Google WIF/Drive identity or the OpenAI runtime key is unavailable, leave ordinary scheduled duties unclaimed, persist runtime-health as PROVIDER_ACCESS_NOT_CONFIGURED, and do not simulate autonomy. Do not widen the dedicated patrol identity into general Government/House execution."
+  "failure_mode": "If the dedicated Google WIF/Drive identity is unavailable, or neither OpenAI WIF nor the bounded fallback credential is configured, leave duties unclaimed and report PROVIDER_ACCESS_NOT_CONFIGURED. Do not simulate autonomy. Do not widen the dedicated patrol Google identity into general Government/House execution.",
+  "openai_auth_preference": [
+    "GitHub Actions OIDC -> OpenAI workload identity federation -> short-lived OpenAI access token",
+    "bounded API key fallback only where WIF is not yet configured"
+  ],
+  "openai_sdk_pin": "openai==3.16.2"
 }

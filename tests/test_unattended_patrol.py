@@ -21,6 +21,7 @@ class FakeDrive:
     def __init__(self):
         self.queue_calls = 0
         self.archive_calls = 0
+        self.task_writes = []
 
     def read_text(self, file_id, *, max_chars):
         return (
@@ -53,6 +54,15 @@ class FakeDrive:
             ],
         )
 
+    def sheet_values(self, a1):
+        if a1 == "Scheduled Tasks!A2:K2":
+            return [["Governance", "Dynasty House Pulse"] + ["test"] * 9]
+        return []
+
+    def write_task_run_state(self, *, row_number, last_run, outcome, evidence):
+        self.task_writes.append((row_number, last_run, outcome, evidence))
+        return f"Drive:test-task-row-{row_number}"
+
     def move_to_archive(self, *, file_id, archive_folder_id, source_parent_id):
         self.archive_calls += 1
         return {
@@ -80,6 +90,7 @@ class FakeModel:
     def __init__(self, findings):
         self.findings = findings
         self.calls = 0
+        self.heartbeat_calls = 0
 
     def classify(self, prompt):
         self.calls += 1
@@ -87,6 +98,26 @@ class FakeModel:
         return (
             {"summary": "bounded synthetic classification", "findings": self.findings},
             {"input_tokens": 1000, "output_tokens": 200},
+        )
+
+    def heartbeat(self, prompt):
+        self.heartbeat_calls += 1
+        self.heartbeat_prompt = prompt
+        return (
+            {
+                "outcome": "NO_ACTION",
+                "result_summary": "All principal governed institutions reconciled; no Crown attention required.",
+                "institutions_checked": [
+                    "Royal Palace",
+                    "House of Carol",
+                    "House of Marianne",
+                    "House of Catholic",
+                    "House of Josie",
+                ],
+                "material_changes": [],
+                "crown_attention": [],
+            },
+            {"input_tokens": 2000, "output_tokens": 250},
         )
 
 
@@ -132,6 +163,8 @@ class UnattendedPatrolTests(unittest.TestCase):
             self.assertEqual(result["estate_id"], "house-of-carol")
             self.assertEqual(result["visit_index"], 1)
             self.assertEqual(model.calls, 1)
+            self.assertEqual(model.heartbeat_calls, 1)
+            self.assertEqual(len(drive.task_writes), 1)
             state = json.loads((root / "scheduled-duty-queue.json").read_text())
             event = state["events"]["dynasty.heartbeat:2026-09-21T06:00"]
             patrol = event["receipt"]["integrity_patrol"]
@@ -139,6 +172,9 @@ class UnattendedPatrolTests(unittest.TestCase):
             self.assertEqual(patrol["cursor_after"], "house-of-tony")
             self.assertTrue(patrol["current_authority_retrieved"])
             self.assertFalse(patrol["royal_household_accessed"])
+            balcony = event["receipt"]["balcony_pulse"]
+            self.assertTrue(balcony["readback_verified"])
+            self.assertEqual(balcony["crown_attention"], [])
 
     def test_unambiguous_stale_candidate_archives_reversibly(self):
         with tempfile.TemporaryDirectory() as td:
@@ -236,6 +272,7 @@ class UnattendedPatrolTests(unittest.TestCase):
             )
             self.assertEqual(result["status"], "HALTED")
             self.assertEqual(model.calls, 0)
+            self.assertEqual(model.heartbeat_calls, 0)
 
     def test_drive_tree_excludes_royal_household_by_name(self):
         client = object.__new__(DriveClient)
