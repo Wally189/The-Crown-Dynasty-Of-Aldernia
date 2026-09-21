@@ -48,7 +48,7 @@ ESTATE_RUNTIME_BOUNDS: dict[str, dict[str, Any]] = {
     "house-of-josie": {"root_specs": [("1vm6vJi9qDDKqXCO_1fmzFgS8oToL9855", True)], "archive_folder_id": None},
     "teach-antaine": {"root_specs": [("1eIJcQfx5afjFq66gSP1-K-HZWRMTBqlg", True)], "archive_folder_id": None},
     "hmdf": {"root_specs": [("10gARPVBY4OeISrBB7gTXyXnEHEDGYq6-", True)], "archive_folder_id": None},
-    "royal-palace": {"root_specs": [], "archive_folder_id": None},
+    "royal-palace": {"root_specs": [(HOUSE_OF_SERIES_ROOT_ID, False)], "archive_folder_id": None},
     "common-machinery": {
         "root_specs": [(COMPUTER_OF_SERIES_ROOT_ID, True), (HOUSE_OF_SERIES_ROOT_ID, False)],
         "archive_folder_id": COMMON_ARCHIVE_FOLDER_ID,
@@ -476,8 +476,10 @@ def _call_model(api_key: str, packet: Mapping[str, Any]) -> tuple[dict[str, Any]
         "You are Queen Barbara Admin acting through COS-BUS-001 for the bounded Dynasty State & Conflict Patrol. "
         "Use ONLY the supplied packet. Current authority documents outrank candidate material. Never infer precedence from timestamps alone. "
         "Do not treat TEST, RECOVERY, HISTORICAL, ARCHIVED or explicitly superseded material as current authority unless fixture_mode=true, "
-        "in which case fixture titles are controlled test facts only. Report only material findings with identifiable source refs. "
-        "STALE/SUPERSEDED means competent current authority unambiguously supersedes the candidate. DUPLICATE-CURRENT means two active copies "
+        "in which case fixture titles are controlled test facts only. When fixture_mode=true, the supplied fixture packet deliberately establishes "
+        "the stale fixture as safe-to-archive test material and the two PATROL-FIXTURE-OWNER records as simultaneously current incompatible claims; "
+        "return exactly one stale/superseded finding for the stale fixture and exactly one conflicting-current-material finding covering both owner records. "
+        "Report only material findings with identifiable source refs. STALE/SUPERSEDED means competent current authority unambiguously supersedes the candidate. DUPLICATE-CURRENT means two active copies "
         "purport to be current without a justified canonical reason. CONFLICTING CURRENT MATERIAL means two competent current records make materially "
         "incompatible claims. Never resolve a genuine conflict. Do not propose any action outside NO_ACTION, ARCHIVE, or QUEUE_CONFLICT."
     )
