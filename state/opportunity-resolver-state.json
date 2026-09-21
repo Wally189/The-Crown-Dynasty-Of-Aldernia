@@ -1,0 +1,63 @@
+{
+  "adapter_version": 1,
+  "last_decision_fingerprint": "f1e8806a92b7c19acee2e5b39fb7f5d63678e90bd5ef57b19095814047ee3e06",
+  "last_observed_at": "2026-09-21T20:20:38.349782+00:00",
+  "last_source_fingerprint": "89a1e83fceaabffc735c89b23dd9979727f1ddd6e31f6b4013c66c255aa0f716",
+  "resolver_state": {
+    "blockers": {
+      "google-wif-drive-provider-access": {
+        "blocker_id": "google-wif-drive-provider-access",
+        "evidence_hash": "966d49f001b3b00249b3593ce9e2fd453451fbc3fc1c010af029c3c36a7b9eb6",
+        "last_classification": "BLOCKED",
+        "next_review_trigger": "PROVIDER_STATE_CHANGE"
+      }
+    },
+    "candidates": {
+      "DUE::aldernia.website-voice:2026-09-21": {
+        "candidate_id": "DUE::aldernia.website-voice:2026-09-21",
+        "evidence_hash": "3cd13c8968dffbf7e2597ddc7320c54e936115faa75db34762bc39c417f5ed03",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
+      "DUE::dynasty.heartbeat:2026-09-21T19:00": {
+        "candidate_id": "DUE::dynasty.heartbeat:2026-09-21T19:00",
+        "evidence_hash": "603d231a62da67f682272b694af10f0b783ac6abe81f1b1069ef860b3ab28eef",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
+      "DUE::dynasty.heartbeat:2026-09-21T20:00": {
+        "candidate_id": "DUE::dynasty.heartbeat:2026-09-21T20:00",
+        "evidence_hash": "3695ef265230057a202ec33540654de03fe4de048e3b6f547981a968e19ac176",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
+      "DUE::dynasty.heartbeat:2026-09-21T21:00": {
+        "candidate_id": "DUE::dynasty.heartbeat:2026-09-21T21:00",
+        "evidence_hash": "8bccaf54ccecdf50d519bce1854556f723382de4a5882bff4d9def48f3bd7ee5",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
+      "E-23": {
+        "candidate_id": "E-23",
+        "evidence_hash": "7af929a3058d1efeb46eda672c67bdb6d7ecc02c4f8c223bbd966df19db0a001",
+        "next_review_trigger": null,
+        "terminal_classification": "NO_ACTION"
+      },
+      "E-24": {
+        "candidate_id": "E-24",
+        "evidence_hash": "9a99ebf28eccfdc914e3bc5bb6ba944ecf3318a5eb386e2a00b8c488bac60471",
+        "next_review_trigger": null,
+        "terminal_classification": "NO_ACTION"
+      },
+      "KQ-009": {
+        "candidate_id": "KQ-009",
+        "evidence_hash": "966d49f001b3b00249b3593ce9e2fd453451fbc3fc1c010af029c3c36a7b9eb6",
+        "next_review_trigger": "PROVIDER_STATE_CHANGE",
+        "terminal_classification": "BLOCKED"
+      }
+    },
+    "schema_version": 1
+  },
+  "run_count": 1,
+  "schema_version": 1
+}
