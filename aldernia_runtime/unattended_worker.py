@@ -508,7 +508,7 @@ def run_once(
             event_id=event_id,
             claim_id=str(claim["claim_id"]),
             execution_result=execution_result,
-            now=datetime.now(timezone.utc),
+            now=now,
         )
         processed.append(dict(ack))
 
