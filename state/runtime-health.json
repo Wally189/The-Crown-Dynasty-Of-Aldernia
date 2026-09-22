@@ -1,9 +1,14 @@
 {
-  "checked_at": "2026-09-22T04:42:02+00:00",
+  "checked_at": "2026-09-22T06:05:00+00:00",
   "detail": "Missing provider configuration: Google WIF/Drive access token",
   "normal_path_requires_king_prompt": false,
-  "pending_count": 8,
+  "pending_count": 0,
   "processed_event_ids": [],
   "schema_version": 1,
-  "status": "PROVIDER_ACCESS_NOT_CONFIGURED"
+  "status": "PROVIDER_ACCESS_NOT_CONFIGURED",
+  "manual_recovery": {
+    "completed_at": "2026-09-22T06:03:00+00:00",
+    "queue_commit": "1ce31ad982faf317f779864632b5e46963924700",
+    "note": "Manual Catholix recovery under CAT-123 drained the authorised backlog through the 07:00 Heartbeat/Government cycle. Unattended provider identity remains unconfigured; zero pending does not constitute unattended live acceptance."
+  }
 }
