@@ -1,5 +1,4 @@
 {
-  "authority_ref": "Royal Programme Board E-28",
   "authority_widened": false,
   "canonical_record_written": false,
   "canonical_transport": "CONNECTED_DRIVE_BRIDGE",
@@ -8,18 +7,14 @@
   "derived_state_only": true,
   "durable_ack": true,
   "effect": "INTERNAL_DERIVED_STATE_WRITE",
-  "evidence_hash": "982dc56aed96fc690b979f5ad71a20843b3db4ded6db9364532c3e24e7b76344",
   "execution_class": "COS-WORKER-001::CANONICAL_DELTA_ACK",
-  "execution_performed": true,
+  "execution_performed": false,
   "external_effect": "NONE",
   "model_called": false,
-  "receipt_hash": "3ff03580fafedf36b516d4f7aefa94a7d2f73f2c454844e658c24b24597f51f3",
-  "resolver_termination": "EXECUTE_ONE",
   "reversible": true,
-  "run_id": "35757536871",
+  "run_id": "35757609645",
   "schema_version": 1,
-  "selected_candidate_id": "PB-E28-LIVE-DELTA-ACK",
+  "selected_candidate_id": null,
   "state_readback_verified": true,
-  "termination": "NO_ACTION_AFTER_VERIFIED_ACK",
-  "verification_performed": true
+  "termination": "NO_ACTION"
 }

@@ -1,8 +1,8 @@
 {
   "adapter_version": 1,
-  "last_decision_fingerprint": "ed13aa2e18fef903c0fd04ed805a6ad3c0368975409962cfe8b4b1fcd08b0485",
-  "last_observed_at": "2026-09-22T16:57:48.315342+00:00",
-  "last_source_fingerprint": "60af497d9e50694519929d58549fe77acb60296721b667c7dd5bf0762c963e61",
+  "last_decision_fingerprint": "1324864daaec0ec943e6328330e1406ed3d15e813a19eda3655e678589b3f154",
+  "last_observed_at": "2026-09-22T16:58:28.620614+00:00",
+  "last_source_fingerprint": "25f67729ee5da1a083c0f7c33b29e8133509b7a85028e8ccb01ad0c92cd8b82a",
   "resolver_state": {
     "blockers": {
       "google-wif-drive-provider-access": {
@@ -161,11 +161,11 @@
         "candidate_id": "PB-E28-LIVE-DELTA-ACK",
         "evidence_hash": "982dc56aed96fc690b979f5ad71a20843b3db4ded6db9364532c3e24e7b76344",
         "next_review_trigger": null,
-        "terminal_classification": "ACTIONABLE_NOW"
+        "terminal_classification": "NO_ACTION"
       }
     },
     "schema_version": 1
   },
-  "run_count": 13,
+  "run_count": 14,
   "schema_version": 1
 }

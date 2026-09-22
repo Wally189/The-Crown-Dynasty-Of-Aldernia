@@ -17,7 +17,7 @@
   "canonical_transport": "CONNECTED_DRIVE_BRIDGE",
   "conflict_candidate_ids": [],
   "decision_changed": true,
-  "decision_fingerprint": "ed13aa2e18fef903c0fd04ed805a6ad3c0368975409962cfe8b4b1fcd08b0485",
+  "decision_fingerprint": "1324864daaec0ec943e6328330e1406ed3d15e813a19eda3655e678589b3f154",
   "decisions": [
     {
       "candidate_id": "DUE::catholic.none:2026-09-22",
@@ -53,7 +53,7 @@
         "required model provider unavailable; unrelated work may continue"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::dynasty.heartbeat:2026-09-22T17:00",
@@ -62,7 +62,7 @@
         "required model provider unavailable; unrelated work may continue"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "KQ-009",
@@ -75,21 +75,12 @@
     },
     {
       "candidate_id": "PB-E28-LIVE-DELTA-ACK",
-      "priority_key": [
-        2,
-        2,
-        2,
-        1,
-        2,
-        1,
-        0,
-        2
-      ],
+      "priority_key": null,
       "reasons": [
-        "current accepted objective with explicit authority, evidence and executable capability"
+        "accepted outcome already satisfied; no new consequence"
       ],
-      "state_class": "ACTIONABLE_NOW",
-      "unchanged": false
+      "state_class": "NO_ACTION",
+      "unchanged": true
     }
   ],
   "derived_state_only": true,
@@ -107,13 +98,13 @@
   ],
   "material_source_change": true,
   "model_called": false,
-  "observed_at": "2026-09-22T16:57:48.315342+00:00",
-  "resolver_termination": "EXECUTE_ONE",
-  "run_count": 13,
-  "run_id": "35757536871",
+  "observed_at": "2026-09-22T16:58:28.620614+00:00",
+  "resolver_termination": "NO_ACTION",
+  "run_count": 14,
+  "run_id": "35757609645",
   "schema_version": 1,
-  "selected_candidate_id": "PB-E28-LIVE-DELTA-ACK",
+  "selected_candidate_id": null,
   "shadow_mode": true,
-  "source_fingerprint": "60af497d9e50694519929d58549fe77acb60296721b667c7dd5bf0762c963e61",
+  "source_fingerprint": "25f67729ee5da1a083c0f7c33b29e8133509b7a85028e8ccb01ad0c92cd8b82a",
   "state_readback_verified": true
 }
