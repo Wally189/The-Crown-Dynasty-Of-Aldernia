@@ -1,9 +1,14 @@
 {
-  "checked_at": "2026-09-22T11:54:57+00:00",
+  "checked_at": "2026-09-22T11:58:30+00:00",
   "detail": "Missing provider configuration: Google WIF/Drive access token",
   "normal_path_requires_king_prompt": false,
-  "pending_count": 8,
+  "pending_count": 0,
   "processed_event_ids": [],
   "schema_version": 1,
-  "status": "PROVIDER_ACCESS_NOT_CONFIGURED"
+  "status": "PROVIDER_ACCESS_NOT_CONFIGURED",
+  "manual_recovery": {
+    "completed_at": "2026-09-22T11:58:00+00:00",
+    "queue_commit": "34d33ef8182688e04a7f5b10c180df6a857866f6",
+    "note": "Manual Catholix recovery under CAT-123 drained all projected due events through the 12:00 Heartbeat, including Carol Opening, Terce/Sext and five Heartbeat patrol slices. Unattended provider identity remains unconfigured; this does not block the authorised manual path."
+  }
 }
