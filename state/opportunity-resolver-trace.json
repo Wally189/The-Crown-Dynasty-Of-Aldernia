@@ -1,13 +1,16 @@
 {
   "adapter_version": 1,
   "authority_widened": false,
-  "candidate_count": 8,
+  "candidate_count": 11,
   "candidate_ids": [
     "DUE::carol.business-opening:2026-09-22",
+    "DUE::catholic.sext:2026-09-22",
     "DUE::catholic.terce:2026-09-22",
     "DUE::dynasty.heartbeat:2026-09-22T08:00",
     "DUE::dynasty.heartbeat:2026-09-22T09:00",
     "DUE::dynasty.heartbeat:2026-09-22T10:00",
+    "DUE::dynasty.heartbeat:2026-09-22T11:00",
+    "DUE::dynasty.heartbeat:2026-09-22T12:00",
     "E-23",
     "E-24",
     "KQ-009"
@@ -15,10 +18,19 @@
   "canonical_record_written": false,
   "conflict_candidate_ids": [],
   "decision_changed": true,
-  "decision_fingerprint": "50f95fa2d13f7ea6b51d4494ab4d32df423fa2dee858cc523dc6b6d6b4d4c530",
+  "decision_fingerprint": "68653037d4e893023a1c1c104142a3a5a8156538b7813f78b82df5f6a0ca90bb",
   "decisions": [
     {
       "candidate_id": "DUE::carol.business-opening:2026-09-22",
+      "priority_key": null,
+      "reasons": [
+        "required model provider unavailable; unrelated work may continue"
+      ],
+      "state_class": "BLOCKED",
+      "unchanged": true
+    },
+    {
+      "candidate_id": "DUE::catholic.sext:2026-09-22",
       "priority_key": null,
       "reasons": [
         "required model provider unavailable; unrelated work may continue"
@@ -33,7 +45,7 @@
         "required model provider unavailable; unrelated work may continue"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::dynasty.heartbeat:2026-09-22T08:00",
@@ -42,7 +54,7 @@
         "required model provider unavailable; unrelated work may continue"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::dynasty.heartbeat:2026-09-22T09:00",
@@ -51,10 +63,28 @@
         "required model provider unavailable; unrelated work may continue"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::dynasty.heartbeat:2026-09-22T10:00",
+      "priority_key": null,
+      "reasons": [
+        "required model provider unavailable; unrelated work may continue"
+      ],
+      "state_class": "BLOCKED",
+      "unchanged": true
+    },
+    {
+      "candidate_id": "DUE::dynasty.heartbeat:2026-09-22T11:00",
+      "priority_key": null,
+      "reasons": [
+        "required model provider unavailable; unrelated work may continue"
+      ],
+      "state_class": "BLOCKED",
+      "unchanged": false
+    },
+    {
+      "candidate_id": "DUE::dynasty.heartbeat:2026-09-22T12:00",
       "priority_key": null,
       "reasons": [
         "required model provider unavailable; unrelated work may continue"
@@ -93,26 +123,29 @@
   "derived_state_only": true,
   "execution_performed": false,
   "external_effect": "NONE",
-  "fact_count": 8,
+  "fact_count": 11,
   "fact_ids": [
     "programme-board-e23",
     "programme-board-e24",
     "kq009-provider-gate",
     "runtime-event:carol.business-opening:2026-09-22",
+    "runtime-event:catholic.sext:2026-09-22",
     "runtime-event:catholic.terce:2026-09-22",
     "runtime-event:dynasty.heartbeat:2026-09-22T08:00",
     "runtime-event:dynasty.heartbeat:2026-09-22T09:00",
-    "runtime-event:dynasty.heartbeat:2026-09-22T10:00"
+    "runtime-event:dynasty.heartbeat:2026-09-22T10:00",
+    "runtime-event:dynasty.heartbeat:2026-09-22T11:00",
+    "runtime-event:dynasty.heartbeat:2026-09-22T12:00"
   ],
   "material_source_change": true,
   "model_called": false,
-  "observed_at": "2026-09-22T09:29:45.540330+00:00",
+  "observed_at": "2026-09-22T11:54:57.635129+00:00",
   "resolver_termination": "NO_ACTION",
-  "run_count": 7,
-  "run_id": "35710687317",
+  "run_count": 8,
+  "run_id": "35724105615",
   "schema_version": 1,
   "selected_candidate_id": null,
   "shadow_mode": true,
-  "source_fingerprint": "2322e2c77172818738d9ada9daf4579bb34f44e9b2a9440d978957e2efe873bf",
+  "source_fingerprint": "c5353cdbbb48a6783ce2627b4912a6884b69141400e01d6ebac2c2073a9e8162",
   "state_readback_verified": true
 }
