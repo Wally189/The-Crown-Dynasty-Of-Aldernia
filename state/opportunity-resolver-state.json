@@ -1,8 +1,8 @@
 {
   "adapter_version": 1,
-  "last_decision_fingerprint": "8b9fdb383b328d119b27cfde74910cea0ea44a2536963e83eee055ce89091088",
-  "last_observed_at": "2026-09-22T18:04:56.821647+00:00",
-  "last_source_fingerprint": "41d113328cc518e4378492d9f2e9c62e44b67ae6ba647c871549ab0231103ddc",
+  "last_decision_fingerprint": "a797efe433b7876a9ba7cba1398876f8ec20277f66f2323ca8022369e7cd1429",
+  "last_observed_at": "2026-09-22T20:47:22.437337+00:00",
+  "last_source_fingerprint": "60b0a45fe802816baec989cc8cbc92c619bcd011850fc45adab5e3f69e7983f7",
   "resolver_state": {
     "blockers": {
       "google-wif-drive-provider-access": {
@@ -184,6 +184,6 @@
     },
     "schema_version": 1
   },
-  "run_count": 14,
+  "run_count": 15,
   "schema_version": 1
 }

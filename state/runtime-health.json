@@ -1,6 +1,6 @@
 {
-  "checked_at": "2026-09-22T20:16:07+00:00",
-  "detail": "Unattended provider/runtime path remains unconfigured; Google provisioning is stopped. All Dynasty duties due through the 21:16 BST prompt boundary are manually reconciled, including the 21:00 Heartbeat/Royal Palace patrol and 22 Sep Website Voice bus. E-30 remains stopped at account-specific £0 GitHub Actions proof.",
+  "checked_at": "2026-09-22T20:47:22+00:00",
+  "detail": "Missing provider configuration: Google WIF/Drive access token",
   "normal_path_requires_king_prompt": false,
   "pending_count": 0,
   "processed_event_ids": [],
