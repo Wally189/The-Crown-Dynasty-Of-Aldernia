@@ -1,8 +1,8 @@
 {
   "adapter_version": 1,
-  "last_decision_fingerprint": "e688d0f34483c3843c7898311397c8f07577ae8502816df180b5bc6085cbb6b6",
-  "last_observed_at": "2026-09-22T14:08:52.184975+00:00",
-  "last_source_fingerprint": "c9ee20d54cdbe5ef1c34b5e106a0205bdc310ebb7bb321dbc272a9890d3682a3",
+  "last_decision_fingerprint": "ed13aa2e18fef903c0fd04ed805a6ad3c0368975409962cfe8b4b1fcd08b0485",
+  "last_observed_at": "2026-09-22T16:57:48.315342+00:00",
+  "last_source_fingerprint": "60af497d9e50694519929d58549fe77acb60296721b667c7dd5bf0762c963e61",
   "resolver_state": {
     "blockers": {
       "google-wif-drive-provider-access": {
@@ -127,6 +127,18 @@
         "next_review_trigger": null,
         "terminal_classification": "BLOCKED"
       },
+      "DUE::dynasty.heartbeat:2026-09-22T16:00": {
+        "candidate_id": "DUE::dynasty.heartbeat:2026-09-22T16:00",
+        "evidence_hash": "e6b46977f45e41d60f906ea8b6683c8d31c38bd2145172ff3058902fb8fa1079",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
+      "DUE::dynasty.heartbeat:2026-09-22T17:00": {
+        "candidate_id": "DUE::dynasty.heartbeat:2026-09-22T17:00",
+        "evidence_hash": "1730801e07b3cb8a4cb8579fffbf87c0e92fc1b343353d62049fc13ffd153f74",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
       "E-23": {
         "candidate_id": "E-23",
         "evidence_hash": "7af929a3058d1efeb46eda672c67bdb6d7ecc02c4f8c223bbd966df19db0a001",
@@ -144,10 +156,16 @@
         "evidence_hash": "966d49f001b3b00249b3593ce9e2fd453451fbc3fc1c010af029c3c36a7b9eb6",
         "next_review_trigger": "PROVIDER_STATE_CHANGE",
         "terminal_classification": "BLOCKED"
+      },
+      "PB-E28-LIVE-DELTA-ACK": {
+        "candidate_id": "PB-E28-LIVE-DELTA-ACK",
+        "evidence_hash": "982dc56aed96fc690b979f5ad71a20843b3db4ded6db9364532c3e24e7b76344",
+        "next_review_trigger": null,
+        "terminal_classification": "ACTIONABLE_NOW"
       }
     },
     "schema_version": 1
   },
-  "run_count": 12,
+  "run_count": 13,
   "schema_version": 1
 }

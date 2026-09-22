@@ -1,19 +1,23 @@
 {
   "adapter_version": 1,
   "authority_widened": false,
-  "candidate_count": 6,
+  "candidate_count": 7,
   "candidate_ids": [
     "DUE::catholic.none:2026-09-22",
     "DUE::dynasty.heartbeat:2026-09-22T14:00",
     "DUE::dynasty.heartbeat:2026-09-22T15:00",
-    "E-23",
-    "E-24",
-    "KQ-009"
+    "DUE::dynasty.heartbeat:2026-09-22T16:00",
+    "DUE::dynasty.heartbeat:2026-09-22T17:00",
+    "KQ-009",
+    "PB-E28-LIVE-DELTA-ACK"
   ],
+  "canonical_fact_count": 1,
   "canonical_record_written": false,
+  "canonical_source_modified_time": "2026-09-22T16:49:08.476Z",
+  "canonical_transport": "CONNECTED_DRIVE_BRIDGE",
   "conflict_candidate_ids": [],
   "decision_changed": true,
-  "decision_fingerprint": "e688d0f34483c3843c7898311397c8f07577ae8502816df180b5bc6085cbb6b6",
+  "decision_fingerprint": "ed13aa2e18fef903c0fd04ed805a6ad3c0368975409962cfe8b4b1fcd08b0485",
   "decisions": [
     {
       "candidate_id": "DUE::catholic.none:2026-09-22",
@@ -22,7 +26,7 @@
         "required model provider unavailable; unrelated work may continue"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::dynasty.heartbeat:2026-09-22T14:00",
@@ -31,7 +35,7 @@
         "required model provider unavailable; unrelated work may continue"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::dynasty.heartbeat:2026-09-22T15:00",
@@ -40,25 +44,25 @@
         "required model provider unavailable; unrelated work may continue"
       ],
       "state_class": "BLOCKED",
+      "unchanged": true
+    },
+    {
+      "candidate_id": "DUE::dynasty.heartbeat:2026-09-22T16:00",
+      "priority_key": null,
+      "reasons": [
+        "required model provider unavailable; unrelated work may continue"
+      ],
+      "state_class": "BLOCKED",
       "unchanged": false
     },
     {
-      "candidate_id": "E-23",
+      "candidate_id": "DUE::dynasty.heartbeat:2026-09-22T17:00",
       "priority_key": null,
       "reasons": [
-        "accepted outcome already satisfied; no new consequence"
+        "required model provider unavailable; unrelated work may continue"
       ],
-      "state_class": "NO_ACTION",
-      "unchanged": true
-    },
-    {
-      "candidate_id": "E-24",
-      "priority_key": null,
-      "reasons": [
-        "accepted outcome already satisfied; no new consequence"
-      ],
-      "state_class": "NO_ACTION",
-      "unchanged": true
+      "state_class": "BLOCKED",
+      "unchanged": false
     },
     {
       "candidate_id": "KQ-009",
@@ -68,29 +72,48 @@
       ],
       "state_class": "BLOCKED",
       "unchanged": true
+    },
+    {
+      "candidate_id": "PB-E28-LIVE-DELTA-ACK",
+      "priority_key": [
+        2,
+        2,
+        2,
+        1,
+        2,
+        1,
+        0,
+        2
+      ],
+      "reasons": [
+        "current accepted objective with explicit authority, evidence and executable capability"
+      ],
+      "state_class": "ACTIONABLE_NOW",
+      "unchanged": false
     }
   ],
   "derived_state_only": true,
   "execution_performed": false,
   "external_effect": "NONE",
-  "fact_count": 6,
+  "fact_count": 7,
   "fact_ids": [
-    "programme-board-e23",
-    "programme-board-e24",
+    "programme-board:E-28:PB-E28-LIVE-DELTA-ACK",
     "kq009-provider-gate",
     "runtime-event:catholic.none:2026-09-22",
     "runtime-event:dynasty.heartbeat:2026-09-22T14:00",
-    "runtime-event:dynasty.heartbeat:2026-09-22T15:00"
+    "runtime-event:dynasty.heartbeat:2026-09-22T15:00",
+    "runtime-event:dynasty.heartbeat:2026-09-22T16:00",
+    "runtime-event:dynasty.heartbeat:2026-09-22T17:00"
   ],
   "material_source_change": true,
   "model_called": false,
-  "observed_at": "2026-09-22T14:08:52.184975+00:00",
-  "resolver_termination": "NO_ACTION",
-  "run_count": 12,
-  "run_id": "35738258305",
+  "observed_at": "2026-09-22T16:57:48.315342+00:00",
+  "resolver_termination": "EXECUTE_ONE",
+  "run_count": 13,
+  "run_id": "35757536871",
   "schema_version": 1,
-  "selected_candidate_id": null,
+  "selected_candidate_id": "PB-E28-LIVE-DELTA-ACK",
   "shadow_mode": true,
-  "source_fingerprint": "c9ee20d54cdbe5ef1c34b5e106a0205bdc310ebb7bb321dbc272a9890d3682a3",
+  "source_fingerprint": "60af497d9e50694519929d58549fe77acb60296721b667c7dd5bf0762c963e61",
   "state_readback_verified": true
 }
