@@ -1,8 +1,9 @@
 {
   "adapter_version": 1,
   "authority_widened": false,
-  "candidate_count": 1,
+  "candidate_count": 2,
   "candidate_ids": [
+    "DUE::catholic.compline:2026-09-22",
     "KQ-009"
   ],
   "canonical_fact_count": 0,
@@ -10,9 +11,21 @@
   "canonical_source_modified_time": null,
   "canonical_transport": null,
   "conflict_candidate_ids": [],
-  "decision_changed": false,
-  "decision_fingerprint": "a797efe433b7876a9ba7cba1398876f8ec20277f66f2323ca8022369e7cd1429",
+  "decision_changed": true,
+  "decision_fingerprint": "168c9186de37476359a7f628188ebe6631b0b6f3f977d2a33401503f0b900c84",
   "decisions": [
+    {
+      "candidate_id": "DUE::catholic.compline:2026-09-22",
+      "implementation_operations": [],
+      "implementation_profiles": [],
+      "implementation_route": null,
+      "priority_key": null,
+      "reasons": [
+        "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
+      ],
+      "state_class": "BLOCKED",
+      "unchanged": false
+    },
     {
       "candidate_id": "KQ-009",
       "implementation_operations": [],
@@ -29,19 +42,20 @@
   "derived_state_only": true,
   "execution_performed": false,
   "external_effect": "NONE",
-  "fact_count": 1,
+  "fact_count": 2,
   "fact_ids": [
-    "kq009-provider-gate"
+    "kq009-provider-gate",
+    "runtime-event:catholic.compline:2026-09-22"
   ],
-  "material_source_change": false,
+  "material_source_change": true,
   "model_called": false,
-  "observed_at": "2026-09-22T21:14:57.542779+00:00",
+  "observed_at": "2026-09-22T23:37:33.285189+00:00",
   "resolver_termination": "NO_ACTION",
-  "run_count": 17,
-  "run_id": "35785436174",
+  "run_count": 18,
+  "run_id": "35798297605",
   "schema_version": 1,
   "selected_candidate_id": null,
   "shadow_mode": true,
-  "source_fingerprint": "60b0a45fe802816baec989cc8cbc92c619bcd011850fc45adab5e3f69e7983f7",
+  "source_fingerprint": "9788ace5cf6739c70ca52b16ec54c5093bc41ad00b9fcbb84d2ebc66e716a5f9",
   "state_readback_verified": true
 }
