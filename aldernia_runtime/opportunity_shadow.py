@@ -378,6 +378,15 @@ def run_shadow(
         "authority_widened": False,
         "canonical_record_written": False,
         "derived_state_only": True,
+        "canonical_transport": canonical_packet.get("transport"),
+        "canonical_source_modified_time": (
+            canonical_packet.get("source", {}).get("modified_time")
+            if isinstance(canonical_packet.get("source"), Mapping)
+            else None
+        ),
+        "canonical_fact_count": sum(
+            1 for fact in facts if fact.fact_id.startswith("programme-board:")
+        ),
     }
 
     _atomic_write_json(state_path, next_state)
