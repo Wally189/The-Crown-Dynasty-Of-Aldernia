@@ -150,5 +150,19 @@ class PrivateGitHubCanonicalTests(unittest.TestCase):
             validate_programme_board(review, require_active=True)
 
 
+    def test_inert_workflow_template_has_private_and_zero_spend_gates(self):
+        text = Path(
+            "templates/private-runtime/central-aldernia-clock.private.template.yml"
+        ).read_text(encoding="utf-8")
+        self.assertIn("github.event.repository.private != true", text)
+        self.assertIn("ALDERNIA_ZERO_SPEND_CONFIRMED", text)
+        self.assertIn("permissions:\n  contents: write", text)
+        self.assertNotIn("id-token: write", text)
+        self.assertNotIn("google-github-actions/auth", text)
+        self.assertNotIn("upload-artifact", text)
+        self.assertNotIn("actions/cache", text)
+
+
+
 if __name__ == "__main__":
     unittest.main()
