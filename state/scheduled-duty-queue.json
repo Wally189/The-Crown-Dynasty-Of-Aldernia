@@ -5365,8 +5365,146 @@
         "mission_created_by_worker": false,
         "readback_verified": true
       }
+    },
+    "dynasty.heartbeat:2026-09-22T21:00": {
+      "schema_version": 1,
+      "event_id": "dynasty.heartbeat:2026-09-22T21:00",
+      "event_type": "scheduled_duty_due",
+      "transition_class": "scheduled_duty_due",
+      "service_class": "HEARTBEAT",
+      "departure_mode": "MANUAL_PROMPT_CATCH_UP",
+      "scheduled_for": "2026-09-22T21:00:00+01:00",
+      "emitted_at": "2026-09-22T20:16:07+00:00",
+      "emitting_owner": "ChatGPT/Helm manual Catholix interface under CAT-123",
+      "destination": "Royal Palace — Dynasty House Pulse / Dynasty State & Conflict Patrol",
+      "mission_ref": "NONE — EXISTING AUTHORISED DUTY",
+      "authority_ref": "Royal Palace Scheduled Tasks Register — Dynasty House Pulse + row 21 Dynasty State & Conflict Patrol",
+      "ack_to": "Central Aldernia Clock / scheduled-duty queue",
+      "acceptance": "Execute the due 21:00 Heartbeat from current canonical state, including one bounded Royal Palace patrol slice and priority E-30/KQ-009 review; route the exact 21:00 Website Voice bus; record durable terminal receipts without widening authority.",
+      "permitted_effects": [
+        "manual execution of existing authorised Heartbeat",
+        "one bounded Royal Palace patrol slice",
+        "priority E-30/KQ-009 review",
+        "route due Website Voice bus",
+        "durable ACK/readback"
+      ],
+      "prohibited_effects": [
+        "create a mission from time alone",
+        "widen authority",
+        "external contact",
+        "publication",
+        "spend",
+        "provider/account/configuration mutation",
+        "Royal Household access"
+      ],
+      "payload": {
+        "accountable_owner": "Royal Palace / Queen Barbara Admin / Computer of Series",
+        "duty_id": "dynasty.heartbeat",
+        "label": "Dynasty House Pulse / Heartbeat",
+        "patrol_slice": "Royal Palace",
+        "priority_item": "Royal Programme Board E-30 / KQ-009",
+        "requires_model_runtime": true
+      },
+      "claim": null,
+      "status": "ACKNOWLEDGED_ACTION",
+      "receipt": {
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-22-e30-2116",
+        "attempt": 1,
+        "completed_at": "2026-09-22T20:16:07+00:00",
+        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
+        "accountable_owner": "Royal Palace / Queen Barbara Admin / Computer of Series",
+        "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "outcome": "ACTION",
+        "result_summary": "21:00 Heartbeat recovered by prompt-clock rule. Royal Palace bounded patrol confirmed current Palace source-of-truth/kernel rules and E-30/KQ-009 remain coherent: Drive/Plan A/competent House truth stays authoritative; the private runtime target is prepared but cutover remains stopped at the account-specific £0 Actions proof. No duplicate-current or conflicting Crown/Palace control justified mutation. Website Voice stable event for 22 Sep was also routed and terminally reviewed. Patrol cursor advances to House of Series.",
+        "evidence_refs": [
+          "Drive:The Royal Palace — Founding Constitutional & Operating Settlement 01",
+          "Drive:Royal Programme Board E-30 / KQ-009",
+          "Drive:Scheduled Tasks rows 2, 20 and 21"
+        ],
+        "writes": [
+          "GitHub:clock-state/state/scheduled-duty-queue.json durable prompt-catch-up receipt"
+        ],
+        "external_effect": "NONE",
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false,
+        "readback_verified": true
+      }
+    },
+    "aldernia.website-voice:2026-09-22": {
+      "schema_version": 1,
+      "event_id": "aldernia.website-voice:2026-09-22",
+      "event_type": "scheduled_duty_due",
+      "transition_class": "scheduled_duty_due",
+      "service_class": "HEARTBEAT",
+      "departure_mode": "MANUAL_PROMPT_CATCH_UP",
+      "scheduled_for": "2026-09-22T21:00:00+01:00",
+      "emitted_at": "2026-09-22T20:16:07+00:00",
+      "emitting_owner": "ChatGPT/Helm manual Catholix interface under CAT-123",
+      "destination": "House of Josie — Website Voice & Story Bus",
+      "mission_ref": "NONE — EXISTING AUTHORISED DUTY",
+      "authority_ref": "Royal Palace Scheduled Tasks Register row 20 — Aldernia Website Voice & Story Bus",
+      "ack_to": "Central Aldernia Clock / scheduled-duty queue",
+      "acceptance": "Review current production source and exact current QA evidence for editorial/experience defects; prepare minimal internal correction only; no publication without exact authority.",
+      "permitted_effects": [
+        "internal editorial/experience review",
+        "internal defect recording",
+        "durable ACK/readback"
+      ],
+      "prohibited_effects": [
+        "publication",
+        "source write to production main",
+        "invent canon",
+        "spend",
+        "provider/account mutation"
+      ],
+      "payload": {
+        "accountable_owner": "House of Josie",
+        "duty_id": "aldernia.website-voice",
+        "label": "Aldernia Website Voice & Story Bus",
+        "source_row": 20,
+        "requires_model_runtime": true
+      },
+      "claim": null,
+      "status": "ACKNOWLEDGED_ACTION",
+      "receipt": {
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-22-e30-2116",
+        "attempt": 1,
+        "completed_at": "2026-09-22T20:16:07+00:00",
+        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
+        "accountable_owner": "House of Josie",
+        "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "outcome": "ACTION",
+        "result_summary": "22 Sep Website Voice review completed at bounded current-production-source scope. Current main 3ed55ea9073eb6ac35a79d798b6ed8c335a653bc differs from the morning-reviewed 57f7f8bc… in the country-first root, styles, Today script and local visual assets. Exact-head Pages 35757721879, Public Smoke 35757723069 and Browser & Accessibility 35757722979 are SUCCESS. One concrete copy defect remains in index.html's pre-JavaScript fallback: 'current public-fictional calendar'; the loaded Today script correctly uses 'fictional calendar'. Record as internal editorial defect; no source/publication mutation performed during E-30.",
+        "evidence_refs": [
+          "GitHub:main 3ed55ea9073eb6ac35a79d798b6ed8c335a653bc",
+          "GitHub:index.html blob 3912f49621c2b0df5586cc8743a6430610c181b5",
+          "GitHub:assets/today.js blob 71c016eb414cad9b6cca2e079e431d1591b0ad59",
+          "GitHub Actions:Pages 35757721879 SUCCESS",
+          "GitHub Actions:Public Smoke 35757723069 SUCCESS",
+          "GitHub Actions:Browser & Accessibility 35757722979 SUCCESS",
+          "Drive:Public World Blueprint",
+          "Drive:House of Josie editorial controls"
+        ],
+        "writes": [
+          "GitHub:clock-state/state/scheduled-duty-queue.json durable Website Voice receipt"
+        ],
+        "external_effect": "NONE",
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false,
+        "readback_verified": true
+      }
     }
   },
-  "last_checked_at": "2026-09-22T19:13:50+00:00",
+  "last_checked_at": "2026-09-22T20:16:07+00:00",
   "schema_version": 1
 }
