@@ -1,9 +1,12 @@
 {
-  "checked_at": "2026-09-22T20:49:41+00:00",
-  "detail": "Missing provider configuration: Google WIF/Drive access token",
+  "checked_at": "2026-09-22T21:03:48+00:00",
+  "detail": "Unattended provider/runtime path remains unconfigured. 22:00 BST Heartbeat and Carol availability gate manually reconciled and terminally ACKed from current canonical state; KQ-009 remains blocked at account-specific £0 GitHub Actions proof.",
   "normal_path_requires_king_prompt": false,
   "pending_count": 0,
-  "processed_event_ids": [],
+  "processed_event_ids": [
+    "dynasty.heartbeat:2026-09-22T22:00",
+    "carol.availability-gate:2026-09-22"
+  ],
   "schema_version": 1,
   "status": "PROVIDER_ACCESS_NOT_CONFIGURED"
 }
