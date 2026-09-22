@@ -5297,8 +5297,76 @@
         "verified_at": "2026-09-22T18:34:36+00:00",
         "verification_summary": "Drive readback confirmed Scheduled Tasks corrective Red Box row and HMDF current header; clock-state event read back at expected stable identity."
       }
+    },
+    "dynasty.heartbeat:2026-09-22T20:00": {
+      "schema_version": 1,
+      "event_id": "dynasty.heartbeat:2026-09-22T20:00",
+      "event_type": "scheduled_duty_due",
+      "transition_class": "scheduled_duty_due",
+      "service_class": "HEARTBEAT",
+      "departure_mode": "MANUAL_PROMPT_CATCH_UP",
+      "scheduled_for": "2026-09-22T20:00:00+01:00",
+      "emitted_at": "2026-09-22T19:13:50+00:00",
+      "emitting_owner": "ChatGPT/Helm manual Catholix interface under CAT-123",
+      "destination": "Royal Palace — Dynasty House Pulse / Dynasty State & Conflict Patrol",
+      "mission_ref": "NONE — EXISTING AUTHORISED DUTY",
+      "authority_ref": "Royal Palace Scheduled Tasks Register — Dynasty House Pulse + row 21 Dynasty State & Conflict Patrol",
+      "ack_to": "Central Aldernia Clock / scheduled-duty queue",
+      "acceptance": "Execute the due 20:00 Heartbeat from current canonical state, including one bounded row-21 patrol slice and priority canonical-state-change review; record durable ACK/NO_ACTION/STOP without widening authority.",
+      "permitted_effects": [
+        "manual execution of existing authorised Heartbeat",
+        "one bounded HMDF patrol slice",
+        "priority canonical-state-change review",
+        "durable ACK/readback"
+      ],
+      "prohibited_effects": [
+        "create a mission from time alone",
+        "widen authority",
+        "external contact",
+        "publication",
+        "spend",
+        "provider/account/configuration mutation",
+        "Royal Household access"
+      ],
+      "payload": {
+        "accountable_owner": "Royal Palace / Queen Barbara Admin / Computer of Series",
+        "duty_id": "dynasty.heartbeat",
+        "label": "Dynasty House Pulse / Heartbeat",
+        "patrol_slice": "HMDF",
+        "priority_item": "Royal Programme Board E-30 / KQ-009 Crown-authorised private-GitHub runtime cutover",
+        "requires_model_runtime": true
+      },
+      "claim": null,
+      "status": "ACKNOWLEDGED_ACTION",
+      "receipt": {
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-22-e30-continuation",
+        "attempt": 1,
+        "completed_at": "2026-09-22T19:13:50+00:00",
+        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
+        "accountable_owner": "Royal Palace / Queen Barbara Admin / Computer of Series",
+        "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "outcome": "ACTION",
+        "result_summary": "20:00 Heartbeat recovered by the prompt-clock rule. The required HMDF patrol slice found the current provider-independent recovery limitation explicit and coherent: SHIELD-PIREC-01 remains INTERNAL PREPARATION COMPLETE TO RESERVED GATE / PROVIDER-INDEPENDENT RECOVERY STILL UNPROVED. Priority review of E-30/KQ-009 confirmed the Crown-authorised private-GitHub runtime cutover is a bounded runtime-custody action and does not itself satisfy HMDF's genuinely independent secondary-custody proof. No conflicting current authority, duplicate-current active control, unambiguous stale item, new Crown decision or external effect was established. Patrol cursor advances to Royal Palace.",
+        "evidence_refs": [
+          "Drive:00 — HMDF — Operations, Mission, Incident, Risk & Current State Register 01 — SHIELD-PIREC-01",
+          "Drive:Royal Programme Board E-30 / KQ-009",
+          "Drive:Scheduled Tasks row 21 — Dynasty State & Conflict Patrol"
+        ],
+        "writes": [
+          "GitHub:clock-state/state/scheduled-duty-queue.json durable prompt-catch-up receipt"
+        ],
+        "external_effect": "NONE",
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false,
+        "readback_verified": true
+      }
     }
   },
-  "last_checked_at": "2026-09-22T18:34:00+00:00",
+  "last_checked_at": "2026-09-22T19:13:50+00:00",
   "schema_version": 1
 }
