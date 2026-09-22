@@ -217,8 +217,8 @@ class Decision:
     priority_key: tuple[int, ...] | None = None
     unchanged: bool = False
     implementation_route: str | None = None
-    implementation_profiles: tuple[str, ...] = ()
-    implementation_operations: tuple[str, ...] = ()
+    implementation_profiles: list[str] = field(default_factory=list)
+    implementation_operations: list[str] = field(default_factory=list)
 
 
 @dataclass(frozen=True)
@@ -447,8 +447,8 @@ class Resolver:
             priority_key=self.priority_key(c),
             unchanged=unchanged,
             implementation_route=implementation.route,
-            implementation_profiles=implementation.profile_ids,
-            implementation_operations=tuple(sorted(implementation.operations)),
+            implementation_profiles=list(implementation.profile_ids),
+            implementation_operations=sorted(implementation.operations),
         )
 
     def priority_key(self, c: Candidate) -> tuple[int, ...]:

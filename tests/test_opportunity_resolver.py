@@ -130,7 +130,7 @@ class Stage1ResolverTests(unittest.TestCase):
         d = self.resolver.classify(c)
         self.assertEqual(d.state_class, StateClass.ACTIONABLE_NOW)
         self.assertEqual(d.implementation_route, "SMALL_CODE")
-        self.assertEqual(d.implementation_profiles, ())
+        self.assertEqual(d.implementation_profiles, [])
 
     def test_provider_loss_can_fall_back_to_non_model_transformation(self):
         c = candidate(
@@ -186,7 +186,7 @@ class Stage1ResolverTests(unittest.TestCase):
         d = resolver.classify(c)
         self.assertEqual(d.state_class, StateClass.ACTIONABLE_NOW)
         self.assertEqual(d.implementation_route, "REUSE")
-        self.assertEqual(d.implementation_profiles, ("LOCAL-PARSER",))
+        self.assertEqual(d.implementation_profiles, ["LOCAL-PARSER"])
 
     def test_smallest_complete_registered_coalition_is_synthesized(self):
         profiles = dict(PROFILES)
