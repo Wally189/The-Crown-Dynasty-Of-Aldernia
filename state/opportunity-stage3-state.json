@@ -1,0 +1,38 @@
+{
+  "completed_at": null,
+  "consequence": {
+    "candidate_id": "STAGE3::verify-derived-state-consequence",
+    "causal_depth": 1,
+    "causal_parent": "STAGE3::bounded-derived-state-proof",
+    "emitted_at": "2026-09-22T12:08:42.302109+00:00",
+    "emitted_run_id": "35725432350",
+    "evidence_hash": "b03beeede46ac14da2aec0e47178441fd92405611e0d52db7eaf65ced3cab18b",
+    "status": "PENDING_LATER_INVOCATION"
+  },
+  "first_ack": {
+    "acked_at": "2026-09-22T12:08:42.302109+00:00",
+    "acked_run_id": "35725432350",
+    "action_id": "STAGE3::bounded-derived-state-proof",
+    "receipt_hash": "06efb0abbf884f43e53e12f4995b9e774170c924e9e8ef842536b6afc82ffbf9"
+  },
+  "first_receipt": {
+    "action_id": "STAGE3::bounded-derived-state-proof",
+    "authority_ref": "Royal Programme Board E-26",
+    "canonical_record_written": false,
+    "execution_class": "COS-WORKER-001::INTERNAL_DERIVED_STATE_TRANSITION",
+    "external_effect": "NONE",
+    "model_called": false,
+    "operation": "DERIVED_STATE_ACCEPTANCE_RECEIPT",
+    "performed_at": "2026-09-22T12:08:42.302109+00:00",
+    "performed_run_id": "35725432350",
+    "reversible": true,
+    "shadow_source_fingerprint": "afbbd890f07777d192646a482d12f9b25ea12c62a8df9928c43493189164bf32"
+  },
+  "phase": "FIRST_ACKED",
+  "run_ids": [
+    "35725432350"
+  ],
+  "schema_version": 1,
+  "second_ack": null,
+  "second_receipt": null
+}

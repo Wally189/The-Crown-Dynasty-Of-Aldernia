@@ -1,14 +1,9 @@
 {
-  "checked_at": "2026-09-22T12:03:50+00:00",
+  "checked_at": "2026-09-22T12:08:42+00:00",
   "detail": "Missing provider configuration: Google WIF/Drive access token",
   "normal_path_requires_king_prompt": false,
   "pending_count": 0,
   "processed_event_ids": [],
   "schema_version": 1,
-  "status": "PROVIDER_ACCESS_NOT_CONFIGURED",
-  "manual_recovery": {
-    "completed_at": "2026-09-22T12:03:35+00:00",
-    "queue_commit": "f22ca0ec874033a903d03371655efba3593e18e7",
-    "note": "Manual Catholix executed the due 13:00 Heartbeat because unattended projection had not yet emitted it. House of Tony patrol visit 2 completed and cursor advanced to House of Marianne; no consequential bus or Crown decision was justified. Unattended provider identity remains unconfigured and does not block the authorised manual route."
-  }
+  "status": "PROVIDER_ACCESS_NOT_CONFIGURED"
 }

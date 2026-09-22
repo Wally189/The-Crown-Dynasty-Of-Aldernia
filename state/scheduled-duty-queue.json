@@ -367,6 +367,7 @@
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
       "ack_to": "Central Aldernia Clock / scheduled-duty queue",
       "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 18",
+      "claim": null,
       "departure_mode": "TIMETABLE",
       "destination": "Dynasty Institutional Heartbeat impact discovery",
       "emitted_at": "2026-09-22T09:29:45+00:00",
@@ -397,24 +398,12 @@
         "widen authority",
         "treat this machine projection as task source of truth"
       ],
-      "scheduled_for": "2026-09-22T08:00:00+01:00",
-      "service_class": "HEARTBEAT",
-      "status": "ACKNOWLEDGED_NO_ACTION",
-      "transition_class": "scheduled_duty_due",
-      "claim": null,
       "receipt": {
-        "schema_version": 1,
-        "worker_id": "chatgpt-helm-session-2026-09-22-balcony-0800-recovery",
-        "attempt": 1,
-        "completed_at": "2026-09-22T11:58:00+00:00",
-        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
         "accountable_owner": "House of Carol",
+        "attempt": 1,
+        "authority_unchanged": true,
+        "completed_at": "2026-09-22T11:58:00+00:00",
         "estate_scope": "ALDERNIA",
-        "resource_classes_used": [
-          "ALDERNIA_INTERNAL"
-        ],
-        "outcome": "NO_ACTION",
-        "result_summary": "08:00 House of Carol Business Opening executed from current FIRST READ, Business Plan, canonical-record register and live Customer Commercial Operating System. House remains LIVE OPERATING / EARLY COMMERCIAL EVIDENCE. The only current genuine lead remains LED-0001 at CLARIFY / await voluntary response after the proprietor-sent reply; no new need, scope, price, buyer-authority or willingness-to-pay evidence exists, and no further outbound communication is authorised by the current record. Highest-value lawful action is therefore WAIT FOR EVIDENCE / NO_ACTION; no outreach, sale, revenue, demand or opportunity was invented.",
         "evidence_refs": [
           "Drive:15sUjJSU9z5YaXgMecV-2PeQw2x-2JfmDiTGXoM-T6S8",
           "Drive:1wxAoiO4kLqzK8_jrrzP8uI0EbU46PtA4-vXxCE8Eh_M §005/§021/§071/§095/§108",
@@ -422,16 +411,27 @@
           "Drive:1pMaDtUgcCGaRn1LaCk2JYMdr1Hqe-BY-auDQm1lTUqI canonical record register",
           "Drive:Scheduled Tasks row 18"
         ],
-        "writes": [
-          "GitHub:clock-state/state/scheduled-duty-queue.json durable manual recovery receipt"
-        ],
         "external_effect": "NONE",
-        "authority_unchanged": true,
-        "ownership_unchanged": true,
         "mission_created_by_worker": false,
         "new_model_provider_access_granted": false,
-        "readback_verified": true
-      }
+        "outcome": "NO_ACTION",
+        "ownership_unchanged": true,
+        "readback_verified": true,
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "result_summary": "08:00 House of Carol Business Opening executed from current FIRST READ, Business Plan, canonical-record register and live Customer Commercial Operating System. House remains LIVE OPERATING / EARLY COMMERCIAL EVIDENCE. The only current genuine lead remains LED-0001 at CLARIFY / await voluntary response after the proprietor-sent reply; no new need, scope, price, buyer-authority or willingness-to-pay evidence exists, and no further outbound communication is authorised by the current record. Highest-value lawful action is therefore WAIT FOR EVIDENCE / NO_ACTION; no outreach, sale, revenue, demand or opportunity was invented.",
+        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-22-balcony-0800-recovery",
+        "writes": [
+          "GitHub:clock-state/state/scheduled-duty-queue.json durable manual recovery receipt"
+        ]
+      },
+      "scheduled_for": "2026-09-22T08:00:00+01:00",
+      "service_class": "HEARTBEAT",
+      "status": "ACKNOWLEDGED_NO_ACTION",
+      "transition_class": "scheduled_duty_due"
     },
     "catholic.compline:2026-09-21": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -984,6 +984,7 @@
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
       "ack_to": "Central Aldernia Clock / scheduled-duty queue",
       "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 16",
+      "claim": null,
       "departure_mode": "TIMETABLE",
       "destination": "Dynasty Institutional Heartbeat impact discovery",
       "emitted_at": "2026-09-22T11:54:57+00:00",
@@ -1013,41 +1014,40 @@
         "widen authority",
         "treat this machine projection as task source of truth"
       ],
-      "scheduled_for": "2026-09-22T12:00:00+01:00",
-      "service_class": "HEARTBEAT",
-      "status": "ACKNOWLEDGED_ACTION",
-      "transition_class": "scheduled_duty_due",
-      "claim": null,
       "receipt": {
-        "schema_version": 1,
-        "worker_id": "chatgpt-helm-session-2026-09-22-balcony-0800-recovery",
-        "attempt": 1,
-        "completed_at": "2026-09-22T11:58:00+00:00",
-        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
         "accountable_owner": "House of Catholic",
+        "attempt": 1,
+        "authority_unchanged": true,
+        "completed_at": "2026-09-22T11:58:00+00:00",
         "estate_scope": "ALDERNIA",
-        "resource_classes_used": [
-          "ALDERNIA_INTERNAL",
-          "PUBLIC_READ_ONLY"
-        ],
-        "outcome": "ACTION",
-        "result_summary": "12:00 Sext completed during the current midday observance window as the Dynasty's internal common-observance packet. Current House of Catholic controls and Universalis England presentation route identify Tuesday of Week 25 in Ordinary Time, Psalm Week 1. The packet was observed/read at institutional software scope only; no claim is made that software performed human interior prayer, sacramental participation or ecclesiastical office.",
         "evidence_refs": [
           "Drive:House of Catholic FIRST READ",
           "Drive:House of Catholic BAU record",
           "Drive:Scheduled Tasks row 16",
           "Public:Universalis Midday Prayer — 22 September 2026"
         ],
-        "writes": [
-          "GitHub:clock-state/state/scheduled-duty-queue.json durable manual recovery receipt"
-        ],
         "external_effect": "NONE",
-        "authority_unchanged": true,
-        "ownership_unchanged": true,
         "mission_created_by_worker": false,
         "new_model_provider_access_granted": false,
-        "readback_verified": true
-      }
+        "outcome": "ACTION",
+        "ownership_unchanged": true,
+        "readback_verified": true,
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL",
+          "PUBLIC_READ_ONLY"
+        ],
+        "result_summary": "12:00 Sext completed during the current midday observance window as the Dynasty's internal common-observance packet. Current House of Catholic controls and Universalis England presentation route identify Tuesday of Week 25 in Ordinary Time, Psalm Week 1. The packet was observed/read at institutional software scope only; no claim is made that software performed human interior prayer, sacramental participation or ecclesiastical office.",
+        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-22-balcony-0800-recovery",
+        "writes": [
+          "GitHub:clock-state/state/scheduled-duty-queue.json durable manual recovery receipt"
+        ]
+      },
+      "scheduled_for": "2026-09-22T12:00:00+01:00",
+      "service_class": "HEARTBEAT",
+      "status": "ACKNOWLEDGED_ACTION",
+      "transition_class": "scheduled_duty_due"
     },
     "catholic.terce:2026-09-21": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -1128,6 +1128,7 @@
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
       "ack_to": "Central Aldernia Clock / scheduled-duty queue",
       "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 16",
+      "claim": null,
       "departure_mode": "TIMETABLE",
       "destination": "Dynasty Institutional Heartbeat impact discovery",
       "emitted_at": "2026-09-22T09:29:45+00:00",
@@ -1157,41 +1158,40 @@
         "widen authority",
         "treat this machine projection as task source of truth"
       ],
-      "scheduled_for": "2026-09-22T09:00:00+01:00",
-      "service_class": "HEARTBEAT",
-      "status": "ACKNOWLEDGED_NO_ACTION",
-      "transition_class": "scheduled_duty_due",
-      "claim": null,
       "receipt": {
-        "schema_version": 1,
-        "worker_id": "chatgpt-helm-session-2026-09-22-balcony-0800-recovery",
-        "attempt": 1,
-        "completed_at": "2026-09-22T11:58:00+00:00",
-        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
         "accountable_owner": "House of Catholic",
+        "attempt": 1,
+        "authority_unchanged": true,
+        "completed_at": "2026-09-22T11:58:00+00:00",
         "estate_scope": "ALDERNIA",
-        "resource_classes_used": [
-          "ALDERNIA_INTERNAL",
-          "PUBLIC_READ_ONLY"
-        ],
-        "outcome": "NO_ACTION",
-        "result_summary": "09:00 Terce recovered after its mid-morning observance window as EXPIRED / NO_ACTION. Current House of Catholic controls and the current Universalis England calendar were verified, but the Dynasty does not retroactively claim a timed common observance occurred. No human interior prayer, sacramental participation or ecclesiastical-office claim was fabricated.",
         "evidence_refs": [
           "Drive:House of Catholic FIRST READ",
           "Drive:House of Catholic BAU record",
           "Drive:Scheduled Tasks row 16",
           "Public:Universalis Mid-Morning Prayer — 22 September 2026"
         ],
-        "writes": [
-          "GitHub:clock-state/state/scheduled-duty-queue.json durable manual recovery receipt"
-        ],
         "external_effect": "NONE",
-        "authority_unchanged": true,
-        "ownership_unchanged": true,
         "mission_created_by_worker": false,
         "new_model_provider_access_granted": false,
-        "readback_verified": true
-      }
+        "outcome": "NO_ACTION",
+        "ownership_unchanged": true,
+        "readback_verified": true,
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL",
+          "PUBLIC_READ_ONLY"
+        ],
+        "result_summary": "09:00 Terce recovered after its mid-morning observance window as EXPIRED / NO_ACTION. Current House of Catholic controls and the current Universalis England calendar were verified, but the Dynasty does not retroactively claim a timed common observance occurred. No human interior prayer, sacramental participation or ecclesiastical-office claim was fabricated.",
+        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-22-balcony-0800-recovery",
+        "writes": [
+          "GitHub:clock-state/state/scheduled-duty-queue.json durable manual recovery receipt"
+        ]
+      },
+      "scheduled_for": "2026-09-22T09:00:00+01:00",
+      "service_class": "HEARTBEAT",
+      "status": "ACKNOWLEDGED_NO_ACTION",
+      "transition_class": "scheduled_duty_due"
     },
     "catholic.vespers:2026-09-21": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -3135,6 +3135,7 @@
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
       "ack_to": "Central Aldernia Clock / scheduled-duty queue",
       "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 2",
+      "claim": null,
       "departure_mode": "TIMETABLE",
       "destination": "Dynasty Institutional Heartbeat impact discovery",
       "emitted_at": "2026-09-22T09:29:45+00:00",
@@ -3147,15 +3148,11 @@
         "duty_id": "dynasty.heartbeat",
         "evaluation_only": false,
         "integrity_patrol": {
-          "registry_version": 1,
-          "source_row": 21,
+          "cursor_after": "hmdf",
           "estate_id": "teach-antaine",
           "estate_label": "Teach Antaine — Government Institutions",
-          "root_folder_ids": [
-            "1eIJcQfx5afjFq66gSP1-K-HZWRMTBqlg"
-          ],
-          "visit_index": 1,
-          "cursor_after": "hmdf",
+          "mode": "ONE_BOUNDED_SLICE_PER_HEARTBEAT",
+          "registry_version": 1,
           "required_source_ids": [
             "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
             "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
@@ -3169,8 +3166,12 @@
             "1XYpIpSnXjn3Ks6Xv4-pkSx4ypoUkB7eBGXm5xZh4Flk"
           ],
           "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
+          "root_folder_ids": [
+            "1eIJcQfx5afjFq66gSP1-K-HZWRMTBqlg"
+          ],
           "royal_household_access_permitted": false,
-          "mode": "ONE_BOUNDED_SLICE_PER_HEARTBEAT"
+          "source_row": 21,
+          "visit_index": 1
         },
         "label": "Dynasty House Pulse / King's Balcony Heartbeat",
         "required_source_ids": [
@@ -3190,24 +3191,12 @@
         "widen authority",
         "treat this machine projection as task source of truth"
       ],
-      "scheduled_for": "2026-09-22T08:00:00+01:00",
-      "service_class": "HEARTBEAT",
-      "status": "ACKNOWLEDGED_ACTION",
-      "transition_class": "scheduled_duty_due",
-      "claim": null,
       "receipt": {
-        "schema_version": 1,
-        "worker_id": "chatgpt-helm-session-2026-09-22-balcony-0800-recovery",
-        "attempt": 1,
-        "completed_at": "2026-09-22T11:58:00+00:00",
-        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
         "accountable_owner": "Royal Palace",
+        "attempt": 1,
+        "authority_unchanged": true,
+        "completed_at": "2026-09-22T11:58:00+00:00",
         "estate_scope": "ALDERNIA",
-        "resource_classes_used": [
-          "ALDERNIA_INTERNAL"
-        ],
-        "outcome": "ACTION",
-        "result_summary": "08:00 Heartbeat recovered from current canonical state. Carol Business Opening closed NO_ACTION / WAIT FOR EVIDENCE and created no Crown task. Required row-21 patrol completed one bounded Teach Antaine slice: current independent-institution authority, Stage-14/open assurance limits, Institution-19 non-operating boundary and top-level estate structure remain coherent; no unambiguous stale active material, duplicate-current material or genuinely conflicting current proposition was established. No archive mutation or Crown conflict queue item was justified. Cursor advanced to HMDF.",
         "evidence_refs": [
           "Drive:CAT-123",
           "Drive:House of Series START HERE",
@@ -3220,15 +3209,29 @@
           "Drive:Teach Antaine root listing",
           "Drive:Carol current commercial state"
         ],
-        "writes": [
-          "GitHub:clock-state/state/scheduled-duty-queue.json durable manual recovery receipt"
-        ],
         "external_effect": "NONE",
-        "authority_unchanged": true,
-        "ownership_unchanged": true,
+        "integrity_patrol": {
+          "current_authority_retrieved": true,
+          "cursor_after": "hmdf",
+          "estate_id": "teach-antaine",
+          "estate_label": "Teach Antaine — Government Institutions",
+          "findings": [],
+          "readback_verified": true,
+          "registry_version": 1,
+          "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
+          "royal_household_accessed": false,
+          "source_row": 21,
+          "visit_index": 1
+        },
         "mission_created_by_worker": false,
         "new_model_provider_access_granted": false,
+        "outcome": "ACTION",
+        "ownership_unchanged": true,
         "readback_verified": true,
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "result_summary": "08:00 Heartbeat recovered from current canonical state. Carol Business Opening closed NO_ACTION / WAIT FOR EVIDENCE and created no Crown task. Required row-21 patrol completed one bounded Teach Antaine slice: current independent-institution authority, Stage-14/open assurance limits, Institution-19 non-operating boundary and top-level estate structure remain coherent; no unambiguous stale active material, duplicate-current material or genuinely conflicting current proposition was established. No archive mutation or Crown conflict queue item was justified. Cursor advanced to HMDF.",
         "retrieved_source_ids": [
           "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
           "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
@@ -3241,25 +3244,23 @@
           "1zIHd_1DxTeJpJRsgDjZdT3GLvzdskl5oJjcJ9chEr_E",
           "1XYpIpSnXjn3Ks6Xv4-pkSx4ypoUkB7eBGXm5xZh4Flk"
         ],
-        "integrity_patrol": {
-          "registry_version": 1,
-          "source_row": 21,
-          "estate_id": "teach-antaine",
-          "estate_label": "Teach Antaine — Government Institutions",
-          "visit_index": 1,
-          "cursor_after": "hmdf",
-          "current_authority_retrieved": true,
-          "findings": [],
-          "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
-          "royal_household_accessed": false,
-          "readback_verified": true
-        }
-      }
+        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-22-balcony-0800-recovery",
+        "writes": [
+          "GitHub:clock-state/state/scheduled-duty-queue.json durable manual recovery receipt"
+        ]
+      },
+      "scheduled_for": "2026-09-22T08:00:00+01:00",
+      "service_class": "HEARTBEAT",
+      "status": "ACKNOWLEDGED_ACTION",
+      "transition_class": "scheduled_duty_due"
     },
     "dynasty.heartbeat:2026-09-22T09:00": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
       "ack_to": "Central Aldernia Clock / scheduled-duty queue",
       "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 2",
+      "claim": null,
       "departure_mode": "TIMETABLE",
       "destination": "Dynasty Institutional Heartbeat impact discovery",
       "emitted_at": "2026-09-22T09:29:45+00:00",
@@ -3272,15 +3273,11 @@
         "duty_id": "dynasty.heartbeat",
         "evaluation_only": false,
         "integrity_patrol": {
-          "registry_version": 1,
-          "source_row": 21,
+          "cursor_after": "royal-palace",
           "estate_id": "hmdf",
           "estate_label": "His Majesty's Dynastic Defence Forces — HMDF",
-          "root_folder_ids": [
-            "10gARPVBY4OeISrBB7gTXyXnEHEDGYq6-"
-          ],
-          "visit_index": 1,
-          "cursor_after": "royal-palace",
+          "mode": "ONE_BOUNDED_SLICE_PER_HEARTBEAT",
+          "registry_version": 1,
           "required_source_ids": [
             "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
             "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
@@ -3293,8 +3290,12 @@
             "13ZW5khEzz_IPL3bR_DXtRY-s4z8qpKKQmUz7Lu06nWw"
           ],
           "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
+          "root_folder_ids": [
+            "10gARPVBY4OeISrBB7gTXyXnEHEDGYq6-"
+          ],
           "royal_household_access_permitted": false,
-          "mode": "ONE_BOUNDED_SLICE_PER_HEARTBEAT"
+          "source_row": 21,
+          "visit_index": 1
         },
         "label": "Dynasty House Pulse / King's Balcony Heartbeat",
         "required_source_ids": [
@@ -3314,24 +3315,12 @@
         "widen authority",
         "treat this machine projection as task source of truth"
       ],
-      "scheduled_for": "2026-09-22T09:00:00+01:00",
-      "service_class": "HEARTBEAT",
-      "status": "ACKNOWLEDGED_ACTION",
-      "transition_class": "scheduled_duty_due",
-      "claim": null,
       "receipt": {
-        "schema_version": 1,
-        "worker_id": "chatgpt-helm-session-2026-09-22-balcony-0800-recovery",
-        "attempt": 1,
-        "completed_at": "2026-09-22T11:58:00+00:00",
-        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
         "accountable_owner": "Royal Palace",
+        "attempt": 1,
+        "authority_unchanged": true,
+        "completed_at": "2026-09-22T11:58:00+00:00",
         "estate_scope": "ALDERNIA",
-        "resource_classes_used": [
-          "ALDERNIA_INTERNAL"
-        ],
-        "outcome": "ACTION",
-        "result_summary": "09:00 Heartbeat recovered. Terce was explicitly closed EXPIRED rather than backfilled. Required row-21 patrol completed one bounded HMDF slice: bounded FOUNDATION capabilities, non-operating/assurance limits and provider-independent recovery gap remain explicit; current top-level estate structure is coherent and no new conflict, stale active authority or justified archive mutation was established. Cursor advanced to the Royal Palace.",
         "evidence_refs": [
           "Drive:CAT-123",
           "Drive:House of Series START HERE",
@@ -3343,15 +3332,29 @@
           "Drive:HMDF FIRST READ/current-state register",
           "Drive:HMDF root listing"
         ],
-        "writes": [
-          "GitHub:clock-state/state/scheduled-duty-queue.json durable manual recovery receipt"
-        ],
         "external_effect": "NONE",
-        "authority_unchanged": true,
-        "ownership_unchanged": true,
+        "integrity_patrol": {
+          "current_authority_retrieved": true,
+          "cursor_after": "royal-palace",
+          "estate_id": "hmdf",
+          "estate_label": "His Majesty's Dynastic Defence Forces — HMDF",
+          "findings": [],
+          "readback_verified": true,
+          "registry_version": 1,
+          "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
+          "royal_household_accessed": false,
+          "source_row": 21,
+          "visit_index": 1
+        },
         "mission_created_by_worker": false,
         "new_model_provider_access_granted": false,
+        "outcome": "ACTION",
+        "ownership_unchanged": true,
         "readback_verified": true,
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "result_summary": "09:00 Heartbeat recovered. Terce was explicitly closed EXPIRED rather than backfilled. Required row-21 patrol completed one bounded HMDF slice: bounded FOUNDATION capabilities, non-operating/assurance limits and provider-independent recovery gap remain explicit; current top-level estate structure is coherent and no new conflict, stale active authority or justified archive mutation was established. Cursor advanced to the Royal Palace.",
         "retrieved_source_ids": [
           "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
           "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
@@ -3363,25 +3366,23 @@
           "1E7br4kX1OsusS29q0TBrtwBAPwavlB_st_9jwEQXEZA",
           "13ZW5khEzz_IPL3bR_DXtRY-s4z8qpKKQmUz7Lu06nWw"
         ],
-        "integrity_patrol": {
-          "registry_version": 1,
-          "source_row": 21,
-          "estate_id": "hmdf",
-          "estate_label": "His Majesty's Dynastic Defence Forces — HMDF",
-          "visit_index": 1,
-          "cursor_after": "royal-palace",
-          "current_authority_retrieved": true,
-          "findings": [],
-          "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
-          "royal_household_accessed": false,
-          "readback_verified": true
-        }
-      }
+        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-22-balcony-0800-recovery",
+        "writes": [
+          "GitHub:clock-state/state/scheduled-duty-queue.json durable manual recovery receipt"
+        ]
+      },
+      "scheduled_for": "2026-09-22T09:00:00+01:00",
+      "service_class": "HEARTBEAT",
+      "status": "ACKNOWLEDGED_ACTION",
+      "transition_class": "scheduled_duty_due"
     },
     "dynasty.heartbeat:2026-09-22T10:00": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
       "ack_to": "Central Aldernia Clock / scheduled-duty queue",
       "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 2",
+      "claim": null,
       "departure_mode": "TIMETABLE",
       "destination": "Dynasty Institutional Heartbeat impact discovery",
       "emitted_at": "2026-09-22T09:29:45+00:00",
@@ -3394,13 +3395,11 @@
         "duty_id": "dynasty.heartbeat",
         "evaluation_only": false,
         "integrity_patrol": {
-          "registry_version": 1,
-          "source_row": 21,
+          "cursor_after": "common-machinery",
           "estate_id": "royal-palace",
           "estate_label": "The Royal Palace",
-          "root_folder_ids": [],
-          "visit_index": 1,
-          "cursor_after": "common-machinery",
+          "mode": "ONE_BOUNDED_SLICE_PER_HEARTBEAT",
+          "registry_version": 1,
           "required_source_ids": [
             "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
             "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
@@ -3412,8 +3411,10 @@
             "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE"
           ],
           "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
+          "root_folder_ids": [],
           "royal_household_access_permitted": false,
-          "mode": "ONE_BOUNDED_SLICE_PER_HEARTBEAT"
+          "source_row": 21,
+          "visit_index": 1
         },
         "label": "Dynasty House Pulse / King's Balcony Heartbeat",
         "required_source_ids": [
@@ -3433,24 +3434,12 @@
         "widen authority",
         "treat this machine projection as task source of truth"
       ],
-      "scheduled_for": "2026-09-22T10:00:00+01:00",
-      "service_class": "HEARTBEAT",
-      "status": "ACKNOWLEDGED_ACTION",
-      "transition_class": "scheduled_duty_due",
-      "claim": null,
       "receipt": {
-        "schema_version": 1,
-        "worker_id": "chatgpt-helm-session-2026-09-22-balcony-0800-recovery",
-        "attempt": 1,
-        "completed_at": "2026-09-22T11:58:00+00:00",
-        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
         "accountable_owner": "Royal Palace",
+        "attempt": 1,
+        "authority_unchanged": true,
+        "completed_at": "2026-09-22T11:58:00+00:00",
         "estate_scope": "ALDERNIA",
-        "resource_classes_used": [
-          "ALDERNIA_INTERNAL"
-        ],
-        "outcome": "ACTION",
-        "result_summary": "10:00 Heartbeat recovered from the current Palace settlement and Scheduled Tasks Register. No new Crown-reserved decision was evidenced; KQ-009 remains an already-known unattended-provider execution gap rather than a manual-operating blocker. Required row-21 Palace patrol found no conflicting current Palace authority or unambiguous stale active item requiring mutation. Cursor advanced to Common Machinery.",
         "evidence_refs": [
           "Drive:CAT-123",
           "Drive:House of Series START HERE",
@@ -3461,15 +3450,29 @@
           "Drive:Palace settlement",
           "Drive:Scheduled Tasks Register"
         ],
-        "writes": [
-          "GitHub:clock-state/state/scheduled-duty-queue.json durable manual recovery receipt"
-        ],
         "external_effect": "NONE",
-        "authority_unchanged": true,
-        "ownership_unchanged": true,
+        "integrity_patrol": {
+          "current_authority_retrieved": true,
+          "cursor_after": "common-machinery",
+          "estate_id": "royal-palace",
+          "estate_label": "The Royal Palace",
+          "findings": [],
+          "readback_verified": true,
+          "registry_version": 1,
+          "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
+          "royal_household_accessed": false,
+          "source_row": 21,
+          "visit_index": 1
+        },
         "mission_created_by_worker": false,
         "new_model_provider_access_granted": false,
+        "outcome": "ACTION",
+        "ownership_unchanged": true,
         "readback_verified": true,
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "result_summary": "10:00 Heartbeat recovered from the current Palace settlement and Scheduled Tasks Register. No new Crown-reserved decision was evidenced; KQ-009 remains an already-known unattended-provider execution gap rather than a manual-operating blocker. Required row-21 Palace patrol found no conflicting current Palace authority or unambiguous stale active item requiring mutation. Cursor advanced to Common Machinery.",
         "retrieved_source_ids": [
           "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
           "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
@@ -3480,25 +3483,23 @@
           "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
           "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE"
         ],
-        "integrity_patrol": {
-          "registry_version": 1,
-          "source_row": 21,
-          "estate_id": "royal-palace",
-          "estate_label": "The Royal Palace",
-          "visit_index": 1,
-          "cursor_after": "common-machinery",
-          "current_authority_retrieved": true,
-          "findings": [],
-          "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
-          "royal_household_accessed": false,
-          "readback_verified": true
-        }
-      }
+        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-22-balcony-0800-recovery",
+        "writes": [
+          "GitHub:clock-state/state/scheduled-duty-queue.json durable manual recovery receipt"
+        ]
+      },
+      "scheduled_for": "2026-09-22T10:00:00+01:00",
+      "service_class": "HEARTBEAT",
+      "status": "ACKNOWLEDGED_ACTION",
+      "transition_class": "scheduled_duty_due"
     },
     "dynasty.heartbeat:2026-09-22T11:00": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
       "ack_to": "Central Aldernia Clock / scheduled-duty queue",
       "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 2",
+      "claim": null,
       "departure_mode": "TIMETABLE",
       "destination": "Dynasty Institutional Heartbeat impact discovery",
       "emitted_at": "2026-09-22T11:54:57+00:00",
@@ -3511,16 +3512,11 @@
         "duty_id": "dynasty.heartbeat",
         "evaluation_only": false,
         "integrity_patrol": {
-          "registry_version": 1,
-          "source_row": 21,
+          "cursor_after": "house-of-carol",
           "estate_id": "common-machinery",
           "estate_label": "House of Series / Computer of Series common machinery",
-          "root_folder_ids": [
-            "1wig72YKrArZdn389JvI1szV5HVMGJ1Qb",
-            "1ahf2KAJBMm-qatUYRtPvsSQod5rfjJU3"
-          ],
-          "visit_index": 1,
-          "cursor_after": "house-of-carol",
+          "mode": "ONE_BOUNDED_SLICE_PER_HEARTBEAT",
+          "registry_version": 1,
           "required_source_ids": [
             "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
             "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
@@ -3533,8 +3529,13 @@
             "1f9ehuX67WRwYMLK0JD7s1q-NEN9BGqdzNC3kfxyLl7s"
           ],
           "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
+          "root_folder_ids": [
+            "1wig72YKrArZdn389JvI1szV5HVMGJ1Qb",
+            "1ahf2KAJBMm-qatUYRtPvsSQod5rfjJU3"
+          ],
           "royal_household_access_permitted": false,
-          "mode": "ONE_BOUNDED_SLICE_PER_HEARTBEAT"
+          "source_row": 21,
+          "visit_index": 1
         },
         "label": "Dynasty House Pulse / King's Balcony Heartbeat",
         "required_source_ids": [
@@ -3554,24 +3555,12 @@
         "widen authority",
         "treat this machine projection as task source of truth"
       ],
-      "scheduled_for": "2026-09-22T11:00:00+01:00",
-      "service_class": "HEARTBEAT",
-      "status": "ACKNOWLEDGED_ACTION",
-      "transition_class": "scheduled_duty_due",
-      "claim": null,
       "receipt": {
-        "schema_version": 1,
-        "worker_id": "chatgpt-helm-session-2026-09-22-balcony-0800-recovery",
-        "attempt": 1,
-        "completed_at": "2026-09-22T11:58:00+00:00",
-        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
         "accountable_owner": "Royal Palace",
+        "attempt": 1,
+        "authority_unchanged": true,
+        "completed_at": "2026-09-22T11:58:00+00:00",
         "estate_scope": "ALDERNIA",
-        "resource_classes_used": [
-          "ALDERNIA_INTERNAL"
-        ],
-        "outcome": "ACTION",
-        "result_summary": "11:00 Heartbeat recovered. Required row-21 patrol completed one bounded House-of-Series/Computer common-machinery slice. Current controls explicitly preserve the manual/workaround route when a provider mechanism is unavailable and retain specialist ownership; common roots show current governance/runtime controls separated from archive/recovery fixtures. No conflicting current authority, duplicate-current active control or unambiguous stale active material requiring mutation was established. Cursor advanced to House of Carol.",
         "evidence_refs": [
           "Drive:CAT-123",
           "Drive:House of Series START HERE",
@@ -3583,15 +3572,29 @@
           "Drive:Queen Barbara",
           "Drive:House-of-Series and Computer roots"
         ],
-        "writes": [
-          "GitHub:clock-state/state/scheduled-duty-queue.json durable manual recovery receipt"
-        ],
         "external_effect": "NONE",
-        "authority_unchanged": true,
-        "ownership_unchanged": true,
+        "integrity_patrol": {
+          "current_authority_retrieved": true,
+          "cursor_after": "house-of-carol",
+          "estate_id": "common-machinery",
+          "estate_label": "House of Series / Computer of Series common machinery",
+          "findings": [],
+          "readback_verified": true,
+          "registry_version": 1,
+          "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
+          "royal_household_accessed": false,
+          "source_row": 21,
+          "visit_index": 1
+        },
         "mission_created_by_worker": false,
         "new_model_provider_access_granted": false,
+        "outcome": "ACTION",
+        "ownership_unchanged": true,
         "readback_verified": true,
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "result_summary": "11:00 Heartbeat recovered. Required row-21 patrol completed one bounded House-of-Series/Computer common-machinery slice. Current controls explicitly preserve the manual/workaround route when a provider mechanism is unavailable and retain specialist ownership; common roots show current governance/runtime controls separated from archive/recovery fixtures. No conflicting current authority, duplicate-current active control or unambiguous stale active material requiring mutation was established. Cursor advanced to House of Carol.",
         "retrieved_source_ids": [
           "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
           "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
@@ -3603,25 +3606,23 @@
           "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
           "1f9ehuX67WRwYMLK0JD7s1q-NEN9BGqdzNC3kfxyLl7s"
         ],
-        "integrity_patrol": {
-          "registry_version": 1,
-          "source_row": 21,
-          "estate_id": "common-machinery",
-          "estate_label": "House of Series / Computer of Series common machinery",
-          "visit_index": 1,
-          "cursor_after": "house-of-carol",
-          "current_authority_retrieved": true,
-          "findings": [],
-          "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
-          "royal_household_accessed": false,
-          "readback_verified": true
-        }
-      }
+        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-22-balcony-0800-recovery",
+        "writes": [
+          "GitHub:clock-state/state/scheduled-duty-queue.json durable manual recovery receipt"
+        ]
+      },
+      "scheduled_for": "2026-09-22T11:00:00+01:00",
+      "service_class": "HEARTBEAT",
+      "status": "ACKNOWLEDGED_ACTION",
+      "transition_class": "scheduled_duty_due"
     },
     "dynasty.heartbeat:2026-09-22T12:00": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
       "ack_to": "Central Aldernia Clock / scheduled-duty queue",
       "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 2",
+      "claim": null,
       "departure_mode": "TIMETABLE",
       "destination": "Dynasty Institutional Heartbeat impact discovery",
       "emitted_at": "2026-09-22T11:54:57+00:00",
@@ -3634,15 +3635,11 @@
         "duty_id": "dynasty.heartbeat",
         "evaluation_only": false,
         "integrity_patrol": {
-          "registry_version": 1,
-          "source_row": 21,
+          "cursor_after": "house-of-tony",
           "estate_id": "house-of-carol",
           "estate_label": "House of Carol — Business",
-          "root_folder_ids": [
-            "10Qn-cOnkSVc8rCAZohWYhcjw6xPNa0Uo"
-          ],
-          "visit_index": 2,
-          "cursor_after": "house-of-tony",
+          "mode": "ONE_BOUNDED_SLICE_PER_HEARTBEAT",
+          "registry_version": 1,
           "required_source_ids": [
             "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
             "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
@@ -3656,8 +3653,12 @@
             "1pMaDtUgcCGaRn1LaCk2JYMdr1Hqe-BY-auDQm1lTUqI"
           ],
           "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
+          "root_folder_ids": [
+            "10Qn-cOnkSVc8rCAZohWYhcjw6xPNa0Uo"
+          ],
           "royal_household_access_permitted": false,
-          "mode": "ONE_BOUNDED_SLICE_PER_HEARTBEAT"
+          "source_row": 21,
+          "visit_index": 2
         },
         "label": "Dynasty House Pulse / King's Balcony Heartbeat",
         "required_source_ids": [
@@ -3677,24 +3678,12 @@
         "widen authority",
         "treat this machine projection as task source of truth"
       ],
-      "scheduled_for": "2026-09-22T12:00:00+01:00",
-      "service_class": "HEARTBEAT",
-      "status": "ACKNOWLEDGED_ACTION",
-      "transition_class": "scheduled_duty_due",
-      "claim": null,
       "receipt": {
-        "schema_version": 1,
-        "worker_id": "chatgpt-helm-session-2026-09-22-balcony-0800-recovery",
-        "attempt": 1,
-        "completed_at": "2026-09-22T11:58:00+00:00",
-        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
         "accountable_owner": "Royal Palace",
+        "attempt": 1,
+        "authority_unchanged": true,
+        "completed_at": "2026-09-22T11:58:00+00:00",
         "estate_scope": "ALDERNIA",
-        "resource_classes_used": [
-          "ALDERNIA_INTERNAL"
-        ],
-        "outcome": "ACTION",
-        "result_summary": "12:00 Heartbeat recovered. Sext was completed within its current midday window. Required row-21 patrol completed House of Carol visit 2 using the current FIRST READ, authoritative Business Plan, canonical-record register and estate root. Current LIVE OPERATING / EARLY COMMERCIAL EVIDENCE state, archive boundary and commercial evidence limits are coherent; no genuinely conflicting current material or unambiguous stale active item requiring mutation was established. No archive change was justified. Cursor advanced to House of Tony.",
         "evidence_refs": [
           "Drive:CAT-123",
           "Drive:House of Series START HERE",
@@ -3708,15 +3697,29 @@
           "Drive:House of Carol Canonical Record Register",
           "Drive:House of Carol root"
         ],
-        "writes": [
-          "GitHub:clock-state/state/scheduled-duty-queue.json durable manual recovery receipt"
-        ],
         "external_effect": "NONE",
-        "authority_unchanged": true,
-        "ownership_unchanged": true,
+        "integrity_patrol": {
+          "current_authority_retrieved": true,
+          "cursor_after": "house-of-tony",
+          "estate_id": "house-of-carol",
+          "estate_label": "House of Carol — Business",
+          "findings": [],
+          "readback_verified": true,
+          "registry_version": 1,
+          "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
+          "royal_household_accessed": false,
+          "source_row": 21,
+          "visit_index": 2
+        },
         "mission_created_by_worker": false,
         "new_model_provider_access_granted": false,
+        "outcome": "ACTION",
+        "ownership_unchanged": true,
         "readback_verified": true,
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "result_summary": "12:00 Heartbeat recovered. Sext was completed within its current midday window. Required row-21 patrol completed House of Carol visit 2 using the current FIRST READ, authoritative Business Plan, canonical-record register and estate root. Current LIVE OPERATING / EARLY COMMERCIAL EVIDENCE state, archive boundary and commercial evidence limits are coherent; no genuinely conflicting current material or unambiguous stale active item requiring mutation was established. No archive change was justified. Cursor advanced to House of Tony.",
         "retrieved_source_ids": [
           "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
           "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
@@ -3729,20 +3732,148 @@
           "1wxAoiO4kLqzK8_jrrzP8uI0EbU46PtA4-vXxCE8Eh_M",
           "1pMaDtUgcCGaRn1LaCk2JYMdr1Hqe-BY-auDQm1lTUqI"
         ],
+        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-22-balcony-0800-recovery",
+        "writes": [
+          "GitHub:clock-state/state/scheduled-duty-queue.json durable manual recovery receipt"
+        ]
+      },
+      "scheduled_for": "2026-09-22T12:00:00+01:00",
+      "service_class": "HEARTBEAT",
+      "status": "ACKNOWLEDGED_ACTION",
+      "transition_class": "scheduled_duty_due"
+    },
+    "dynasty.heartbeat:2026-09-22T13:00": {
+      "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
+      "ack_to": "Central Aldernia Clock / scheduled-duty queue",
+      "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 2",
+      "claim": null,
+      "departure_mode": "TIMETABLE_MANUAL_RECOVERY",
+      "destination": "Dynasty Institutional Heartbeat impact discovery",
+      "emitted_at": "2026-09-22T12:03:35+00:00",
+      "emitting_owner": "Manual Catholix / Central Aldernia Clock recovery",
+      "event_id": "dynasty.heartbeat:2026-09-22T13:00",
+      "event_type": "canonical.state.changed",
+      "mission_ref": "NONE — DUE EVALUATION ONLY",
+      "payload": {
+        "accountable_owner": "Royal Palace",
+        "duty_id": "dynasty.heartbeat",
+        "evaluation_only": false,
         "integrity_patrol": {
+          "cursor_after": "house-of-marianne",
+          "estate_id": "house-of-tony",
+          "estate_label": "House of Tony — Education",
+          "mode": "ONE_BOUNDED_SLICE_PER_HEARTBEAT",
           "registry_version": 1,
+          "required_source_ids": [
+            "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+            "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
+            "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY",
+            "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+            "1iJU__qY2P-LSNJDqIaG5qZH2Dw6p2DnNZ35LUzGTkVg",
+            "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
+            "1f9ehuX67WRwYMLK0JD7s1q-NEN9BGqdzNC3kfxyLl7s",
+            "1gS-V40twMOT29dBiXrNrNlo87dUD49u9t2e9yHGOS98",
+            "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+            "1GXGtQaRJlCn9Pdl4jL4oWGNGywFeeYxWcjjiSZ2zfEA",
+            "1RwwJX4yzsgTFLCoKel1geMNz0RqRje1ljfPhQHQrVSs"
+          ],
+          "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
+          "root_folder_ids": [
+            "1-OiNqw5nFu0HOE-P6Bm7sR2yg9OnMSlw"
+          ],
+          "royal_household_access_permitted": false,
           "source_row": 21,
-          "estate_id": "house-of-carol",
-          "estate_label": "House of Carol — Business",
-          "visit_index": 2,
-          "cursor_after": "house-of-tony",
+          "visit_index": 2
+        },
+        "label": "Dynasty House Pulse / King's Balcony Heartbeat",
+        "required_source_ids": [
+          "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE"
+        ],
+        "requires_model_runtime": true,
+        "scheduled_for": "2026-09-22T13:00:00+01:00",
+        "source_row": 2
+      },
+      "permitted_effects": [
+        "evaluate already-authorised recurring duty",
+        "route through COS-BUS-001 when current due/authority gates pass",
+        "record ACK/NO_ACTION/STOP"
+      ],
+      "prohibited_effects": [
+        "create a mission from time alone",
+        "widen authority",
+        "treat this machine projection as task source of truth"
+      ],
+      "receipt": {
+        "accountable_owner": "Royal Palace",
+        "attempt": 1,
+        "authority_unchanged": true,
+        "completed_at": "2026-09-22T12:03:35+00:00",
+        "estate_scope": "ALDERNIA",
+        "evidence_refs": [
+          "Drive:CAT-123",
+          "Drive:House of Series START HERE",
+          "Drive:Royal Palace settlement",
+          "Drive:Computer FIRST READ",
+          "Drive:Engine Manifest",
+          "Drive:House OS",
+          "Drive:AI/Resource/Execution Control Register",
+          "Drive:Capability Registry",
+          "Drive:Queen Barbara Admin",
+          "Drive:Scheduled Tasks Register",
+          "Drive:House of Tony FIRST READ",
+          "Drive:House of Tony Stage 14 Capability Commissioning & Assurance Register",
+          "Drive:House of Tony root listing"
+        ],
+        "external_effect": "NONE",
+        "integrity_patrol": {
           "current_authority_retrieved": true,
+          "cursor_after": "house-of-marianne",
+          "estate_id": "house-of-tony",
+          "estate_label": "House of Tony — Education",
           "findings": [],
+          "readback_verified": true,
+          "registry_version": 1,
           "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
           "royal_household_accessed": false,
-          "readback_verified": true
-        }
-      }
+          "source_row": 21,
+          "visit_index": 2
+        },
+        "manual_projection_due_to_unattended_projection_lag": true,
+        "mission_created_by_worker": false,
+        "new_model_provider_access_granted": false,
+        "outcome": "ACTION",
+        "ownership_unchanged": true,
+        "readback_verified": true,
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "result_summary": "13:00 Heartbeat executed from current canonical state. No other scheduled or waiting authorised child bus was due at this boundary. Required row-21 patrol completed the House of Tony — Education slice using the current FIRST READ, Stage-14 capability/assurance register, common controls and live root. Founding Stages 1–18 remain PASS at INTERNAL / NO-CONTACT scope; the 56-family role architecture remains CONSTITUTED with role-specific commissioning evidence-gated; Tony-local assurance limits remain explicit and do not conflict with the bounded operating claim. Historical 'Tony Education' naming is explicit provenance, not competing current identity. No genuine conflicting current material, duplicate-current active control, or unambiguous stale active item requiring archive/supersession mutation was established. Tony's current record explicitly says not to manufacture further work absent a real trigger. No consequential bus/return or Crown decision was therefore created. Cursor advanced to House of Marianne.",
+        "retrieved_source_ids": [
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1iJU__qY2P-LSNJDqIaG5qZH2Dw6p2DnNZ35LUzGTkVg",
+          "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
+          "1f9ehuX67WRwYMLK0JD7s1q-NEN9BGqdzNC3kfxyLl7s",
+          "1gS-V40twMOT29dBiXrNrNlo87dUD49u9t2e9yHGOS98",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "1GXGtQaRJlCn9Pdl4jL4oWGNGywFeeYxWcjjiSZ2zfEA",
+          "1RwwJX4yzsgTFLCoKel1geMNz0RqRje1ljfPhQHQrVSs"
+        ],
+        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-22-balcony-1300",
+        "writes": [
+          "GitHub:clock-state/state/scheduled-duty-queue.json durable manual recovery receipt"
+        ]
+      },
+      "scheduled_for": "2026-09-22T13:00:00+01:00",
+      "service_class": "HEARTBEAT",
+      "status": "ACKNOWLEDGED_ACTION",
+      "transition_class": "scheduled_duty_due"
     },
     "government.daily-pulse:2026-09-21": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -4217,139 +4348,8 @@
       "service_class": "SCHEDULED_DUTY",
       "status": "ACKNOWLEDGED_ACTION",
       "transition_class": "scheduled_duty_due"
-    },
-    "dynasty.heartbeat:2026-09-22T13:00": {
-      "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
-      "ack_to": "Central Aldernia Clock / scheduled-duty queue",
-      "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 2",
-      "departure_mode": "TIMETABLE_MANUAL_RECOVERY",
-      "destination": "Dynasty Institutional Heartbeat impact discovery",
-      "emitted_at": "2026-09-22T12:03:35+00:00",
-      "emitting_owner": "Manual Catholix / Central Aldernia Clock recovery",
-      "event_id": "dynasty.heartbeat:2026-09-22T13:00",
-      "event_type": "canonical.state.changed",
-      "mission_ref": "NONE — DUE EVALUATION ONLY",
-      "payload": {
-        "accountable_owner": "Royal Palace",
-        "duty_id": "dynasty.heartbeat",
-        "evaluation_only": false,
-        "integrity_patrol": {
-          "registry_version": 1,
-          "source_row": 21,
-          "estate_id": "house-of-tony",
-          "estate_label": "House of Tony — Education",
-          "root_folder_ids": [
-            "1-OiNqw5nFu0HOE-P6Bm7sR2yg9OnMSlw"
-          ],
-          "visit_index": 2,
-          "cursor_after": "house-of-marianne",
-          "required_source_ids": [
-            "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
-            "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
-            "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY",
-            "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
-            "1iJU__qY2P-LSNJDqIaG5qZH2Dw6p2DnNZ35LUzGTkVg",
-            "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
-            "1f9ehuX67WRwYMLK0JD7s1q-NEN9BGqdzNC3kfxyLl7s",
-            "1gS-V40twMOT29dBiXrNrNlo87dUD49u9t2e9yHGOS98",
-            "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
-            "1GXGtQaRJlCn9Pdl4jL4oWGNGywFeeYxWcjjiSZ2zfEA",
-            "1RwwJX4yzsgTFLCoKel1geMNz0RqRje1ljfPhQHQrVSs"
-          ],
-          "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
-          "royal_household_access_permitted": false,
-          "mode": "ONE_BOUNDED_SLICE_PER_HEARTBEAT"
-        },
-        "label": "Dynasty House Pulse / King's Balcony Heartbeat",
-        "required_source_ids": [
-          "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE"
-        ],
-        "requires_model_runtime": true,
-        "scheduled_for": "2026-09-22T13:00:00+01:00",
-        "source_row": 2
-      },
-      "permitted_effects": [
-        "evaluate already-authorised recurring duty",
-        "route through COS-BUS-001 when current due/authority gates pass",
-        "record ACK/NO_ACTION/STOP"
-      ],
-      "prohibited_effects": [
-        "create a mission from time alone",
-        "widen authority",
-        "treat this machine projection as task source of truth"
-      ],
-      "scheduled_for": "2026-09-22T13:00:00+01:00",
-      "service_class": "HEARTBEAT",
-      "status": "ACKNOWLEDGED_ACTION",
-      "transition_class": "scheduled_duty_due",
-      "claim": null,
-      "receipt": {
-        "schema_version": 1,
-        "worker_id": "chatgpt-helm-session-2026-09-22-balcony-1300",
-        "attempt": 1,
-        "completed_at": "2026-09-22T12:03:35+00:00",
-        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
-        "accountable_owner": "Royal Palace",
-        "estate_scope": "ALDERNIA",
-        "resource_classes_used": [
-          "ALDERNIA_INTERNAL"
-        ],
-        "outcome": "ACTION",
-        "result_summary": "13:00 Heartbeat executed from current canonical state. No other scheduled or waiting authorised child bus was due at this boundary. Required row-21 patrol completed the House of Tony — Education slice using the current FIRST READ, Stage-14 capability/assurance register, common controls and live root. Founding Stages 1–18 remain PASS at INTERNAL / NO-CONTACT scope; the 56-family role architecture remains CONSTITUTED with role-specific commissioning evidence-gated; Tony-local assurance limits remain explicit and do not conflict with the bounded operating claim. Historical 'Tony Education' naming is explicit provenance, not competing current identity. No genuine conflicting current material, duplicate-current active control, or unambiguous stale active item requiring archive/supersession mutation was established. Tony's current record explicitly says not to manufacture further work absent a real trigger. No consequential bus/return or Crown decision was therefore created. Cursor advanced to House of Marianne.",
-        "evidence_refs": [
-          "Drive:CAT-123",
-          "Drive:House of Series START HERE",
-          "Drive:Royal Palace settlement",
-          "Drive:Computer FIRST READ",
-          "Drive:Engine Manifest",
-          "Drive:House OS",
-          "Drive:AI/Resource/Execution Control Register",
-          "Drive:Capability Registry",
-          "Drive:Queen Barbara Admin",
-          "Drive:Scheduled Tasks Register",
-          "Drive:House of Tony FIRST READ",
-          "Drive:House of Tony Stage 14 Capability Commissioning & Assurance Register",
-          "Drive:House of Tony root listing"
-        ],
-        "writes": [
-          "GitHub:clock-state/state/scheduled-duty-queue.json durable manual recovery receipt"
-        ],
-        "external_effect": "NONE",
-        "authority_unchanged": true,
-        "ownership_unchanged": true,
-        "mission_created_by_worker": false,
-        "new_model_provider_access_granted": false,
-        "manual_projection_due_to_unattended_projection_lag": true,
-        "readback_verified": true,
-        "retrieved_source_ids": [
-          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
-          "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
-          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY",
-          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
-          "1iJU__qY2P-LSNJDqIaG5qZH2Dw6p2DnNZ35LUzGTkVg",
-          "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
-          "1f9ehuX67WRwYMLK0JD7s1q-NEN9BGqdzNC3kfxyLl7s",
-          "1gS-V40twMOT29dBiXrNrNlo87dUD49u9t2e9yHGOS98",
-          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
-          "1GXGtQaRJlCn9Pdl4jL4oWGNGywFeeYxWcjjiSZ2zfEA",
-          "1RwwJX4yzsgTFLCoKel1geMNz0RqRje1ljfPhQHQrVSs"
-        ],
-        "integrity_patrol": {
-          "registry_version": 1,
-          "source_row": 21,
-          "estate_id": "house-of-tony",
-          "estate_label": "House of Tony — Education",
-          "visit_index": 2,
-          "cursor_after": "house-of-marianne",
-          "current_authority_retrieved": true,
-          "findings": [],
-          "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
-          "royal_household_accessed": false,
-          "readback_verified": true
-        }
-      }
     }
   },
-  "last_checked_at": "2026-09-22T12:03:35+00:00",
+  "last_checked_at": "2026-09-22T12:08:42+00:00",
   "schema_version": 1
 }
