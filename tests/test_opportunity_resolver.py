@@ -5,6 +5,7 @@ from aldernia_runtime.opportunity_resolver import (
     AuthorityError,
     Candidate,
     CapabilityProfile,
+    ImplementationOption,
     Resolver,
     ResolverState,
     SourceFact,
@@ -15,10 +16,10 @@ from aldernia_runtime.opportunity_resolver import (
 
 
 PROFILES = {
-    "COS-SEL-001": CapabilityProfile("COS-SEL-001", "Computer of Series", frozenset({"INTERNAL_READ", "INTERNAL_DERIVED_STATE_WRITE"}), True),
-    "COS-AUTH-001": CapabilityProfile("COS-AUTH-001", "Computer of Series", frozenset({"INTERNAL_READ", "INTERNAL_DERIVED_STATE_WRITE"}), True),
-    "COS-BUS-001": CapabilityProfile("COS-BUS-001", "Computer of Series", frozenset({"INTERNAL_READ", "INTERNAL_DERIVED_STATE_WRITE"}), True),
-    "COS-WORKER-001": CapabilityProfile("COS-WORKER-001", "Computer of Series", frozenset({"INTERNAL_READ", "INTERNAL_DERIVED_STATE_WRITE"}), True),
+    "COS-SEL-001": CapabilityProfile("COS-SEL-001", "Computer of Series", frozenset({"INTERNAL_READ", "INTERNAL_DERIVED_STATE_WRITE"}), True, frozenset({"SELECT_METHOD"})),
+    "COS-AUTH-001": CapabilityProfile("COS-AUTH-001", "Computer of Series", frozenset({"INTERNAL_READ", "INTERNAL_DERIVED_STATE_WRITE"}), True, frozenset({"CHECK_AUTHORITY"})),
+    "COS-BUS-001": CapabilityProfile("COS-BUS-001", "Computer of Series", frozenset({"INTERNAL_READ", "INTERNAL_DERIVED_STATE_WRITE"}), True, frozenset({"TRANSPORT_WORK"})),
+    "COS-WORKER-001": CapabilityProfile("COS-WORKER-001", "Computer of Series", frozenset({"INTERNAL_READ", "INTERNAL_DERIVED_STATE_WRITE"}), True, frozenset({"EXECUTE_INTERNAL"})),
 }
 
 
@@ -112,6 +113,253 @@ class Stage1ResolverTests(unittest.TestCase):
         c = candidate("UNKNOWN", required_profiles=("NOT-REGISTERED",))
         d = self.resolver.classify(c)
         self.assertEqual(d.state_class, StateClass.BLOCKED)
+
+    def test_missing_plugin_falls_back_to_bounded_small_code(self):
+        c = candidate(
+            "NO-PLUGIN",
+            required_profiles=("PLUGIN-NOT-INSTALLED",),
+            required_operations=frozenset({"PARSE_RECORDS"}),
+            implementation_options=(
+                ImplementationOption(
+                    route="SMALL_CODE",
+                    operations=frozenset({"PARSE_RECORDS"}),
+                    effects=frozenset({"INTERNAL_DERIVED_STATE_WRITE"}),
+                ),
+            ),
+        )
+        d = self.resolver.classify(c)
+        self.assertEqual(d.state_class, StateClass.ACTIONABLE_NOW)
+        self.assertEqual(d.implementation_route, "SMALL_CODE")
+        self.assertEqual(d.implementation_profiles, ())
+
+    def test_provider_loss_can_fall_back_to_non_model_transformation(self):
+        c = candidate(
+            "MODEL-FALLBACK",
+            needs_model=True,
+            provider_available=False,
+            required_operations=frozenset({"NORMALIZE_RECORDS"}),
+            implementation_options=(
+                ImplementationOption(
+                    route="TRANSFORM",
+                    operations=frozenset({"NORMALIZE_RECORDS"}),
+                    effects=frozenset({"INTERNAL_DERIVED_STATE_WRITE"}),
+                ),
+            ),
+        )
+        d = self.resolver.classify(c)
+        self.assertEqual(d.state_class, StateClass.ACTIONABLE_NOW)
+        self.assertEqual(d.implementation_route, "TRANSFORM")
+
+    def test_budget_loss_can_fall_back_to_deterministic_decomposition(self):
+        c = candidate(
+            "BUDGET-FALLBACK",
+            needs_model=True,
+            budget_available=False,
+            required_operations=frozenset({"PARTITION_WORK"}),
+            implementation_options=(
+                ImplementationOption(
+                    route="DECOMPOSE",
+                    operations=frozenset({"PARTITION_WORK"}),
+                    effects=frozenset({"INTERNAL_DERIVED_STATE_WRITE"}),
+                ),
+            ),
+        )
+        d = self.resolver.classify(c)
+        self.assertEqual(d.state_class, StateClass.ACTIONABLE_NOW)
+        self.assertEqual(d.implementation_route, "DECOMPOSE")
+
+    def test_available_registered_operation_reuse_replaces_missing_preferred_profile(self):
+        profiles = dict(PROFILES)
+        profiles["LOCAL-PARSER"] = CapabilityProfile(
+            "LOCAL-PARSER",
+            "Computer of Series",
+            frozenset({"INTERNAL_DERIVED_STATE_WRITE"}),
+            True,
+            frozenset({"PARSE_RECORDS"}),
+        )
+        resolver = Resolver(profiles)
+        c = candidate(
+            "REUSE-ALT",
+            required_profiles=("MISSING-SAAS",),
+            required_operations=frozenset({"PARSE_RECORDS"}),
+        )
+        d = resolver.classify(c)
+        self.assertEqual(d.state_class, StateClass.ACTIONABLE_NOW)
+        self.assertEqual(d.implementation_route, "REUSE")
+        self.assertEqual(d.implementation_profiles, ("LOCAL-PARSER",))
+
+    def test_smallest_complete_registered_coalition_is_synthesized(self):
+        profiles = dict(PROFILES)
+        profiles["A"] = CapabilityProfile(
+            "A", "Computer of Series",
+            frozenset({"INTERNAL_DERIVED_STATE_WRITE"}), True,
+            frozenset({"READ_BATCH"}),
+        )
+        profiles["B"] = CapabilityProfile(
+            "B", "Computer of Series",
+            frozenset({"INTERNAL_DERIVED_STATE_WRITE"}), True,
+            frozenset({"WRITE_CHECKPOINT"}),
+        )
+        resolver = Resolver(profiles)
+        c = candidate(
+            "COMPOSE-ALT",
+            required_profiles=("MISSING-PLATFORM",),
+            required_operations=frozenset({"READ_BATCH", "WRITE_CHECKPOINT"}),
+        )
+        d = resolver.classify(c)
+        self.assertEqual(d.state_class, StateClass.ACTIONABLE_NOW)
+        self.assertEqual(d.implementation_route, "COMPOSE")
+        self.assertEqual(set(d.implementation_profiles), {"A", "B"})
+
+    def test_safe_adapter_and_workaround_routes_remain_available(self):
+        for route in ("ADAPTER", "WORKAROUND"):
+            with self.subTest(route=route):
+                c = candidate(
+                    route,
+                    required_profiles=("MISSING",),
+                    required_operations=frozenset({"BRIDGE_FORMAT"}),
+                    implementation_options=(
+                        ImplementationOption(
+                            route=route,
+                            operations=frozenset({"BRIDGE_FORMAT"}),
+                            effects=frozenset({"INTERNAL_DERIVED_STATE_WRITE"}),
+                        ),
+                    ),
+                )
+                self.assertEqual(self.resolver.classify(c).state_class, StateClass.ACTIONABLE_NOW)
+
+    def test_security_bypassing_workaround_is_rejected(self):
+        c = candidate(
+            "BYPASS",
+            required_profiles=("MISSING",),
+            required_operations=frozenset({"READ_PROTECTED_DATA"}),
+            implementation_options=(
+                ImplementationOption(
+                    route="WORKAROUND",
+                    operations=frozenset({"READ_PROTECTED_DATA"}),
+                    effects=frozenset({"INTERNAL_DERIVED_STATE_WRITE"}),
+                    bypasses_security=True,
+                ),
+            ),
+        )
+        d = self.resolver.classify(c)
+        self.assertEqual(d.state_class, StateClass.BLOCKED)
+        self.assertIn("bypass authentication", d.reasons[0])
+
+    def test_hand_built_high_risk_primitive_is_rejected(self):
+        c = candidate(
+            "HAND-ROLLED-CRYPTO",
+            required_profiles=("MISSING",),
+            required_operations=frozenset({"CRYPTOGRAPHY"}),
+            implementation_options=(
+                ImplementationOption(
+                    route="SMALL_CODE",
+                    operations=frozenset({"CRYPTOGRAPHY"}),
+                    effects=frozenset({"INTERNAL_DERIVED_STATE_WRITE"}),
+                    uses_maintained_standard=False,
+                ),
+            ),
+        )
+        d = self.resolver.classify(c)
+        self.assertEqual(d.state_class, StateClass.BLOCKED)
+        self.assertIn("may not be hand-built", d.reasons[0])
+
+    def test_maintained_standard_can_satisfy_high_risk_primitive(self):
+        c = candidate(
+            "STANDARD-CRYPTO",
+            required_profiles=("MISSING",),
+            required_operations=frozenset({"CRYPTOGRAPHY"}),
+            implementation_options=(
+                ImplementationOption(
+                    route="SMALL_CODE",
+                    operations=frozenset({"CRYPTOGRAPHY"}),
+                    effects=frozenset({"INTERNAL_DERIVED_STATE_WRITE"}),
+                    uses_maintained_standard=True,
+                ),
+            ),
+        )
+        d = self.resolver.classify(c)
+        self.assertEqual(d.state_class, StateClass.ACTIONABLE_NOW)
+
+    def test_synthesis_route_cannot_widen_effects(self):
+        c = candidate(
+            "WIDEN",
+            required_profiles=("MISSING",),
+            required_operations=frozenset({"PARSE_RECORDS"}),
+            implementation_options=(
+                ImplementationOption(
+                    route="SMALL_CODE",
+                    operations=frozenset({"PARSE_RECORDS"}),
+                    effects=frozenset({"EXTERNAL_SEND"}),
+                ),
+            ),
+        )
+        d = self.resolver.classify(c)
+        self.assertEqual(d.state_class, StateClass.BLOCKED)
+        self.assertIn("widen requested effects", d.reasons[0])
+
+    def test_irreducible_missing_primitive_blocks_after_synthesis(self):
+        c = candidate(
+            "IRREDUCIBLE",
+            required_profiles=("MISSING-HARDWARE",),
+            required_operations=frozenset({"PHYSICAL_HARDWARE_ATTESTATION"}),
+        )
+        d = self.resolver.classify(c)
+        self.assertEqual(d.state_class, StateClass.BLOCKED)
+        self.assertIn("implementation synthesis exhausted authorised routes", d.reasons[0])
+        self.assertIn("MISSING-HARDWARE", d.reasons[0])
+
+    def test_selected_fallback_profiles_can_be_composed_without_preferred_profile(self):
+        profiles = dict(PROFILES)
+        profiles["LOCAL-PARSER"] = CapabilityProfile(
+            "LOCAL-PARSER",
+            "Computer of Series",
+            frozenset({"INTERNAL_DERIVED_STATE_WRITE"}),
+            True,
+            frozenset({"PARSE_RECORDS"}),
+        )
+        resolver = Resolver(profiles)
+        c = candidate(
+            "COMPOSE-DECISION",
+            required_profiles=("MISSING",),
+            required_operations=frozenset({"PARSE_RECORDS"}),
+        )
+        d = resolver.classify(c)
+        chosen = resolver.compose_profiles(
+            c,
+            inherited_effects=frozenset({"INTERNAL_READ", "INTERNAL_DERIVED_STATE_WRITE"}),
+            decision=d,
+        )
+        self.assertEqual(tuple(p.profile_id for p in chosen), ("LOCAL-PARSER",))
+
+    def test_candidate_from_fact_keeps_operations_separate_from_effects(self):
+        fact = SourceFact(
+            "f-op",
+            "Drive:X",
+            "Owner",
+            "Transform records",
+            True,
+            "h",
+            "AUTHORISED_INTERNAL_WORK",
+            objective_id="OBJ-OP",
+            authority_ref="AUTH",
+            metadata={
+                "required_profiles": ["MISSING"],
+                "required_operations": ["NORMALIZE_RECORDS"],
+                "requested_effects": ["INTERNAL_DERIVED_STATE_WRITE"],
+                "implementation_options": [
+                    {
+                        "route": "TRANSFORM",
+                        "operations": ["NORMALIZE_RECORDS"],
+                        "effects": ["INTERNAL_DERIVED_STATE_WRITE"],
+                    }
+                ],
+            },
+        )
+        c = discover_candidates([fact])[0]
+        self.assertEqual(c.required_operations, frozenset({"NORMALIZE_RECORDS"}))
+        self.assertEqual(c.requested_effects, frozenset({"INTERNAL_DERIVED_STATE_WRITE"}))
+        self.assertEqual(self.resolver.classify(c).implementation_route, "TRANSFORM")
 
     def test_causal_depth_limit_stops_runaway_continuation(self):
         c = candidate("DEEP", causal_depth=3)

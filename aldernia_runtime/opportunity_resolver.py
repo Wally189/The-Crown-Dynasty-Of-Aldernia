@@ -52,13 +52,52 @@ class SourceFact:
     metadata: Mapping[str, object] = field(default_factory=dict)
 
 
+SAFE_SYNTHESIS_ROUTES = frozenset(
+    {
+        "DIRECT",
+        "REUSE",
+        "COMPOSE",
+        "TRANSFORM",
+        "SMALL_CODE",
+        "ADAPTER",
+        "WORKAROUND",
+        "DECOMPOSE",
+        "INTERNAL_BUILD",
+        "EXTERNAL_TOOL",
+    }
+)
+HIGH_RISK_OPERATIONS = frozenset(
+    {
+        "CRYPTOGRAPHY",
+        "AUTHENTICATION_PROTOCOL",
+        "PAYMENT_SECURITY",
+        "SAFETY_CRITICAL",
+    }
+)
+
+
 @dataclass(frozen=True)
 class CapabilityProfile:
     profile_id: str
     owner: str
     effects: frozenset[str]
     deterministic: bool
+    operations: frozenset[str] = field(default_factory=frozenset)
     available: bool = True
+
+
+@dataclass(frozen=True)
+class ImplementationOption:
+    route: str
+    operations: frozenset[str]
+    profile_ids: tuple[str, ...] = ()
+    effects: frozenset[str] = field(default_factory=frozenset)
+    requires_model: bool = False
+    available: bool = True
+    authorised: bool = True
+    bypasses_security: bool = False
+    uses_maintained_standard: bool = False
+    note: str = ""
 
 
 @dataclass
@@ -92,6 +131,8 @@ class Candidate:
     reversible: bool = True
     resource_cost: str = "NONE"
     required_profiles: tuple[str, ...] = ()
+    required_operations: frozenset[str] = field(default_factory=frozenset)
+    implementation_options: tuple[ImplementationOption, ...] = ()
     requested_effects: frozenset[str] = field(default_factory=frozenset)
     conflicts_with: tuple[str, ...] = ()
     needs_model: bool = False
@@ -175,6 +216,9 @@ class Decision:
     reasons: tuple[str, ...]
     priority_key: tuple[int, ...] | None = None
     unchanged: bool = False
+    implementation_route: str | None = None
+    implementation_profiles: tuple[str, ...] = ()
+    implementation_operations: tuple[str, ...] = ()
 
 
 @dataclass(frozen=True)
@@ -216,6 +260,140 @@ class Resolver:
         prior = state.candidates.get(c.candidate_id)
         return bool(prior and prior.evidence_hash == c.evidence_hash)
 
+    def _preferred_implementation(self, c: Candidate) -> ImplementationOption:
+        return ImplementationOption(
+            route="REUSE" if c.required_profiles or c.needs_model else "DIRECT",
+            operations=c.required_operations,
+            profile_ids=c.required_profiles,
+            effects=c.requested_effects,
+            requires_model=c.needs_model,
+            note="declared preferred implementation substrate",
+        )
+
+    def _derived_profile_options(self, c: Candidate) -> tuple[ImplementationOption, ...]:
+        if not c.required_operations:
+            return ()
+        eligible = [
+            profile
+            for profile in self.profiles.values()
+            if profile.available and profile.operations
+        ]
+        singles = [
+            profile
+            for profile in eligible
+            if c.required_operations.issubset(profile.operations)
+        ]
+        if singles:
+            profile = sorted(
+                singles,
+                key=lambda item: (0 if item.deterministic else 1, item.profile_id),
+            )[0]
+            return (
+                ImplementationOption(
+                    route="REUSE",
+                    operations=profile.operations,
+                    profile_ids=(profile.profile_id,),
+                    effects=c.requested_effects,
+                    requires_model=not profile.deterministic,
+                    note="derived from an available registered capability",
+                ),
+            )
+
+        # Bounded smallest-complete coalition search. Four profiles is deliberately
+        # enough for the selector's fallback synthesis; larger coalitions must be
+        # declared explicitly rather than guessed into existence.
+        ordered = sorted(eligible, key=lambda item: item.profile_id)
+        max_size = min(4, len(ordered))
+        for size in range(2, max_size + 1):
+            from itertools import combinations
+
+            for group in combinations(ordered, size):
+                operations = frozenset().union(*(profile.operations for profile in group))
+                if c.required_operations.issubset(operations):
+                    return (
+                        ImplementationOption(
+                            route="COMPOSE",
+                            operations=operations,
+                            profile_ids=tuple(profile.profile_id for profile in group),
+                            effects=c.requested_effects,
+                            requires_model=any(not profile.deterministic for profile in group),
+                            note="derived smallest registered capability coalition",
+                        ),
+                    )
+        return ()
+
+    def _implementation_rejection(
+        self,
+        c: Candidate,
+        option: ImplementationOption,
+    ) -> str | None:
+        if option.route not in SAFE_SYNTHESIS_ROUTES:
+            return f"unknown implementation route {option.route!r}"
+        if not option.authorised:
+            return "route is not authorised"
+        if not option.available:
+            return "route is unavailable"
+        if option.bypasses_security:
+            return "route would bypass authentication, permission or security controls"
+        if not option.effects.issubset(c.requested_effects):
+            return "route would widen requested effects"
+        if c.required_operations and not c.required_operations.issubset(option.operations):
+            missing = sorted(c.required_operations - option.operations)
+            return "route does not cover required operations: " + ", ".join(missing)
+
+        high_risk = (c.required_operations or option.operations) & HIGH_RISK_OPERATIONS
+        if option.route in {"SMALL_CODE", "INTERNAL_BUILD"} and high_risk and not option.uses_maintained_standard:
+            return (
+                "high-risk solved primitive may not be hand-built without a maintained "
+                "recognised standard/library: " + ", ".join(sorted(high_risk))
+            )
+
+        if option.requires_model and not c.provider_available:
+            return "required model provider unavailable"
+        if option.requires_model and not c.budget_available:
+            return "model budget exhausted"
+
+        unavailable = [
+            profile_id
+            for profile_id in option.profile_ids
+            if profile_id not in self.profiles or not self.profiles[profile_id].available
+        ]
+        if unavailable:
+            return "registered capability unavailable: " + ", ".join(unavailable)
+        return None
+
+    def synthesize_implementation(
+        self,
+        c: Candidate,
+    ) -> tuple[ImplementationOption | None, tuple[str, ...]]:
+        options = (
+            self._preferred_implementation(c),
+            *self._derived_profile_options(c),
+            *c.implementation_options,
+        )
+        seen: set[tuple[object, ...]] = set()
+        rejections: list[str] = []
+        for option in options:
+            identity = (
+                option.route,
+                option.profile_ids,
+                tuple(sorted(option.operations)),
+                tuple(sorted(option.effects)),
+                option.requires_model,
+                option.available,
+                option.authorised,
+                option.bypasses_security,
+                option.uses_maintained_standard,
+            )
+            if identity in seen:
+                continue
+            seen.add(identity)
+            rejection = self._implementation_rejection(c, option)
+            if rejection is None:
+                return option, tuple(rejections)
+            rejections.append(f"{option.route}: {rejection}")
+        return None, tuple(rejections)
+
     def classify(self, c: Candidate, state: ResolverState | None = None) -> Decision:
         state = state or ResolverState()
         unchanged = self._candidate_unchanged(c, state)
@@ -247,19 +425,30 @@ class Resolver:
             return Decision(c.candidate_id, StateClass.NO_ACTION, ("accepted outcome already satisfied; no new consequence",), unchanged=unchanged)
         if not c.accepted_objective or not c.authority_ref:
             return Decision(c.candidate_id, StateClass.IDEA_ONLY, ("no accepted objective with explicit authority basis",), unchanged=unchanged)
-        if c.needs_model and not c.provider_available:
-            return Decision(c.candidate_id, StateClass.BLOCKED, ("required model provider unavailable; unrelated work may continue",), unchanged=unchanged)
-        if c.needs_model and not c.budget_available:
-            return Decision(c.candidate_id, StateClass.BLOCKED, ("model budget exhausted; unrelated non-model work may continue",), unchanged=unchanged)
-        unavailable = [pid for pid in c.required_profiles if pid not in self.profiles or not self.profiles[pid].available]
-        if unavailable:
-            return Decision(c.candidate_id, StateClass.BLOCKED, ("required registered capability unavailable: " + ", ".join(unavailable),), unchanged=unchanged)
+        implementation, synthesis_rejections = self.synthesize_implementation(c)
+        if implementation is None:
+            detail = "; ".join(synthesis_rejections) or "no authorised implementation route exists"
+            return Decision(
+                c.candidate_id,
+                StateClass.BLOCKED,
+                ("implementation synthesis exhausted authorised routes: " + detail,),
+                unchanged=unchanged,
+            )
+        reason = (
+            "current accepted objective with explicit authority, evidence and executable "
+            f"implementation route {implementation.route}"
+        )
+        if synthesis_rejections:
+            reason += "; earlier substrate(s) rejected before fallback synthesis"
         return Decision(
             c.candidate_id,
             StateClass.ACTIONABLE_NOW,
-            ("current accepted objective with explicit authority, evidence and executable capability",),
+            (reason,),
             priority_key=self.priority_key(c),
             unchanged=unchanged,
+            implementation_route=implementation.route,
+            implementation_profiles=implementation.profile_ids,
+            implementation_operations=tuple(sorted(implementation.operations)),
         )
 
     def priority_key(self, c: Candidate) -> tuple[int, ...]:
@@ -280,11 +469,13 @@ class Resolver:
         c: Candidate,
         *,
         inherited_effects: frozenset[str],
+        decision: Decision | None = None,
     ) -> tuple[CapabilityProfile, ...]:
         if not c.requested_effects.issubset(inherited_effects):
             raise AuthorityError("candidate requested effects exceed inherited authority")
         chosen: list[CapabilityProfile] = []
-        for profile_id in c.required_profiles:
+        profile_ids = c.required_profiles if decision is None else decision.implementation_profiles
+        for profile_id in profile_ids:
             profile = self.profiles.get(profile_id)
             if profile is None:
                 raise AuthorityError(f"unregistered execution profile: {profile_id}")
@@ -359,6 +550,21 @@ class Resolver:
         return ResolverState(schema_version=1, blockers=blockers, candidates=memories)
 
 
+def _implementation_option_from_mapping(value: Mapping[str, object]) -> ImplementationOption:
+    return ImplementationOption(
+        route=str(value.get("route") or ""),
+        operations=frozenset(str(x) for x in (value.get("operations") or ())),
+        profile_ids=tuple(str(x) for x in (value.get("profile_ids") or ())),
+        effects=frozenset(str(x) for x in (value.get("effects") or ())),
+        requires_model=bool(value.get("requires_model", False)),
+        available=bool(value.get("available", True)),
+        authorised=bool(value.get("authorised", True)),
+        bypasses_security=bool(value.get("bypasses_security", False)),
+        uses_maintained_standard=bool(value.get("uses_maintained_standard", False)),
+        note=str(value.get("note") or ""),
+    )
+
+
 def candidate_from_fact(fact: SourceFact) -> Candidate | None:
     """Deterministic adapter from explicit fact kinds to bounded candidate classes.
 
@@ -424,6 +630,12 @@ def candidate_from_fact(fact: SourceFact) -> Candidate | None:
             reversible=bool(m.get("reversible", True)),
             resource_cost=str(m.get("resource_cost") or "NONE"),
             required_profiles=tuple(str(x) for x in (m.get("required_profiles") or ())),
+            required_operations=frozenset(str(x) for x in (m.get("required_operations") or ())),
+            implementation_options=tuple(
+                _implementation_option_from_mapping(item)
+                for item in (m.get("implementation_options") or ())
+                if isinstance(item, Mapping)
+            ),
             requested_effects=frozenset(str(x) for x in (m.get("requested_effects") or ())),
             conflicts_with=tuple(str(x) for x in (m.get("conflicts_with") or ())),
             needs_model=bool(m.get("needs_model", False)),
