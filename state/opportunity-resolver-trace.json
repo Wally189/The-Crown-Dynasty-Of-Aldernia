@@ -1,11 +1,12 @@
 {
   "adapter_version": 1,
   "authority_widened": false,
-  "candidate_count": 10,
+  "candidate_count": 11,
   "candidate_ids": [
     "DUE::aldernia.website-voice:2026-09-21",
     "DUE::carol.availability-gate:2026-09-21",
     "DUE::catholic.compline:2026-09-21",
+    "DUE::catholic.dawn-offices:2026-09-22",
     "DUE::dynasty.heartbeat:2026-09-21T19:00",
     "DUE::dynasty.heartbeat:2026-09-21T20:00",
     "DUE::dynasty.heartbeat:2026-09-21T21:00",
@@ -17,7 +18,7 @@
   "canonical_record_written": false,
   "conflict_candidate_ids": [],
   "decision_changed": true,
-  "decision_fingerprint": "c90cc0f925715432c7d8f2121798447647c9b3fd695c16436c0f9406a7bef54f",
+  "decision_fingerprint": "ee840c47730a77f2cc3de9cf8105ec676b76cdf3394b9bacb31e01355448f5e9",
   "decisions": [
     {
       "candidate_id": "DUE::aldernia.website-voice:2026-09-21",
@@ -35,10 +36,19 @@
         "required model provider unavailable; unrelated work may continue"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::catholic.compline:2026-09-21",
+      "priority_key": null,
+      "reasons": [
+        "required model provider unavailable; unrelated work may continue"
+      ],
+      "state_class": "BLOCKED",
+      "unchanged": true
+    },
+    {
+      "candidate_id": "DUE::catholic.dawn-offices:2026-09-22",
       "priority_key": null,
       "reasons": [
         "required model provider unavailable; unrelated work may continue"
@@ -80,7 +90,7 @@
         "required model provider unavailable; unrelated work may continue"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "E-23",
@@ -113,7 +123,7 @@
   "derived_state_only": true,
   "execution_performed": false,
   "external_effect": "NONE",
-  "fact_count": 10,
+  "fact_count": 11,
   "fact_ids": [
     "programme-board-e23",
     "programme-board-e24",
@@ -121,6 +131,7 @@
     "runtime-event:aldernia.website-voice:2026-09-21",
     "runtime-event:carol.availability-gate:2026-09-21",
     "runtime-event:catholic.compline:2026-09-21",
+    "runtime-event:catholic.dawn-offices:2026-09-22",
     "runtime-event:dynasty.heartbeat:2026-09-21T19:00",
     "runtime-event:dynasty.heartbeat:2026-09-21T20:00",
     "runtime-event:dynasty.heartbeat:2026-09-21T21:00",
@@ -128,13 +139,13 @@
   ],
   "material_source_change": true,
   "model_called": false,
-  "observed_at": "2026-09-21T23:59:40.076193+00:00",
+  "observed_at": "2026-09-22T04:42:02.373852+00:00",
   "resolver_termination": "NO_ACTION",
-  "run_count": 5,
-  "run_id": "35670011093",
+  "run_count": 6,
+  "run_id": "35687863290",
   "schema_version": 1,
   "selected_candidate_id": null,
   "shadow_mode": true,
-  "source_fingerprint": "ebfa2b525dbbdfdf6e3ae92676181540be1d0095784c9056a13bbb67c8add65a",
+  "source_fingerprint": "6e388efc46cb28c577a8bf623a7a4e8d8ac03ef4bf7281526295021b903bbd44",
   "state_readback_verified": true
 }
