@@ -4812,7 +4812,16 @@
       "schema_version": 1,
       "service_class": "SCHEDULED_DUTY",
       "status": "ACKNOWLEDGED_NO_ACTION",
-      "transition_class": "scheduled_duty_due"
+      "transition_class": "scheduled_duty_due",
+      "acceptance_valid": false,
+      "acceptance_review": {
+        "reviewed_at": "2026-09-22T18:06:00+00:00",
+        "state": "INVALIDATED_BY_ANTI_MINIMISATION_ACCEPTANCE_FAILURE",
+        "reason": "The 07:03 NO_ACTION conclusion incorrectly treated absence of a new Cabinet/Crown/parliamentary/external action as absence of Government work. Current House of Marianne state and National Strategy retained active five-mission country-building and explicitly prohibited dormancy merely because no Cabinet decision was required.",
+        "contributing_control_defect": "Royal Palace Scheduled Tasks ONE ALDERNIA National Watch remained stale-SUSPENDED from reset after later Crown reintroduction of the five national missions and six standing coalitions.",
+        "corrective_action": "Restored ONE ALDERNIA mission-pull in Scheduled Tasks row 5; corrected Daily Government Pulse state in row 12; executed bounded CONNECT current-state reconciliation against the 22 Sep verified country-first production release and accepted non-public Passage baseline.",
+        "external_effect": "NONE"
+      }
     },
     "government.red-box:2026-09-21": {
       "acceptance": "Build decision/accountability Red Box only from the verified parent pulse evidence; deliver to Balcony and durably ACK/read back.",
@@ -5132,8 +5141,80 @@
       "service_class": "SCHEDULED_DUTY",
       "status": "ACKNOWLEDGED_ACTION",
       "transition_class": "scheduled_duty_due"
+    },
+    "government.daily-pulse-correction:2026-09-22:01": {
+      "schema_version": 1,
+      "event_id": "government.daily-pulse-correction:2026-09-22:01",
+      "event_type": "canonical.state.changed",
+      "transition_class": "capability_state_changed",
+      "service_class": "BUS",
+      "departure_mode": "EVENT",
+      "scheduled_for": "2026-09-22T19:06:00+01:00",
+      "emitted_at": "2026-09-22T18:06:00+00:00",
+      "emitting_owner": "House of Marianne — Centre of Government & Cabinet Coordination",
+      "destination": "House of Marianne — Government / ONE ALDERNIA national mission portfolio",
+      "mission_ref": "Daily Aldernian Government Pulse / ONE ALDERNIA standing mission-pull",
+      "authority_ref": "Current House of Marianne Government Current State + Aldernia National Strategy + Royal Palace Scheduled Tasks rows 5 and 12",
+      "ack_to": "Central Aldernia Clock / scheduled-duty queue",
+      "acceptance": "Correct the acceptance defect without inventing new political decisions, external effects or authority; restore current mission-pull and record one bounded evidence-backed internal mission movement.",
+      "permitted_effects": [
+        "correct stale internal scheduled-task state",
+        "restore already-authorised mission-pull",
+        "reconcile current internal national state",
+        "durable ACK/readback"
+      ],
+      "prohibited_effects": [
+        "invent policy",
+        "external contact",
+        "publication",
+        "spend",
+        "provider/account change",
+        "authority widening"
+      ],
+      "payload": {
+        "parent_event_id": "government.daily-pulse:2026-09-22",
+        "parent_case_id": "government-pulse:2026-09-22",
+        "corrected_scheduled_task_rows": [
+          5,
+          12
+        ],
+        "mission": "CONNECT",
+        "action": "Reconcile the current digital/public-world national state to the verified 22 Sep country-first production release and accepted non-public Passage baseline."
+      },
+      "claim": null,
+      "status": "ACKNOWLEDGED_ACTION",
+      "receipt": {
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-22-government-anti-minimisation-repair",
+        "attempt": 1,
+        "completed_at": "2026-09-22T18:06:00+00:00",
+        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
+        "accountable_owner": "House of Marianne — Centre of Government & Cabinet Coordination",
+        "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "outcome": "ACTION",
+        "result_summary": "Restored the stale-suspended ONE ALDERNIA mission-pull under the later Crown Government Settlement, invalidated the 07:03 NO_ACTION acceptance claim, and executed a bounded CONNECT reconciliation using current verified Public World state. No new political decision or external action was invented.",
+        "evidence_refs": [
+          "Drive:House of Marianne — Government — Current State, Remediation & Handover Register 01",
+          "Drive:House of Marianne — Government — Aldernia National Strategy, Missions & Scorecard 01",
+          "Drive:The Royal Palace — Scheduled Tasks Register rows 5 and 12",
+          "Drive:The Royal Palace — Aldernia Public World Blueprint 01"
+        ],
+        "writes": [
+          "Google Drive Scheduled Tasks row 5 mission-pull state",
+          "Google Drive Scheduled Tasks row 12 acceptance state",
+          "GitHub clock-state/state/scheduled-duty-queue.json acceptance correction"
+        ],
+        "external_effect": "NONE",
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false,
+        "readback_verified": true
+      }
     }
   },
-  "last_checked_at": "2026-09-22T18:09:02+00:00",
+  "last_checked_at": "2026-09-22T18:06:00+00:00",
   "schema_version": 1
 }
