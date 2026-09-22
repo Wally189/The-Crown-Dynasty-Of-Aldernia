@@ -9,7 +9,7 @@
   ],
   "canonical_record_written": false,
   "conflict_candidate_ids": [],
-  "decision_changed": true,
+  "decision_changed": false,
   "decision_fingerprint": "6a1395ec7858872317e98d9550ae297cb15866460580a0779315f34ede579f6f",
   "decisions": [
     {
@@ -49,12 +49,12 @@
     "programme-board-e24",
     "kq009-provider-gate"
   ],
-  "material_source_change": true,
+  "material_source_change": false,
   "model_called": false,
-  "observed_at": "2026-09-22T12:08:42.240419+00:00",
+  "observed_at": "2026-09-22T12:09:34.453650+00:00",
   "resolver_termination": "NO_ACTION",
-  "run_count": 9,
-  "run_id": "35725432350",
+  "run_count": 10,
+  "run_id": "35725514000",
   "schema_version": 1,
   "selected_candidate_id": null,
   "shadow_mode": true,
