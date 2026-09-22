@@ -191,7 +191,7 @@
         "mission_created_by_worker": false,
         "new_model_provider_access_granted": false,
         "ownership_unchanged": true,
-        "readback_verified": false,
+        "readback_verified": true,
         "resource_classes_used": [
           "ALDERNIA_INTERNAL"
         ],
@@ -1017,7 +1017,7 @@
         "mission_created_by_worker": false,
         "new_model_provider_access_granted": false,
         "ownership_unchanged": true,
-        "readback_verified": false,
+        "readback_verified": true,
         "resource_classes_used": [
           "ALDERNIA_INTERNAL"
         ],
@@ -1447,7 +1447,7 @@
         "mission_created_by_worker": false,
         "new_model_provider_access_granted": false,
         "ownership_unchanged": true,
-        "readback_verified": false,
+        "readback_verified": true,
         "resource_classes_used": [
           "ALDERNIA_INTERNAL"
         ],
@@ -4127,7 +4127,7 @@
         "mission_created_by_worker": false,
         "new_model_provider_access_granted": false,
         "ownership_unchanged": true,
-        "readback_verified": false,
+        "readback_verified": true,
         "resource_classes_used": [
           "ALDERNIA_INTERNAL"
         ],
@@ -4158,7 +4158,7 @@
           "estate_id": "house-of-marianne",
           "estate_label": "House of Marianne — Government",
           "findings": [],
-          "readback_verified": false,
+          "readback_verified": true,
           "registry_version": 1,
           "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
           "royal_household_accessed": false,
@@ -4228,7 +4228,7 @@
         "mission_created_by_worker": false,
         "new_model_provider_access_granted": false,
         "ownership_unchanged": true,
-        "readback_verified": false,
+        "readback_verified": true,
         "resource_classes_used": [
           "ALDERNIA_INTERNAL"
         ],
@@ -4256,7 +4256,7 @@
           "estate_id": "house-of-nathaniel",
           "estate_label": "House of Nathaniel — Health",
           "findings": [],
-          "readback_verified": false,
+          "readback_verified": true,
           "registry_version": 1,
           "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
           "royal_household_accessed": false,
@@ -4323,7 +4323,7 @@
         "mission_created_by_worker": false,
         "new_model_provider_access_granted": false,
         "ownership_unchanged": true,
-        "readback_verified": false,
+        "readback_verified": true,
         "resource_classes_used": [
           "ALDERNIA_INTERNAL"
         ],
@@ -4351,7 +4351,7 @@
           "estate_id": "house-of-vivienne",
           "estate_label": "House of Vivienne — Banking",
           "findings": [],
-          "readback_verified": false,
+          "readback_verified": true,
           "registry_version": 1,
           "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
           "royal_household_accessed": false,
@@ -4418,7 +4418,7 @@
         "mission_created_by_worker": false,
         "new_model_provider_access_granted": false,
         "ownership_unchanged": true,
-        "readback_verified": false,
+        "readback_verified": true,
         "resource_classes_used": [
           "ALDERNIA_INTERNAL"
         ],
@@ -4446,7 +4446,7 @@
           "estate_id": "house-of-catholic",
           "estate_label": "House of Catholic — Religion",
           "findings": [],
-          "readback_verified": false,
+          "readback_verified": true,
           "registry_version": 1,
           "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
           "royal_household_accessed": false,
@@ -4513,7 +4513,7 @@
         "mission_created_by_worker": false,
         "new_model_provider_access_granted": false,
         "ownership_unchanged": true,
-        "readback_verified": false,
+        "readback_verified": true,
         "resource_classes_used": [
           "ALDERNIA_INTERNAL"
         ],
@@ -4541,7 +4541,7 @@
           "estate_id": "house-of-josie",
           "estate_label": "House of Josie — Media",
           "findings": [],
-          "readback_verified": false,
+          "readback_verified": true,
           "registry_version": 1,
           "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
           "royal_household_accessed": false,
@@ -4608,7 +4608,7 @@
         "mission_created_by_worker": false,
         "new_model_provider_access_granted": false,
         "ownership_unchanged": true,
-        "readback_verified": false,
+        "readback_verified": true,
         "resource_classes_used": [
           "ALDERNIA_INTERNAL"
         ],
@@ -4637,7 +4637,7 @@
           "estate_id": "teach-antaine",
           "estate_label": "Teach Antaine — Government Institutions",
           "findings": [],
-          "readback_verified": false,
+          "readback_verified": true,
           "registry_version": 1,
           "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
           "royal_household_accessed": false,
