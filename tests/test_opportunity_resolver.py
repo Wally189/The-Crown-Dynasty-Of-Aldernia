@@ -16,10 +16,10 @@ from aldernia_runtime.opportunity_resolver import (
 
 
 PROFILES = {
-    "COS-SEL-001": CapabilityProfile("COS-SEL-001", "Computer of Series", frozenset({"INTERNAL_READ", "INTERNAL_DERIVED_STATE_WRITE"}), True, frozenset({"SELECT_METHOD"})),
-    "COS-AUTH-001": CapabilityProfile("COS-AUTH-001", "Computer of Series", frozenset({"INTERNAL_READ", "INTERNAL_DERIVED_STATE_WRITE"}), True, frozenset({"CHECK_AUTHORITY"})),
-    "COS-BUS-001": CapabilityProfile("COS-BUS-001", "Computer of Series", frozenset({"INTERNAL_READ", "INTERNAL_DERIVED_STATE_WRITE"}), True, frozenset({"TRANSPORT_WORK"})),
-    "COS-WORKER-001": CapabilityProfile("COS-WORKER-001", "Computer of Series", frozenset({"INTERNAL_READ", "INTERNAL_DERIVED_STATE_WRITE"}), True, frozenset({"EXECUTE_INTERNAL"})),
+    "COS-SEL-001": CapabilityProfile("COS-SEL-001", "Computer of Series", frozenset({"INTERNAL_READ", "INTERNAL_DERIVED_STATE_WRITE"}), True, operations=frozenset({"SELECT_METHOD"})),
+    "COS-AUTH-001": CapabilityProfile("COS-AUTH-001", "Computer of Series", frozenset({"INTERNAL_READ", "INTERNAL_DERIVED_STATE_WRITE"}), True, operations=frozenset({"CHECK_AUTHORITY"})),
+    "COS-BUS-001": CapabilityProfile("COS-BUS-001", "Computer of Series", frozenset({"INTERNAL_READ", "INTERNAL_DERIVED_STATE_WRITE"}), True, operations=frozenset({"TRANSPORT_WORK"})),
+    "COS-WORKER-001": CapabilityProfile("COS-WORKER-001", "Computer of Series", frozenset({"INTERNAL_READ", "INTERNAL_DERIVED_STATE_WRITE"}), True, operations=frozenset({"EXECUTE_INTERNAL"})),
 }
 
 
@@ -175,7 +175,7 @@ class Stage1ResolverTests(unittest.TestCase):
             "Computer of Series",
             frozenset({"INTERNAL_DERIVED_STATE_WRITE"}),
             True,
-            frozenset({"PARSE_RECORDS"}),
+            operations=frozenset({"PARSE_RECORDS"}),
         )
         resolver = Resolver(profiles)
         c = candidate(
@@ -193,12 +193,12 @@ class Stage1ResolverTests(unittest.TestCase):
         profiles["A"] = CapabilityProfile(
             "A", "Computer of Series",
             frozenset({"INTERNAL_DERIVED_STATE_WRITE"}), True,
-            frozenset({"READ_BATCH"}),
+            operations=frozenset({"READ_BATCH"}),
         )
         profiles["B"] = CapabilityProfile(
             "B", "Computer of Series",
             frozenset({"INTERNAL_DERIVED_STATE_WRITE"}), True,
-            frozenset({"WRITE_CHECKPOINT"}),
+            operations=frozenset({"WRITE_CHECKPOINT"}),
         )
         resolver = Resolver(profiles)
         c = candidate(
@@ -316,7 +316,7 @@ class Stage1ResolverTests(unittest.TestCase):
             "Computer of Series",
             frozenset({"INTERNAL_DERIVED_STATE_WRITE"}),
             True,
-            frozenset({"PARSE_RECORDS"}),
+            operations=frozenset({"PARSE_RECORDS"}),
         )
         resolver = Resolver(profiles)
         c = candidate(
