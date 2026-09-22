@@ -1,6 +1,6 @@
 {
-  "checked_at": "2026-09-22T18:09:02+00:00",
-  "detail": "Missing provider configuration: Google WIF/Drive access token; all duties due through the 19:09 BST prompt boundary were manually reconciled under the Crown prompt-clock rule",
+  "checked_at": "2026-09-22T19:13:50+00:00",
+  "detail": "Unattended provider/runtime path remains unconfigured; Google provisioning is stopped. All Dynasty duties due through the 20:13 BST prompt boundary are manually reconciled, including the 20:00 Heartbeat/HMDF patrol slice.",
   "normal_path_requires_king_prompt": false,
   "pending_count": 0,
   "processed_event_ids": [],
