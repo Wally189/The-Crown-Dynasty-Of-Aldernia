@@ -10,7 +10,7 @@
   "canonical_source_modified_time": null,
   "canonical_transport": null,
   "conflict_candidate_ids": [],
-  "decision_changed": true,
+  "decision_changed": false,
   "decision_fingerprint": "a797efe433b7876a9ba7cba1398876f8ec20277f66f2323ca8022369e7cd1429",
   "decisions": [
     {
@@ -33,12 +33,12 @@
   "fact_ids": [
     "kq009-provider-gate"
   ],
-  "material_source_change": true,
+  "material_source_change": false,
   "model_called": false,
-  "observed_at": "2026-09-22T20:47:22.437337+00:00",
+  "observed_at": "2026-09-22T20:49:41.259609+00:00",
   "resolver_termination": "NO_ACTION",
-  "run_count": 15,
-  "run_id": "35782537171",
+  "run_count": 16,
+  "run_id": "35782774748",
   "schema_version": 1,
   "selected_candidate_id": null,
   "shadow_mode": true,
