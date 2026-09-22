@@ -1,16 +1,13 @@
 {
   "adapter_version": 1,
   "authority_widened": false,
-  "candidate_count": 11,
+  "candidate_count": 8,
   "candidate_ids": [
-    "DUE::aldernia.website-voice:2026-09-21",
-    "DUE::carol.availability-gate:2026-09-21",
-    "DUE::catholic.compline:2026-09-21",
-    "DUE::catholic.dawn-offices:2026-09-22",
-    "DUE::dynasty.heartbeat:2026-09-21T19:00",
-    "DUE::dynasty.heartbeat:2026-09-21T20:00",
-    "DUE::dynasty.heartbeat:2026-09-21T21:00",
-    "DUE::dynasty.heartbeat:2026-09-21T22:00",
+    "DUE::carol.business-opening:2026-09-22",
+    "DUE::catholic.terce:2026-09-22",
+    "DUE::dynasty.heartbeat:2026-09-22T08:00",
+    "DUE::dynasty.heartbeat:2026-09-22T09:00",
+    "DUE::dynasty.heartbeat:2026-09-22T10:00",
     "E-23",
     "E-24",
     "KQ-009"
@@ -18,37 +15,10 @@
   "canonical_record_written": false,
   "conflict_candidate_ids": [],
   "decision_changed": true,
-  "decision_fingerprint": "ee840c47730a77f2cc3de9cf8105ec676b76cdf3394b9bacb31e01355448f5e9",
+  "decision_fingerprint": "50f95fa2d13f7ea6b51d4494ab4d32df423fa2dee858cc523dc6b6d6b4d4c530",
   "decisions": [
     {
-      "candidate_id": "DUE::aldernia.website-voice:2026-09-21",
-      "priority_key": null,
-      "reasons": [
-        "required model provider unavailable; unrelated work may continue"
-      ],
-      "state_class": "BLOCKED",
-      "unchanged": true
-    },
-    {
-      "candidate_id": "DUE::carol.availability-gate:2026-09-21",
-      "priority_key": null,
-      "reasons": [
-        "required model provider unavailable; unrelated work may continue"
-      ],
-      "state_class": "BLOCKED",
-      "unchanged": true
-    },
-    {
-      "candidate_id": "DUE::catholic.compline:2026-09-21",
-      "priority_key": null,
-      "reasons": [
-        "required model provider unavailable; unrelated work may continue"
-      ],
-      "state_class": "BLOCKED",
-      "unchanged": true
-    },
-    {
-      "candidate_id": "DUE::catholic.dawn-offices:2026-09-22",
+      "candidate_id": "DUE::carol.business-opening:2026-09-22",
       "priority_key": null,
       "reasons": [
         "required model provider unavailable; unrelated work may continue"
@@ -57,40 +27,40 @@
       "unchanged": false
     },
     {
-      "candidate_id": "DUE::dynasty.heartbeat:2026-09-21T19:00",
+      "candidate_id": "DUE::catholic.terce:2026-09-22",
       "priority_key": null,
       "reasons": [
         "required model provider unavailable; unrelated work may continue"
       ],
       "state_class": "BLOCKED",
-      "unchanged": true
+      "unchanged": false
     },
     {
-      "candidate_id": "DUE::dynasty.heartbeat:2026-09-21T20:00",
+      "candidate_id": "DUE::dynasty.heartbeat:2026-09-22T08:00",
       "priority_key": null,
       "reasons": [
         "required model provider unavailable; unrelated work may continue"
       ],
       "state_class": "BLOCKED",
-      "unchanged": true
+      "unchanged": false
     },
     {
-      "candidate_id": "DUE::dynasty.heartbeat:2026-09-21T21:00",
+      "candidate_id": "DUE::dynasty.heartbeat:2026-09-22T09:00",
       "priority_key": null,
       "reasons": [
         "required model provider unavailable; unrelated work may continue"
       ],
       "state_class": "BLOCKED",
-      "unchanged": true
+      "unchanged": false
     },
     {
-      "candidate_id": "DUE::dynasty.heartbeat:2026-09-21T22:00",
+      "candidate_id": "DUE::dynasty.heartbeat:2026-09-22T10:00",
       "priority_key": null,
       "reasons": [
         "required model provider unavailable; unrelated work may continue"
       ],
       "state_class": "BLOCKED",
-      "unchanged": true
+      "unchanged": false
     },
     {
       "candidate_id": "E-23",
@@ -123,29 +93,26 @@
   "derived_state_only": true,
   "execution_performed": false,
   "external_effect": "NONE",
-  "fact_count": 11,
+  "fact_count": 8,
   "fact_ids": [
     "programme-board-e23",
     "programme-board-e24",
     "kq009-provider-gate",
-    "runtime-event:aldernia.website-voice:2026-09-21",
-    "runtime-event:carol.availability-gate:2026-09-21",
-    "runtime-event:catholic.compline:2026-09-21",
-    "runtime-event:catholic.dawn-offices:2026-09-22",
-    "runtime-event:dynasty.heartbeat:2026-09-21T19:00",
-    "runtime-event:dynasty.heartbeat:2026-09-21T20:00",
-    "runtime-event:dynasty.heartbeat:2026-09-21T21:00",
-    "runtime-event:dynasty.heartbeat:2026-09-21T22:00"
+    "runtime-event:carol.business-opening:2026-09-22",
+    "runtime-event:catholic.terce:2026-09-22",
+    "runtime-event:dynasty.heartbeat:2026-09-22T08:00",
+    "runtime-event:dynasty.heartbeat:2026-09-22T09:00",
+    "runtime-event:dynasty.heartbeat:2026-09-22T10:00"
   ],
   "material_source_change": true,
   "model_called": false,
-  "observed_at": "2026-09-22T04:42:02.373852+00:00",
+  "observed_at": "2026-09-22T09:29:45.540330+00:00",
   "resolver_termination": "NO_ACTION",
-  "run_count": 6,
-  "run_id": "35687863290",
+  "run_count": 7,
+  "run_id": "35710687317",
   "schema_version": 1,
   "selected_candidate_id": null,
   "shadow_mode": true,
-  "source_fingerprint": "6e388efc46cb28c577a8bf623a7a4e8d8ac03ef4bf7281526295021b903bbd44",
+  "source_fingerprint": "2322e2c77172818738d9ada9daf4579bb34f44e9b2a9440d978957e2efe873bf",
   "state_readback_verified": true
 }
