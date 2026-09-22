@@ -3126,8 +3126,278 @@
           "1X4fjKOe7dM95RlDstT7DAUbwR8eyZwkGvqdJ44OVOz0"
         ]
       }
+    },
+    "government.daily-pulse:2026-09-22": {
+      "schema_version": 1,
+      "event_id": "government.daily-pulse:2026-09-22",
+      "event_type": "scheduled_duty_due",
+      "transition_class": "scheduled_duty_due",
+      "service_class": "SCHEDULED_DUTY",
+      "departure_mode": "MANUAL_CATCH_UP",
+      "scheduled_for": "2026-09-22T07:00:00+01:00",
+      "emitted_at": "2026-09-22T06:03:00+00:00",
+      "emitting_owner": "ChatGPT/Helm manual Catholix interface under CAT-123",
+      "destination": "House of Marianne — Centre of Government & Cabinet Coordination",
+      "mission_ref": "NONE — EXISTING AUTHORISED DUTY",
+      "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 12",
+      "ack_to": "Central Aldernia Clock / scheduled-duty queue",
+      "acceptance": "Execute only the already-authorised duty from current canonical state; preserve ownership and STOPs; durable ACK/readback required.",
+      "permitted_effects": [
+        "manual execution of existing authorised duty",
+        "internal governed routing",
+        "durable ACK/readback"
+      ],
+      "prohibited_effects": [
+        "create new mission from time alone",
+        "widen authority",
+        "invent public/political consequence",
+        "external contact"
+      ],
+      "payload": {
+        "duty_id": "government.daily-pulse",
+        "label": "Daily Aldernian Government Pulse",
+        "accountable_owner": "House of Marianne — Centre of Government & Cabinet Coordination",
+        "source_row": 12,
+        "scheduled_for": "2026-09-22T07:00:00+01:00",
+        "required_source_ids": [
+          "1Z6jkA6SuaPDAQYWAAYEkjjRGg00wP8KF3odrf-fktxU",
+          "1fZ7_rv8nMkPgJIHCHOH45fYPmNdKKhVlUkDoyoIfKoU"
+        ],
+        "requires_model_runtime": true,
+        "evaluation_only": false
+      },
+      "claim": null,
+      "status": "ACKNOWLEDGED_NO_ACTION",
+      "receipt": {
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-22-balcony-recovery",
+        "attempt": 1,
+        "completed_at": "2026-09-22T06:03:00+00:00",
+        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
+        "accountable_owner": "House of Marianne — Centre of Government & Cabinet Coordination",
+        "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "outcome": "NO_ACTION",
+        "result_summary": "22 Sep Government Pulse executed from current post-reset Government truth and closed VERIFIED_CLOSED. No archived programme, stale election state or post-cutoff appointment was revived. No evidence-backed collective Cabinet decision, parliamentary procedure, independent-institution intervention, public-resource act or external commitment was required. Morning intelligence remained contextual input only. Routine institution-owned work remains with its competent owners; Crown action NONE.",
+        "evidence_refs": [
+          "Drive:House of Marianne FIRST READ",
+          "Drive:Government Current State, Remediation & Handover Register",
+          "Drive:Palace Scheduled Tasks row 12",
+          "Drive:House of Series START HERE",
+          "Drive:CAT-123"
+        ],
+        "writes": [
+          "GitHub clock-state/state/scheduled-duty-queue.json durable manual recovery receipt"
+        ],
+        "external_effect": "NONE",
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false,
+        "new_model_provider_access_granted": false,
+        "readback_verified": true,
+        "pulse_terminal_state": "VERIFIED_CLOSED",
+        "parent_case_id": "government-pulse:2026-09-22"
+      }
+    },
+    "government.red-box:2026-09-22": {
+      "schema_version": 1,
+      "event_id": "government.red-box:2026-09-22",
+      "event_type": "government.pulse.closed",
+      "transition_class": "scheduled_duty_due",
+      "service_class": "SCHEDULED_DUTY",
+      "departure_mode": "MANUAL_CATCH_UP",
+      "scheduled_for": "2026-09-22T07:03:00+01:00",
+      "emitted_at": "2026-09-22T06:03:00+00:00",
+      "emitting_owner": "ChatGPT/Helm manual Catholix interface under CAT-123",
+      "destination": "House of Marianne — Centre of Government & Cabinet Coordination → Royal Palace / King's Balcony",
+      "mission_ref": "NONE — EXISTING AUTHORISED DUTY",
+      "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 13",
+      "ack_to": "Central Aldernia Clock / scheduled-duty queue",
+      "acceptance": "Execute only the already-authorised duty from current canonical state; preserve ownership and STOPs; durable ACK/readback required.",
+      "permitted_effects": [
+        "manual execution of existing authorised duty",
+        "internal governed routing",
+        "durable ACK/readback"
+      ],
+      "prohibited_effects": [
+        "create new mission from time alone",
+        "widen authority",
+        "invent public/political consequence",
+        "external contact"
+      ],
+      "payload": {
+        "duty_id": "government.red-box",
+        "label": "Daily Government Decision Red Box — King's Balcony Tram",
+        "accountable_owner": "House of Marianne — Centre of Government & Cabinet Coordination → Royal Palace / King's Balcony",
+        "source_row": 13,
+        "scheduled_for": "2026-09-22T07:03:00+01:00",
+        "required_source_ids": [
+          "1Z6jkA6SuaPDAQYWAAYEkjjRGg00wP8KF3odrf-fktxU",
+          "1fZ7_rv8nMkPgJIHCHOH45fYPmNdKKhVlUkDoyoIfKoU",
+          "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE"
+        ],
+        "requires_model_runtime": true,
+        "evaluation_only": false
+      },
+      "claim": null,
+      "status": "ACKNOWLEDGED_ACTION",
+      "receipt": {
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-22-balcony-recovery",
+        "attempt": 1,
+        "completed_at": "2026-09-22T06:03:00+00:00",
+        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
+        "accountable_owner": "House of Marianne — Centre of Government & Cabinet Coordination → Royal Palace / King's Balcony",
+        "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "outcome": "ACTION",
+        "result_summary": "22 Sep Red Box delivered from the genuine VERIFIED_CLOSED Government Pulse. NO MATERIAL GOVERNMENT DECISION THIS PULSE. No implementation, Opposition disagreement, Parliamentary procedure or independent finding was invented. Open routine Government work remains institution-owned. Crown action: NONE. Next Government trigger: 23 Sep 07:00 or earlier genuine material-state trigger under existing authority.",
+        "evidence_refs": [
+          "Drive:Scheduled Tasks row 12 current close",
+          "Drive:Government Current State",
+          "Drive:Palace settlement",
+          "GitHub:government.daily-pulse:2026-09-22 durable receipt"
+        ],
+        "writes": [
+          "GitHub clock-state/state/scheduled-duty-queue.json durable manual recovery receipt"
+        ],
+        "external_effect": "NONE",
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false,
+        "new_model_provider_access_granted": false,
+        "readback_verified": true,
+        "parent_case_id": "government-pulse:2026-09-22",
+        "parent_terminal_state": "VERIFIED_CLOSED",
+        "balcony_delivery_ack": true
+      }
+    },
+    "dynasty.heartbeat:2026-09-22T07:00": {
+      "schema_version": 1,
+      "event_id": "dynasty.heartbeat:2026-09-22T07:00",
+      "event_type": "scheduled_duty_due",
+      "transition_class": "scheduled_duty_due",
+      "service_class": "SCHEDULED_DUTY",
+      "departure_mode": "MANUAL_CATCH_UP",
+      "scheduled_for": "2026-09-22T07:00:00+01:00",
+      "emitted_at": "2026-09-22T06:03:00+00:00",
+      "emitting_owner": "ChatGPT/Helm manual Catholix interface under CAT-123",
+      "destination": "Royal Palace",
+      "mission_ref": "NONE — EXISTING AUTHORISED DUTY",
+      "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 2",
+      "ack_to": "Central Aldernia Clock / scheduled-duty queue",
+      "acceptance": "Execute only the already-authorised duty from current canonical state; preserve ownership and STOPs; durable ACK/readback required.",
+      "permitted_effects": [
+        "manual execution of existing authorised duty",
+        "internal governed routing",
+        "durable ACK/readback"
+      ],
+      "prohibited_effects": [
+        "create new mission from time alone",
+        "widen authority",
+        "invent public/political consequence",
+        "external contact"
+      ],
+      "payload": {
+        "duty_id": "dynasty.heartbeat",
+        "label": "Dynasty House Pulse / King's Balcony Heartbeat",
+        "accountable_owner": "Royal Palace",
+        "source_row": 2,
+        "scheduled_for": "2026-09-22T07:00:00+01:00",
+        "required_source_ids": [
+          "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE"
+        ],
+        "requires_model_runtime": true,
+        "evaluation_only": false,
+        "integrity_patrol": {
+          "registry_version": 1,
+          "mode": "ONE_BOUNDED_SLICE_PER_HEARTBEAT",
+          "estate_id": "house-of-josie",
+          "estate_label": "House of Josie — Media",
+          "visit_index": 1,
+          "cursor_after": "teach-antaine",
+          "source_row": 21,
+          "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
+          "royal_household_access_permitted": false,
+          "root_folder_ids": [
+            "1vm6vJi9qDDKqXCO_1fmzFgS8oToL9855"
+          ],
+          "required_source_ids": [
+            "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+            "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
+            "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY",
+            "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+            "1iJU__qY2P-LSNJDqIaG5qZH2Dw6p2DnNZ35LUzGTkVg",
+            "1gS-V40twMOT29dBiXrNrNlo87dUD49u9t2e9yHGOS98",
+            "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+            "1ulQ0QDZLveGRvT_zJt5eUXDXgdIKntnwEliNK98zAc0",
+            "1ffQZMgXnQPe0tlI_RUdYhnAKOASGi_6yRXlEprVUSiw"
+          ]
+        }
+      },
+      "claim": null,
+      "status": "ACKNOWLEDGED_ACTION",
+      "receipt": {
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-22-balcony-recovery",
+        "attempt": 1,
+        "completed_at": "2026-09-22T06:03:00+00:00",
+        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
+        "accountable_owner": "Royal Palace",
+        "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "outcome": "ACTION",
+        "result_summary": "07:00 Heartbeat executed manually. The Daily Government Pulse closed VERIFIED_CLOSED and its Red Box reached the Balcony with Crown action NONE. No other fresh Crown-reserved matter was established. Required row-21 patrol advanced one bounded slice through House of Josie; current FIRST READ/readiness and top-level editorial estate were coherent, no conflicting current material or unambiguous stale active item justified mutation, and cursor advanced to Teach Antaine.",
+        "evidence_refs": [
+          "Drive:CAT-123",
+          "Drive:House of Series START HERE",
+          "Drive:Palace settlement",
+          "Drive:Scheduled Tasks",
+          "Drive:House of Josie FIRST READ/readiness",
+          "GitHub:Government Pulse/Red Box receipts"
+        ],
+        "writes": [
+          "GitHub clock-state/state/scheduled-duty-queue.json durable manual recovery receipt"
+        ],
+        "external_effect": "NONE",
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false,
+        "new_model_provider_access_granted": false,
+        "readback_verified": true,
+        "integrity_patrol": {
+          "registry_version": 1,
+          "estate_id": "house-of-josie",
+          "estate_label": "House of Josie — Media",
+          "visit_index": 1,
+          "cursor_after": "teach-antaine",
+          "source_row": 21,
+          "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
+          "current_authority_retrieved": true,
+          "findings": [],
+          "royal_household_accessed": false,
+          "readback_verified": true
+        },
+        "retrieved_source_ids": [
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1iJU__qY2P-LSNJDqIaG5qZH2Dw6p2DnNZ35LUzGTkVg",
+          "1gS-V40twMOT29dBiXrNrNlo87dUD49u9t2e9yHGOS98",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "1ulQ0QDZLveGRvT_zJt5eUXDXgdIKntnwEliNK98zAc0",
+          "1ffQZMgXnQPe0tlI_RUdYhnAKOASGi_6yRXlEprVUSiw"
+        ]
+      }
     }
   },
-  "last_checked_at": "2026-09-22T05:59:00+00:00",
+  "last_checked_at": "2026-09-22T06:03:00+00:00",
   "schema_version": 1
 }
