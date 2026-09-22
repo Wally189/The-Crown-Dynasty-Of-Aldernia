@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "source": {
+    "spreadsheet_id": "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+    "sheet_name": "Royal Programme Board",
+    "range": "A155:D155",
+    "source_row": 155,
+    "modified_time": "2026-09-22T16:49:08.476Z"
+  },
+  "transport": "CONNECTED_DRIVE_BRIDGE",
+  "transport_note": "Read directly from the private canonical Google Sheet through the connected Google Drive capability for the E-28 acceptance proof; this is not unattended runtime Drive authentication.",
+  "rows": [
+    {
+      "source_row": 155,
+      "entry_id": "E-28",
+      "mission": "CROWN INFRASTRUCTURE / SELF-PROGRESSION STAGE 4 AUTHORITY",
+      "narrative": "Crown commission authorises the next bounded self-progression proof from E-27. The Computer of Series may replace fixed Programme Board anchors with a minimum live canonical-state adapter, using only already-authorised access if present and otherwise failing closed; no provider/account/IAM activation is authorised. Exactly one reversible internal execution profile may act on an ACTIONABLE_NOW candidate whose authority is encoded in this canonical row, with explicit authority/effect intersection, registered COS-SEL-001/COS-BUS-001/COS-WORKER-001 capability composition, execution → verification → durable ACK, bounded causal depth, and NO_ACTION after satisfaction. The only permitted Stage-4 proof effect is INTERNAL_DERIVED_STATE_WRITE. No model call, spend, external contact, public-content change, Royal Household access, specialist-truth mutation, arbitrary code/tool execution, new scheduler/bus/register/mission system/House/constitutional engine, or authority widening is permitted. The runtime-verification path may be isolated from public Pages triggers without changing public content. Live connector-mediated canonical transport is permitted for this acceptance where private Drive runtime identity remains unavailable, but it must be recorded as such and must not be misdescribed as unattended Drive access.",
+      "outcome": "AUTHORISED — STAGE-4 LIVE CANONICAL DELTA ACK / MACHINE kind=AUTHORISED_INTERNAL_WORK; candidate_id=PB-E28-LIVE-DELTA-ACK; profile=COS-SEL-001,COS-BUS-001,COS-WORKER-001; execution_class=COS-WORKER-001::CANONICAL_DELTA_ACK; effect=INTERNAL_DERIVED_STATE_WRITE; reversible=true; model=false; consequence=NONE"
+    }
+  ]
+}
