@@ -82,8 +82,8 @@ class CapabilityProfile:
     owner: str
     effects: frozenset[str]
     deterministic: bool
-    operations: frozenset[str] = field(default_factory=frozenset)
     available: bool = True
+    operations: frozenset[str] = field(default_factory=frozenset)
 
 
 @dataclass(frozen=True)
