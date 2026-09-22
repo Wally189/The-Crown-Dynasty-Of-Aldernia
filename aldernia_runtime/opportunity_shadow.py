@@ -156,7 +156,11 @@ def normalized_runtime_facts(
     unrelated Clock activity cannot make an unchanged provider blocker look new.
     """
 
-    facts: list[SourceFact] = list(\n        canonical_facts_from_packet(canonical_packet or {}, acknowledged=acknowledged or {})\n    )
+    facts: list[SourceFact] = list(
+        canonical_facts_from_packet(
+            canonical_packet or {}, acknowledged=acknowledged or {}
+        )
+    )
     status = str(health.get("status") or "NOT_YET_CHECKED")
     detail = str(health.get("detail") or "")
     provider_available, budget_available = provider_state(health)
@@ -295,7 +299,12 @@ def run_shadow(
         resolver_state_raw if isinstance(resolver_state_raw, Mapping) else None
     )
 
-    facts = normalized_runtime_facts(\n        queue=queue,\n        health=health,\n        canonical_packet=canonical_packet,\n        acknowledged=acknowledged,\n    )
+    facts = normalized_runtime_facts(
+        queue=queue,
+        health=health,
+        canonical_packet=canonical_packet,
+        acknowledged=acknowledged,
+    )
     candidates = discover_candidates(facts)
     resolver = Resolver(PROFILES, causal_depth_limit=2)
     resolution = resolver.resolve(candidates, resolver_state)
