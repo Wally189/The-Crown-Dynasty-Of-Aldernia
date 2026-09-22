@@ -181,8 +181,37 @@
       ],
       "scheduled_for": "2026-09-22T18:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "ACKNOWLEDGED_ACTION",
+      "transition_class": "scheduled_duty_due",
+      "receipt": {
+        "attempt": 1,
+        "authority_unchanged": true,
+        "estate_scope": "ALDERNIA",
+        "external_effect": "NONE",
+        "mission_created_by_worker": false,
+        "new_model_provider_access_granted": false,
+        "ownership_unchanged": true,
+        "readback_verified": false,
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-22-prompt-clock-reconciliation",
+        "manual_prompt_clock_reconciliation": true,
+        "writes": [
+          "GitHub:clock-state/state/scheduled-duty-queue.json durable prompt-catch-up receipt"
+        ],
+        "accountable_owner": "House of Josie",
+        "completed_at": "2026-09-22T18:09:02+00:00",
+        "evidence_refs": [
+          "Drive:House of Josie FIRST READ",
+          "Drive:Scheduled Tasks row 19",
+          "Royal Observatory Greenwich: Night sky highlights — September 2026 (published 17 Aug 2026)"
+        ],
+        "outcome": "ACTION",
+        "result_summary": "22 Sep Evening Commons recovered after Vespers. Internal curiosity item: Algol, the 'Demon Star', visibly varies because it is a triple-star system whose stars eclipse one another; the Royal Observatory also notes the UK equilux on 25 September and Neptune at opposition on 26 September. Pleasure/curiosity only: no task, KPI, Government message or business action created."
+      }
     },
     "aldernia.website-voice:2026-09-21": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -978,8 +1007,37 @@
       ],
       "scheduled_for": "2026-09-22T15:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "ACKNOWLEDGED_NO_ACTION",
+      "transition_class": "scheduled_duty_due",
+      "receipt": {
+        "attempt": 1,
+        "authority_unchanged": true,
+        "estate_scope": "ALDERNIA",
+        "external_effect": "NONE",
+        "mission_created_by_worker": false,
+        "new_model_provider_access_granted": false,
+        "ownership_unchanged": true,
+        "readback_verified": false,
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-22-prompt-clock-reconciliation",
+        "manual_prompt_clock_reconciliation": true,
+        "writes": [
+          "GitHub:clock-state/state/scheduled-duty-queue.json durable prompt-catch-up receipt"
+        ],
+        "accountable_owner": "House of Catholic",
+        "completed_at": "2026-09-22T18:09:02+00:00",
+        "evidence_refs": [
+          "Drive:House of Catholic FIRST READ",
+          "Drive:Scheduled Tasks row 16",
+          "Public:Universalis 22 Sep 2026 England calendar"
+        ],
+        "outcome": "NO_ACTION",
+        "result_summary": "22 Sep None was discovered only during the 19:09 prompt-clock reconciliation, well after its daytime observance window. It was therefore closed NO_ACTION / EXPIRED rather than falsely backfilled. No claim of human prayer, sacramental status or ecclesiastical office is made."
+      }
     },
     "catholic.sext:2026-09-21": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -1379,8 +1437,38 @@
       ],
       "scheduled_for": "2026-09-22T18:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "ACKNOWLEDGED_ACTION",
+      "transition_class": "scheduled_duty_due",
+      "receipt": {
+        "attempt": 1,
+        "authority_unchanged": true,
+        "estate_scope": "ALDERNIA",
+        "external_effect": "NONE",
+        "mission_created_by_worker": false,
+        "new_model_provider_access_granted": false,
+        "ownership_unchanged": true,
+        "readback_verified": false,
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-22-prompt-clock-reconciliation",
+        "manual_prompt_clock_reconciliation": true,
+        "writes": [
+          "GitHub:clock-state/state/scheduled-duty-queue.json durable prompt-catch-up receipt"
+        ],
+        "accountable_owner": "House of Catholic",
+        "completed_at": "2026-09-22T18:09:02+00:00",
+        "evidence_refs": [
+          "Drive:House of Catholic FIRST READ",
+          "Drive:House of Catholic BAU control",
+          "Drive:Scheduled Tasks row 16",
+          "Public:Universalis 22 Sep 2026 England calendar"
+        ],
+        "outcome": "ACTION",
+        "result_summary": "22 Sep Vespers was recovered within the same evening by the prompt-clock reconciliation rule. The current House of Catholic authority/source route and England calendar were used for the internal common-observance packet. No substantial liturgical text was reproduced and no human-prayer, sacramental or ecclesiastical-office claim is made."
+      }
     },
     "dynasty.heartbeat:2026-09-21T06:00": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -4029,8 +4117,66 @@
       ],
       "scheduled_for": "2026-09-22T14:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "ACKNOWLEDGED_ACTION",
+      "transition_class": "scheduled_duty_due",
+      "receipt": {
+        "attempt": 1,
+        "authority_unchanged": true,
+        "estate_scope": "ALDERNIA",
+        "external_effect": "NONE",
+        "mission_created_by_worker": false,
+        "new_model_provider_access_granted": false,
+        "ownership_unchanged": true,
+        "readback_verified": false,
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-22-prompt-clock-reconciliation",
+        "manual_prompt_clock_reconciliation": true,
+        "writes": [
+          "GitHub:clock-state/state/scheduled-duty-queue.json durable prompt-catch-up receipt"
+        ],
+        "accountable_owner": "Royal Palace",
+        "completed_at": "2026-09-22T18:09:02+00:00",
+        "evidence_refs": [
+          "Drive:CAT-123",
+          "Drive:House of Series START HERE",
+          "Drive:Royal Palace settlement",
+          "Drive:Computer FIRST READ",
+          "Drive:Engine Manifest",
+          "Drive:House OS",
+          "Drive:Scheduled Tasks Register",
+          "Drive:House of Marianne FIRST READ",
+          "Drive:House of Marianne Current State"
+        ],
+        "outcome": "ACTION",
+        "integrity_patrol": {
+          "current_authority_retrieved": true,
+          "cursor_after": "house-of-nathaniel",
+          "estate_id": "house-of-marianne",
+          "estate_label": "House of Marianne — Government",
+          "findings": [],
+          "readback_verified": false,
+          "registry_version": 1,
+          "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
+          "royal_household_accessed": false,
+          "source_row": 21
+        },
+        "result_summary": "14:00 Heartbeat recovered by the prompt-clock reconciliation rule. House of Marianne current post-reset Government authority and Stage-18 state were reconciled. Earlier Election 01 / Tracey public-mandate wording is expressly historical under the controlling post-reset override, not a competing current authority. No genuine current conflict, duplicate-current defect, stale active item requiring mutation, consequential bus or Crown-reserved decision was established.",
+        "retrieved_source_ids": [
+          "CAT-123",
+          "House of Series START HERE",
+          "Royal Palace settlement",
+          "Computer FIRST READ",
+          "Engine Manifest",
+          "House OS",
+          "Scheduled Tasks Register",
+          "House of Marianne FIRST READ",
+          "House of Marianne Current State"
+        ]
+      }
     },
     "dynasty.heartbeat:2026-09-22T15:00": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -4072,8 +4218,60 @@
       ],
       "scheduled_for": "2026-09-22T15:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "ACKNOWLEDGED_ACTION",
+      "transition_class": "scheduled_duty_due",
+      "receipt": {
+        "attempt": 1,
+        "authority_unchanged": true,
+        "estate_scope": "ALDERNIA",
+        "external_effect": "NONE",
+        "mission_created_by_worker": false,
+        "new_model_provider_access_granted": false,
+        "ownership_unchanged": true,
+        "readback_verified": false,
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-22-prompt-clock-reconciliation",
+        "manual_prompt_clock_reconciliation": true,
+        "writes": [
+          "GitHub:clock-state/state/scheduled-duty-queue.json durable prompt-catch-up receipt"
+        ],
+        "accountable_owner": "Royal Palace",
+        "completed_at": "2026-09-22T18:09:02+00:00",
+        "evidence_refs": [
+          "Drive:CAT-123",
+          "Drive:House of Series START HERE",
+          "Drive:Royal Palace settlement",
+          "Drive:Scheduled Tasks Register",
+          "Drive:House of Nathaniel FIRST READ",
+          "Drive:House of Nathaniel Capability Commissioning, Assurance & Maturity Register"
+        ],
+        "outcome": "ACTION",
+        "integrity_patrol": {
+          "current_authority_retrieved": true,
+          "cursor_after": "house-of-vivienne",
+          "estate_id": "house-of-nathaniel",
+          "estate_label": "House of Nathaniel — Health",
+          "findings": [],
+          "readback_verified": false,
+          "registry_version": 1,
+          "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
+          "royal_household_accessed": false,
+          "source_row": 21
+        },
+        "result_summary": "15:00 Heartbeat recovered by the prompt-clock reconciliation rule. House of Nathaniel remains bounded-commissioned at its recorded internal scope; independent assurance remains open and whole-House OPERATING is not earned. No conflicting current authority, duplicate-current defect or unambiguous stale active item was established. The separately due None observance was closed under its own expiry rule rather than backfilled.",
+        "retrieved_source_ids": [
+          "CAT-123",
+          "House of Series START HERE",
+          "Royal Palace settlement",
+          "Scheduled Tasks Register",
+          "House of Nathaniel FIRST READ",
+          "House of Nathaniel Capability Commissioning, Assurance & Maturity Register"
+        ]
+      }
     },
     "dynasty.heartbeat:2026-09-22T16:00": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -4115,8 +4313,60 @@
       ],
       "scheduled_for": "2026-09-22T16:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "ACKNOWLEDGED_ACTION",
+      "transition_class": "scheduled_duty_due",
+      "receipt": {
+        "attempt": 1,
+        "authority_unchanged": true,
+        "estate_scope": "ALDERNIA",
+        "external_effect": "NONE",
+        "mission_created_by_worker": false,
+        "new_model_provider_access_granted": false,
+        "ownership_unchanged": true,
+        "readback_verified": false,
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-22-prompt-clock-reconciliation",
+        "manual_prompt_clock_reconciliation": true,
+        "writes": [
+          "GitHub:clock-state/state/scheduled-duty-queue.json durable prompt-catch-up receipt"
+        ],
+        "accountable_owner": "Royal Palace",
+        "completed_at": "2026-09-22T18:09:02+00:00",
+        "evidence_refs": [
+          "Drive:CAT-123",
+          "Drive:House of Series START HERE",
+          "Drive:Royal Palace settlement",
+          "Drive:Scheduled Tasks Register",
+          "Drive:House of Vivienne FIRST READ",
+          "Drive:House of Vivienne All-Engine Deep Review, Gap Closure & Commissioning Programme"
+        ],
+        "outcome": "ACTION",
+        "integrity_patrol": {
+          "current_authority_retrieved": true,
+          "cursor_after": "house-of-catholic",
+          "estate_id": "house-of-vivienne",
+          "estate_label": "House of Vivienne — Banking",
+          "findings": [],
+          "readback_verified": false,
+          "registry_version": 1,
+          "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
+          "royal_household_accessed": false,
+          "source_row": 21
+        },
+        "result_summary": "16:00 Heartbeat recovered by the prompt-clock reconciliation rule. House of Vivienne's current bounded commissioning position, live-source discipline and professional STOP rights remain coherent. No genuine current conflict, duplicate-current defect, stale active item requiring mutation, consequential bus or Crown-reserved decision was established.",
+        "retrieved_source_ids": [
+          "CAT-123",
+          "House of Series START HERE",
+          "Royal Palace settlement",
+          "Scheduled Tasks Register",
+          "House of Vivienne FIRST READ",
+          "House of Vivienne All-Engine Deep Review, Gap Closure & Commissioning Programme"
+        ]
+      }
     },
     "dynasty.heartbeat:2026-09-22T17:00": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -4158,8 +4408,60 @@
       ],
       "scheduled_for": "2026-09-22T17:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "ACKNOWLEDGED_ACTION",
+      "transition_class": "scheduled_duty_due",
+      "receipt": {
+        "attempt": 1,
+        "authority_unchanged": true,
+        "estate_scope": "ALDERNIA",
+        "external_effect": "NONE",
+        "mission_created_by_worker": false,
+        "new_model_provider_access_granted": false,
+        "ownership_unchanged": true,
+        "readback_verified": false,
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-22-prompt-clock-reconciliation",
+        "manual_prompt_clock_reconciliation": true,
+        "writes": [
+          "GitHub:clock-state/state/scheduled-duty-queue.json durable prompt-catch-up receipt"
+        ],
+        "accountable_owner": "Royal Palace",
+        "completed_at": "2026-09-22T18:09:02+00:00",
+        "evidence_refs": [
+          "Drive:CAT-123",
+          "Drive:House of Series START HERE",
+          "Drive:Royal Palace settlement",
+          "Drive:Scheduled Tasks Register",
+          "Drive:House of Catholic FIRST READ",
+          "Drive:House of Catholic Final Acceptance, Handover & BAU Maintenance Record"
+        ],
+        "outcome": "ACTION",
+        "integrity_patrol": {
+          "current_authority_retrieved": true,
+          "cursor_after": "house-of-josie",
+          "estate_id": "house-of-catholic",
+          "estate_label": "House of Catholic — Religion",
+          "findings": [],
+          "readback_verified": false,
+          "registry_version": 1,
+          "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
+          "royal_household_accessed": false,
+          "source_row": 21
+        },
+        "result_summary": "17:00 Heartbeat recovered by the prompt-clock reconciliation rule. House of Catholic's current FIRST READ and accepted BAU baseline remain coherent: OPERATING / CONTROLLED INTERNAL / COMMISSIONED & ASSURED BASELINE, without a MATURE claim. No genuine current conflict, duplicate-current defect, stale active item requiring mutation or Crown-reserved decision was established.",
+        "retrieved_source_ids": [
+          "CAT-123",
+          "House of Series START HERE",
+          "Royal Palace settlement",
+          "Scheduled Tasks Register",
+          "House of Catholic FIRST READ",
+          "House of Catholic Final Acceptance, Handover & BAU Maintenance Record"
+        ]
+      }
     },
     "dynasty.heartbeat:2026-09-22T18:00": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -4201,8 +4503,60 @@
       ],
       "scheduled_for": "2026-09-22T18:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "ACKNOWLEDGED_ACTION",
+      "transition_class": "scheduled_duty_due",
+      "receipt": {
+        "attempt": 1,
+        "authority_unchanged": true,
+        "estate_scope": "ALDERNIA",
+        "external_effect": "NONE",
+        "mission_created_by_worker": false,
+        "new_model_provider_access_granted": false,
+        "ownership_unchanged": true,
+        "readback_verified": false,
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-22-prompt-clock-reconciliation",
+        "manual_prompt_clock_reconciliation": true,
+        "writes": [
+          "GitHub:clock-state/state/scheduled-duty-queue.json durable prompt-catch-up receipt"
+        ],
+        "accountable_owner": "Royal Palace",
+        "completed_at": "2026-09-22T18:09:02+00:00",
+        "evidence_refs": [
+          "Drive:CAT-123",
+          "Drive:House of Series START HERE",
+          "Drive:Royal Palace settlement",
+          "Drive:Scheduled Tasks Register",
+          "Drive:House of Josie FIRST READ",
+          "Drive:House of Josie Commissioning, Adversarial Test & Readiness Register"
+        ],
+        "outcome": "ACTION",
+        "integrity_patrol": {
+          "current_authority_retrieved": true,
+          "cursor_after": "teach-antaine",
+          "estate_id": "house-of-josie",
+          "estate_label": "House of Josie — Media",
+          "findings": [],
+          "readback_verified": false,
+          "registry_version": 1,
+          "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
+          "royal_household_accessed": false,
+          "source_row": 21
+        },
+        "result_summary": "18:00 Heartbeat recovered by the prompt-clock reconciliation rule. House of Josie remains internally commissioned/assured for controlled ecosystem journalism with operating pilot authorised and external publication still gated; superseded historical readiness wording remains provenance. Vespers and the Evening Commons were handled as their separately authorised 18:00 duties. No genuine current conflict, stale active defect or Crown-reserved decision was established.",
+        "retrieved_source_ids": [
+          "CAT-123",
+          "House of Series START HERE",
+          "Royal Palace settlement",
+          "Scheduled Tasks Register",
+          "House of Josie FIRST READ",
+          "House of Josie Commissioning, Adversarial Test & Readiness Register"
+        ]
+      }
     },
     "dynasty.heartbeat:2026-09-22T19:00": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -4244,8 +4598,62 @@
       ],
       "scheduled_for": "2026-09-22T19:00:00+01:00",
       "service_class": "HEARTBEAT",
-      "status": "PENDING_RUNTIME",
-      "transition_class": "scheduled_duty_due"
+      "status": "ACKNOWLEDGED_ACTION",
+      "transition_class": "scheduled_duty_due",
+      "receipt": {
+        "attempt": 1,
+        "authority_unchanged": true,
+        "estate_scope": "ALDERNIA",
+        "external_effect": "NONE",
+        "mission_created_by_worker": false,
+        "new_model_provider_access_granted": false,
+        "ownership_unchanged": true,
+        "readback_verified": false,
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-22-prompt-clock-reconciliation",
+        "manual_prompt_clock_reconciliation": true,
+        "writes": [
+          "GitHub:clock-state/state/scheduled-duty-queue.json durable prompt-catch-up receipt"
+        ],
+        "accountable_owner": "Royal Palace",
+        "completed_at": "2026-09-22T18:09:02+00:00",
+        "evidence_refs": [
+          "Drive:CAT-123",
+          "Drive:House of Series START HERE",
+          "Drive:Royal Palace settlement",
+          "Drive:Scheduled Tasks Register",
+          "Drive:Teach Antaine FIRST READ",
+          "Drive:Wave 2 Professional Baselines, SOP Mapping & Commissioning Control",
+          "Drive:Ten-Pass Scope-to-Current Ruleset & HOC Benchmark Assurance Review"
+        ],
+        "outcome": "ACTION",
+        "integrity_patrol": {
+          "current_authority_retrieved": true,
+          "cursor_after": "hmdf",
+          "estate_id": "teach-antaine",
+          "estate_label": "Teach Antaine — Government Institutions",
+          "findings": [],
+          "readback_verified": false,
+          "registry_version": 1,
+          "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
+          "royal_household_accessed": false,
+          "source_row": 21
+        },
+        "result_summary": "19:00 Heartbeat recovered by the prompt-clock reconciliation rule. Teach Antaine's current identity and independent constitutional remit remain coherent; older Teach Antony / Independent Constitutional Institutions wording is provenance. Lower-layer professional commissioning limits remain explicit. No genuine current conflict, duplicate-current defect, stale active item requiring mutation or Crown-reserved decision was established.",
+        "retrieved_source_ids": [
+          "CAT-123",
+          "House of Series START HERE",
+          "Royal Palace settlement",
+          "Scheduled Tasks Register",
+          "Teach Antaine FIRST READ",
+          "Wave 2 Professional Baselines, SOP Mapping & Commissioning Control",
+          "Ten-Pass Scope-to-Current Ruleset & HOC Benchmark Assurance Review"
+        ]
+      }
     },
     "government.daily-pulse:2026-09-21": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
@@ -4726,6 +5134,6 @@
       "transition_class": "scheduled_duty_due"
     }
   },
-  "last_checked_at": "2026-09-22T18:04:56+00:00",
+  "last_checked_at": "2026-09-22T18:09:02+00:00",
   "schema_version": 1
 }
