@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - main
+      - runtime-acceptance
   schedule:
     - cron: "*/5 * * * *"
 
@@ -31,6 +32,15 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Select isolated runtime state branch
+        shell: bash
+        run: |
+          if [ "${GITHUB_REF_NAME}" = "runtime-acceptance" ]; then
+            echo "ALDERNIA_STATE_BRANCH=runtime-acceptance-state" >> "${GITHUB_ENV}"
+          else
+            echo "ALDERNIA_STATE_BRANCH=clock-state" >> "${GITHUB_ENV}"
+          fi
+
       - name: Install OpenAI SDK for keyless workload identity
         if: ${{ vars.OPENAI_WIF_AUDIENCE != '' && vars.OPENAI_IDENTITY_PROVIDER_ID != '' && vars.OPENAI_SERVICE_ACCOUNT_ID != '' }}
         run: python -m pip install --disable-pip-version-check --no-cache-dir openai==3.16.2
@@ -40,48 +50,63 @@ jobs:
 
       - name: Restore Dynasty runtime state
         run: |
-          git fetch origin clock-state
+          git fetch origin "${ALDERNIA_STATE_BRANCH}"
           mkdir -p state
-          git show origin/clock-state:state/clock-state.json > state/clock-state.json
-          if git cat-file -e origin/clock-state:state/bus-session.json 2>/dev/null; then
-            git show origin/clock-state:state/bus-session.json > state/bus-session.json
+          git show origin/${ALDERNIA_STATE_BRANCH}:state/clock-state.json > state/clock-state.json
+          if git cat-file -e origin/${ALDERNIA_STATE_BRANCH}:state/bus-session.json 2>/dev/null; then
+            git show origin/${ALDERNIA_STATE_BRANCH}:state/bus-session.json > state/bus-session.json
           else
             printf '{"acceptance":[],"accountable_owner":null,"activated_at":null,"activation_id":null,"command_ref":null,"complete_at":null,"halt_at":null,"last_30_minute_checkpoint":null,"last_transition_reason":"DORMANT BY DEFAULT","mission_id":null,"operating_state":"DORMANT","schema_version":1,"session_mode":null,"timed_expires_at":null}\n' > state/bus-session.json
           fi
-          if git cat-file -e origin/clock-state:state/scheduled-duty-queue.json 2>/dev/null; then
-            git show origin/clock-state:state/scheduled-duty-queue.json > state/scheduled-duty-queue.json
+          if git cat-file -e origin/${ALDERNIA_STATE_BRANCH}:state/scheduled-duty-queue.json 2>/dev/null; then
+            git show origin/${ALDERNIA_STATE_BRANCH}:state/scheduled-duty-queue.json > state/scheduled-duty-queue.json
           else
             printf '{"events":{},"last_checked_at":null,"schema_version":1}\n' > state/scheduled-duty-queue.json
           fi
-          if git cat-file -e origin/clock-state:state/patrol-budget.json 2>/dev/null; then
-            git show origin/clock-state:state/patrol-budget.json > state/patrol-budget.json
+          if git cat-file -e origin/${ALDERNIA_STATE_BRANCH}:state/patrol-budget.json 2>/dev/null; then
+            git show origin/${ALDERNIA_STATE_BRANCH}:state/patrol-budget.json > state/patrol-budget.json
           else
             printf '{"schema_version":1,"month":"","input_tokens":0,"output_tokens":0,"estimated_usd":0.0,"calls":0}\n' > state/patrol-budget.json
           fi
-          if git cat-file -e origin/clock-state:state/runtime-health.json 2>/dev/null; then
-            git show origin/clock-state:state/runtime-health.json > state/runtime-health.json
+          if git cat-file -e origin/${ALDERNIA_STATE_BRANCH}:state/runtime-health.json 2>/dev/null; then
+            git show origin/${ALDERNIA_STATE_BRANCH}:state/runtime-health.json > state/runtime-health.json
           else
             printf '{"schema_version":1,"status":"NOT_YET_CHECKED","detail":"No governed ordinary-duty runtime health check has run yet.","processed_event_ids":[],"pending_count":0,"normal_path_requires_king_prompt":false}\n' > state/runtime-health.json
           fi
-          if git cat-file -e origin/clock-state:state/opportunity-resolver-state.json 2>/dev/null; then
-            git show origin/clock-state:state/opportunity-resolver-state.json > state/opportunity-resolver-state.json
+          if git cat-file -e origin/${ALDERNIA_STATE_BRANCH}:state/opportunity-resolver-state.json 2>/dev/null; then
+            git show origin/${ALDERNIA_STATE_BRANCH}:state/opportunity-resolver-state.json > state/opportunity-resolver-state.json
           else
             printf '{"schema_version":1,"adapter_version":1,"resolver_state":{"schema_version":1,"blockers":{},"candidates":{}},"last_source_fingerprint":null,"last_decision_fingerprint":null,"run_count":0,"last_observed_at":null}\n' > state/opportunity-resolver-state.json
           fi
-          if git cat-file -e origin/clock-state:state/opportunity-resolver-trace.json 2>/dev/null; then
-            git show origin/clock-state:state/opportunity-resolver-trace.json > state/opportunity-resolver-trace.json
+          if git cat-file -e origin/${ALDERNIA_STATE_BRANCH}:state/opportunity-resolver-trace.json 2>/dev/null; then
+            git show origin/${ALDERNIA_STATE_BRANCH}:state/opportunity-resolver-trace.json > state/opportunity-resolver-trace.json
           else
             printf '{}\n' > state/opportunity-resolver-trace.json
           fi
-          if git cat-file -e origin/clock-state:state/opportunity-stage3-state.json 2>/dev/null; then
-            git show origin/clock-state:state/opportunity-stage3-state.json > state/opportunity-stage3-state.json
+          if git cat-file -e origin/${ALDERNIA_STATE_BRANCH}:state/opportunity-stage3-state.json 2>/dev/null; then
+            git show origin/${ALDERNIA_STATE_BRANCH}:state/opportunity-stage3-state.json > state/opportunity-stage3-state.json
           else
             printf '{"schema_version":1,"phase":"READY","first_receipt":null,"first_ack":null,"consequence":null,"second_receipt":null,"second_ack":null,"completed_at":null,"run_ids":[]}\n' > state/opportunity-stage3-state.json
           fi
-          if git cat-file -e origin/clock-state:state/opportunity-stage3-trace.json 2>/dev/null; then
-            git show origin/clock-state:state/opportunity-stage3-trace.json > state/opportunity-stage3-trace.json
+          if git cat-file -e origin/${ALDERNIA_STATE_BRANCH}:state/opportunity-stage3-trace.json 2>/dev/null; then
+            git show origin/${ALDERNIA_STATE_BRANCH}:state/opportunity-stage3-trace.json > state/opportunity-stage3-trace.json
           else
             printf '{}\n' > state/opportunity-stage3-trace.json
+          fi
+          if git cat-file -e origin/${ALDERNIA_STATE_BRANCH}:state/canonical-programme-board.json 2>/dev/null; then
+            git show origin/${ALDERNIA_STATE_BRANCH}:state/canonical-programme-board.json > state/canonical-programme-board.json
+          else
+            printf '{}\n' > state/canonical-programme-board.json
+          fi
+          if git cat-file -e origin/${ALDERNIA_STATE_BRANCH}:state/opportunity-stage4-state.json 2>/dev/null; then
+            git show origin/${ALDERNIA_STATE_BRANCH}:state/opportunity-stage4-state.json > state/opportunity-stage4-state.json
+          else
+            printf '{"schema_version":1,"pending_receipt":null,"acknowledged":{},"run_ids":[]}\n' > state/opportunity-stage4-state.json
+          fi
+          if git cat-file -e origin/${ALDERNIA_STATE_BRANCH}:state/opportunity-stage4-trace.json 2>/dev/null; then
+            git show origin/${ALDERNIA_STATE_BRANCH}:state/opportunity-stage4-trace.json > state/opportunity-stage4-trace.json
+          else
+            printf '{}\n' > state/opportunity-stage4-trace.json
           fi
 
       - name: Bounded chime and timetable proof
@@ -107,6 +132,14 @@ jobs:
           access_token_scopes: >-
             https://www.googleapis.com/auth/drive
             https://www.googleapis.com/auth/spreadsheets
+
+      - name: Refresh live canonical Programme Board packet
+        if: ${{ steps.runtime-google-auth.outputs.access_token != '' }}
+        env:
+          GOOGLE_DRIVE_ACCESS_TOKEN: ${{ steps.runtime-google-auth.outputs.access_token }}
+        run: >-
+          python -m aldernia_runtime.canonical_programme_board
+          --output state/canonical-programme-board.json
 
       - name: Execute bounded pending ordinary Dynasty duties
         id: governed-runtime
@@ -163,6 +196,8 @@ jobs:
           --health state/runtime-health.json
           --state state/opportunity-resolver-state.json
           --trace state/opportunity-resolver-trace.json
+          --canonical-packet state/canonical-programme-board.json
+          --stage4-state state/opportunity-stage4-state.json
           --run-id "${GITHUB_RUN_ID}"
 
       - name: Execute bounded Stage 3 derived-state transition
@@ -171,6 +206,16 @@ jobs:
           --shadow-trace state/opportunity-resolver-trace.json
           --state state/opportunity-stage3-state.json
           --trace state/opportunity-stage3-trace.json
+          --run-id "${GITHUB_RUN_ID}"
+
+      - name: Execute bounded Stage 4 canonical-delta acknowledgement
+        if: ${{ github.ref_name == 'runtime-acceptance' }}
+        run: >-
+          python -m aldernia_runtime.opportunity_stage4
+          --shadow-trace state/opportunity-resolver-trace.json
+          --canonical-packet state/canonical-programme-board.json
+          --state state/opportunity-stage4-state.json
+          --trace state/opportunity-stage4-trace.json
           --run-id "${GITHUB_RUN_ID}"
 
       - name: Persist Dynasty logical clock and scheduler state
@@ -183,10 +228,13 @@ jobs:
           cp state/opportunity-resolver-trace.json /tmp/opportunity-resolver-trace.json
           cp state/opportunity-stage3-state.json /tmp/opportunity-stage3-state.json
           cp state/opportunity-stage3-trace.json /tmp/opportunity-stage3-trace.json
-          rm -f state/clock-state.json state/scheduled-duty-queue.json state/patrol-budget.json state/runtime-health.json state/opportunity-resolver-state.json state/opportunity-resolver-trace.json state/opportunity-stage3-state.json state/opportunity-stage3-trace.json state/bus-session.json
+          cp state/canonical-programme-board.json /tmp/canonical-programme-board.json
+          cp state/opportunity-stage4-state.json /tmp/opportunity-stage4-state.json
+          cp state/opportunity-stage4-trace.json /tmp/opportunity-stage4-trace.json
+          rm -f state/clock-state.json state/scheduled-duty-queue.json state/patrol-budget.json state/runtime-health.json state/opportunity-resolver-state.json state/opportunity-resolver-trace.json state/opportunity-stage3-state.json state/opportunity-stage3-trace.json state/canonical-programme-board.json state/opportunity-stage4-state.json state/opportunity-stage4-trace.json state/bus-session.json
           git config user.name "Central Aldernia Clock"
           git config user.email "actions@users.noreply.github.com"
-          git switch clock-state
+          git switch "${ALDERNIA_STATE_BRANCH}"
           mkdir -p state
           cp /tmp/clock-state.json state/clock-state.json
           cp /tmp/scheduled-duty-queue.json state/scheduled-duty-queue.json
@@ -196,10 +244,13 @@ jobs:
           cp /tmp/opportunity-resolver-trace.json state/opportunity-resolver-trace.json
           cp /tmp/opportunity-stage3-state.json state/opportunity-stage3-state.json
           cp /tmp/opportunity-stage3-trace.json state/opportunity-stage3-trace.json
-          git add state/clock-state.json state/scheduled-duty-queue.json state/patrol-budget.json state/runtime-health.json state/opportunity-resolver-state.json state/opportunity-resolver-trace.json state/opportunity-stage3-state.json state/opportunity-stage3-trace.json
+          cp /tmp/canonical-programme-board.json state/canonical-programme-board.json
+          cp /tmp/opportunity-stage4-state.json state/opportunity-stage4-state.json
+          cp /tmp/opportunity-stage4-trace.json state/opportunity-stage4-trace.json
+          git add state/clock-state.json state/scheduled-duty-queue.json state/patrol-budget.json state/runtime-health.json state/opportunity-resolver-state.json state/opportunity-resolver-trace.json state/opportunity-stage3-state.json state/opportunity-stage3-trace.json state/canonical-programme-board.json state/opportunity-stage4-state.json state/opportunity-stage4-trace.json
           if ! git diff --cached --quiet; then
             git commit -m "Clock/scheduler state: run ${GITHUB_RUN_ID} [skip ci]"
-            git push origin clock-state
+            git push origin "${ALDERNIA_STATE_BRANCH}"
           fi
 
       - name: Fail closed on unexpected governed ordinary-duty runtime crash

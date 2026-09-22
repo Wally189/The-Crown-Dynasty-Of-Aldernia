@@ -9,7 +9,7 @@ from pathlib import Path
 import tempfile
 from typing import Any, Mapping
 
-from aldernia_runtime.opportunity_resolver import (
+from aldernia_runtime.canonical_programme_board import canonical_facts_from_packet\nfrom aldernia_runtime.opportunity_resolver import (
     CapabilityProfile,
     Resolver,
     ResolverState,
@@ -145,6 +145,8 @@ def normalized_runtime_facts(
     *,
     queue: Mapping[str, object],
     health: Mapping[str, object],
+    canonical_packet: Mapping[str, object] | None = None,
+    acknowledged: Mapping[str, object] | None = None,
 ) -> tuple[SourceFact, ...]:
     """Normalize only explicit current runtime contracts into SourceFact values.
 
@@ -153,7 +155,7 @@ def normalized_runtime_facts(
     unrelated Clock activity cannot make an unchanged provider blocker look new.
     """
 
-    facts: list[SourceFact] = list(PROGRAMME_BOARD_FACTS)
+    facts: list[SourceFact] = list(\n        canonical_facts_from_packet(canonical_packet or {}, acknowledged=acknowledged or {})\n    )
     status = str(health.get("status") or "NOT_YET_CHECKED")
     detail = str(health.get("detail") or "")
     provider_available, budget_available = provider_state(health)
@@ -162,7 +164,7 @@ def normalized_runtime_facts(
         facts.append(
             SourceFact(
                 fact_id="kq009-provider-gate",
-                source_ref="GitHub:clock-state/state/runtime-health.json + Royal Programme Board E-23/E-24",
+                source_ref="GitHub runtime-health + existing KQ-009 authority",
                 owner="Computer of Series",
                 proposition="Complete the existing KQ-009 provider-administration gate.",
                 current=True,
@@ -259,6 +261,8 @@ def run_shadow(
     health_path: Path,
     state_path: Path,
     trace_path: Path,
+    canonical_packet_path: Path | None = None,
+    stage4_state_path: Path | None = None,
     observed_at: datetime | None = None,
     run_id: str | None = None,
 ) -> dict[str, object]:
@@ -271,13 +275,26 @@ def run_shadow(
             "detail": "No governed runtime health result is available.",
         },
     )
+    canonical_packet = (
+        _load_object(canonical_packet_path, default={})
+        if canonical_packet_path is not None
+        else {}
+    )
+    stage4_state = (
+        _load_object(stage4_state_path, default={"schema_version": 1, "acknowledged": {}})
+        if stage4_state_path is not None
+        else {"schema_version": 1, "acknowledged": {}}
+    )
+    acknowledged = stage4_state.get("acknowledged")
+    if not isinstance(acknowledged, Mapping):
+        raise ShadowStateError("Stage-4 acknowledged state must be an object")
     prior = load_shadow_state(state_path)
     resolver_state_raw = prior.get("resolver_state")
     resolver_state = ResolverState.from_json(
         resolver_state_raw if isinstance(resolver_state_raw, Mapping) else None
     )
 
-    facts = normalized_runtime_facts(queue=queue, health=health)
+    facts = normalized_runtime_facts(\n        queue=queue,\n        health=health,\n        canonical_packet=canonical_packet,\n        acknowledged=acknowledged,\n    )
     candidates = discover_candidates(facts)
     resolver = Resolver(PROFILES, causal_depth_limit=2)
     resolution = resolver.resolve(candidates, resolver_state)
@@ -375,6 +392,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--health", default="state/runtime-health.json")
     parser.add_argument("--state", default="state/opportunity-resolver-state.json")
     parser.add_argument("--trace", default="state/opportunity-resolver-trace.json")
+    parser.add_argument("--canonical-packet", default="state/canonical-programme-board.json")
+    parser.add_argument("--stage4-state", default="state/opportunity-stage4-state.json")
     parser.add_argument("--run-id", default=None)
     args = parser.parse_args(argv)
 
@@ -383,6 +402,8 @@ def main(argv: list[str] | None = None) -> int:
         health_path=Path(args.health),
         state_path=Path(args.state),
         trace_path=Path(args.trace),
+        canonical_packet_path=Path(args.canonical_packet),
+        stage4_state_path=Path(args.stage4_state),
         run_id=args.run_id,
     )
     print(json.dumps(trace, indent=2, sort_keys=True))
