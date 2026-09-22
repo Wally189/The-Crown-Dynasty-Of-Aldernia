@@ -1,0 +1,93 @@
+# REVIEW TEMPLATE ONLY.
+# Move into .github/workflows only after private-repo, zero-spend and canonical-home gates pass.
+name: Central Aldernia Clock — Private Runtime Template
+
+on:
+  workflow_dispatch:
+  # schedule:
+  #   - cron: "*/5 * * * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: aldernia-private-runtime-state
+  cancel-in-progress: false
+
+jobs:
+  runtime:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Fail closed unless repository is private
+        if: ${{ github.event.repository.private != true }}
+        run: |
+          echo "KQ-009 STOP: runtime repository is not private." >&2
+          exit 1
+
+      - name: Fail closed unless zero-spend billing gate is attested
+        if: ${{ vars.ALDERNIA_ZERO_SPEND_CONFIRMED != 'true' }}
+        run: |
+          echo "KQ-009 STOP: zero-spend account control is not verified." >&2
+          exit 1
+
+      - name: Check out private runtime repository
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Deterministic runtime acceptance
+        run: python -m unittest discover -s tests -v
+
+      - name: Validate canonical-home manifest
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from aldernia_runtime.private_github_canonical import load_manifest
+          load_manifest(Path("records/record-manifest.json"), require_active=True)
+          PY
+
+      - name: Load private canonical Programme Board
+        env:
+          ALDERNIA_RUNTIME_REPOSITORY: ${{ github.repository }}
+          ALDERNIA_RUNTIME_COMMIT: ${{ github.sha }}
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+          from aldernia_runtime.private_github_canonical import (
+              canonical_facts_from_record,
+              validate_programme_board,
+              validate_repository_context,
+          )
+          validate_repository_context(
+              os.environ["ALDERNIA_RUNTIME_REPOSITORY"],
+              "private",
+              expected_repository=os.environ["ALDERNIA_RUNTIME_REPOSITORY"],
+          )
+          record = json.loads(Path("records/royal-programme-board.json").read_text())
+          validate_programme_board(record, require_active=True)
+          facts = canonical_facts_from_record(
+              record,
+              os.environ["ALDERNIA_RUNTIME_REPOSITORY"],
+              os.environ["ALDERNIA_RUNTIME_COMMIT"],
+          )
+          print(json.dumps({"canonical_transport":"PRIVATE_GITHUB_REPOSITORY","fact_count":len(facts)}))
+          PY
+
+      - name: Storage-cutover acceptance boundary
+        run: |
+          test -z "${GOOGLE_DRIVE_ACCESS_TOKEN:-}"
+          echo "No Google credential path required."
+          echo "No artifact/cache/package/publication step configured."
+          echo "Runtime-state persistence remains the only permitted repository write."
+
+      # Cutover implementation will restore and persist only the explicitly
+      # approved state files on a private runtime-state branch. It must not
+      # write the public website repository, call Pages, or cross repositories.

@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "record_id": "ROYAL_PROGRAMME_BOARD_MACHINE",
+  "cutover_state": "REVIEW_ONLY",
+  "rows": [
+    {
+      "entry_id": "<E-NN>",
+      "mission": "<AUTHORISED MISSION>",
+      "narrative": "<CURRENT MACHINE-RELEVANT NARRATIVE>",
+      "outcome": "<EXACT OUTCOME INCLUDING / MACHINE CONTRACT WHEN APPLICABLE>"
+    }
+  ]
+}

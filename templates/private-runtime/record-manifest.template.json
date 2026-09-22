@@ -1,0 +1,156 @@
+{
+  "schema_version": 1,
+  "template_id": "KQ-009-PRIVATE-GITHUB-RUNTIME-01",
+  "cutover_state": "REVIEW_ONLY",
+  "required_visibility": "private",
+  "target_repository": "<DEDICATED_PRIVATE_RUNTIME_REPOSITORY>",
+  "authoritative_home_rule": "EXACTLY_ONE_LIVE_HOME_PER_RECORD",
+  "records": [
+    {
+      "record_id": "ROYAL_PROGRAMME_BOARD_MACHINE",
+      "owner": "The Royal Palace / Computer of Series",
+      "current_home": "drive:1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA#Royal Programme Board",
+      "private_home": "records/royal-programme-board.json",
+      "scope": "machine-authorised operational rows only",
+      "after_cutover_old_home": "FROZEN_PROVENANCE"
+    },
+    {
+      "record_id": "KINGS_CONSIDERATION_QUEUE_RUNTIME",
+      "owner": "The Royal Palace",
+      "current_home": "drive:1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA#King's Consideration Queue",
+      "private_home": "records/kings-consideration-queue.json",
+      "scope": "current runtime-relevant OPEN/APPROVED/BLOCKED items only",
+      "after_cutover_old_home": "FROZEN_PROVENANCE"
+    },
+    {
+      "record_id": "SCHEDULED_TASKS_ACTIVE",
+      "owner": "The Royal Palace",
+      "current_home": "drive:1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA#Scheduled Tasks",
+      "private_home": "records/scheduled-tasks.json",
+      "scope": "ACTIVE machine-executable/timed duties only",
+      "after_cutover_old_home": "FROZEN_PROVENANCE"
+    },
+    {
+      "record_id": "ENGINE_MANIFEST_RUNTIME",
+      "owner": "Computer of Series",
+      "current_home": "drive:1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+      "private_home": "records/engine-manifest.json",
+      "scope": "machine-layer routing/execution entries required at runtime",
+      "after_cutover_old_home": "FROZEN_PROVENANCE"
+    },
+    {
+      "record_id": "CAPABILITY_REGISTRY_RUNTIME",
+      "owner": "House of Series",
+      "current_home": "drive:1f9ehuX67WRwYMLK0JD7s1q-NEN9BGqdzNC3kfxyLl7s",
+      "private_home": "records/capability-registry.json",
+      "scope": "machine-routable capability entries only",
+      "after_cutover_old_home": "FROZEN_PROVENANCE"
+    },
+    {
+      "record_id": "CLOCK_STATE",
+      "owner": "Central Aldernia Clock",
+      "current_home": "github:Wally189/The-Crown-Dynasty-Of-Aldernia@clock-state:state/clock-state.json",
+      "private_home": "runtime-state:state/clock-state.json",
+      "scope": "durable logical clock state",
+      "after_cutover_old_home": "FROZEN_PROVENANCE"
+    },
+    {
+      "record_id": "BUS_SESSION",
+      "owner": "Computer of Series / COS-BUS-001",
+      "current_home": "github:Wally189/The-Crown-Dynasty-Of-Aldernia@clock-state:state/bus-session.json",
+      "private_home": "runtime-state:state/bus-session.json",
+      "scope": "durable bus session state",
+      "after_cutover_old_home": "FROZEN_PROVENANCE"
+    },
+    {
+      "record_id": "BUS_STATE",
+      "owner": "Computer of Series / COS-BUS-001",
+      "current_home": "github:Wally189/The-Crown-Dynasty-Of-Aldernia@clock-state:state/bus-state.json",
+      "private_home": "runtime-state:state/bus-state.json",
+      "scope": "durable bus transport state",
+      "after_cutover_old_home": "FROZEN_PROVENANCE"
+    },
+    {
+      "record_id": "SCHEDULED_DUTY_QUEUE",
+      "owner": "Central Aldernia Clock",
+      "current_home": "github:Wally189/The-Crown-Dynasty-Of-Aldernia@clock-state:state/scheduled-duty-queue.json",
+      "private_home": "runtime-state:state/scheduled-duty-queue.json",
+      "scope": "durable due/terminal duty queue",
+      "after_cutover_old_home": "FROZEN_PROVENANCE"
+    },
+    {
+      "record_id": "PATROL_BUDGET",
+      "owner": "Computer of Series",
+      "current_home": "github:Wally189/The-Crown-Dynasty-Of-Aldernia@clock-state:state/patrol-budget.json",
+      "private_home": "runtime-state:state/patrol-budget.json",
+      "scope": "durable model/patrol budget ledger; storage cutover does not activate model spending",
+      "after_cutover_old_home": "FROZEN_PROVENANCE"
+    },
+    {
+      "record_id": "RUNTIME_HEALTH",
+      "owner": "Computer of Series",
+      "current_home": "github:Wally189/The-Crown-Dynasty-Of-Aldernia@clock-state:state/runtime-health.json",
+      "private_home": "runtime-state:state/runtime-health.json",
+      "scope": "durable runtime health",
+      "after_cutover_old_home": "FROZEN_PROVENANCE"
+    },
+    {
+      "record_id": "OPPORTUNITY_RESOLVER_STATE",
+      "owner": "Computer of Series",
+      "current_home": "github:Wally189/The-Crown-Dynasty-Of-Aldernia@clock-state:state/opportunity-resolver-state.json",
+      "private_home": "runtime-state:state/opportunity-resolver-state.json",
+      "scope": "durable resolver memory",
+      "after_cutover_old_home": "FROZEN_PROVENANCE"
+    },
+    {
+      "record_id": "OPPORTUNITY_RESOLVER_TRACE",
+      "owner": "Computer of Series",
+      "current_home": "github:Wally189/The-Crown-Dynasty-Of-Aldernia@clock-state:state/opportunity-resolver-trace.json",
+      "private_home": "runtime-state:state/opportunity-resolver-trace.json",
+      "scope": "latest resolver trace",
+      "after_cutover_old_home": "FROZEN_PROVENANCE"
+    },
+    {
+      "record_id": "OPPORTUNITY_STAGE3_STATE",
+      "owner": "Computer of Series",
+      "current_home": "github:Wally189/The-Crown-Dynasty-Of-Aldernia@clock-state:state/opportunity-stage3-state.json",
+      "private_home": "runtime-state:state/opportunity-stage3-state.json",
+      "scope": "durable Stage-3 state",
+      "after_cutover_old_home": "FROZEN_PROVENANCE"
+    },
+    {
+      "record_id": "OPPORTUNITY_STAGE3_TRACE",
+      "owner": "Computer of Series",
+      "current_home": "github:Wally189/The-Crown-Dynasty-Of-Aldernia@clock-state:state/opportunity-stage3-trace.json",
+      "private_home": "runtime-state:state/opportunity-stage3-trace.json",
+      "scope": "latest Stage-3 trace",
+      "after_cutover_old_home": "FROZEN_PROVENANCE"
+    },
+    {
+      "record_id": "OPPORTUNITY_STAGE4_STATE",
+      "owner": "Computer of Series",
+      "current_home": "github:Wally189/The-Crown-Dynasty-Of-Aldernia@clock-state:state/opportunity-stage4-state.json",
+      "private_home": "runtime-state:state/opportunity-stage4-state.json",
+      "scope": "durable exact-evidence ACK memory",
+      "after_cutover_old_home": "FROZEN_PROVENANCE"
+    },
+    {
+      "record_id": "OPPORTUNITY_STAGE4_TRACE",
+      "owner": "Computer of Series",
+      "current_home": "github:Wally189/The-Crown-Dynasty-Of-Aldernia@clock-state:state/opportunity-stage4-trace.json",
+      "private_home": "runtime-state:state/opportunity-stage4-trace.json",
+      "scope": "latest Stage-4 trace",
+      "after_cutover_old_home": "FROZEN_PROVENANCE"
+    }
+  ],
+  "derived_not_authoritative": [
+    {
+      "path": "state/canonical-programme-board.json",
+      "replacement": "direct read of records/royal-programme-board.json"
+    },
+    {
+      "path": "aldernia/schedule/timetable.json",
+      "replacement": "derive from records/scheduled-tasks.json"
+    }
+  ]
+}
