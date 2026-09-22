@@ -422,6 +422,76 @@
       "status": "ACKNOWLEDGED_NO_ACTION",
       "transition_class": "scheduled_duty_due"
     },
+    "carol.availability-gate:2026-09-22": {
+      "acceptance": "Retrieve current House of Carol FIRST READ and Business Plan; return ACTION, NO_ACTION or STOP without manufacturing commercial activity.",
+      "ack_to": "Central Aldernia Clock / scheduled-duty queue",
+      "authority_ref": "Royal Palace Scheduled Tasks Register row 2 — House of Carol availability-gate evaluation",
+      "claim": null,
+      "departure_mode": "MANUAL_PROMPT_CATCH_UP",
+      "destination": "House of Carol",
+      "emitted_at": "2026-09-22T21:03:48+00:00",
+      "emitting_owner": "ChatGPT/Helm manual Catholix interface under CAT-123",
+      "event_id": "carol.availability-gate:2026-09-22",
+      "event_type": "scheduled_duty_due",
+      "mission_ref": "NONE — EXISTING AUTHORISED DUTY",
+      "payload": {
+        "accountable_owner": "House of Carol",
+        "duty_id": "carol.availability-gate",
+        "evaluation_only": true,
+        "label": "House of Carol availability-gate evaluation",
+        "required_source_ids": [
+          "15sUjJSU9z5YaXgMecV-2PeQw2x-2JfmDiTGXoM-T6S8",
+          "1wxAoiO4kLqzK8_jrrzP8uI0EbU46PtA4-vXxCE8Eh_M"
+        ],
+        "requires_model_runtime": true,
+        "source_row": 2
+      },
+      "permitted_effects": [
+        "evaluate already-authorised recurring duty",
+        "record ACK/NO_ACTION/STOP"
+      ],
+      "prohibited_effects": [
+        "create a mission from time alone",
+        "invent customer evidence, demand, opportunity, sale or revenue",
+        "external contact",
+        "spend",
+        "widen authority"
+      ],
+      "receipt": {
+        "accountable_owner": "House of Carol",
+        "attempt": 1,
+        "authority_unchanged": true,
+        "completed_at": "2026-09-22T21:03:48+00:00",
+        "estate_scope": "DYNASTY",
+        "evidence_refs": [
+          "Drive:House of Carol FIRST READ",
+          "Drive:House of Carol Business Plan 01 — 00 Cover",
+          "Drive:House of Carol Business Plan 01 — 005 Executive Summary",
+          "Drive:House of Carol Business Plan 01 — 021 Customer Evidence",
+          "Drive:House of Carol Business Plan 01 — 095 Executive Scorecard"
+        ],
+        "external_effect": "NONE",
+        "mission_created_by_worker": false,
+        "outcome": "NO_ACTION",
+        "ownership_unchanged": true,
+        "readback_verified": true,
+        "resource_classes_used": [
+          "AUTHORISED_HOUSE_OF_CAROL_SCHEDULED_READ"
+        ],
+        "result_summary": "22 Sep 22:00 Carol availability-gate evaluation completed. Business remains AUTHORITATIVE / LIVE OPERATING / CONTINUOUS DEVELOPMENT, but the current controlled evidence still shows £0 external cleared revenue, 0 qualified opportunities, no recorded real price responses and no new material customer-evidence event beyond the existing controlled evidence rows. No evidence-backed same-night internal action is justified by the availability gate alone, and external outreach/commitment remains separately owner-gated. Result: NO_ACTION; no retroactive or speculative commercial activity manufactured.",
+        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-22-2200-reconciliation",
+        "writes": [
+          "GitHub:clock-state/state/scheduled-duty-queue.json durable availability-gate receipt"
+        ]
+      },
+      "scheduled_for": "2026-09-22T22:00:00+01:00",
+      "schema_version": 1,
+      "service_class": "HEARTBEAT",
+      "status": "ACKNOWLEDGED_NO_ACTION",
+      "transition_class": "scheduled_duty_due"
+    },
     "carol.business-opening:2026-09-21": {
       "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
       "ack_to": "Central Aldernia Clock / scheduled-duty queue",
@@ -4861,6 +4931,79 @@
       "status": "ACKNOWLEDGED_ACTION",
       "transition_class": "scheduled_duty_due"
     },
+    "dynasty.heartbeat:2026-09-22T22:00": {
+      "acceptance": "Execute the due 22:00 Heartbeat from current canonical state, including one bounded House-of-Series patrol slice and the due Carol availability-gate evaluation; record durable terminal receipts without widening authority.",
+      "ack_to": "Central Aldernia Clock / scheduled-duty queue",
+      "authority_ref": "Royal Palace Scheduled Tasks Register — Dynasty House Pulse + row 21 Dynasty State & Conflict Patrol",
+      "claim": null,
+      "departure_mode": "MANUAL_PROMPT_CATCH_UP",
+      "destination": "Royal Palace — Dynasty House Pulse / Dynasty State & Conflict Patrol",
+      "emitted_at": "2026-09-22T21:03:48+00:00",
+      "emitting_owner": "ChatGPT/Helm manual Catholix interface under CAT-123",
+      "event_id": "dynasty.heartbeat:2026-09-22T22:00",
+      "event_type": "scheduled_duty_due",
+      "mission_ref": "NONE — EXISTING AUTHORISED DUTY",
+      "payload": {
+        "accountable_owner": "Royal Palace / Queen Barbara Admin / Computer of Series",
+        "duty_id": "dynasty.heartbeat",
+        "label": "Dynasty House Pulse / Heartbeat",
+        "patrol_slice": "House of Series",
+        "priority_item": "Royal Programme Board E-30 / KQ-009",
+        "requires_model_runtime": true
+      },
+      "permitted_effects": [
+        "manual execution of existing authorised Heartbeat",
+        "one bounded House-of-Series patrol slice",
+        "priority E-30/KQ-009 review",
+        "route due Carol availability-gate evaluation",
+        "durable ACK/readback"
+      ],
+      "prohibited_effects": [
+        "create a mission from time alone",
+        "widen authority",
+        "external contact",
+        "publication",
+        "spend",
+        "provider/account/configuration mutation",
+        "Royal Household access"
+      ],
+      "receipt": {
+        "accountable_owner": "Royal Palace / Queen Barbara Admin / Computer of Series",
+        "attempt": 1,
+        "authority_unchanged": true,
+        "completed_at": "2026-09-22T21:03:48+00:00",
+        "estate_scope": "ALDERNIA",
+        "evidence_refs": [
+          "Drive:HOUSE OF SERIES START HERE",
+          "Drive:House of Series AI, Resource, Execution & Assurance Control Register — current bootstrap reconciliation",
+          "Drive:Computer of Series FIRST READ — current bootstrap rule",
+          "Drive:House OS Outcome-to-Closure Runtime Commissioning & Regression Record — 22:00 patrol correction",
+          "Drive:Royal Programme Board E-30 / KQ-009",
+          "Drive:Scheduled Tasks rows 2 and 21"
+        ],
+        "external_effect": "NONE",
+        "mission_created_by_worker": false,
+        "outcome": "ACTION",
+        "ownership_unchanged": true,
+        "readback_verified": true,
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "result_summary": "22:00 Heartbeat executed by prompt-clock rule. House-of-Series patrol found and corrected one stale current-looking startup-order interpretation in House OS: literal START-HERE-first/progress-before-bootstrap failure wording is superseded by current Section 44A/CP-008 and Computer FIRST READ; Retest 02 remains NOT PASS solely because it was not a genuinely fresh runtime. E-30/KQ-009 remains blocked only at account-specific £0 GitHub Actions proof and did not freeze unrelated work. No conflicting current authority remains on the corrected proposition. Carol 22:00 availability gate was evaluated separately and returned NO_ACTION.",
+        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-22-2200-reconciliation",
+        "writes": [
+          "Drive:House OS regression current correction",
+          "GitHub:clock-state/state/scheduled-duty-queue.json durable 22:00 Heartbeat receipt"
+        ]
+      },
+      "scheduled_for": "2026-09-22T22:00:00+01:00",
+      "schema_version": 1,
+      "service_class": "HEARTBEAT",
+      "status": "ACKNOWLEDGED_ACTION",
+      "transition_class": "scheduled_duty_due"
+    },
     "government.daily-pulse-correction:2026-09-22:01": {
       "acceptance": "Correct the acceptance defect without inventing new political decisions, external effects or authority; restore current mission-pull and record one bounded evidence-backed internal mission movement.",
       "ack_to": "Central Aldernia Clock / scheduled-duty queue",
@@ -5503,151 +5646,8 @@
       "service_class": "SCHEDULED_DUTY",
       "status": "ACKNOWLEDGED_ACTION",
       "transition_class": "scheduled_duty_due"
-    },
-    "dynasty.heartbeat:2026-09-22T22:00": {
-      "schema_version": 1,
-      "event_id": "dynasty.heartbeat:2026-09-22T22:00",
-      "event_type": "scheduled_duty_due",
-      "transition_class": "scheduled_duty_due",
-      "service_class": "HEARTBEAT",
-      "authority_ref": "Royal Palace Scheduled Tasks Register — Dynasty House Pulse + row 21 Dynasty State & Conflict Patrol",
-      "mission_ref": "NONE — EXISTING AUTHORISED DUTY",
-      "emitting_owner": "ChatGPT/Helm manual Catholix interface under CAT-123",
-      "emitted_at": "2026-09-22T21:03:48+00:00",
-      "scheduled_for": "2026-09-22T22:00:00+01:00",
-      "departure_mode": "MANUAL_PROMPT_CATCH_UP",
-      "destination": "Royal Palace — Dynasty House Pulse / Dynasty State & Conflict Patrol",
-      "acceptance": "Execute the due 22:00 Heartbeat from current canonical state, including one bounded House-of-Series patrol slice and the due Carol availability-gate evaluation; record durable terminal receipts without widening authority.",
-      "ack_to": "Central Aldernia Clock / scheduled-duty queue",
-      "claim": null,
-      "payload": {
-        "accountable_owner": "Royal Palace / Queen Barbara Admin / Computer of Series",
-        "duty_id": "dynasty.heartbeat",
-        "label": "Dynasty House Pulse / Heartbeat",
-        "patrol_slice": "House of Series",
-        "priority_item": "Royal Programme Board E-30 / KQ-009",
-        "requires_model_runtime": true
-      },
-      "permitted_effects": [
-        "manual execution of existing authorised Heartbeat",
-        "one bounded House-of-Series patrol slice",
-        "priority E-30/KQ-009 review",
-        "route due Carol availability-gate evaluation",
-        "durable ACK/readback"
-      ],
-      "prohibited_effects": [
-        "create a mission from time alone",
-        "widen authority",
-        "external contact",
-        "publication",
-        "spend",
-        "provider/account/configuration mutation",
-        "Royal Household access"
-      ],
-      "status": "ACKNOWLEDGED_ACTION",
-      "receipt": {
-        "schema_version": 1,
-        "accountable_owner": "Royal Palace / Queen Barbara Admin / Computer of Series",
-        "attempt": 1,
-        "completed_at": "2026-09-22T21:03:48+00:00",
-        "estate_scope": "ALDERNIA",
-        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
-        "worker_id": "chatgpt-helm-session-2026-09-22-2200-reconciliation",
-        "outcome": "ACTION",
-        "authority_unchanged": true,
-        "ownership_unchanged": true,
-        "mission_created_by_worker": false,
-        "external_effect": "NONE",
-        "readback_verified": true,
-        "resource_classes_used": [
-          "ALDERNIA_INTERNAL"
-        ],
-        "evidence_refs": [
-          "Drive:HOUSE OF SERIES START HERE",
-          "Drive:House of Series AI, Resource, Execution & Assurance Control Register — current bootstrap reconciliation",
-          "Drive:Computer of Series FIRST READ — current bootstrap rule",
-          "Drive:House OS Outcome-to-Closure Runtime Commissioning & Regression Record — 22:00 patrol correction",
-          "Drive:Royal Programme Board E-30 / KQ-009",
-          "Drive:Scheduled Tasks rows 2 and 21"
-        ],
-        "result_summary": "22:00 Heartbeat executed by prompt-clock rule. House-of-Series patrol found and corrected one stale current-looking startup-order interpretation in House OS: literal START-HERE-first/progress-before-bootstrap failure wording is superseded by current Section 44A/CP-008 and Computer FIRST READ; Retest 02 remains NOT PASS solely because it was not a genuinely fresh runtime. E-30/KQ-009 remains blocked only at account-specific £0 GitHub Actions proof and did not freeze unrelated work. No conflicting current authority remains on the corrected proposition. Carol 22:00 availability gate was evaluated separately and returned NO_ACTION.",
-        "writes": [
-          "Drive:House OS regression current correction",
-          "GitHub:clock-state/state/scheduled-duty-queue.json durable 22:00 Heartbeat receipt"
-        ]
-      }
-    },
-    "carol.availability-gate:2026-09-22": {
-      "schema_version": 1,
-      "event_id": "carol.availability-gate:2026-09-22",
-      "event_type": "scheduled_duty_due",
-      "transition_class": "scheduled_duty_due",
-      "service_class": "HEARTBEAT",
-      "authority_ref": "Royal Palace Scheduled Tasks Register row 2 — House of Carol availability-gate evaluation",
-      "mission_ref": "NONE — EXISTING AUTHORISED DUTY",
-      "emitting_owner": "ChatGPT/Helm manual Catholix interface under CAT-123",
-      "emitted_at": "2026-09-22T21:03:48+00:00",
-      "scheduled_for": "2026-09-22T22:00:00+01:00",
-      "departure_mode": "MANUAL_PROMPT_CATCH_UP",
-      "destination": "House of Carol",
-      "acceptance": "Retrieve current House of Carol FIRST READ and Business Plan; return ACTION, NO_ACTION or STOP without manufacturing commercial activity.",
-      "ack_to": "Central Aldernia Clock / scheduled-duty queue",
-      "claim": null,
-      "payload": {
-        "accountable_owner": "House of Carol",
-        "duty_id": "carol.availability-gate",
-        "evaluation_only": true,
-        "label": "House of Carol availability-gate evaluation",
-        "required_source_ids": [
-          "15sUjJSU9z5YaXgMecV-2PeQw2x-2JfmDiTGXoM-T6S8",
-          "1wxAoiO4kLqzK8_jrrzP8uI0EbU46PtA4-vXxCE8Eh_M"
-        ],
-        "requires_model_runtime": true,
-        "source_row": 2
-      },
-      "permitted_effects": [
-        "evaluate already-authorised recurring duty",
-        "record ACK/NO_ACTION/STOP"
-      ],
-      "prohibited_effects": [
-        "create a mission from time alone",
-        "invent customer evidence, demand, opportunity, sale or revenue",
-        "external contact",
-        "spend",
-        "widen authority"
-      ],
-      "status": "ACKNOWLEDGED_NO_ACTION",
-      "receipt": {
-        "schema_version": 1,
-        "accountable_owner": "House of Carol",
-        "attempt": 1,
-        "completed_at": "2026-09-22T21:03:48+00:00",
-        "estate_scope": "DYNASTY",
-        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
-        "worker_id": "chatgpt-helm-session-2026-09-22-2200-reconciliation",
-        "outcome": "NO_ACTION",
-        "authority_unchanged": true,
-        "ownership_unchanged": true,
-        "mission_created_by_worker": false,
-        "external_effect": "NONE",
-        "readback_verified": true,
-        "resource_classes_used": [
-          "AUTHORISED_HOUSE_OF_CAROL_SCHEDULED_READ"
-        ],
-        "evidence_refs": [
-          "Drive:House of Carol FIRST READ",
-          "Drive:House of Carol Business Plan 01 — 00 Cover",
-          "Drive:House of Carol Business Plan 01 — 005 Executive Summary",
-          "Drive:House of Carol Business Plan 01 — 021 Customer Evidence",
-          "Drive:House of Carol Business Plan 01 — 095 Executive Scorecard"
-        ],
-        "result_summary": "22 Sep 22:00 Carol availability-gate evaluation completed. Business remains AUTHORITATIVE / LIVE OPERATING / CONTINUOUS DEVELOPMENT, but the current controlled evidence still shows £0 external cleared revenue, 0 qualified opportunities, no recorded real price responses and no new material customer-evidence event beyond the existing controlled evidence rows. No evidence-backed same-night internal action is justified by the availability gate alone, and external outreach/commitment remains separately owner-gated. Result: NO_ACTION; no retroactive or speculative commercial activity manufactured.",
-        "writes": [
-          "GitHub:clock-state/state/scheduled-duty-queue.json durable availability-gate receipt"
-        ]
-      }
     }
   },
-  "last_checked_at": "2026-09-22T21:03:48+00:00",
+  "last_checked_at": "2026-09-22T21:14:57+00:00",
   "schema_version": 1
 }
