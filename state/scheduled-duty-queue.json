@@ -2067,9 +2067,29 @@
         "duty_id": "dynasty.heartbeat",
         "evaluation_only": false,
         "integrity_patrol": {
-          "mode": "ONE_BOUNDED_SLICE_PER_HEARTBEAT",
           "registry_version": 1,
-          "source_row": 21
+          "mode": "ONE_BOUNDED_SLICE_PER_HEARTBEAT",
+          "estate_id": "house-of-tony",
+          "estate_label": "House of Tony — Education",
+          "visit_index": 1,
+          "cursor_after": "house-of-marianne",
+          "source_row": 21,
+          "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
+          "royal_household_access_permitted": false,
+          "root_folder_ids": [
+            "1-OiNqw5nFu0HOE-P6Bm7sR2yg9OnMSlw"
+          ],
+          "required_source_ids": [
+            "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+            "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
+            "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY",
+            "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+            "1iJU__qY2P-LSNJDqIaG5qZH2Dw6p2DnNZ35LUzGTkVg",
+            "1gS-V40twMOT29dBiXrNrNlo87dUD49u9t2e9yHGOS98",
+            "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+            "1GXGtQaRJlCn9Pdl4jL4oWGNGywFeeYxWcjjiSZ2zfEA",
+            "1RwwJX4yzsgTFLCoKel1geMNz0RqRje1ljfPhQHQrVSs"
+          ]
         },
         "label": "Dynasty House Pulse / King's Balcony Heartbeat",
         "required_source_ids": [
@@ -2128,10 +2148,22 @@
         "new_model_provider_access_granted": false,
         "readback_verified": true,
         "retrieved_source_ids": [
-          "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE"
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1iJU__qY2P-LSNJDqIaG5qZH2Dw6p2DnNZ35LUzGTkVg",
+          "1gS-V40twMOT29dBiXrNrNlo87dUD49u9t2e9yHGOS98",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "1GXGtQaRJlCn9Pdl4jL4oWGNGywFeeYxWcjjiSZ2zfEA",
+          "1RwwJX4yzsgTFLCoKel1geMNz0RqRje1ljfPhQHQrVSs"
         ],
         "integrity_patrol": {
           "registry_version": 1,
+          "estate_id": "house-of-tony",
+          "estate_label": "House of Tony — Education",
+          "visit_index": 1,
+          "cursor_after": "house-of-marianne",
           "source_row": 21,
           "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
           "current_authority_retrieved": true,
@@ -2157,9 +2189,29 @@
         "duty_id": "dynasty.heartbeat",
         "evaluation_only": false,
         "integrity_patrol": {
-          "mode": "ONE_BOUNDED_SLICE_PER_HEARTBEAT",
           "registry_version": 1,
-          "source_row": 21
+          "mode": "ONE_BOUNDED_SLICE_PER_HEARTBEAT",
+          "estate_id": "house-of-marianne",
+          "estate_label": "House of Marianne — Government",
+          "visit_index": 1,
+          "cursor_after": "house-of-nathaniel",
+          "source_row": 21,
+          "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
+          "royal_household_access_permitted": false,
+          "root_folder_ids": [
+            "1RmSnSgq2m4FRMQV9_vPF3mTcCvxV1ois"
+          ],
+          "required_source_ids": [
+            "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+            "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
+            "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY",
+            "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+            "1iJU__qY2P-LSNJDqIaG5qZH2Dw6p2DnNZ35LUzGTkVg",
+            "1gS-V40twMOT29dBiXrNrNlo87dUD49u9t2e9yHGOS98",
+            "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+            "1Z6jkA6SuaPDAQYWAAYEkjjRGg00wP8KF3odrf-fktxU",
+            "1fZ7_rv8nMkPgJIHCHOH45fYPmNdKKhVlUkDoyoIfKoU"
+          ]
         },
         "label": "Dynasty House Pulse / King's Balcony Heartbeat",
         "required_source_ids": [
@@ -2218,10 +2270,22 @@
         "new_model_provider_access_granted": false,
         "readback_verified": true,
         "retrieved_source_ids": [
-          "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE"
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1iJU__qY2P-LSNJDqIaG5qZH2Dw6p2DnNZ35LUzGTkVg",
+          "1gS-V40twMOT29dBiXrNrNlo87dUD49u9t2e9yHGOS98",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "1Z6jkA6SuaPDAQYWAAYEkjjRGg00wP8KF3odrf-fktxU",
+          "1fZ7_rv8nMkPgJIHCHOH45fYPmNdKKhVlUkDoyoIfKoU"
         ],
         "integrity_patrol": {
           "registry_version": 1,
+          "estate_id": "house-of-marianne",
+          "estate_label": "House of Marianne — Government",
+          "visit_index": 1,
+          "cursor_after": "house-of-nathaniel",
           "source_row": 21,
           "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
           "current_authority_retrieved": true,
@@ -2247,9 +2311,29 @@
         "duty_id": "dynasty.heartbeat",
         "evaluation_only": false,
         "integrity_patrol": {
-          "mode": "ONE_BOUNDED_SLICE_PER_HEARTBEAT",
           "registry_version": 1,
-          "source_row": 21
+          "mode": "ONE_BOUNDED_SLICE_PER_HEARTBEAT",
+          "estate_id": "house-of-nathaniel",
+          "estate_label": "House of Nathaniel — Health",
+          "visit_index": 1,
+          "cursor_after": "house-of-vivienne",
+          "source_row": 21,
+          "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
+          "royal_household_access_permitted": false,
+          "root_folder_ids": [
+            "12ZBEhoGEa0FbD_u5QbhnQyxHo-7VSAP3"
+          ],
+          "required_source_ids": [
+            "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+            "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
+            "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY",
+            "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+            "1iJU__qY2P-LSNJDqIaG5qZH2Dw6p2DnNZ35LUzGTkVg",
+            "1gS-V40twMOT29dBiXrNrNlo87dUD49u9t2e9yHGOS98",
+            "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+            "1u7UjJFMr7rQaAO1rQGDeYxbvkgeTksjNZCCabyvn9-Q",
+            "1RCbdhSLeU-pDgrRfZDkd2e7lcCVX46uti5RK9SvkTno"
+          ]
         },
         "label": "Dynasty House Pulse / King's Balcony Heartbeat",
         "required_source_ids": [
@@ -2308,10 +2392,22 @@
         "new_model_provider_access_granted": false,
         "readback_verified": true,
         "retrieved_source_ids": [
-          "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE"
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1iJU__qY2P-LSNJDqIaG5qZH2Dw6p2DnNZ35LUzGTkVg",
+          "1gS-V40twMOT29dBiXrNrNlo87dUD49u9t2e9yHGOS98",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "1u7UjJFMr7rQaAO1rQGDeYxbvkgeTksjNZCCabyvn9-Q",
+          "1RCbdhSLeU-pDgrRfZDkd2e7lcCVX46uti5RK9SvkTno"
         ],
         "integrity_patrol": {
           "registry_version": 1,
+          "estate_id": "house-of-nathaniel",
+          "estate_label": "House of Nathaniel — Health",
+          "visit_index": 1,
+          "cursor_after": "house-of-vivienne",
           "source_row": 21,
           "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
           "current_authority_retrieved": true,
@@ -2337,9 +2433,29 @@
         "duty_id": "dynasty.heartbeat",
         "evaluation_only": false,
         "integrity_patrol": {
-          "mode": "ONE_BOUNDED_SLICE_PER_HEARTBEAT",
           "registry_version": 1,
-          "source_row": 21
+          "mode": "ONE_BOUNDED_SLICE_PER_HEARTBEAT",
+          "estate_id": "house-of-vivienne",
+          "estate_label": "House of Vivienne — Banking",
+          "visit_index": 1,
+          "cursor_after": "house-of-catholic",
+          "source_row": 21,
+          "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
+          "royal_household_access_permitted": false,
+          "root_folder_ids": [
+            "1jSnWKplkNITTqMl6jsq5TVHiLSnrq72T"
+          ],
+          "required_source_ids": [
+            "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+            "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
+            "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY",
+            "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+            "1iJU__qY2P-LSNJDqIaG5qZH2Dw6p2DnNZ35LUzGTkVg",
+            "1gS-V40twMOT29dBiXrNrNlo87dUD49u9t2e9yHGOS98",
+            "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+            "13hKi_Z32Zej1vcDLhhUgCjHqOSWuNhks2T4X1cqyXrw",
+            "1KiH8nsUBO8FA3HzcJSYnko_heuDiEQSpMe-np0-e7Sk"
+          ]
         },
         "label": "Dynasty House Pulse / King's Balcony Heartbeat",
         "required_source_ids": [
@@ -2398,10 +2514,22 @@
         "new_model_provider_access_granted": false,
         "readback_verified": true,
         "retrieved_source_ids": [
-          "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE"
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1iJU__qY2P-LSNJDqIaG5qZH2Dw6p2DnNZ35LUzGTkVg",
+          "1gS-V40twMOT29dBiXrNrNlo87dUD49u9t2e9yHGOS98",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "13hKi_Z32Zej1vcDLhhUgCjHqOSWuNhks2T4X1cqyXrw",
+          "1KiH8nsUBO8FA3HzcJSYnko_heuDiEQSpMe-np0-e7Sk"
         ],
         "integrity_patrol": {
           "registry_version": 1,
+          "estate_id": "house-of-vivienne",
+          "estate_label": "House of Vivienne — Banking",
+          "visit_index": 1,
+          "cursor_after": "house-of-catholic",
           "source_row": 21,
           "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
           "current_authority_retrieved": true,
