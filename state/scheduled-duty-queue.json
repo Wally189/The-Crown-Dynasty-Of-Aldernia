@@ -4217,8 +4217,139 @@
       "service_class": "SCHEDULED_DUTY",
       "status": "ACKNOWLEDGED_ACTION",
       "transition_class": "scheduled_duty_due"
+    },
+    "dynasty.heartbeat:2026-09-22T13:00": {
+      "acceptance": "Retrieve the current canonical task row and required current controls; return ACTION, NO_ACTION or STOP. No implicit mission or authority widening.",
+      "ack_to": "Central Aldernia Clock / scheduled-duty queue",
+      "authority_ref": "Royal Palace Scheduled Tasks Register 1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA, Scheduled Tasks row 2",
+      "departure_mode": "TIMETABLE_MANUAL_RECOVERY",
+      "destination": "Dynasty Institutional Heartbeat impact discovery",
+      "emitted_at": "2026-09-22T12:03:35+00:00",
+      "emitting_owner": "Manual Catholix / Central Aldernia Clock recovery",
+      "event_id": "dynasty.heartbeat:2026-09-22T13:00",
+      "event_type": "canonical.state.changed",
+      "mission_ref": "NONE — DUE EVALUATION ONLY",
+      "payload": {
+        "accountable_owner": "Royal Palace",
+        "duty_id": "dynasty.heartbeat",
+        "evaluation_only": false,
+        "integrity_patrol": {
+          "registry_version": 1,
+          "source_row": 21,
+          "estate_id": "house-of-tony",
+          "estate_label": "House of Tony — Education",
+          "root_folder_ids": [
+            "1-OiNqw5nFu0HOE-P6Bm7sR2yg9OnMSlw"
+          ],
+          "visit_index": 2,
+          "cursor_after": "house-of-marianne",
+          "required_source_ids": [
+            "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+            "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
+            "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY",
+            "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+            "1iJU__qY2P-LSNJDqIaG5qZH2Dw6p2DnNZ35LUzGTkVg",
+            "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
+            "1f9ehuX67WRwYMLK0JD7s1q-NEN9BGqdzNC3kfxyLl7s",
+            "1gS-V40twMOT29dBiXrNrNlo87dUD49u9t2e9yHGOS98",
+            "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+            "1GXGtQaRJlCn9Pdl4jL4oWGNGywFeeYxWcjjiSZ2zfEA",
+            "1RwwJX4yzsgTFLCoKel1geMNz0RqRje1ljfPhQHQrVSs"
+          ],
+          "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
+          "royal_household_access_permitted": false,
+          "mode": "ONE_BOUNDED_SLICE_PER_HEARTBEAT"
+        },
+        "label": "Dynasty House Pulse / King's Balcony Heartbeat",
+        "required_source_ids": [
+          "17urYyFWqc1ezykTpp8LHjuGqywBXmmr_O0hs_89QXGE"
+        ],
+        "requires_model_runtime": true,
+        "scheduled_for": "2026-09-22T13:00:00+01:00",
+        "source_row": 2
+      },
+      "permitted_effects": [
+        "evaluate already-authorised recurring duty",
+        "route through COS-BUS-001 when current due/authority gates pass",
+        "record ACK/NO_ACTION/STOP"
+      ],
+      "prohibited_effects": [
+        "create a mission from time alone",
+        "widen authority",
+        "treat this machine projection as task source of truth"
+      ],
+      "scheduled_for": "2026-09-22T13:00:00+01:00",
+      "service_class": "HEARTBEAT",
+      "status": "ACKNOWLEDGED_ACTION",
+      "transition_class": "scheduled_duty_due",
+      "claim": null,
+      "receipt": {
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-22-balcony-1300",
+        "attempt": 1,
+        "completed_at": "2026-09-22T12:03:35+00:00",
+        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
+        "accountable_owner": "Royal Palace",
+        "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "outcome": "ACTION",
+        "result_summary": "13:00 Heartbeat executed from current canonical state. No other scheduled or waiting authorised child bus was due at this boundary. Required row-21 patrol completed the House of Tony — Education slice using the current FIRST READ, Stage-14 capability/assurance register, common controls and live root. Founding Stages 1–18 remain PASS at INTERNAL / NO-CONTACT scope; the 56-family role architecture remains CONSTITUTED with role-specific commissioning evidence-gated; Tony-local assurance limits remain explicit and do not conflict with the bounded operating claim. Historical 'Tony Education' naming is explicit provenance, not competing current identity. No genuine conflicting current material, duplicate-current active control, or unambiguous stale active item requiring archive/supersession mutation was established. Tony's current record explicitly says not to manufacture further work absent a real trigger. No consequential bus/return or Crown decision was therefore created. Cursor advanced to House of Marianne.",
+        "evidence_refs": [
+          "Drive:CAT-123",
+          "Drive:House of Series START HERE",
+          "Drive:Royal Palace settlement",
+          "Drive:Computer FIRST READ",
+          "Drive:Engine Manifest",
+          "Drive:House OS",
+          "Drive:AI/Resource/Execution Control Register",
+          "Drive:Capability Registry",
+          "Drive:Queen Barbara Admin",
+          "Drive:Scheduled Tasks Register",
+          "Drive:House of Tony FIRST READ",
+          "Drive:House of Tony Stage 14 Capability Commissioning & Assurance Register",
+          "Drive:House of Tony root listing"
+        ],
+        "writes": [
+          "GitHub:clock-state/state/scheduled-duty-queue.json durable manual recovery receipt"
+        ],
+        "external_effect": "NONE",
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false,
+        "new_model_provider_access_granted": false,
+        "manual_projection_due_to_unattended_projection_lag": true,
+        "readback_verified": true,
+        "retrieved_source_ids": [
+          "14rxhnw7MK5LLnj8QbrokDAeKBV_PlOg4ffuCUsV7ghI",
+          "1XdilhHRYu5OQHqHs7uPvLKV5TlZ9vwxVqd3gFqJw4XU",
+          "1wh9C9IGxMxRtvenxLnknFvEWQgN7aI_8qaf8ES-SyiY",
+          "1NumS4_cKvgJLQfUIG45Nug7clbv2zuxU2EZ9bvSJdXQ",
+          "1iJU__qY2P-LSNJDqIaG5qZH2Dw6p2DnNZ35LUzGTkVg",
+          "1f7CvUz3abW0WuuPkoDRdwnLDs4Bgd-K0yfcNszQ9Crk",
+          "1f9ehuX67WRwYMLK0JD7s1q-NEN9BGqdzNC3kfxyLl7s",
+          "1gS-V40twMOT29dBiXrNrNlo87dUD49u9t2e9yHGOS98",
+          "1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA",
+          "1GXGtQaRJlCn9Pdl4jL4oWGNGywFeeYxWcjjiSZ2zfEA",
+          "1RwwJX4yzsgTFLCoKel1geMNz0RqRje1ljfPhQHQrVSs"
+        ],
+        "integrity_patrol": {
+          "registry_version": 1,
+          "source_row": 21,
+          "estate_id": "house-of-tony",
+          "estate_label": "House of Tony — Education",
+          "visit_index": 2,
+          "cursor_after": "house-of-marianne",
+          "current_authority_retrieved": true,
+          "findings": [],
+          "review_trigger": "NEXT KING SESSION / KING'S BALCONY OPENING",
+          "royal_household_accessed": false,
+          "readback_verified": true
+        }
+      }
     }
   },
-  "last_checked_at": "2026-09-22T11:58:00+00:00",
+  "last_checked_at": "2026-09-22T12:03:35+00:00",
   "schema_version": 1
 }
