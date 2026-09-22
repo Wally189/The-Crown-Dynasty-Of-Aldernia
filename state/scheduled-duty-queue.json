@@ -4518,7 +4518,7 @@
         "accountable_owner": "House of Marianne — Centre of Government & Cabinet Coordination → Royal Palace / King's Balcony",
         "attempt": 1,
         "authority_unchanged": true,
-        "balcony_delivery_ack": true,
+        "balcony_delivery_ack": false,
         "completed_at": "2026-09-22T06:03:00+00:00",
         "estate_scope": "ALDERNIA",
         "evidence_refs": [
@@ -4530,7 +4530,7 @@
         "external_effect": "NONE",
         "mission_created_by_worker": false,
         "new_model_provider_access_granted": false,
-        "outcome": "ACTION",
+        "outcome": "STOP",
         "ownership_unchanged": true,
         "parent_case_id": "government-pulse:2026-09-22",
         "parent_terminal_state": "VERIFIED_CLOSED",
@@ -4538,18 +4538,22 @@
         "resource_classes_used": [
           "ALDERNIA_INTERNAL"
         ],
-        "result_summary": "22 Sep Red Box delivered from the genuine VERIFIED_CLOSED Government Pulse. NO MATERIAL GOVERNMENT DECISION THIS PULSE. No implementation, Opposition disagreement, Parliamentary procedure or independent finding was invented. Open routine Government work remains institution-owned. Crown action: NONE. Next Government trigger: 23 Sep 07:00 or earlier genuine material-state trigger under existing authority.",
+        "result_summary": "22 Sep Red Box content was generated from the genuine VERIFIED_CLOSED Government Pulse, but no user-facing delivery channel actually delivered it to King Alan. The earlier balcony_delivery_ack=true was an invalid internal self-ack and is superseded. Crown receipt is DELIVERY_UNCONFIRMED. Red Box content remains valid: NO MATERIAL GOVERNMENT DECISION THIS PULSE; Crown action NONE.",
         "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
         "schema_version": 1,
         "worker_id": "chatgpt-helm-session-2026-09-22-balcony-recovery",
         "writes": [
-          "GitHub clock-state/state/scheduled-duty-queue.json durable manual recovery receipt"
-        ]
+          "GitHub clock-state/state/scheduled-duty-queue.json durable manual recovery receipt",
+          "Corrected false user-delivery ACK after live King report of non-receipt"
+        ],
+        "user_delivery_state": "DELIVERY_UNCONFIRMED",
+        "delivery_readback_verified": false,
+        "delivery_control_defect": "INTERNAL_ACK_WAS_NOT_USER_RECEIPT"
       },
       "scheduled_for": "2026-09-22T07:03:00+01:00",
       "schema_version": 1,
       "service_class": "SCHEDULED_DUTY",
-      "status": "ACKNOWLEDGED_ACTION",
+      "status": "FAILED_CLOSED_DELIVERY_UNCONFIRMED",
       "transition_class": "scheduled_duty_due"
     },
     "josie.morning-news:2026-09-21": {
