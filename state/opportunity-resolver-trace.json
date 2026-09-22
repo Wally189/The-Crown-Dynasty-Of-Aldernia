@@ -1,17 +1,47 @@
 {
   "adapter_version": 1,
   "authority_widened": false,
-  "candidate_count": 3,
+  "candidate_count": 6,
   "candidate_ids": [
+    "DUE::catholic.none:2026-09-22",
+    "DUE::dynasty.heartbeat:2026-09-22T14:00",
+    "DUE::dynasty.heartbeat:2026-09-22T15:00",
     "E-23",
     "E-24",
     "KQ-009"
   ],
   "canonical_record_written": false,
   "conflict_candidate_ids": [],
-  "decision_changed": false,
-  "decision_fingerprint": "6a1395ec7858872317e98d9550ae297cb15866460580a0779315f34ede579f6f",
+  "decision_changed": true,
+  "decision_fingerprint": "e688d0f34483c3843c7898311397c8f07577ae8502816df180b5bc6085cbb6b6",
   "decisions": [
+    {
+      "candidate_id": "DUE::catholic.none:2026-09-22",
+      "priority_key": null,
+      "reasons": [
+        "required model provider unavailable; unrelated work may continue"
+      ],
+      "state_class": "BLOCKED",
+      "unchanged": false
+    },
+    {
+      "candidate_id": "DUE::dynasty.heartbeat:2026-09-22T14:00",
+      "priority_key": null,
+      "reasons": [
+        "required model provider unavailable; unrelated work may continue"
+      ],
+      "state_class": "BLOCKED",
+      "unchanged": false
+    },
+    {
+      "candidate_id": "DUE::dynasty.heartbeat:2026-09-22T15:00",
+      "priority_key": null,
+      "reasons": [
+        "required model provider unavailable; unrelated work may continue"
+      ],
+      "state_class": "BLOCKED",
+      "unchanged": false
+    },
     {
       "candidate_id": "E-23",
       "priority_key": null,
@@ -43,21 +73,24 @@
   "derived_state_only": true,
   "execution_performed": false,
   "external_effect": "NONE",
-  "fact_count": 3,
+  "fact_count": 6,
   "fact_ids": [
     "programme-board-e23",
     "programme-board-e24",
-    "kq009-provider-gate"
+    "kq009-provider-gate",
+    "runtime-event:catholic.none:2026-09-22",
+    "runtime-event:dynasty.heartbeat:2026-09-22T14:00",
+    "runtime-event:dynasty.heartbeat:2026-09-22T15:00"
   ],
-  "material_source_change": false,
+  "material_source_change": true,
   "model_called": false,
-  "observed_at": "2026-09-22T12:10:43.048924+00:00",
+  "observed_at": "2026-09-22T14:08:52.184975+00:00",
   "resolver_termination": "NO_ACTION",
-  "run_count": 11,
-  "run_id": "35725588192",
+  "run_count": 12,
+  "run_id": "35738258305",
   "schema_version": 1,
   "selected_candidate_id": null,
   "shadow_mode": true,
-  "source_fingerprint": "afbbd890f07777d192646a482d12f9b25ea12c62a8df9928c43493189164bf32",
+  "source_fingerprint": "c9ee20d54cdbe5ef1c34b5e106a0205bdc310ebb7bb321dbc272a9890d3682a3",
   "state_readback_verified": true
 }
