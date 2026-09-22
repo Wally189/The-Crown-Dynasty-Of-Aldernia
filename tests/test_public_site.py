@@ -103,18 +103,82 @@ class PublicSiteTests(unittest.TestCase):
         ):
             self.assertNotIn(token, corpus)
 
-    def test_index_preserves_two_clocks_and_two_facets(self):
+    def test_index_is_country_first_and_preserves_experiment_boundary(self):
         text = (ROOT / "index.html").read_text(encoding="utf-8")
         for required in (
-            "data-computing-time",
+            'class="aldernia-home country-surface country-zone-national"',
             "data-human-time",
-            "experiment/",
-            "country/",
-            "Aldernia begins when time becomes shared.",
-            "Then someone calls it today.",
-            "Aldernia is a fictional country and participatory editorial world.",
+            "data-computing-time",
+            'id="home-events"',
+            'href="country/"',
+            'href="country/today.html"',
+            'href="country/places.html"',
+            'href="country/life.html"',
+            'href="country/government.html"',
+            'href="country/media.html"',
+            'href="country/learn.html"',
+            'href="experiment/"',
+            "An island country of coasts, cities, public life and ordinary Tuesdays.",
+            "A country should look inhabited.",
+            "Behind the country",
+            "A fictional country and participatory editorial world.",
         ):
             self.assertIn(required, text)
+        for legacy in (
+            "Aldernia begins when time becomes shared.",
+            "Not a Big Bang. A quickening.",
+            'class="origin-story"',
+            'class="story-steps"',
+        ):
+            self.assertNotIn(legacy, text)
+
+    def test_root_public_copy_keeps_calendar_governance_backstage(self):
+        text = (ROOT / "index.html").read_text(encoding="utf-8").lower()
+        for token in (
+            "governed fictional calendar",
+            "governed editorial calendar",
+            "world-state",
+            "runtime",
+            "commission",
+        ):
+            self.assertNotIn(token, text)
+
+    def test_home_calendar_preview_uses_reader_language_not_schema_language(self):
+        text = (ROOT / "assets" / "today.js").read_text(encoding="utf-8").lower()
+        self.assertNotIn("public-fictional calendar", text)
+        self.assertIn("fictional calendar", text)
+
+    def test_root_visual_assets_are_local_and_present(self):
+        text = (ROOT / "index.html").read_text(encoding="utf-8")
+        names = ("coast", "capital", "highlands", "village", "people", "ferry", "governance", "workland", "history", "tomorrow")
+        for name in names:
+            rel = f"assets/visuals/{name}.svg"
+            self.assertIn(rel, text)
+            self.assertTrue((ROOT / rel).exists(), rel)
+
+    def test_root_local_links_resolve_to_existing_files(self):
+        from html.parser import HTMLParser
+
+        class LinkParser(HTMLParser):
+            def __init__(self):
+                super().__init__()
+                self.hrefs = []
+            def handle_starttag(self, tag, attrs):
+                if tag == "a":
+                    href = dict(attrs).get("href")
+                    if href:
+                        self.hrefs.append(href)
+
+        parser = LinkParser()
+        parser.feed((ROOT / "index.html").read_text(encoding="utf-8"))
+        for href in parser.hrefs:
+            if href.startswith(("#", "http://", "https://", "mailto:", "tel:")):
+                continue
+            clean = href.split("#", 1)[0].split("?", 1)[0]
+            target = ROOT / clean
+            if clean.endswith("/"):
+                target = target / "index.html"
+            self.assertTrue(target.exists(), f"{href} -> {target}")
 
     def test_no_tracking_or_account_code_in_public_assets(self):
         corpus = "\n".join(p.read_text(encoding="utf-8").lower() for p in PUBLIC_PAGES + [ROOT / "assets" / "site.js", ROOT / "assets" / "today.js"])
@@ -284,10 +348,11 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn("Reality class: scheduled public-fictional editorial feature.", media)
 
 
-    def test_threshold_explains_fiction_and_real_experiment_up_front(self):
+    def test_root_discloses_fiction_and_keeps_experiment_secondary(self):
         text = (ROOT / "index.html").read_text(encoding="utf-8")
-        self.assertIn("<strong>Aldernia is a fictional country.</strong>", text)
-        self.assertIn("The Aldernian Experiment is the real project behind it", text)
+        self.assertIn("<strong>Fictional country.</strong>", text)
+        self.assertIn("The Aldernian Experiment is real.", text)
+        self.assertIn("The fictional country sits in front of a real project", text)
         self.assertLess(text.index('href="country/"'), text.index('href="experiment/"'))
 
     def test_experiment_exposes_method_falsification_and_measurement_limits(self):
@@ -346,7 +411,8 @@ class PublicSiteTests(unittest.TestCase):
         script = (ROOT / "assets" / "today.js").read_text(encoding="utf-8")
         self.assertIn('data-calendar="../aldernia/calendar.json"', home)
         self.assertIn("home-events", script)
-        self.assertIn("public-fictional calendar", script)
+        self.assertIn("fictional calendar", script)
+        self.assertNotIn("public-fictional calendar", script)
 
     def test_non_clock_pages_do_not_run_one_second_timer(self):
         script = (ROOT / "assets" / "site.js").read_text(encoding="utf-8")

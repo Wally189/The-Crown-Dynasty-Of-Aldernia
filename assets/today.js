@@ -108,7 +108,7 @@
           p.textContent=e.summary;
           const meta=document.createElement('p');
           meta.className='small';
-          meta.textContent=`${e.region} · public-fictional calendar`;
+          meta.textContent=`${e.region} · fictional calendar`;
           article.append(when,h,p,meta);
           homeTarget.append(article);
         }

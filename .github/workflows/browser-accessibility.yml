@@ -13,7 +13,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: aldernia-browser-accessibility
+  group: aldernia-browser-accessibility-${{ github.event_name }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -28,7 +28,7 @@ jobs:
         run: python -m unittest discover -s tests -v
 
       - name: Wait for the accepted public build
-        if: github.event_name != 'pull_request'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         shell: bash
         run: |
           set -euo pipefail
@@ -50,7 +50,7 @@ jobs:
           exit 1
 
       - name: Start candidate server
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' || github.ref != 'refs/heads/main'
         shell: bash
         run: |
           set -euo pipefail
@@ -81,7 +81,7 @@ jobs:
       - name: Run desktop/mobile browser and WCAG checks
         env:
           CHROME_BIN: ${{ steps.chrome.outputs.bin }}
-          BASE_URL: ${{ github.event_name == 'pull_request' && 'http://127.0.0.1:8000/The-Crown-Dynasty-Of-Aldernia' || 'https://wally189.github.io/The-Crown-Dynasty-Of-Aldernia' }}
+          BASE_URL: ${{ (github.event_name == 'pull_request' || github.ref != 'refs/heads/main') && 'http://127.0.0.1:8000/The-Crown-Dynasty-Of-Aldernia' || 'https://wally189.github.io/The-Crown-Dynasty-Of-Aldernia' }}
         shell: bash
         run: |
           mkdir -p assurance/screens
@@ -115,6 +115,7 @@ jobs:
             '/accessibility.html'
           ];
           const viewports = [
+            {name:'reflow', width:320, height:800, isMobile:true, hasTouch:true},
             {name:'mobile', width:390, height:844, isMobile:true, hasTouch:true},
             {name:'desktop', width:1440, height:900, isMobile:false, hasTouch:false}
           ];
@@ -147,15 +148,36 @@ jobs:
                 continue;
               }
 
-              const layout = await page.evaluate(() => ({
-                scrollWidth: document.documentElement.scrollWidth,
-                clientWidth: document.documentElement.clientWidth,
-                h1: document.querySelectorAll('h1').length,
-                skip: Boolean(document.querySelector('a.skip-link')),
-                scrollBehavior: getComputedStyle(document.documentElement).scrollBehavior
-              }));
+              const layout = await page.evaluate(() => {
+                const clientWidth = document.documentElement.clientWidth;
+                const overflowers = [...document.querySelectorAll('body *')]
+                  .map(el => {
+                    const r = el.getBoundingClientRect();
+                    return {tag:el.tagName.toLowerCase(), cls:String(el.className || '').slice(0,80), id:el.id || '', left:Math.round(r.left), right:Math.round(r.right), width:Math.round(r.width)};
+                  })
+                  .filter(r => r.right > clientWidth + 1 || r.left < -1)
+                  .slice(0,12);
+                return {
+                  scrollWidth: document.documentElement.scrollWidth,
+                  clientWidth,
+                  h1: document.querySelectorAll('h1').length,
+                  skip: Boolean(document.querySelector('a.skip-link')),
+                  scrollBehavior: getComputedStyle(document.documentElement).scrollBehavior,
+                  overflowers
+                };
+              });
               if (layout.scrollWidth > layout.clientWidth + 1) {
-                failures.push(`${viewport.name} ${route}: horizontal overflow ${layout.scrollWidth} > ${layout.clientWidth}`);
+                const pagePan = await page.evaluate(() => {
+                  window.scrollTo(1000, 0);
+                  const x = window.scrollX;
+                  window.scrollTo(0, 0);
+                  return x;
+                });
+                if (pagePan > 1) {
+                  failures.push(`${viewport.name} ${route}: page-level horizontal pan ${pagePan}px; extent ${layout.scrollWidth} > ${layout.clientWidth}; offenders ${JSON.stringify(layout.overflowers)}`);
+                } else {
+                  console.log(`PASS ${viewport.name} ${route}: overflow is contained inside a local scroller; no page-level pan`);
+                }
               }
               if (layout.h1 !== 1) failures.push(`${viewport.name} ${route}: expected exactly one h1, saw ${layout.h1}`);
               if (!layout.skip) failures.push(`${viewport.name} ${route}: missing skip link`);
@@ -175,6 +197,58 @@ jobs:
               });
               if (!focus.skip || !focus.visible) failures.push(`${viewport.name} ${route}: first keyboard focus is not a visible skip link`);
 
+              if (route === '/country/map.html' && viewport.name === 'reflow') {
+                const atlasScroll = await page.evaluate(() => {
+                  const frame = document.querySelector('.map-frame');
+                  if (!frame) return {present:false};
+                  const before = frame.scrollLeft;
+                  frame.scrollLeft = 120;
+                  const after = frame.scrollLeft;
+                  frame.scrollLeft = before;
+                  return {
+                    present:true,
+                    clientWidth:frame.clientWidth,
+                    scrollWidth:frame.scrollWidth,
+                    canScroll:after > before
+                  };
+                });
+                if (!atlasScroll.present) failures.push('reflow /country/map.html: map frame missing');
+                else if (!(atlasScroll.scrollWidth > atlasScroll.clientWidth && atlasScroll.canScroll)) {
+                  failures.push(`reflow /country/map.html: two-dimensional atlas is not contained in an operable local scroller ${JSON.stringify(atlasScroll)}`);
+                }
+              }
+
+              if (route === '/' && viewport.name !== 'desktop') {
+                const firstFrame = await page.evaluate(() => {
+                  const title = document.querySelector('#home-title');
+                  const primary = document.querySelector('[data-home-primary]');
+                  const lede = document.querySelector('.home-hero-lede');
+                  const rect = el => el ? el.getBoundingClientRect() : null;
+                  return {
+                    title: rect(title),
+                    primary: rect(primary),
+                    lede: rect(lede),
+                    viewport: window.innerHeight,
+                    countryFirst: document.body.classList.contains('aldernia-home')
+                  };
+                });
+                if (!firstFrame.countryFirst) failures.push(`${viewport.name} /: country-first root class missing`);
+                if (!firstFrame.title || !firstFrame.lede || !firstFrame.primary) failures.push(`${viewport.name} /: first-frame identity/action missing`);
+                else if (firstFrame.primary.bottom > firstFrame.viewport + 1) failures.push(`${viewport.name} /: primary action falls below first viewport (${firstFrame.primary.bottom} > ${firstFrame.viewport})`);
+
+                await page.evaluate(() => { document.activeElement && document.activeElement.blur(); window.scrollTo(0,0); });
+                const walked = [];
+                for (let i = 0; i < 12; i += 1) {
+                  await page.keyboard.press('Tab');
+                  walked.push(await page.evaluate(() => {
+                    const el = document.activeElement;
+                    if (!el) return 'none';
+                    return el.id || el.getAttribute('href') || el.tagName;
+                  }));
+                }
+                if (new Set(walked).size < 6) failures.push(`${viewport.name} /: keyboard walk did not reach enough distinct controls: ${walked.join(', ')}`);
+              }
+
               await page.addScriptTag({path: axePath});
               const axe = await page.evaluate(async () => {
                 const result = await window.axe.run(document, {
@@ -190,6 +264,14 @@ jobs:
               if (runtimeErrors.length) failures.push(`${viewport.name} ${route}: runtime console/page errors ${runtimeErrors.join(' | ')}`);
 
               if (screenshotRoutes.has(route)) {
+                await page.evaluate(() => {
+                  if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+                  window.scrollTo(0, 0);
+                  const nav = document.querySelector('.site-nav');
+                  if (nav) nav.scrollLeft = 0;
+                  const map = document.querySelector('.map-frame');
+                  if (map) map.scrollLeft = 0;
+                });
                 const slug = route === '/' ? 'threshold' : route.replace(/^\/|\/$/g,'').replace(/[\/\.]/g,'-');
                 await page.screenshot({
                   path: path.join('assurance','screens',`${viewport.name}-${slug}.png`),
@@ -200,6 +282,26 @@ jobs:
             }
             await page.close();
           }
+
+          const noJs = await browser.newPage();
+          await noJs.setJavaScriptEnabled(false);
+          await noJs.setCacheEnabled(false);
+          await noJs.setViewport({width:390,height:844,isMobile:true,hasTouch:true});
+          const noJsResponse = await noJs.goto(base + '/', {waitUntil:'domcontentloaded', timeout:30000});
+          if (!noJsResponse || !noJsResponse.ok()) failures.push(`no-js /: HTTP ${noJsResponse ? noJsResponse.status() : 'no response'}`);
+          const noJsState = await noJs.evaluate(() => ({
+            h1: document.querySelectorAll('h1').length,
+            overflow: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
+            fallback: document.querySelector('#home-events')?.textContent || '',
+            today: Boolean(document.querySelector('a[href="country/today.html"]')),
+            country: Boolean(document.querySelector('a[href="country/"]')),
+            experiment: Boolean(document.querySelector('a[href="experiment/"]'))
+          }));
+          if (noJsState.h1 !== 1) failures.push(`no-js /: expected one h1, saw ${noJsState.h1}`);
+          if (noJsState.overflow) failures.push('no-js /: horizontal overflow');
+          if (!noJsState.fallback.includes('Open Today')) failures.push('no-js /: calendar fallback is not useful');
+          if (!noJsState.today || !noJsState.country || !noJsState.experiment) failures.push('no-js /: priority links missing');
+          await noJs.close();
 
           await browser.close();
           if (failures.length) {
