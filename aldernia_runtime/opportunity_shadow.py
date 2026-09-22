@@ -9,7 +9,8 @@ from pathlib import Path
 import tempfile
 from typing import Any, Mapping
 
-from aldernia_runtime.canonical_programme_board import canonical_facts_from_packet\nfrom aldernia_runtime.opportunity_resolver import (
+from aldernia_runtime.canonical_programme_board import canonical_facts_from_packet
+from aldernia_runtime.opportunity_resolver import (
     CapabilityProfile,
     Resolver,
     ResolverState,
