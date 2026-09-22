@@ -1,1 +1,19 @@
-{"schema_version":1,"pending_receipt":null,"acknowledged":{},"run_ids":[]}
+{
+  "acknowledged": {
+    "PB-E28-LIVE-DELTA-ACK": {
+      "acked_at": "2026-09-22T16:57:48.513712+00:00",
+      "acked_run_id": "35757536871",
+      "authority_ref": "Royal Programme Board E-28",
+      "candidate_id": "PB-E28-LIVE-DELTA-ACK",
+      "evidence_hash": "982dc56aed96fc690b979f5ad71a20843b3db4ded6db9364532c3e24e7b76344",
+      "receipt_hash": "3ff03580fafedf36b516d4f7aefa94a7d2f73f2c454844e658c24b24597f51f3",
+      "source_ref": "Google Drive:1Qk6l3Iy8nAmArQmFfdNUccCB_HyTTp5fWozq_zWVhPA/Royal Programme Board!A155:D155"
+    }
+  },
+  "pending_receipt": null,
+  "run_ids": [
+    "35757536871",
+    "35757609645"
+  ],
+  "schema_version": 1
+}
