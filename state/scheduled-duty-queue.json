@@ -5292,8 +5292,10 @@
         "authority_unchanged": true,
         "ownership_unchanged": true,
         "mission_created_by_worker": false,
-        "readback_verified": false,
-        "crown_return_required": true
+        "readback_verified": true,
+        "crown_return_required": true,
+        "verified_at": "2026-09-22T18:34:36+00:00",
+        "verification_summary": "Drive readback confirmed Scheduled Tasks corrective Red Box row and HMDF current header; clock-state event read back at expected stable identity."
       }
     }
   },
