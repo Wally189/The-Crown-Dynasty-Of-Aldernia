@@ -5213,8 +5213,90 @@
         "mission_created_by_worker": false,
         "readback_verified": true
       }
+    },
+    "government.nation-build:2026-09-22:anti-minimisation-01": {
+      "schema_version": 1,
+      "event_id": "government.nation-build:2026-09-22:anti-minimisation-01",
+      "event_type": "government.corrective_cycle.completed",
+      "transition_class": "canonical_state_changed",
+      "service_class": "BUS",
+      "departure_mode": "ACTIVE_COMMAND",
+      "scheduled_for": "2026-09-22T19:34:00+01:00",
+      "emitted_at": "2026-09-22T18:34:00+00:00",
+      "emitting_owner": "House of Marianne — Centre of Government & Cabinet Coordination",
+      "destination": "Royal Palace / King's Balcony",
+      "mission_ref": "ONE ALDERNIA active five-mission national strategy",
+      "authority_ref": "King continuation command + current Crown Government Settlement + corrected Scheduled Tasks rows 5/12",
+      "acceptance": "Advance highest-value evidence-backed authorised internal nation-building; continue consequential work until genuinely complete, blocked or Crown-reserved; return substantive Red Box.",
+      "permitted_effects": [
+        "internal canonical reconciliation",
+        "Government control repair",
+        "internal parliamentary scrutiny",
+        "internal resilience decision preparation",
+        "durable ACK/readback"
+      ],
+      "prohibited_effects": [
+        "external contact",
+        "publication",
+        "spend",
+        "provider/account/configuration mutation",
+        "outside-Aldernia access",
+        "authority widening"
+      ],
+      "payload": {
+        "missions_scanned": [
+          "PROSPER",
+          "CONNECT",
+          "FLOURISH",
+          "SHIELD",
+          "REACH"
+        ],
+        "selected_first": "CONNECT",
+        "consequential_next": "SHIELD",
+        "connect_result": "ANTI_MINIMISATION_CONTROL_AND_CURRENT_STATE_RECONCILED",
+        "accountability_result": "INTERNAL_EVIDENCE_PERFORMANCE_SCRUTINY_COMPLETE",
+        "shield_result": "PROVIDER_INDEPENDENT_RECOVERY_PREPARED_TO_RESERVED_GATE",
+        "crown_gate": "SELECT_AND_AUTHORISE_GENUINELY_INDEPENDENT_SECONDARY_CUSTODY_TARGET_AND_EXACT_PILOT_OPERATIONS"
+      },
+      "claim": null,
+      "status": "ACKNOWLEDGED_ACTION",
+      "receipt": {
+        "schema_version": 1,
+        "worker_id": "chatgpt-helm-session-2026-09-22-marianne-continuation",
+        "attempt": 1,
+        "completed_at": "2026-09-22T18:34:00+00:00",
+        "runtime_class": "MANUAL_CATHOLIX_GOVERNED_RUNTIME",
+        "accountable_owner": "House of Marianne — Centre of Government & Cabinet Coordination",
+        "estate_scope": "ALDERNIA",
+        "resource_classes_used": [
+          "ALDERNIA_INTERNAL"
+        ],
+        "outcome": "ACTION",
+        "result_summary": "Corrected CONNECT anti-minimisation/current-state defects, completed proportionate internal parliamentary scrutiny, and advanced SHIELD provider-independent recovery preparation to the genuine Crown/external gate. No external effect.",
+        "evidence_refs": [
+          "Drive:Scheduled Tasks rows 5, 12 and 13",
+          "Drive:Aldernia National Strategy, Missions & Scorecard 01",
+          "Drive:Government Current State, Remediation & Handover Register 01",
+          "Drive:Parliament, Chambers, Scrutiny & Legislative Baseline 01",
+          "Drive:HMDF Operations, Mission, Incident, Risk & Current State Register 01 — SHIELD-PIREC-01"
+        ],
+        "writes": [
+          "Drive Scheduled Tasks anti-minimisation pulse gate and mission/red-box state",
+          "Drive National Strategy current status and 22 Sep reconciliation",
+          "Drive Government Current State 22 Sep correction",
+          "Drive Parliament 22 Sep scrutiny return",
+          "Drive HMDF current-state header and SHIELD-PIREC-01",
+          "GitHub clock-state durable corrective-cycle receipt"
+        ],
+        "external_effect": "NONE",
+        "authority_unchanged": true,
+        "ownership_unchanged": true,
+        "mission_created_by_worker": false,
+        "readback_verified": false,
+        "crown_return_required": true
+      }
     }
   },
-  "last_checked_at": "2026-09-22T18:06:00+00:00",
+  "last_checked_at": "2026-09-22T18:34:00+00:00",
   "schema_version": 1
 }
