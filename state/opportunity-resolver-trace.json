@@ -11,7 +11,7 @@
   "canonical_source_modified_time": null,
   "canonical_transport": null,
   "conflict_candidate_ids": [],
-  "decision_changed": true,
+  "decision_changed": false,
   "decision_fingerprint": "168c9186de37476359a7f628188ebe6631b0b6f3f977d2a33401503f0b900c84",
   "decisions": [
     {
@@ -24,7 +24,7 @@
         "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "KQ-009",
@@ -47,12 +47,12 @@
     "kq009-provider-gate",
     "runtime-event:catholic.compline:2026-09-22"
   ],
-  "material_source_change": true,
+  "material_source_change": false,
   "model_called": false,
-  "observed_at": "2026-09-22T23:37:33.285189+00:00",
+  "observed_at": "2026-09-23T01:47:42.075031+00:00",
   "resolver_termination": "NO_ACTION",
-  "run_count": 18,
-  "run_id": "35798297605",
+  "run_count": 19,
+  "run_id": "35807747138",
   "schema_version": 1,
   "selected_candidate_id": null,
   "shadow_mode": true,
