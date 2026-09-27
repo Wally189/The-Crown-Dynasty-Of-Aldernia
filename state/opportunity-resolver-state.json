@@ -1,7 +1,7 @@
 {
   "adapter_version": 1,
   "last_decision_fingerprint": "3af36021aac840ae8cf317022ca1fad5c0b1d7a5776e016feb2c5c572f3b39e3",
-  "last_observed_at": "2026-09-26T22:01:51.049020+00:00",
+  "last_observed_at": "2026-09-27T00:29:24.086805+00:00",
   "last_source_fingerprint": "aa3b45878971475390f9f7f3094b4dfa77399ded2488ca901f2a2b3d723d4c51",
   "resolver_state": {
     "blockers": {
@@ -910,6 +910,6 @@
     },
     "schema_version": 1
   },
-  "run_count": 42,
+  "run_count": 43,
   "schema_version": 1
 }
