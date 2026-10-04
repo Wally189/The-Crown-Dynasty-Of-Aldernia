@@ -1,8 +1,8 @@
 {
   "adapter_version": 1,
-  "last_decision_fingerprint": "4182347ee2714d93a2917a1b1c1847c89c11c9c375968b3712eb7a0e38debe2d",
-  "last_observed_at": "2026-10-04T08:45:00.445535+00:00",
-  "last_source_fingerprint": "2d0107a2a30c998f8fd9ddd4913e0e10f5e5c7ec542fad68d86f6804748c6edf",
+  "last_decision_fingerprint": "3328327fc2f07a3bf9ae93f97b07ff1e37cdf6a9481f333bab7a190221c00cf0",
+  "last_observed_at": "2026-10-04T14:25:39.699377+00:00",
+  "last_source_fingerprint": "3b86d41459badeff9f2d38b3d33d8473984779f88bf145d4be44e7fa847c1c1d",
   "resolver_state": {
     "blockers": {
       "google-wif-drive-provider-access": {
@@ -607,6 +607,12 @@
         "next_review_trigger": null,
         "terminal_classification": "BLOCKED"
       },
+      "DUE::catholic.none:2026-10-04": {
+        "candidate_id": "DUE::catholic.none:2026-10-04",
+        "evidence_hash": "7389acde77f84918b9550c40c3274098530dd65f4924772edc26297cacd6dc6f",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
       "DUE::catholic.sext:2026-09-22": {
         "candidate_id": "DUE::catholic.sext:2026-09-22",
         "evidence_hash": "de1a657ed12604f9973fb95b5efa6a8d9919c83f21b2fb8eb06ed5c74bd9eb61",
@@ -676,6 +682,12 @@
       "DUE::catholic.sext:2026-10-03": {
         "candidate_id": "DUE::catholic.sext:2026-10-03",
         "evidence_hash": "a8bf4a7b99bedf77d3ba5168b3773a53879f3028acbf0b3d62d3af8b15a5980a",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
+      "DUE::catholic.sext:2026-10-04": {
+        "candidate_id": "DUE::catholic.sext:2026-10-04",
+        "evidence_hash": "6f2ffeb45ce2861ced0dbd2467609d85fa019626d5d6640d24c5be4db4a2aa7f",
         "next_review_trigger": null,
         "terminal_classification": "BLOCKED"
       },
@@ -2065,6 +2077,42 @@
         "next_review_trigger": null,
         "terminal_classification": "BLOCKED"
       },
+      "DUE::dynasty.heartbeat:2026-10-04T10:00": {
+        "candidate_id": "DUE::dynasty.heartbeat:2026-10-04T10:00",
+        "evidence_hash": "092feaff31b3251181dbefc67fc30968220f8b701c2ffbb4bbfcb9d11dd1002c",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
+      "DUE::dynasty.heartbeat:2026-10-04T11:00": {
+        "candidate_id": "DUE::dynasty.heartbeat:2026-10-04T11:00",
+        "evidence_hash": "70f1e051151eb19f25c497bd2ef4003730041256d4e487b09714087426d97245",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
+      "DUE::dynasty.heartbeat:2026-10-04T12:00": {
+        "candidate_id": "DUE::dynasty.heartbeat:2026-10-04T12:00",
+        "evidence_hash": "7003876c49a5a63cde49c0fdfa6404e1c83911a7045838cd1d96d0e99acd6974",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
+      "DUE::dynasty.heartbeat:2026-10-04T13:00": {
+        "candidate_id": "DUE::dynasty.heartbeat:2026-10-04T13:00",
+        "evidence_hash": "73d976f4840b74a7780cc4a9ea677f334229b1638d2b97b0bf1198783bf861a9",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
+      "DUE::dynasty.heartbeat:2026-10-04T14:00": {
+        "candidate_id": "DUE::dynasty.heartbeat:2026-10-04T14:00",
+        "evidence_hash": "6b35fec719de76568af639d89d83f592cff1792b23fceb7a43d3ac2c48eaa228",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
+      "DUE::dynasty.heartbeat:2026-10-04T15:00": {
+        "candidate_id": "DUE::dynasty.heartbeat:2026-10-04T15:00",
+        "evidence_hash": "0304398422f708a3532f3e5fc22a68940b646c8485987867b1d655ae880f7c82",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
       "DUE::government.daily-pulse:2026-09-23": {
         "candidate_id": "DUE::government.daily-pulse:2026-09-23",
         "evidence_hash": "f920b6a22e20a1c3eea473013f83a0a847866de6fcb0b98408c0268d65608de3",
@@ -2230,6 +2278,6 @@
     },
     "schema_version": 1
   },
-  "run_count": 80,
+  "run_count": 81,
   "schema_version": 1
 }
