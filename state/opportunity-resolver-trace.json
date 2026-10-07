@@ -1,7 +1,7 @@
 {
   "adapter_version": 1,
   "authority_widened": false,
-  "candidate_count": 422,
+  "candidate_count": 423,
   "candidate_ids": [
     "DUE::aldernia.evening-commons:2026-09-23",
     "DUE::aldernia.evening-commons:2026-09-24",
@@ -88,6 +88,7 @@
     "DUE::catholic.dawn-offices:2026-10-04",
     "DUE::catholic.dawn-offices:2026-10-05",
     "DUE::catholic.dawn-offices:2026-10-06",
+    "DUE::catholic.dawn-offices:2026-10-07",
     "DUE::catholic.mass-readings:2026-09-23",
     "DUE::catholic.mass-readings:2026-09-24",
     "DUE::catholic.mass-readings:2026-09-25",
@@ -432,7 +433,7 @@
   "canonical_transport": null,
   "conflict_candidate_ids": [],
   "decision_changed": true,
-  "decision_fingerprint": "f1fea1b9ed67f828726aa26373cad55568ac3ffd9dc2744dff185f1fd598214c",
+  "decision_fingerprint": "c6dae64f84912cfa53632d4b32d325a7024ecd4f691a38310fa80bac9a8679e6",
   "decisions": [
     {
       "candidate_id": "DUE::aldernia.evening-commons:2026-09-23",
@@ -936,7 +937,7 @@
         "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::carol.business-opening:2026-09-23",
@@ -1284,7 +1285,7 @@
         "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::catholic.dawn-offices:2026-09-23",
@@ -1453,6 +1454,18 @@
       ],
       "state_class": "BLOCKED",
       "unchanged": true
+    },
+    {
+      "candidate_id": "DUE::catholic.dawn-offices:2026-10-07",
+      "implementation_operations": [],
+      "implementation_profiles": [],
+      "implementation_route": null,
+      "priority_key": null,
+      "reasons": [
+        "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
+      ],
+      "state_class": "BLOCKED",
+      "unchanged": false
     },
     {
       "candidate_id": "DUE::catholic.mass-readings:2026-09-23",
@@ -5148,7 +5161,7 @@
         "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::government.daily-pulse:2026-09-23",
@@ -5502,7 +5515,7 @@
   "derived_state_only": true,
   "execution_performed": false,
   "external_effect": "NONE",
-  "fact_count": 422,
+  "fact_count": 423,
   "fact_ids": [
     "kq009-provider-gate",
     "runtime-event:aldernia.evening-commons:2026-09-23",
@@ -5590,6 +5603,7 @@
     "runtime-event:catholic.dawn-offices:2026-10-04",
     "runtime-event:catholic.dawn-offices:2026-10-05",
     "runtime-event:catholic.dawn-offices:2026-10-06",
+    "runtime-event:catholic.dawn-offices:2026-10-07",
     "runtime-event:catholic.mass-readings:2026-09-23",
     "runtime-event:catholic.mass-readings:2026-09-24",
     "runtime-event:catholic.mass-readings:2026-09-25",
@@ -5929,13 +5943,13 @@
   ],
   "material_source_change": true,
   "model_called": false,
-  "observed_at": "2026-10-06T23:53:16.992704+00:00",
+  "observed_at": "2026-10-07T04:10:37.286702+00:00",
   "resolver_termination": "NO_ACTION",
-  "run_count": 92,
-  "run_id": "37548985582",
+  "run_count": 93,
+  "run_id": "37570176580",
   "schema_version": 1,
   "selected_candidate_id": null,
   "shadow_mode": true,
-  "source_fingerprint": "750450913717f5d8809e5539eca703dcfc5f47db3e428582c84226ef740e42d3",
+  "source_fingerprint": "e47e916ad3d32f504882c058a3b570174279f99cc327eb4f4fbc4163dcee3b36",
   "state_readback_verified": true
 }
