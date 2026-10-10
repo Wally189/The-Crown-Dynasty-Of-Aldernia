@@ -521,7 +521,7 @@
   "canonical_source_modified_time": null,
   "canonical_transport": null,
   "conflict_candidate_ids": [],
-  "decision_changed": true,
+  "decision_changed": false,
   "decision_fingerprint": "23792316268ba053bed7b21317bbc584ab7e0e8165b2af1f259124d0e81de83b",
   "decisions": [
     {
@@ -930,7 +930,7 @@
         "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::carol.availability-gate:2026-09-23",
@@ -1134,7 +1134,7 @@
         "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::carol.business-opening:2026-09-23",
@@ -1554,7 +1554,7 @@
         "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::catholic.dawn-offices:2026-09-23",
@@ -6234,7 +6234,7 @@
         "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::dynasty.heartbeat:2026-10-09T22:00",
@@ -6246,7 +6246,7 @@
         "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::government.daily-pulse:2026-09-23",
@@ -7187,12 +7187,12 @@
     "runtime-event:josie.morning-news:2026-10-08",
     "runtime-event:josie.morning-news:2026-10-09"
   ],
-  "material_source_change": true,
+  "material_source_change": false,
   "model_called": false,
-  "observed_at": "2026-10-09T23:35:20.189015+00:00",
+  "observed_at": "2026-10-10T02:44:21.692003+00:00",
   "resolver_termination": "NO_ACTION",
-  "run_count": 105,
-  "run_id": "38005149136",
+  "run_count": 106,
+  "run_id": "38018046091",
   "schema_version": 1,
   "selected_candidate_id": null,
   "shadow_mode": true,
