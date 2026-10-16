@@ -701,7 +701,7 @@
   "canonical_source_modified_time": null,
   "canonical_transport": null,
   "conflict_candidate_ids": [],
-  "decision_changed": true,
+  "decision_changed": false,
   "decision_fingerprint": "c7c9fc6b8d5d321ff9d3ce5b15f12b94b2ec925229245e8070dc9b212911d933",
   "decisions": [
     {
@@ -2094,7 +2094,7 @@
         "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::catholic.dawn-offices:2026-09-23",
@@ -9707,12 +9707,12 @@
     "runtime-event:josie.morning-news:2026-10-14",
     "runtime-event:josie.morning-news:2026-10-15"
   ],
-  "material_source_change": true,
+  "material_source_change": false,
   "model_called": false,
-  "observed_at": "2026-10-15T23:54:28.679373+00:00",
+  "observed_at": "2026-10-16T03:24:07.857866+00:00",
   "resolver_termination": "NO_ACTION",
-  "run_count": 135,
-  "run_id": "38826349890",
+  "run_count": 136,
+  "run_id": "38845316552",
   "schema_version": 1,
   "selected_candidate_id": null,
   "shadow_mode": true,
