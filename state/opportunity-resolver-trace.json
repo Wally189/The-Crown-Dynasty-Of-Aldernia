@@ -761,7 +761,7 @@
   "canonical_source_modified_time": null,
   "canonical_transport": null,
   "conflict_candidate_ids": [],
-  "decision_changed": true,
+  "decision_changed": false,
   "decision_fingerprint": "8f4609b91244966f4828923f9dadd72ced48b377b4432a7237c3b2ebe1150cc8",
   "decisions": [
     {
@@ -1662,7 +1662,7 @@
         "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::carol.business-opening:2026-09-23",
@@ -2274,7 +2274,7 @@
         "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::catholic.dawn-offices:2026-09-23",
@@ -9174,7 +9174,7 @@
         "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::government.daily-pulse:2026-09-23",
@@ -10547,12 +10547,12 @@
     "runtime-event:josie.morning-news:2026-10-16",
     "runtime-event:josie.morning-news:2026-10-17"
   ],
-  "material_source_change": true,
+  "material_source_change": false,
   "model_called": false,
-  "observed_at": "2026-10-17T23:00:46.338309+00:00",
+  "observed_at": "2026-10-18T00:53:54.696157+00:00",
   "resolver_termination": "NO_ACTION",
-  "run_count": 149,
-  "run_id": "39077331930",
+  "run_count": 150,
+  "run_id": "39084455011",
   "schema_version": 1,
   "selected_candidate_id": null,
   "shadow_mode": true,
