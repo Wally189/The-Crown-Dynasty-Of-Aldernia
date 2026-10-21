@@ -1,7 +1,7 @@
 {
   "adapter_version": 1,
   "authority_widened": false,
-  "candidate_count": 866,
+  "candidate_count": 871,
   "candidate_ids": [
     "DUE::aldernia.evening-commons:2026-09-23",
     "DUE::aldernia.evening-commons:2026-09-24",
@@ -60,6 +60,7 @@
     "DUE::aldernia.website-voice:2026-10-18",
     "DUE::aldernia.website-voice:2026-10-19",
     "DUE::aldernia.website-voice:2026-10-20",
+    "DUE::aldernia.website-voice:2026-10-21",
     "DUE::carol.availability-gate:2026-09-23",
     "DUE::carol.availability-gate:2026-09-24",
     "DUE::carol.availability-gate:2026-09-25",
@@ -88,6 +89,7 @@
     "DUE::carol.availability-gate:2026-10-18",
     "DUE::carol.availability-gate:2026-10-19",
     "DUE::carol.availability-gate:2026-10-20",
+    "DUE::carol.availability-gate:2026-10-21",
     "DUE::carol.business-opening:2026-09-23",
     "DUE::carol.business-opening:2026-09-24",
     "DUE::carol.business-opening:2026-09-25",
@@ -810,6 +812,9 @@
     "DUE::dynasty.heartbeat:2026-10-21T17:00",
     "DUE::dynasty.heartbeat:2026-10-21T18:00",
     "DUE::dynasty.heartbeat:2026-10-21T19:00",
+    "DUE::dynasty.heartbeat:2026-10-21T20:00",
+    "DUE::dynasty.heartbeat:2026-10-21T21:00",
+    "DUE::dynasty.heartbeat:2026-10-21T22:00",
     "DUE::government.daily-pulse:2026-09-23",
     "DUE::government.daily-pulse:2026-09-24",
     "DUE::government.daily-pulse:2026-09-25",
@@ -876,7 +881,7 @@
   "canonical_transport": null,
   "conflict_candidate_ids": [],
   "decision_changed": true,
-  "decision_fingerprint": "95c78531026e10ef1bf5539446e591a2a99fc8a116f426fc8a359e611093033d",
+  "decision_fingerprint": "d9433f3b6e18ae16b094060ddfac9f5fe234e2e4cf8251e5571a6162c7601eaa",
   "decisions": [
     {
       "candidate_id": "DUE::aldernia.evening-commons:2026-09-23",
@@ -1224,7 +1229,7 @@
         "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::aldernia.website-voice:2026-09-23",
@@ -1563,6 +1568,18 @@
       "unchanged": true
     },
     {
+      "candidate_id": "DUE::aldernia.website-voice:2026-10-21",
+      "implementation_operations": [],
+      "implementation_profiles": [],
+      "implementation_route": null,
+      "priority_key": null,
+      "reasons": [
+        "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
+      ],
+      "state_class": "BLOCKED",
+      "unchanged": false
+    },
+    {
       "candidate_id": "DUE::carol.availability-gate:2026-09-23",
       "implementation_operations": [],
       "implementation_profiles": [],
@@ -1897,6 +1914,18 @@
       ],
       "state_class": "BLOCKED",
       "unchanged": true
+    },
+    {
+      "candidate_id": "DUE::carol.availability-gate:2026-10-21",
+      "implementation_operations": [],
+      "implementation_profiles": [],
+      "implementation_route": null,
+      "priority_key": null,
+      "reasons": [
+        "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
+      ],
+      "state_class": "BLOCKED",
+      "unchanged": false
     },
     {
       "candidate_id": "DUE::carol.business-opening:2026-09-23",
@@ -3636,7 +3665,7 @@
         "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::catholic.sext:2026-09-23",
@@ -4680,7 +4709,7 @@
         "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::dynasty.heartbeat:2026-09-23T06:00",
@@ -10512,7 +10541,7 @@
         "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::dynasty.heartbeat:2026-10-21T16:00",
@@ -10524,7 +10553,7 @@
         "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::dynasty.heartbeat:2026-10-21T17:00",
@@ -10536,7 +10565,7 @@
         "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::dynasty.heartbeat:2026-10-21T18:00",
@@ -10548,10 +10577,46 @@
         "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::dynasty.heartbeat:2026-10-21T19:00",
+      "implementation_operations": [],
+      "implementation_profiles": [],
+      "implementation_route": null,
+      "priority_key": null,
+      "reasons": [
+        "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
+      ],
+      "state_class": "BLOCKED",
+      "unchanged": true
+    },
+    {
+      "candidate_id": "DUE::dynasty.heartbeat:2026-10-21T20:00",
+      "implementation_operations": [],
+      "implementation_profiles": [],
+      "implementation_route": null,
+      "priority_key": null,
+      "reasons": [
+        "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
+      ],
+      "state_class": "BLOCKED",
+      "unchanged": false
+    },
+    {
+      "candidate_id": "DUE::dynasty.heartbeat:2026-10-21T21:00",
+      "implementation_operations": [],
+      "implementation_profiles": [],
+      "implementation_route": null,
+      "priority_key": null,
+      "reasons": [
+        "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
+      ],
+      "state_class": "BLOCKED",
+      "unchanged": false
+    },
+    {
+      "candidate_id": "DUE::dynasty.heartbeat:2026-10-21T22:00",
       "implementation_operations": [],
       "implementation_profiles": [],
       "implementation_route": null,
@@ -11274,7 +11339,7 @@
   "derived_state_only": true,
   "execution_performed": false,
   "external_effect": "NONE",
-  "fact_count": 866,
+  "fact_count": 871,
   "fact_ids": [
     "kq009-provider-gate",
     "runtime-event:aldernia.evening-commons:2026-09-23",
@@ -11334,6 +11399,7 @@
     "runtime-event:aldernia.website-voice:2026-10-18",
     "runtime-event:aldernia.website-voice:2026-10-19",
     "runtime-event:aldernia.website-voice:2026-10-20",
+    "runtime-event:aldernia.website-voice:2026-10-21",
     "runtime-event:carol.availability-gate:2026-09-23",
     "runtime-event:carol.availability-gate:2026-09-24",
     "runtime-event:carol.availability-gate:2026-09-25",
@@ -11362,6 +11428,7 @@
     "runtime-event:carol.availability-gate:2026-10-18",
     "runtime-event:carol.availability-gate:2026-10-19",
     "runtime-event:carol.availability-gate:2026-10-20",
+    "runtime-event:carol.availability-gate:2026-10-21",
     "runtime-event:carol.business-opening:2026-09-23",
     "runtime-event:carol.business-opening:2026-09-24",
     "runtime-event:carol.business-opening:2026-09-25",
@@ -12084,6 +12151,9 @@
     "runtime-event:dynasty.heartbeat:2026-10-21T17:00",
     "runtime-event:dynasty.heartbeat:2026-10-21T18:00",
     "runtime-event:dynasty.heartbeat:2026-10-21T19:00",
+    "runtime-event:dynasty.heartbeat:2026-10-21T20:00",
+    "runtime-event:dynasty.heartbeat:2026-10-21T21:00",
+    "runtime-event:dynasty.heartbeat:2026-10-21T22:00",
     "runtime-event:government.daily-pulse:2026-09-23",
     "runtime-event:government.daily-pulse:2026-09-24",
     "runtime-event:government.daily-pulse:2026-09-25",
@@ -12145,13 +12215,13 @@
   ],
   "material_source_change": true,
   "model_called": false,
-  "observed_at": "2026-10-21T18:03:59.337059+00:00",
+  "observed_at": "2026-10-21T21:36:01.216406+00:00",
   "resolver_termination": "NO_ACTION",
-  "run_count": 172,
-  "run_id": "39649333697",
+  "run_count": 173,
+  "run_id": "39680080239",
   "schema_version": 1,
   "selected_candidate_id": null,
   "shadow_mode": true,
-  "source_fingerprint": "3a7ef3da46b642e281fac91bef6ed4f29ee9febd1455715f33ec39fd183054d1",
+  "source_fingerprint": "fbf78cb2fdb4218085f6606e73be561be5c9002d87b8da3a973d224f28a978d3",
   "state_readback_verified": true
 }
