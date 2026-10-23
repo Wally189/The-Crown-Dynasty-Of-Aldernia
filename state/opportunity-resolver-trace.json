@@ -911,7 +911,7 @@
   "canonical_source_modified_time": null,
   "canonical_transport": null,
   "conflict_candidate_ids": [],
-  "decision_changed": true,
+  "decision_changed": false,
   "decision_fingerprint": "6cf742c27dca1a0945b0f4be70b1203b16754b0d5871e259c7f917bc936e7ad3",
   "decisions": [
     {
@@ -1632,7 +1632,7 @@
         "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::carol.availability-gate:2026-09-23",
@@ -1992,7 +1992,7 @@
         "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::carol.business-opening:2026-09-23",
@@ -2724,7 +2724,7 @@
         "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::catholic.dawn-offices:2026-09-23",
@@ -10980,7 +10980,7 @@
         "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::dynasty.heartbeat:2026-10-22T21:00",
@@ -10992,7 +10992,7 @@
         "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::dynasty.heartbeat:2026-10-22T22:00",
@@ -11004,7 +11004,7 @@
         "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::government.daily-pulse:2026-09-23",
@@ -12647,12 +12647,12 @@
     "runtime-event:josie.morning-news:2026-10-21",
     "runtime-event:josie.morning-news:2026-10-22"
   ],
-  "material_source_change": true,
+  "material_source_change": false,
   "model_called": false,
-  "observed_at": "2026-10-22T22:04:33.142550+00:00",
+  "observed_at": "2026-10-23T00:37:30.554681+00:00",
   "resolver_termination": "NO_ACTION",
-  "run_count": 179,
-  "run_id": "39862194637",
+  "run_count": 180,
+  "run_id": "39879197942",
   "schema_version": 1,
   "selected_candidate_id": null,
   "shadow_mode": true,
