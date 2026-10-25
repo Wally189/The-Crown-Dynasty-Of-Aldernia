@@ -1,8 +1,8 @@
 {
   "adapter_version": 1,
-  "last_decision_fingerprint": "682ce9d3a4949711f3c896b9f96bb32dced137f5ad418621f3e0bc68fcb4f551",
-  "last_observed_at": "2026-10-25T19:19:56.260404+00:00",
-  "last_source_fingerprint": "73283eb3e2ebeaaa7f1a084a2aabff5aee30811ba6f1a336b5cb27f6907b4b69",
+  "last_decision_fingerprint": "db000b4b8d8e193564fcf51d8c64044b9914720ef4e6f2264dfd0b556dd7d729",
+  "last_observed_at": "2026-10-25T21:56:06.668624+00:00",
+  "last_source_fingerprint": "bd881920327ebcd8d9f7136c786e3ddeb223e73d4f114009072392c5874c275b",
   "resolver_state": {
     "blockers": {
       "google-wif-drive-provider-access": {
@@ -412,6 +412,12 @@
       "DUE::aldernia.website-voice:2026-10-24": {
         "candidate_id": "DUE::aldernia.website-voice:2026-10-24",
         "evidence_hash": "553acbcdb4fef7090ff8200947db18ca026e5da0d5acbde3417d96db9551f027",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
+      "DUE::aldernia.website-voice:2026-10-25": {
+        "candidate_id": "DUE::aldernia.website-voice:2026-10-25",
+        "evidence_hash": "afeb0f1b492a3a00e53693715ab9cee184b515611cd4af2586846345594dbe00",
         "next_review_trigger": null,
         "terminal_classification": "BLOCKED"
       },
@@ -5677,6 +5683,18 @@
         "next_review_trigger": null,
         "terminal_classification": "BLOCKED"
       },
+      "DUE::dynasty.heartbeat:2026-10-25T20:00": {
+        "candidate_id": "DUE::dynasty.heartbeat:2026-10-25T20:00",
+        "evidence_hash": "9674e4275e8b8c4e05761dff3edbab0e9727b98e142b47a59656c281b82a2c40",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
+      "DUE::dynasty.heartbeat:2026-10-25T21:00": {
+        "candidate_id": "DUE::dynasty.heartbeat:2026-10-25T21:00",
+        "evidence_hash": "b9da6537244350ffe1b396cee66a31deda263758c796c68afd1ce7877705e96e",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
       "DUE::government.daily-pulse:2026-09-23": {
         "candidate_id": "DUE::government.daily-pulse:2026-09-23",
         "evidence_hash": "f920b6a22e20a1c3eea473013f83a0a847866de6fcb0b98408c0268d65608de3",
@@ -6094,6 +6112,6 @@
     },
     "schema_version": 1
   },
-  "run_count": 198,
+  "run_count": 199,
   "schema_version": 1
 }
