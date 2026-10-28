@@ -1,7 +1,7 @@
 {
   "adapter_version": 1,
   "authority_widened": false,
-  "candidate_count": 1053,
+  "candidate_count": 1064,
   "candidate_ids": [
     "DUE::aldernia.evening-commons:2026-09-23",
     "DUE::aldernia.evening-commons:2026-09-24",
@@ -143,6 +143,7 @@
     "DUE::carol.business-opening:2026-10-25",
     "DUE::carol.business-opening:2026-10-26",
     "DUE::carol.business-opening:2026-10-27",
+    "DUE::carol.business-opening:2026-10-28",
     "DUE::catholic.compline:2026-09-22",
     "DUE::catholic.compline:2026-09-23",
     "DUE::catholic.compline:2026-09-24",
@@ -250,6 +251,7 @@
     "DUE::catholic.mass-readings:2026-10-25",
     "DUE::catholic.mass-readings:2026-10-26",
     "DUE::catholic.mass-readings:2026-10-27",
+    "DUE::catholic.mass-readings:2026-10-28",
     "DUE::catholic.none:2026-09-23",
     "DUE::catholic.none:2026-09-24",
     "DUE::catholic.none:2026-09-25",
@@ -355,6 +357,7 @@
     "DUE::catholic.terce:2026-10-25",
     "DUE::catholic.terce:2026-10-26",
     "DUE::catholic.terce:2026-10-27",
+    "DUE::catholic.terce:2026-10-28",
     "DUE::catholic.vespers:2026-09-23",
     "DUE::catholic.vespers:2026-09-24",
     "DUE::catholic.vespers:2026-09-25",
@@ -985,6 +988,12 @@
     "DUE::dynasty.heartbeat:2026-10-27T20:00",
     "DUE::dynasty.heartbeat:2026-10-27T21:00",
     "DUE::dynasty.heartbeat:2026-10-27T22:00",
+    "DUE::dynasty.heartbeat:2026-10-28T06:00",
+    "DUE::dynasty.heartbeat:2026-10-28T07:00",
+    "DUE::dynasty.heartbeat:2026-10-28T08:00",
+    "DUE::dynasty.heartbeat:2026-10-28T09:00",
+    "DUE::dynasty.heartbeat:2026-10-28T10:00",
+    "DUE::dynasty.heartbeat:2026-10-28T11:00",
     "DUE::government.daily-pulse:2026-09-23",
     "DUE::government.daily-pulse:2026-09-24",
     "DUE::government.daily-pulse:2026-09-25",
@@ -1020,6 +1029,7 @@
     "DUE::government.daily-pulse:2026-10-25",
     "DUE::government.daily-pulse:2026-10-26",
     "DUE::government.daily-pulse:2026-10-27",
+    "DUE::government.daily-pulse:2026-10-28",
     "DUE::josie.morning-news:2026-09-23",
     "DUE::josie.morning-news:2026-09-24",
     "DUE::josie.morning-news:2026-09-25",
@@ -1055,6 +1065,7 @@
     "DUE::josie.morning-news:2026-10-25",
     "DUE::josie.morning-news:2026-10-26",
     "DUE::josie.morning-news:2026-10-27",
+    "DUE::josie.morning-news:2026-10-28",
     "KQ-009"
   ],
   "canonical_fact_count": 0,
@@ -1063,7 +1074,7 @@
   "canonical_transport": null,
   "conflict_candidate_ids": [],
   "decision_changed": true,
-  "decision_fingerprint": "369f12d1be07a45a3639dad77d6015b721f14f7703d0b04fd5cfcb5ec5b0b43a",
+  "decision_fingerprint": "48e87af7b16e9f7271f1fea31ca84114474582d29c427cdd07f93e82f17f693f",
   "decisions": [
     {
       "candidate_id": "DUE::aldernia.evening-commons:2026-09-23",
@@ -2746,6 +2757,18 @@
       "unchanged": true
     },
     {
+      "candidate_id": "DUE::carol.business-opening:2026-10-28",
+      "implementation_operations": [],
+      "implementation_profiles": [],
+      "implementation_route": null,
+      "priority_key": null,
+      "reasons": [
+        "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
+      ],
+      "state_class": "BLOCKED",
+      "unchanged": false
+    },
+    {
       "candidate_id": "DUE::catholic.compline:2026-09-22",
       "implementation_operations": [],
       "implementation_profiles": [],
@@ -3607,7 +3630,7 @@
         "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
       ],
       "state_class": "BLOCKED",
-      "unchanged": false
+      "unchanged": true
     },
     {
       "candidate_id": "DUE::catholic.mass-readings:2026-09-23",
@@ -4028,6 +4051,18 @@
       ],
       "state_class": "BLOCKED",
       "unchanged": true
+    },
+    {
+      "candidate_id": "DUE::catholic.mass-readings:2026-10-28",
+      "implementation_operations": [],
+      "implementation_profiles": [],
+      "implementation_route": null,
+      "priority_key": null,
+      "reasons": [
+        "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
+      ],
+      "state_class": "BLOCKED",
+      "unchanged": false
     },
     {
       "candidate_id": "DUE::catholic.none:2026-09-23",
@@ -5288,6 +5323,18 @@
       ],
       "state_class": "BLOCKED",
       "unchanged": true
+    },
+    {
+      "candidate_id": "DUE::catholic.terce:2026-10-28",
+      "implementation_operations": [],
+      "implementation_profiles": [],
+      "implementation_route": null,
+      "priority_key": null,
+      "reasons": [
+        "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
+      ],
+      "state_class": "BLOCKED",
+      "unchanged": false
     },
     {
       "candidate_id": "DUE::catholic.vespers:2026-09-23",
@@ -12850,6 +12897,78 @@
       "unchanged": true
     },
     {
+      "candidate_id": "DUE::dynasty.heartbeat:2026-10-28T06:00",
+      "implementation_operations": [],
+      "implementation_profiles": [],
+      "implementation_route": null,
+      "priority_key": null,
+      "reasons": [
+        "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
+      ],
+      "state_class": "BLOCKED",
+      "unchanged": false
+    },
+    {
+      "candidate_id": "DUE::dynasty.heartbeat:2026-10-28T07:00",
+      "implementation_operations": [],
+      "implementation_profiles": [],
+      "implementation_route": null,
+      "priority_key": null,
+      "reasons": [
+        "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
+      ],
+      "state_class": "BLOCKED",
+      "unchanged": false
+    },
+    {
+      "candidate_id": "DUE::dynasty.heartbeat:2026-10-28T08:00",
+      "implementation_operations": [],
+      "implementation_profiles": [],
+      "implementation_route": null,
+      "priority_key": null,
+      "reasons": [
+        "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
+      ],
+      "state_class": "BLOCKED",
+      "unchanged": false
+    },
+    {
+      "candidate_id": "DUE::dynasty.heartbeat:2026-10-28T09:00",
+      "implementation_operations": [],
+      "implementation_profiles": [],
+      "implementation_route": null,
+      "priority_key": null,
+      "reasons": [
+        "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
+      ],
+      "state_class": "BLOCKED",
+      "unchanged": false
+    },
+    {
+      "candidate_id": "DUE::dynasty.heartbeat:2026-10-28T10:00",
+      "implementation_operations": [],
+      "implementation_profiles": [],
+      "implementation_route": null,
+      "priority_key": null,
+      "reasons": [
+        "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
+      ],
+      "state_class": "BLOCKED",
+      "unchanged": false
+    },
+    {
+      "candidate_id": "DUE::dynasty.heartbeat:2026-10-28T11:00",
+      "implementation_operations": [],
+      "implementation_profiles": [],
+      "implementation_route": null,
+      "priority_key": null,
+      "reasons": [
+        "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
+      ],
+      "state_class": "BLOCKED",
+      "unchanged": false
+    },
+    {
       "candidate_id": "DUE::government.daily-pulse:2026-09-23",
       "implementation_operations": [],
       "implementation_profiles": [],
@@ -13268,6 +13387,18 @@
       ],
       "state_class": "BLOCKED",
       "unchanged": true
+    },
+    {
+      "candidate_id": "DUE::government.daily-pulse:2026-10-28",
+      "implementation_operations": [],
+      "implementation_profiles": [],
+      "implementation_route": null,
+      "priority_key": null,
+      "reasons": [
+        "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
+      ],
+      "state_class": "BLOCKED",
+      "unchanged": false
     },
     {
       "candidate_id": "DUE::josie.morning-news:2026-09-23",
@@ -13690,6 +13821,18 @@
       "unchanged": true
     },
     {
+      "candidate_id": "DUE::josie.morning-news:2026-10-28",
+      "implementation_operations": [],
+      "implementation_profiles": [],
+      "implementation_route": null,
+      "priority_key": null,
+      "reasons": [
+        "implementation synthesis exhausted authorised routes: REUSE: required model provider unavailable"
+      ],
+      "state_class": "BLOCKED",
+      "unchanged": false
+    },
+    {
       "candidate_id": "KQ-009",
       "implementation_operations": [],
       "implementation_profiles": [],
@@ -13705,7 +13848,7 @@
   "derived_state_only": true,
   "execution_performed": false,
   "external_effect": "NONE",
-  "fact_count": 1053,
+  "fact_count": 1064,
   "fact_ids": [
     "kq009-provider-gate",
     "runtime-event:aldernia.evening-commons:2026-09-23",
@@ -13848,6 +13991,7 @@
     "runtime-event:carol.business-opening:2026-10-25",
     "runtime-event:carol.business-opening:2026-10-26",
     "runtime-event:carol.business-opening:2026-10-27",
+    "runtime-event:carol.business-opening:2026-10-28",
     "runtime-event:catholic.compline:2026-09-22",
     "runtime-event:catholic.compline:2026-09-23",
     "runtime-event:catholic.compline:2026-09-24",
@@ -13955,6 +14099,7 @@
     "runtime-event:catholic.mass-readings:2026-10-25",
     "runtime-event:catholic.mass-readings:2026-10-26",
     "runtime-event:catholic.mass-readings:2026-10-27",
+    "runtime-event:catholic.mass-readings:2026-10-28",
     "runtime-event:catholic.none:2026-09-23",
     "runtime-event:catholic.none:2026-09-24",
     "runtime-event:catholic.none:2026-09-25",
@@ -14060,6 +14205,7 @@
     "runtime-event:catholic.terce:2026-10-25",
     "runtime-event:catholic.terce:2026-10-26",
     "runtime-event:catholic.terce:2026-10-27",
+    "runtime-event:catholic.terce:2026-10-28",
     "runtime-event:catholic.vespers:2026-09-23",
     "runtime-event:catholic.vespers:2026-09-24",
     "runtime-event:catholic.vespers:2026-09-25",
@@ -14690,6 +14836,12 @@
     "runtime-event:dynasty.heartbeat:2026-10-27T20:00",
     "runtime-event:dynasty.heartbeat:2026-10-27T21:00",
     "runtime-event:dynasty.heartbeat:2026-10-27T22:00",
+    "runtime-event:dynasty.heartbeat:2026-10-28T06:00",
+    "runtime-event:dynasty.heartbeat:2026-10-28T07:00",
+    "runtime-event:dynasty.heartbeat:2026-10-28T08:00",
+    "runtime-event:dynasty.heartbeat:2026-10-28T09:00",
+    "runtime-event:dynasty.heartbeat:2026-10-28T10:00",
+    "runtime-event:dynasty.heartbeat:2026-10-28T11:00",
     "runtime-event:government.daily-pulse:2026-09-23",
     "runtime-event:government.daily-pulse:2026-09-24",
     "runtime-event:government.daily-pulse:2026-09-25",
@@ -14725,6 +14877,7 @@
     "runtime-event:government.daily-pulse:2026-10-25",
     "runtime-event:government.daily-pulse:2026-10-26",
     "runtime-event:government.daily-pulse:2026-10-27",
+    "runtime-event:government.daily-pulse:2026-10-28",
     "runtime-event:josie.morning-news:2026-09-23",
     "runtime-event:josie.morning-news:2026-09-24",
     "runtime-event:josie.morning-news:2026-09-25",
@@ -14759,17 +14912,18 @@
     "runtime-event:josie.morning-news:2026-10-24",
     "runtime-event:josie.morning-news:2026-10-25",
     "runtime-event:josie.morning-news:2026-10-26",
-    "runtime-event:josie.morning-news:2026-10-27"
+    "runtime-event:josie.morning-news:2026-10-27",
+    "runtime-event:josie.morning-news:2026-10-28"
   ],
   "material_source_change": true,
   "model_called": false,
-  "observed_at": "2026-10-28T05:46:32.780916+00:00",
+  "observed_at": "2026-10-28T11:41:10.545060+00:00",
   "resolver_termination": "NO_ACTION",
-  "run_count": 211,
-  "run_id": "40639918305",
+  "run_count": 212,
+  "run_id": "40681851817",
   "schema_version": 1,
   "selected_candidate_id": null,
   "shadow_mode": true,
-  "source_fingerprint": "23c340232a2a3236eb1a3d351536bf4a68f2dd101d857a05ca0a3ee7084d5e65",
+  "source_fingerprint": "455b16552e152c720f3becf4dcacf617cafe6045ca246a535a3c62d3dcb23961",
   "state_readback_verified": true
 }
