@@ -1,8 +1,8 @@
 {
-  "checked_at": "2026-11-01T16:27:47+00:00",
+  "checked_at": "2026-11-01T20:45:21+00:00",
   "detail": "Missing provider configuration: Google WIF/Drive access token",
   "normal_path_requires_king_prompt": false,
-  "pending_count": 1190,
+  "pending_count": 1196,
   "processed_event_ids": [],
   "schema_version": 1,
   "status": "PROVIDER_ACCESS_NOT_CONFIGURED"
