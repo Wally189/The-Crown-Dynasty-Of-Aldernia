@@ -1,8 +1,8 @@
 {
   "adapter_version": 1,
-  "last_decision_fingerprint": "75c6541ff44fb1501f0cd3925987f9abba3f8e755d8d0ff6e1d799d75dabb83c",
-  "last_observed_at": "2026-11-05T06:04:21.692484+00:00",
-  "last_source_fingerprint": "3d27ae0a50fbda27bb1b431d3d81bc3e85135fa9545663211606a987d591d13f",
+  "last_decision_fingerprint": "270eedf199edcf8e1f26c7211398d47d9a332e486e354c052335568da3d53d78",
+  "last_observed_at": "2026-11-05T14:32:24.380408+00:00",
+  "last_source_fingerprint": "c140029262e81aa6a61c3b56c8b82dcb648e0293e917f288a4bda5d98eebf844",
   "resolver_state": {
     "blockers": {
       "google-wif-drive-provider-access": {
@@ -1069,6 +1069,12 @@
         "next_review_trigger": null,
         "terminal_classification": "BLOCKED"
       },
+      "DUE::carol.business-opening:2026-11-05": {
+        "candidate_id": "DUE::carol.business-opening:2026-11-05",
+        "evidence_hash": "70f0cba497ffff0e51a76081ae5de8a07b05d96cd03bc30ec3efd8d826133ee2",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
       "DUE::catholic.compline:2026-09-21": {
         "candidate_id": "DUE::catholic.compline:2026-09-21",
         "evidence_hash": "b86a49534754411b1ab352f7ff8c6ecc2b026241354435a300d3b9fcd19a8bdd",
@@ -1867,6 +1873,12 @@
         "next_review_trigger": null,
         "terminal_classification": "BLOCKED"
       },
+      "DUE::catholic.mass-readings:2026-11-05": {
+        "candidate_id": "DUE::catholic.mass-readings:2026-11-05",
+        "evidence_hash": "b38e70202bf5960208e5719f8d69e01fe016f3cdf0f723da9a726eaabd9de798",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
       "DUE::catholic.none:2026-09-22": {
         "candidate_id": "DUE::catholic.none:2026-09-22",
         "evidence_hash": "05e833debd5aa8b70c0acc78011b54c66697da32aa119fcf608dcf603b3b73d2",
@@ -2395,6 +2407,12 @@
         "next_review_trigger": null,
         "terminal_classification": "BLOCKED"
       },
+      "DUE::catholic.sext:2026-11-05": {
+        "candidate_id": "DUE::catholic.sext:2026-11-05",
+        "evidence_hash": "98e37ff6cd6fc07657938ccde9576d1542bc1eedb48cecdb036a426c2fb79203",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
       "DUE::catholic.terce:2026-09-22": {
         "candidate_id": "DUE::catholic.terce:2026-09-22",
         "evidence_hash": "b02255a68ddf3b82c1a2bcb9672c870f49c423733a3b8951ea4f32f6ac34f59d",
@@ -2656,6 +2674,12 @@
       "DUE::catholic.terce:2026-11-04": {
         "candidate_id": "DUE::catholic.terce:2026-11-04",
         "evidence_hash": "9029c54ae38d5d86b95b6efce3dbd67ecef10dd4355aabdcb6d9fa9ee1d89e4c",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
+      "DUE::catholic.terce:2026-11-05": {
+        "candidate_id": "DUE::catholic.terce:2026-11-05",
+        "evidence_hash": "a9d1549cdd6784b4bf9e4da49f4837f11936b7b648934eb120fb0d554231f6c8",
         "next_review_trigger": null,
         "terminal_classification": "BLOCKED"
       },
@@ -7405,6 +7429,54 @@
         "next_review_trigger": null,
         "terminal_classification": "BLOCKED"
       },
+      "DUE::dynasty.heartbeat:2026-11-05T07:00": {
+        "candidate_id": "DUE::dynasty.heartbeat:2026-11-05T07:00",
+        "evidence_hash": "fbd07c0e8e165b65bb7de8d9c02e22282c283615a96bad25ea259c92169b4395",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
+      "DUE::dynasty.heartbeat:2026-11-05T08:00": {
+        "candidate_id": "DUE::dynasty.heartbeat:2026-11-05T08:00",
+        "evidence_hash": "505e5e0430c6bd3ea29d98c9412cbd6b1d09037ac1b78ede7b9f36d0bb1f80b9",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
+      "DUE::dynasty.heartbeat:2026-11-05T09:00": {
+        "candidate_id": "DUE::dynasty.heartbeat:2026-11-05T09:00",
+        "evidence_hash": "c9ecc2aa377d8776b9a6c08a777860d7939107a280a647758a557b593a666321",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
+      "DUE::dynasty.heartbeat:2026-11-05T10:00": {
+        "candidate_id": "DUE::dynasty.heartbeat:2026-11-05T10:00",
+        "evidence_hash": "c92fa23fca3d415969b615198b19557b442e22a6173b0b607a15620cc42316c4",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
+      "DUE::dynasty.heartbeat:2026-11-05T11:00": {
+        "candidate_id": "DUE::dynasty.heartbeat:2026-11-05T11:00",
+        "evidence_hash": "5850c26e54092f9db8db24be2ccd344eddf3c7e7a8c54b54a258a7a7f0fede33",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
+      "DUE::dynasty.heartbeat:2026-11-05T12:00": {
+        "candidate_id": "DUE::dynasty.heartbeat:2026-11-05T12:00",
+        "evidence_hash": "dfa72d39c4c6c5d3b4b7be0bde79733ae5bafbae1bff9a0832390de2ddc51ab3",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
+      "DUE::dynasty.heartbeat:2026-11-05T13:00": {
+        "candidate_id": "DUE::dynasty.heartbeat:2026-11-05T13:00",
+        "evidence_hash": "c73bdf37f5e260f8234aeb5a8fbcf3171912da657cdfc9696949661f2423167a",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
+      "DUE::dynasty.heartbeat:2026-11-05T14:00": {
+        "candidate_id": "DUE::dynasty.heartbeat:2026-11-05T14:00",
+        "evidence_hash": "1220cd802a23c3cf21e3568ad86a5a664be4fbf50922e7fd1fbb74f0da163a19",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
       "DUE::government.daily-pulse:2026-09-23": {
         "candidate_id": "DUE::government.daily-pulse:2026-09-23",
         "evidence_hash": "f920b6a22e20a1c3eea473013f83a0a847866de6fcb0b98408c0268d65608de3",
@@ -7660,6 +7732,12 @@
       "DUE::government.daily-pulse:2026-11-04": {
         "candidate_id": "DUE::government.daily-pulse:2026-11-04",
         "evidence_hash": "750926aed594af223720c80e8329f15c32ffbf73a6ab782105ab158217809dd1",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
+      "DUE::government.daily-pulse:2026-11-05": {
+        "candidate_id": "DUE::government.daily-pulse:2026-11-05",
+        "evidence_hash": "800e87fa232c383db48908b77652c004a2bbc5bfa4e996ef4893be5361c7dfe2",
         "next_review_trigger": null,
         "terminal_classification": "BLOCKED"
       },
@@ -7948,6 +8026,6 @@
     },
     "schema_version": 1
   },
-  "run_count": 246,
+  "run_count": 247,
   "schema_version": 1
 }
