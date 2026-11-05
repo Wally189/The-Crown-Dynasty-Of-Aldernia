@@ -1,8 +1,8 @@
 {
   "adapter_version": 1,
-  "last_decision_fingerprint": "a314691db5197e9e7179cd812e2d2b761d9c4fe0a51a5e765ca12a04903ffa16",
-  "last_observed_at": "2026-11-04T23:56:45.957996+00:00",
-  "last_source_fingerprint": "d9329601b237dd55a431f3b295eec0e75337a6428df517c059fb6b748793ffd8",
+  "last_decision_fingerprint": "75c6541ff44fb1501f0cd3925987f9abba3f8e755d8d0ff6e1d799d75dabb83c",
+  "last_observed_at": "2026-11-05T06:04:21.692484+00:00",
+  "last_source_fingerprint": "3d27ae0a50fbda27bb1b431d3d81bc3e85135fa9545663211606a987d591d13f",
   "resolver_state": {
     "blockers": {
       "google-wif-drive-provider-access": {
@@ -1600,6 +1600,12 @@
       "DUE::catholic.dawn-offices:2026-11-04": {
         "candidate_id": "DUE::catholic.dawn-offices:2026-11-04",
         "evidence_hash": "451cc34e808f4441cf1ae71c919cef19d2080fac242b78189a8df0ec0406fbe9",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
+      "DUE::catholic.dawn-offices:2026-11-05": {
+        "candidate_id": "DUE::catholic.dawn-offices:2026-11-05",
+        "evidence_hash": "f5b9a722935b3ebdfc96576704e59e562fd572077fe7fb1a6dfdb0d162a466db",
         "next_review_trigger": null,
         "terminal_classification": "BLOCKED"
       },
@@ -7393,6 +7399,12 @@
         "next_review_trigger": null,
         "terminal_classification": "BLOCKED"
       },
+      "DUE::dynasty.heartbeat:2026-11-05T06:00": {
+        "candidate_id": "DUE::dynasty.heartbeat:2026-11-05T06:00",
+        "evidence_hash": "abca08df592af258fc2e60b56ce608382ae47be538d730a05ca0042a8d2f1d48",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
       "DUE::government.daily-pulse:2026-09-23": {
         "candidate_id": "DUE::government.daily-pulse:2026-09-23",
         "evidence_hash": "f920b6a22e20a1c3eea473013f83a0a847866de6fcb0b98408c0268d65608de3",
@@ -7909,6 +7921,12 @@
         "next_review_trigger": null,
         "terminal_classification": "BLOCKED"
       },
+      "DUE::josie.morning-news:2026-11-05": {
+        "candidate_id": "DUE::josie.morning-news:2026-11-05",
+        "evidence_hash": "d2d3c3d09ad57abb7ab860f05319fc838cd3a8ce0bb27dcc9dc4117d8716b2fc",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
       "E-23": {
         "candidate_id": "E-23",
         "evidence_hash": "7af929a3058d1efeb46eda672c67bdb6d7ecc02c4f8c223bbd966df19db0a001",
@@ -7930,6 +7948,6 @@
     },
     "schema_version": 1
   },
-  "run_count": 245,
+  "run_count": 246,
   "schema_version": 1
 }
