@@ -1,8 +1,8 @@
 {
   "adapter_version": 1,
-  "last_decision_fingerprint": "37ad99454db9ddc3cba86875597138febc9902197238aeaeaefe01de552da082",
-  "last_observed_at": "2026-11-13T22:55:44.467814+00:00",
-  "last_source_fingerprint": "b64e00723e377ed082a2860e07da0ea47889898300f536693533d0454f070414",
+  "last_decision_fingerprint": "3c15d20dfcd02722c8469b00c17508c953f61cf44e216e8d081538e84ab36638",
+  "last_observed_at": "2026-11-14T02:57:05.563643+00:00",
+  "last_source_fingerprint": "925227b15b4453aea3cd932eea3a1e722fca8cabf29683c3168f26108c902f08",
   "resolver_state": {
     "blockers": {
       "google-wif-drive-provider-access": {
@@ -1600,6 +1600,12 @@
       "DUE::catholic.compline:2026-11-12": {
         "candidate_id": "DUE::catholic.compline:2026-11-12",
         "evidence_hash": "bac92c7a41a67e350741dab68ab920ef72bae8a0cdc995e5b51a7035f02d2543",
+        "next_review_trigger": null,
+        "terminal_classification": "BLOCKED"
+      },
+      "DUE::catholic.compline:2026-11-13": {
+        "candidate_id": "DUE::catholic.compline:2026-11-13",
+        "evidence_hash": "1860ce16e5e4663427453c2ae6ddc0a87d32c9d33b9db7e3be6887f9042643cf",
         "next_review_trigger": null,
         "terminal_classification": "BLOCKED"
       },
@@ -9544,6 +9550,6 @@
     },
     "schema_version": 1
   },
-  "run_count": 280,
+  "run_count": 281,
   "schema_version": 1
 }
